@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NIST CVE Scanner — 使用手冊</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans TC',sans-serif;background:#f8fafc;color:#1e293b;line-height:1.7;font-size:15px}
+a{color:#2563eb;text-decoration:none}a:hover{text-decoration:underline}
+
+/* Layout */
+.layout{display:flex;min-height:100vh}
+nav{width:240px;flex-shrink:0;background:#1e3a5f;color:#e2e8f0;padding:28px 0;position:sticky;top:0;height:100vh;overflow-y:auto}
+.content{flex:1;padding:48px 56px;max-width:900px}
+
+/* Nav */
+.nav-title{font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;opacity:.45;padding:0 20px 8px;margin-top:20px}
+.nav-title:first-child{margin-top:0}
+nav a{display:block;padding:6px 20px;font-size:.86rem;color:#cbd5e1;border-left:3px solid transparent;transition:all .15s}
+nav a:hover{color:#fff;background:rgba(255,255,255,.06);text-decoration:none}
+nav a.active{color:#fff;border-left-color:#60a5fa;background:rgba(96,165,250,.1)}
+
+/* Headings */
+h1{font-size:2rem;font-weight:800;color:#0f172a;margin-bottom:8px}
+.subtitle{font-size:1rem;color:#64748b;margin-bottom:40px}
+h2{font-size:1.25rem;font-weight:700;color:#1e3a5f;margin:48px 0 16px;padding-bottom:10px;border-bottom:2px solid #e2e8f0}
+h2:first-of-type{margin-top:0}
+h3{font-size:1rem;font-weight:700;color:#334155;margin:28px 0 10px}
+
+/* Prose */
+p{margin-bottom:14px}
+ul,ol{margin:0 0 14px 20px}
+li{margin-bottom:6px}
+strong{color:#0f172a}
+
+/* Code */
+code{font-family:'Cascadia Code','Fira Code',Consolas,monospace;font-size:.86em;background:#f1f5f9;color:#0f172a;padding:2px 6px;border-radius:4px;border:1px solid #e2e8f0}
+pre{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:20px 24px;overflow-x:auto;margin:16px 0;font-size:.87rem;line-height:1.6}
+pre code{background:none;border:none;padding:0;color:inherit;font-size:inherit}
+.comment{color:#64748b}
+.kw{color:#7dd3fc}
+.str{color:#86efac}
+.num{color:#fde68a}
+
+/* Tables */
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.88rem}
+th{background:#f1f5f9;text-align:left;padding:9px 14px;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:#64748b;border-bottom:2px solid #e2e8f0}
+td{padding:9px 14px;border-bottom:1px solid #f1f5f9;vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#fafafa}
+
+/* Callouts */
+.note,.warn,.tip{border-radius:8px;padding:14px 18px;margin:18px 0;font-size:.9rem}
+.note{background:#eff6ff;border-left:4px solid #3b82f6;color:#1e40af}
+.warn{background:#fefce8;border-left:4px solid #eab308;color:#713f12}
+.tip{background:#f0fdf4;border-left:4px solid #22c55e;color:#14532d}
+.note strong,.warn strong,.tip strong{display:block;margin-bottom:4px}
+
+/* Badges */
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:700;white-space:nowrap;color:#fff}
+.bg-red{background:#dc2626}.bg-orange{background:#ea580c}.bg-yellow{background:#d97706}.bg-blue{background:#2563eb}.bg-gray{background:#6b7280}
+.bg-green{background:#16a34a}
+
+/* Step list */
+.steps{counter-reset:step;list-style:none;margin:0 0 14px}
+.steps li{counter-increment:step;display:flex;gap:14px;margin-bottom:18px}
+.steps li::before{content:counter(step);background:#1e3a5f;color:#fff;border-radius:50%;width:28px;height:28px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:700;margin-top:2px}
+
+/* Dashboard mockup */
+.dash-mock{background:#1e3a5f;border-radius:12px;padding:20px 24px;color:#fff;margin:16px 0}
+.dash-mock-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.dash-mock-row:last-child{margin-bottom:0}
+.dm-lbl{font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;opacity:.4;min-width:62px;text-align:right;flex-shrink:0}
+.dm-darr{font-size:.7rem;opacity:.35;flex-shrink:0}
+.dm-sep{width:1px;background:rgba(255,255,255,.2);height:32px;margin:0 4px;flex-shrink:0}
+.dc{border-radius:8px;padding:10px 14px;text-align:center;min-width:76px;flex-shrink:0}
+.dc .n{font-size:1.6rem;font-weight:800;line-height:1}
+.dc .l{font-size:.6rem;opacity:.72;margin-top:4px;white-space:nowrap}
+.dc .s{font-size:.55rem;opacity:.48;margin-top:2px}
+.dc.tot{background:rgba(255,255,255,.16)}
+.dc.skip{background:rgba(148,163,184,.15)}.dc.skip .n{color:#cbd5e1}
+.dc.scan{background:rgba(59,130,246,.22)}.dc.scan .n{color:#93c5fd}
+.dc.ok{background:rgba(34,197,94,.18)}.dc.ok .n{color:#86efac}
+.dc.hi{background:rgba(239,68,68,.22)}.dc.hi .n{color:#fca5a5}
+
+/* Section anchor offset */
+section{scroll-margin-top:20px}
+
+footer{margin-top:60px;padding-top:20px;border-top:1px solid #e2e8f0;font-size:.82rem;color:#94a3b8;text-align:center}
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+<!-- ─── Navigation ──────────────────────────────────────────────── -->
+<nav>
+  <div class="nav-title">入門</div>
+  <a href="#intro">工具簡介</a>
+  <a href="#requirements">系統需求</a>
+  <a href="#quickstart">快速開始</a>
+
+  <div class="nav-title">資料來源</div>
+  <a href="#source-registry">掃描 PC Registry</a>
+  <a href="#source-file">使用 JSON 檔案</a>
+  <a href="#findsw">findSW.ps1 說明</a>
+
+  <div class="nav-title">參數設定</div>
+  <a href="#params">命令列參數</a>
+  <a href="#whitelist">白名單設定</a>
+
+  <div class="nav-title">報表說明</div>
+  <a href="#report-dashboard">儀表板統計</a>
+  <a href="#report-table">升級建議摘要</a>
+  <a href="#report-cve">CVE 詳細資訊</a>
+  <a href="#report-skipped">略過清單區塊</a>
+
+  <div class="nav-title">進階</div>
+  <a href="#severity">嚴重等級說明</a>
+  <a href="#false-positive">誤判處理</a>
+  <a href="#faq">常見問題</a>
+</nav>
+
+<!-- ─── Content ─────────────────────────────────────────────────── -->
+<div class="content">
+
+<h1>NIST CVE Scanner</h1>
+<p class="subtitle">Windows 軟體弱點掃描工具 — 使用手冊</p>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="intro">
+<h2>工具簡介</h2>
+<p>NIST CVE Scanner 是一套 Node.js 命令列工具，能自動掃描 Windows 電腦上已安裝的軟體，並透過 <strong>NIST NVD（美國國家漏洞資料庫）</strong> 的公開 API 查詢已知 CVE 弱點，最終產出一份 HTML 視覺化報表。</p>
+<h3>主要功能</h3>
+<ul>
+  <li>直接從 Windows Registry 讀取已安裝軟體清單，無需手動整理</li>
+  <li>支援讀取外部 JSON 檔案（可由 <code>findSW.ps1</code> 在其他機器產生後傳入）</li>
+  <li>以 CVSS 嚴重等級、CVE 年份、掃描數量作為過濾條件</li>
+  <li>比對建議修復版本，自動判斷「已是最新版」或「建議升級」</li>
+  <li>CPE 比對機制，自動過濾與搜尋軟體無關的誤判 CVE</li>
+  <li>輸出含儀表板統計、升級摘要、CVE 詳情的單一 HTML 報表</li>
+</ul>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="requirements">
+<h2>系統需求</h2>
+<table>
+  <thead><tr><th>項目</th><th>需求</th></tr></thead>
+  <tbody>
+    <tr><td>作業系統</td><td>Windows 10 / 11（Registry 掃描模式需要）</td></tr>
+    <tr><td>Node.js</td><td>v18.0.0 以上</td></tr>
+    <tr><td>網路</td><td>可連線至 <code>services.nvd.nist.gov</code>（HTTPS 443）</td></tr>
+    <tr><td>npm 套件</td><td><strong>不需要</strong>，僅使用 Node.js 內建模組</td></tr>
+  </tbody>
+</table>
+<div class="tip"><strong>確認 Node.js 版本</strong>在終端機執行 <code>node --version</code>，應顯示 <code>v18.x.x</code> 以上。</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="quickstart">
+<h2>快速開始</h2>
+<ol class="steps">
+  <li>
+    <div>
+      <strong>切換到工具目錄</strong>
+      <pre><code>cd D:\Projects\NISTCVECheck</code></pre>
+    </div>
+  </li>
+  <li>
+    <div>
+      <strong>執行掃描（使用所有預設值）</strong>
+      <pre><code>node cve-checker.js</code></pre>
+      程式將掃描 PC Registry，查詢 MEDIUM 以上嚴重等級、近 10 年的 CVE。
+    </div>
+  </li>
+  <li>
+    <div>
+      <strong>查看報表</strong><br>
+      掃描結束後，同目錄下會產生 <code>cve-report-YYYY-MM-DD.html</code>，以瀏覽器開啟即可查閱。
+    </div>
+  </li>
+</ol>
+<div class="note"><strong>預估執行時間</strong>以 API Key 模式（每 0.7 秒一筆），20 筆軟體約需 15 秒。掃描數量越多、等待越長；可用 <code>LIMIT</code> 參數限制筆數先行測試。</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="source-registry">
+<h2>掃描 PC Registry</h2>
+<p>不帶 <code>FILE</code> 參數（或傳入 <code>-1</code>）時，程式會從以下三個 Windows Registry 路徑讀取已安裝軟體：</p>
+<pre><code>HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*        <span class="comment"># 64 位元程式</span>
+HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*  <span class="comment"># 32 位元程式</span>
+HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*        <span class="comment"># 目前使用者</span></code></pre>
+<p>讀取欄位：<code>DisplayName</code>（名稱）、<code>DisplayVersion</code>（版本）、<code>Publisher</code>（發行商）、<code>InstallDate</code>、<code>InstallLocation</code>。</p>
+<div class="warn"><strong>注意</strong>此模式僅支援 Windows。在其他作業系統上執行會直接報錯退出。</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="source-file">
+<h2>使用 JSON 檔案</h2>
+<p>將預先產生的軟體清單 JSON 檔案路徑作為第一個參數傳入：</p>
+<pre><code>node cve-checker.js scan.json
+node cve-checker.js C:\Users\USER\Desktop\esrm-scan.json HIGH</code></pre>
+<h3>JSON 檔案格式</h3>
+<pre><code>{
+  <span class="str">"generatedAt"</span>: <span class="str">"2026-05-14T12:49:39.741Z"</span>,
+  <span class="str">"hostname"</span>:    <span class="str">"MYPC"</span>,
+  <span class="str">"username"</span>:    <span class="str">"user"</span>,
+  <span class="str">"softwares"</span>: [
+    {
+      <span class="str">"name"</span>:        <span class="str">"Google Chrome"</span>,
+      <span class="str">"version"</span>:     <span class="str">"148.0.7778.97"</span>,
+      <span class="str">"publisher"</span>:   <span class="str">"Google LLC"</span>,
+      <span class="str">"installDate"</span>: <span class="str">"20260508"</span>,    <span class="comment">// 可為 null</span>
+      <span class="str">"installPath"</span>: <span class="str">"C:\\Program Files\\Google\\Chrome\\Application"</span>  <span class="comment">// 可為 null</span>
+    }
+  ]
+}</code></pre>
+<p><code>softwares</code> 陣列為必要欄位；其他頂層欄位（<code>generatedAt</code>、<code>hostname</code>、<code>username</code>）若省略會以執行當下的系統資訊補充。</p>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="findsw">
+<h2>findSW.ps1 說明</h2>
+<p><code>findSW.ps1</code> 是隨附的 PowerShell 腳本，可在無法直接執行 Node.js 的機器上收集軟體清單，再將產出的 JSON 傳給 CVE Scanner 掃描。</p>
+<h3>執行方式</h3>
+<pre><code><span class="comment"># 預設：儲存至 Desktop\esrm-scan.json</span>
+powershell -ExecutionPolicy Bypass -File findSW.ps1
+
+<span class="comment"># 指定輸出路徑</span>
+powershell -ExecutionPolicy Bypass -File findSW.ps1 -OutputPath C:\temp\scan.json
+
+<span class="comment"># 指定 ESRM 使用者名稱（預設為 Windows 登入名稱）</span>
+powershell -ExecutionPolicy Bypass -File findSW.ps1 -EsrmUsername john</code></pre>
+<h3>與 CVE Scanner 搭配使用</h3>
+<ol class="steps">
+  <li><div>在目標機器執行 <code>findSW.ps1</code>，產生 <code>esrm-scan.json</code></div></li>
+  <li><div>將 JSON 檔案複製到安裝了 Node.js 的機器</div></li>
+  <li><div>執行 <code>node cve-checker.js esrm-scan.json</code></div></li>
+</ol>
+<div class="note"><strong>編碼說明</strong><code>findSW.ps1</code> 輸出 UTF-8 無 BOM 格式，Node.js 可直接讀取。CVE Scanner 內建的 Registry 掃描則需 UTF-8 BOM（已自動處理），兩者格式不同但均相容。</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="params">
+<h2>命令列參數</h2>
+<pre><code>node cve-checker.js [FILE] [MIN_SEVERITY] [LIMIT] [MIN_YEAR]</code></pre>
+<p>所有參數均為選填，以 <strong>位置</strong> 區分（非具名參數）。任何參數傳入 <code>-1</code> 代表「使用預設值」。</p>
+
+<table>
+  <thead><tr><th>位置</th><th>名稱</th><th>說明</th><th>預設值</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>args[0]</code></td>
+      <td>FILE</td>
+      <td>軟體清單 JSON 檔路徑；<code>-1</code> 或省略 = 掃描 PC Registry</td>
+      <td>PC Registry</td>
+    </tr>
+    <tr>
+      <td><code>args[1]</code></td>
+      <td>MIN_SEVERITY</td>
+      <td>最低 CVE 嚴重等級篩選（<code>LOW</code> / <code>MEDIUM</code> / <code>HIGH</code> / <code>CRITICAL</code>）；<code>-1</code> = MEDIUM</td>
+      <td>MEDIUM</td>
+    </tr>
+    <tr>
+      <td><code>args[2]</code></td>
+      <td>LIMIT</td>
+      <td>最多掃描前 N 筆軟體；<code>-1</code> = 不限</td>
+      <td>不限</td>
+    </tr>
+    <tr>
+      <td><code>args[3]</code></td>
+      <td>MIN_YEAR</td>
+      <td>只顯示該年份（含）之後發布的 CVE；<code>-1</code> = 不限</td>
+      <td>當前年份 −10</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>使用範例</h3>
+<table>
+  <thead><tr><th>指令</th><th>說明</th></tr></thead>
+  <tbody>
+    <tr><td><code>node cve-checker.js</code></td><td>掃描 PC，MEDIUM 以上，近 10 年</td></tr>
+    <tr><td><code>node cve-checker.js -1</code></td><td>同上（明確指定 PC）</td></tr>
+    <tr><td><code>node cve-checker.js scan.json</code></td><td>讀 scan.json，其餘預設</td></tr>
+    <tr><td><code>node cve-checker.js scan.json HIGH</code></td><td>讀 scan.json，HIGH 以上</td></tr>
+    <tr><td><code>node cve-checker.js -1 HIGH 5</code></td><td>PC，HIGH，只掃前 5 筆</td></tr>
+    <tr><td><code>node cve-checker.js -1 CRITICAL -1 -1</code></td><td>PC，CRITICAL，不限數量，不限年份</td></tr>
+    <tr><td><code>node cve-checker.js scan.json -1 -1 2020</code></td><td>讀 scan.json，MEDIUM，不限，2020 年後</td></tr>
+  </tbody>
+</table>
+
+<div class="warn"><strong>參數順序改變注意</strong>若您之前使用的是舊格式（第一個參數為嚴重等級，如 <code>node cve-checker.js HIGH</code>），請更新為新格式：<code>node cve-checker.js -1 HIGH</code>。若誤傳嚴重等級作為 FILE，程式會自動偵測並提示正確寫法。</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="whitelist">
+<h2>白名單設定</h2>
+<p>在工具同目錄下建立（或編輯）<code>whitelist.txt</code>，可指定哪些廠牌的軟體不進行 CVE 掃描。</p>
+<h3>格式</h3>
+<pre><code><span class="comment"># CVE Scanner Whitelist</span>
+<span class="comment"># 每行一個廠牌關鍵字（不分大小寫，部分比對 Publisher 欄位）</span>
+<span class="comment"># 以 # 開頭的行為註解，空行忽略</span>
+Microsoft
+Apple
+Google</code></pre>
+<h3>比對規則</h3>
+<ul>
+  <li>比對目標：軟體的 <strong>Publisher（發行商）</strong> 欄位</li>
+  <li>不分大小寫：<code>microsoft</code> 可比對 <code>Microsoft Corporation</code></li>
+  <li>部分比對：關鍵字是 Publisher 的子字串即符合</li>
+  <li>符合任一關鍵字即略過</li>
+</ul>
+<h3>效果</h3>
+<p>白名單軟體會被完全略過（不消耗 API 查詢次數），並在報表底部的「白名單略過的軟體」區塊中列出，依規則分組顯示。</p>
+<div class="tip"><strong>建議白名單</strong>通常可將 <code>Microsoft</code> 和 <code>Apple</code> 加入白名單，這兩家廠商的軟體普遍有完善的更新機制，且旗下軟體數量多，白名單可大幅減少掃描時間。</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="report-dashboard">
+<h2>報表說明 — 儀表板統計</h2>
+<p>HTML 報表頂端的儀表板以視覺化方式呈現本次掃描的全貌，分為左右兩組：</p>
+
+<div class="dash-mock">
+  <div style="display:flex;align-items:stretch;gap:0;flex-wrap:wrap">
+    <div style="display:flex;flex-direction:column;gap:5px;padding:0 16px 0 0">
+      <div style="font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;opacity:.4;margin-bottom:2px">軟體清單</div>
+      <div style="display:flex;align-items:center;gap:5px">
+        <div class="dc tot"><div class="n">62</div><div class="l">軟體總計</div></div>
+        <span class="dm-darr">▶</span>
+        <div class="dc skip"><div class="n">33</div><div class="l">白名單略過</div></div>
+        <span class="dm-darr">▶</span>
+        <div class="dc skip"><div class="n">10</div><div class="l">子元件/重複略過</div><div class="s">9 子元件・1 重複</div></div>
+        <span class="dm-darr">▶</span>
+        <div class="dc scan"><div class="n">19</div><div class="l">實際掃描</div></div>
+      </div>
+    </div>
+    <div style="width:1px;background:rgba(255,255,255,.16);margin:0 16px;align-self:stretch;flex-shrink:0"></div>
+    <div style="display:flex;flex-direction:column;gap:5px">
+      <div style="font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;opacity:.4;margin-bottom:2px">掃描結果</div>
+      <div style="display:flex;align-items:center;gap:5px">
+        <div class="dc scan"><div class="n">19</div><div class="l">已掃描</div></div>
+        <span class="dm-darr">▶</span>
+        <div class="dc ok"><div class="n">17</div><div class="l">無弱點</div></div>
+        <span class="dm-darr">▶</span>
+        <div class="dc hi"><div class="n">2</div><div class="l">發現弱點</div><div class="s">5 筆 CVE</div></div>
+        <span class="dm-darr">▶</span>
+        <div class="dc ok"><div class="n">1</div><div class="l">已是最新版</div></div>
+        <span class="dm-darr">▶</span>
+        <div class="dc hi"><div class="n">1</div><div class="l">建議升級</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3>左側：軟體清單分流</h3>
+<table>
+  <thead><tr><th>方框</th><th>說明</th></tr></thead>
+  <tbody>
+    <tr><td><strong>軟體總計</strong></td><td>Registry 或 JSON 中讀取到的所有軟體筆數</td></tr>
+    <tr><td><strong>白名單略過</strong> <span class="badge bg-gray">灰藍</span></td><td>Publisher 符合 whitelist.txt 關鍵字，跳過不掃</td></tr>
+    <tr><td><strong>子元件/重複略過</strong> <span class="badge bg-gray">灰藍</span></td><td>SKIP_PATTERNS 過濾的子元件 + 去重後的重複項</td></tr>
+    <tr><td><strong>實際掃描</strong> <span class="badge bg-blue">藍</span></td><td>實際向 NIST NVD API 查詢的軟體數量</td></tr>
+  </tbody>
+</table>
+
+<h3>右側：掃描結果分類</h3>
+<table>
+  <thead><tr><th>方框</th><th>說明</th></tr></thead>
+  <tbody>
+    <tr><td><strong>無弱點</strong> <span class="badge bg-green">綠</span></td><td>已掃描，未找到符合篩選條件的 CVE</td></tr>
+    <tr><td><strong>發現弱點</strong> <span class="badge bg-red">紅</span></td><td>找到 CVE，數字下方顯示總 CVE 筆數</td></tr>
+    <tr><td><strong>已是最新版</strong> <span class="badge bg-green">綠</span></td><td>雖有 CVE，但已安裝版本 ≥ 建議修復版本</td></tr>
+    <tr><td><strong>建議升級</strong> <span class="badge bg-red">紅</span></td><td>已安裝版本低於建議修復版本，需升級</td></tr>
+    <tr><td><strong>請手動確認</strong> <span class="badge bg-yellow" style="color:#000">黃</span></td><td>有 CVE 但 NVD 無版本修復資訊，需人工查閱</td></tr>
+  </tbody>
+</table>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="report-table">
+<h2>報表說明 — 升級建議摘要</h2>
+<p>儀表板下方的表格列出所有掃描過的軟體及其狀態，標題顯示總計與各類別數量。</p>
+<table>
+  <thead><tr><th>欄位</th><th>說明</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Software</strong></td><td>軟體名稱</td></tr>
+    <tr><td><strong>已安裝版本</strong></td><td>目前 Registry / JSON 中記錄的版本號</td></tr>
+    <tr><td><strong>最低安全版本（需達到）</strong></td><td>CVE 建議的最低安全版本，<code>≥ X</code> 表示需達到 X 版以上（含），<code>&gt; X</code> 表示需超過 X 版</td></tr>
+    <tr><td><strong>狀態</strong></td><td>✓ 無須升級 / ✗ 需要升級 / ? 請手動確認 / ✓ 無弱點</td></tr>
+  </tbody>
+</table>
+<p>表格分為兩段：上半段為有 CVE 的軟體，下半段為掃描後無弱點的軟體（以綠色分隔行區分）。</p>
+
+<h3>版本比對邏輯</h3>
+<ul>
+  <li>若已安裝版本 <strong>≥ 最低安全版本</strong> → 狀態為「無須升級」（已是最新版）</li>
+  <li>若已安裝版本 <strong>&lt; 最低安全版本</strong> → 狀態為「需要升級」</li>
+  <li>若 NVD 無提供版本修復資訊 → 狀態為「請手動確認」</li>
+</ul>
+<div class="note"><strong>最低安全版本的來源</strong>從 CVE 的 CPE（Common Platform Enumeration）資料中的 <code>versionEndExcluding</code>（不含，對應 <code>≥</code>）或 <code>versionEndIncluding</code>（含，對應 <code>&gt;</code>）欄位取得。若一個軟體有多筆 CVE，取所有 CVE 中的最高修復版本作為建議升級目標。</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="report-cve">
+<h2>報表說明 — CVE 詳細資訊</h2>
+<p>每筆有 CVE 的軟體都有可展開的詳細區塊，點擊標題列即可展開或收合。</p>
+<h3>CVE 條目資訊</h3>
+<table>
+  <thead><tr><th>項目</th><th>說明</th></tr></thead>
+  <tbody>
+    <tr><td>CVE ID（連結）</td><td>點擊可前往 NIST NVD 官網查看完整資訊</td></tr>
+    <tr>
+      <td>嚴重等級徽章</td>
+      <td>
+        <span class="badge bg-red">CRITICAL 9.x</span>
+        <span class="badge bg-orange">HIGH 7-8.x</span>
+        <span class="badge bg-yellow" style="color:#000">MEDIUM 4-6.x</span>
+        <span class="badge bg-blue">LOW 0-3.x</span>
+      </td>
+    </tr>
+    <tr><td>CVSS 版本</td><td>評分所使用的 CVSS 標準版本（v4.0 / v3.1 / v3.0 / v2.0）</td></tr>
+    <tr><td>⚠ 可能誤判</td><td>CPE 條目與搜尋名稱不符，此 CVE 已被排除於版本分析之外（見下節說明）</td></tr>
+    <tr><td>安全版本</td><td>此 CVE 對應的最低安全版本，格式同升級建議摘要</td></tr>
+    <tr><td>描述</td><td>CVE 英文描述（來自 NVD）</td></tr>
+  </tbody>
+</table>
+<h3>底部建議</h3>
+<p>每個軟體區塊底部會顯示彙整後的最終建議：</p>
+<ul>
+  <li><span style="color:#166534;font-weight:700">✓ 目前版本無弱點，無須升級</span></li>
+  <li><span style="color:#991b1b;font-weight:700">✗ 建議升級至 ≥ X.X.X（目前：Y.Y.Y）</span></li>
+  <li><span style="color:#92400e;font-weight:700">? 無版本修復資訊，請查閱各 CVE 連結</span></li>
+</ul>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="report-skipped">
+<h2>報表說明 — 略過清單區塊</h2>
+<p>報表底部列出所有未進行 CVE 掃描的軟體，分為三個區塊：</p>
+<table>
+  <thead><tr><th>區塊</th><th>說明</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>白名單跳過的軟體</strong></td>
+      <td>Publisher 符合 whitelist.txt 關鍵字。依規則分組，顯示名稱、版本、發行商。</td>
+    </tr>
+    <tr>
+      <td><strong>子元件跳過的軟體</strong></td>
+      <td>名稱符合內建 SKIP_PATTERNS（VC++ Runtime 子元件、Office Click-to-Run 元件、Python 子安裝項）。其弱點由主程式條目代表。</td>
+    </tr>
+    <tr>
+      <td><strong>重複去除的軟體</strong></td>
+      <td>去除版號後與另一條目名稱相同，已由先出現的條目代表。「合併為」欄顯示對應的查詢名稱。</td>
+    </tr>
+  </tbody>
+</table>
+<div class="tip"><strong>為何要顯示略過清單？</strong>讓使用者了解「哪些軟體沒有被掃描」，確保報表反映完整的軟體清單，而非只呈現掃描結果。</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="severity">
+<h2>嚴重等級說明</h2>
+<p>CVE 嚴重等級基於 CVSS（Common Vulnerability Scoring System）評分：</p>
+<table>
+  <thead><tr><th>等級</th><th>CVSS 分數範圍</th><th>說明</th></tr></thead>
+  <tbody>
+    <tr><td><span class="badge bg-red">CRITICAL</span></td><td>9.0 – 10.0</td><td>極高危，通常可遠端執行任意程式碼，需立即處理</td></tr>
+    <tr><td><span class="badge bg-orange">HIGH</span></td><td>7.0 – 8.9</td><td>高危，有顯著被攻擊風險，應優先排程升級</td></tr>
+    <tr><td><span class="badge bg-yellow" style="color:#000">MEDIUM</span></td><td>4.0 – 6.9</td><td>中危，需要特定條件才能利用，列入例行更新計畫</td></tr>
+    <tr><td><span class="badge bg-blue">LOW</span></td><td>0.1 – 3.9</td><td>低危，攻擊難度高或影響有限</td></tr>
+  </tbody>
+</table>
+<p>程式預設篩選 <strong>MEDIUM 以上</strong>（分數 ≥ 4.0）的 CVE。建議：</p>
+<ul>
+  <li>日常掃描使用 <code>MEDIUM</code>（預設）</li>
+  <li>快速確認高風險項目使用 <code>HIGH</code></li>
+  <li>需要零誤報的精簡報表使用 <code>CRITICAL</code></li>
+</ul>
+<p>CVSS 版本優先順序：v4.0 &gt; v3.1 &gt; v3.0 &gt; v2.0（取最新版本的分數）。</p>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="false-positive">
+<h2>誤判處理機制</h2>
+<p>NVD 的 <strong>關鍵字搜尋</strong>是全文比對，可能找到與軟體無關的 CVE。例如：搜尋「GitHub」可能找到某 Technicolor 設備的 CVE，因為其描述中提到了「GitHub repository」。</p>
+<h3>CPE 關聯性檢查</h3>
+<p>程式對每筆 CVE 執行 <strong>CPE（Common Platform Enumeration）關聯性驗證</strong>：</p>
+<ol>
+  <li>從 CVE 的 <code>configurations</code> 中提取所有 CPE 條目字串<br>（格式範例：<code>cpe:2.3:a:google:chrome:54.0.2840.87:*</code>）</li>
+  <li>將搜尋名稱拆解為字詞（例如「Google One」→ <code>["google", "one"]</code>）</li>
+  <li>驗證所有字詞是否都出現在某條 CPE 字串中</li>
+  <li>若 CPE 存在但完全不符 → 判定為<strong>可能誤判</strong>，從版本分析中排除</li>
+</ol>
+<h3>回傳值說明</h3>
+<table>
+  <thead><tr><th>回傳</th><th>代表意義</th><th>處置方式</th></tr></thead>
+  <tbody>
+    <tr><td><code>true</code></td><td>CPE 符合搜尋名稱</td><td>正常納入分析</td></tr>
+    <tr><td><code>false</code></td><td>CPE 存在但不符搜尋名稱</td><td>從 relevant 陣列排除，不影響版本建議</td></tr>
+    <tr><td><code>null</code></td><td>CVE 無 CPE 資料，無法判斷</td><td>保留（寧可保留以免漏報）</td></tr>
+  </tbody>
+</table>
+<div class="warn"><strong>限制說明</strong>此機制仍可能有誤判或漏判。CPE 比對僅基於名稱字詞，對於縮寫、別名、拼寫差異（如 <code>ffmpeg</code> vs <code>FFmpeg</code>）可能出現誤差。建議將報表結果搭配 NVD 連結人工複核重要項目。</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="faq">
+<h2>常見問題</h2>
+
+<h3>Q：掃描速度很慢，可以加快嗎？</h3>
+<p>速度受 NVD API 速率限制影響。使用 API Key（已預設內建）可達到 50 req/30 s（間隔 0.7 秒），不使用 Key 只有 5 req/30 s（間隔 6.5 秒）。短期可用 <code>LIMIT</code> 參數限制掃描筆數，長期建議將大量固定廠牌加入白名單。</p>
+
+<h3>Q：出現「HTTP 404」錯誤怎麼辦？</h3>
+<p>最常見原因是 API Key 傳遞方式錯誤。NVD API v2 必須透過 HTTP Header <code>apiKey:</code> 傳送，不可放在 URL query parameter 中。若您修改了程式碼，請確認未將 API Key 加入 <code>URLSearchParams</code>。</p>
+
+<h3>Q：「可能誤判」的 CVE 還要手動查嗎？</h3>
+<p>「可能誤判」的 CVE 已被排除在版本分析之外，不會影響升級建議。若仍想確認，可點擊 CVE ID 連結前往 NVD 查看詳情，確認受影響的軟體是否真的包含您使用的產品。</p>
+
+<h3>Q：軟體找不到任何 CVE，是真的安全嗎？</h3>
+<p>不一定。NVD 的搜尋是關鍵字比對，若軟體名稱與 NVD 資料庫中的 CPE 命名不一致，就可能搜尋不到。建議：</p>
+<ul>
+  <li>查看程式輸出的 <code>Search: "xxx"</code> 欄位，確認搜尋字詞合理</li>
+  <li>直接前往 <a href="https://nvd.nist.gov/vuln/search" target="_blank">NVD 搜尋頁面</a>手動確認</li>
+</ul>
+
+<h3>Q：為什麼有些軟體沒有出現在任何區塊？</h3>
+<p>Registry 中 <code>DisplayName</code> 為空的項目會被完全忽略，不列入任何統計。</p>
+
+<h3>Q：同一個軟體有多個版本怎麼辦？</h3>
+<p>去重邏輯是以 <code>cleanProductName()</code> 清理版本號後的名稱為鍵，保留第一筆出現的條目，後續相同名稱的條目列在「重複去除的軟體」區塊。建議保留版本較新的軟體，移除舊版後重新掃描。</p>
+
+<h3>Q：<code>whitelist.txt</code> 不存在會怎樣？</h3>
+<p>程式會正常執行，只是不套用任何白名單過濾，終端機會顯示 <code>whitelist.txt not found or empty</code>。</p>
+</section>
+
+<footer>NIST CVE Scanner &nbsp;·&nbsp; 使用手冊 &nbsp;·&nbsp; 資料來源：<a href="https://nvd.nist.gov/" target="_blank">NIST National Vulnerability Database</a></footer>
+
+</div><!-- .content -->
+</div><!-- .layout -->
+
+<script>
+// Highlight active nav link on scroll
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('nav a');
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            navLinks.forEach(a => a.classList.remove('active'));
+            const active = document.querySelector(`nav a[href="#${e.target.id}"]`);
+            if (active) active.classList.add('active');
+        }
+    });
+}, { threshold: 0.3 });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "nist-cve-checker",
+  "version": "1.0.0",
+  "description": "Query NIST NVD CVE API for installed software vulnerabilities",
+  "main": "cve-checker.js",
+  "scripts": {
+    "start": "node cve-checker.js",
+    "check": "node cve-checker.js MEDIUM 5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {}
+}

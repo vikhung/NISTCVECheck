@@ -1,0 +1,5 @@
+# CVE Scanner Whitelist
+# 每行填入一個廠牌關鍵字（不分大小寫，部分比對 publisher 欄位）
+# 以 # 開頭的行為註解，空行忽略
+Microsoft
+Apple
