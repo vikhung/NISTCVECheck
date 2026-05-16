@@ -18,6 +18,26 @@ node cve-checker.js scan.json -1 -1 2020   # -1 代表使用該參數的預設�
 
 不需要執行 `npm install`，程式僅使用 Node.js 內建模組（`https`、`fs`、`path`、`os`、`child_process`）。Node.js 最低版本需求：18.0.0。
 
+## team-report.js（團隊彙整報表）
+
+```bash
+# 讀取 .\team 目錄中所有 JSON，產生綜合報表至 .\report
+node team-report.js
+
+# 可選：指定自訂 team 目錄路徑
+node team-report.js C:\scans\team
+```
+
+工作流程：
+1. 各機器執行 `node cve-checker.js` 或 `findSW.ps1` → 產生 `vik_result_YYYYMMDDhhmmss.json`
+2. 將各機器的 `vik_result_YYYYMMDDhhmmss.json` 複製至 `.\team` 目錄
+3. 執行 `node team-report.js` → 產生 `.\report\team_YYYYMMDDhhmmss.html`
+
+**team-report.js 彙總報表結構：**
+- **機器總覽表**：各機器的 CVE 日期範圍（格式 `YYYY/01/01~YYYY/MM/DD`）、軟體總計、掃描數、有弱點數、CVE 數、狀態
+- **跨機器需升級軟體彙整**：依受影響機器數排序，顯示每台機器的版本
+- **各機器詳細結果**：每台機器的 meta 資訊列（CVE 日期範圍、來源、最低嚴重度、軟體總計、白名單數、子元件/重複數、掃描數、有弱點數、CVE 數）、軟體概覽表、**可展開的 CVE 詳細清單**（每筆有弱點軟體各一個 `<details>` 折疊區塊，含 CVE ID/連結、嚴重度、CVSS 版本、描述、安全版本、建議列）
+
 ## support/findSW.ps1
 
 在遠端 Windows 機器上產生輸入 JSON：
@@ -86,7 +106,7 @@ findSW.ps1 JSON  ──┘                                    ──► cleanPro
    - `extractFixedVersion(cve)`：讀取 `configurations[].nodes[].cpeMatch[]`；`versionEndExcluding` → `op: ">="`, `versionEndIncluding` → `op: ">"`。回傳所有 CPE 比對中的最高版本。
    - `isSafeVersion(installed, rec)`：使用 `compareVersions()`（數字分段比對）檢查已安裝版本是否已滿足修復要求。
 
-6. **HTML 報表** — `generateHTML(report, outputPath)`：純字串樣板，無需外部套件。輸出：`cve-report-YYYY-MM-DD.html`。區塊順序：儀表板統計、升級建議摘要表（有弱點軟體在前，無弱點在後）、可折疊 CVE 詳細資訊、白名單略過、SKIP_PATTERNS 略過、去重略過。
+6. **HTML 報表** — `generateHTML(report, outputPath)`：純字串樣板，無需外部套件。同時輸出 `vik_result_YYYYMMDDhhmmss.html`（視覺化報表）與同名 `.json`（供 team-report.js 讀取）。Header 的 CVE 日期範圍格式為 `YYYY/01/01~YYYY/MM/DD`（由 `minYear` 與掃描當日組成）。區塊順序：儀表板統計、升級建議摘要表（有弱點軟體在前，無弱點在後）、可折疊 CVE 詳細資訊、白名單略過、SKIP_PATTERNS 略過、去重略過。
 
 ### report 物件結構
 

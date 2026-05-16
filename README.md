@@ -39,7 +39,30 @@ node cve-checker.js scan.json -1 -1 2020   # -1 代表使用該參數的預設�
 | `LIMIT` | N \| `-1` | 不限 |
 | `MIN_YEAR` | YYYY \| `-1` | 當年 − 10 |
 
-HTML 報表輸出至 `report/cve-report-YYYY-MM-DD.html`。
+報表輸出至 `report/` 目錄，同時產生 HTML 與 JSON 兩個檔案：
+
+```
+report/vik_result_YYYYMMDDhhmmss.html   ← 視覺化報表
+report/vik_result_YYYYMMDDhhmmss.json   ← 供 team-report.js 讀取
+```
+
+## 彙總多台機器報表（team-report.js）
+
+```bash
+# 讀取 .\team 目錄中所有 JSON，產生彙總報表至 .\report
+node team-report.js
+
+# 或指定自訂 team 目錄
+node team-report.js C:\scans\team
+```
+
+**工作流程：**
+
+1. 各機器執行 `node cve-checker.js` 或 `findSW.ps1` → 產生 `vik_result_YYYYMMDDhhmmss.json`
+2. 將各機器的 JSON 複製至 `.\team` 目錄
+3. 執行 `node team-report.js` → 產生 `.\report\team_YYYYMMDDhhmmss.html`
+
+彙總報表包含：機器總覽表、跨機器需升級軟體彙整、每台機器詳細結果（含可展開的 CVE 清單）。
 
 ## 在遠端機器產生掃描檔
 
@@ -75,4 +98,4 @@ Apple
 3. 每個唯一產品名稱向 NVD CVE API 發出查詢
 4. **CPE 關聯性檢查**：過濾誤判 CVE（產品名稱僅出現在描述文字，但未出現在 CPE 設定條目中）
 5. 比對已安裝版本與 CPE 資料中的修復版本，判斷是否需要升級
-6. 產生 HTML 報表至 `report/cve-report-YYYY-MM-DD.html`
+6. 產生 HTML 與 JSON 報表至 `report/vik_result_YYYYMMDDhhmmss.html / .json`

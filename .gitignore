@@ -2,6 +2,9 @@
 report/
 cve-report-*.html
 
+# Team scan inputs (contain machine/user info from other PCs)
+team/
+
 # Local Claude Code settings (contain local paths)
 .claude/
 
@@ -76,7 +79,7 @@ web_modules/
 .env
 .env.*
 .env.local
-!.env.example
+!.env.local.example
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache

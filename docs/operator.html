@@ -106,6 +106,11 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid #e2e8f0;font-size:.
   <a href="#source-file">使用 JSON 檔案</a>
   <a href="#findsw">findSW.ps1 說明</a>
 
+  <div class="nav-title">彙總報表</div>
+  <a href="#team-report">team-report.js 簡介</a>
+  <a href="#team-workflow">工作流程</a>
+  <a href="#team-report-content">彙總報表說明</a>
+
   <div class="nav-title">參數設定</div>
   <a href="#params">命令列參數</a>
   <a href="#whitelist">白名單設定</a>
@@ -178,7 +183,10 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid #e2e8f0;font-size:.
   <li>
     <div>
       <strong>查看報表</strong><br>
-      掃描結束後，同目錄下會產生 <code>cve-report-YYYY-MM-DD.html</code>，以瀏覽器開啟即可查閱。
+      掃描結束後，<code>report/</code> 目錄下會同時產生 HTML 與 JSON 兩個檔案：<br>
+      <code>report/vik_result_YYYYMMDDhhmmss.html</code>（視覺化報表）<br>
+      <code>report/vik_result_YYYYMMDDhhmmss.json</code>（供 team-report.js 讀取）<br>
+      以瀏覽器開啟 HTML 檔即可查閱。
     </div>
   </li>
 </ol>
@@ -240,6 +248,101 @@ powershell -ExecutionPolicy Bypass -File findSW.ps1 -EsrmUsername john</code></p
   <li><div>執行 <code>node cve-checker.js esrm-scan.json</code></div></li>
 </ol>
 <div class="note"><strong>編碼說明</strong><code>findSW.ps1</code> 輸出 UTF-8 無 BOM 格式，Node.js 可直接讀取。CVE Scanner 內建的 Registry 掃描則需 UTF-8 BOM（已自動處理），兩者格式不同但均相容。</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="team-report">
+<h2>彙總多台機器報表 — team-report.js</h2>
+<p><code>team-report.js</code> 可將多台機器各自產生的 JSON 掃描結果整合為一份彙總 HTML 報表，適合資安人員或管理者一次掌握整個團隊的軟體弱點狀態。</p>
+<h3>執行方式</h3>
+<pre><code><span class="comment"># 讀取 .\team 目錄中所有 JSON，產生彙總報表至 .\report</span>
+node team-report.js
+
+<span class="comment"># 或指定自訂 team 目錄路徑</span>
+node team-report.js C:\scans\team</code></pre>
+<p>輸出檔案：<code>report/team_YYYYMMDDhhmmss.html</code></p>
+<div class="note"><strong>無需 API Key</strong>team-report.js 純讀取本機 JSON，不呼叫 NVD API，執行速度極快。</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="team-workflow">
+<h2>彙總報表 — 工作流程</h2>
+<ol class="steps">
+  <li>
+    <div>
+      <strong>各機器個別掃描</strong><br>
+      在每台 Windows 機器上執行掃描，產生帶時間戳記的 JSON 結果檔：
+      <pre><code>node cve-checker.js
+<span class="comment"># → report\vik_result_YYYYMMDDhhmmss.json</span></code></pre>
+      若機器無 Node.js，可改用 PowerShell 腳本：
+      <pre><code>powershell -ExecutionPolicy Bypass -File support\findSW.ps1
+<span class="comment"># → Desktop\esrm-scan.json（格式與上方相容）</span></code></pre>
+    </div>
+  </li>
+  <li>
+    <div>
+      <strong>集中 JSON 檔案</strong><br>
+      將所有機器產生的 JSON 複製至執行 team-report.js 的機器上的 <code>.\team\</code> 目錄（若目錄不存在請自行建立）：
+      <pre><code>.\team\
+    alice_result_20260516143000.json
+    bob_result_20260516151200.json
+    carol_result_20260516160500.json</code></pre>
+    </div>
+  </li>
+  <li>
+    <div>
+      <strong>產生彙總報表</strong>
+      <pre><code>node team-report.js
+<span class="comment"># → report\team_YYYYMMDDhhmmss.html</span></code></pre>
+      以瀏覽器開啟產生的 HTML 即可查看整個團隊的報表。
+    </div>
+  </li>
+</ol>
+<div class="tip"><strong>混用兩種輸入格式</strong><code>cve-checker.js</code> 產生的 JSON 與 <code>findSW.ps1</code> 產生的 JSON 格式相容，可在同一個 <code>team</code> 目錄中混用。</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="team-report-content">
+<h2>彙總報表 — 內容說明</h2>
+<p>彙總報表由以下四個區塊組成：</p>
+
+<h3>1. Header 儀表板</h3>
+<p>顯示整體統計：機器總數、有弱點機器數、所有機器的軟體總計、實際掃描數、發現弱點數、CVE 總數。</p>
+
+<h3>2. 機器總覽表</h3>
+<p>每台機器一列，欄位說明如下：</p>
+<table>
+  <thead><tr><th>欄位</th><th>說明</th></tr></thead>
+  <tbody>
+    <tr><td><strong>主機名稱</strong></td><td>點擊可跳轉至該機器的詳細結果區塊</td></tr>
+    <tr><td><strong>CVE 日期範圍</strong></td><td>該次掃描的 CVE 篩選年份範圍，格式為 <code>YYYY/01/01~YYYY/MM/DD</code>（例如 <code>2016/01/01~2026/05/16</code>）</td></tr>
+    <tr><td><strong>軟體總計</strong></td><td>該機器 Registry 中的軟體總筆數</td></tr>
+    <tr><td><strong>掃描數</strong></td><td>實際向 NVD API 查詢的軟體數（已扣除白名單、子元件、重複）</td></tr>
+    <tr><td><strong>有弱點</strong></td><td>發現符合篩選條件 CVE 的軟體數</td></tr>
+    <tr><td><strong>CVE 數</strong></td><td>該機器所有軟體的 CVE 總筆數</td></tr>
+    <tr><td><strong>狀態</strong></td><td>✗ 需升級 / ? 請手動確認 / ✓ 安全</td></tr>
+  </tbody>
+</table>
+
+<h3>3. 跨機器需升級軟體彙整</h3>
+<p>列出所有機器中需要升級的軟體，依受影響機器數降序排列。每列顯示軟體名稱、最低安全版本、受影響機器數，以及各台機器的主機名稱與已安裝版本。</p>
+
+<h3>4. 各機器詳細結果</h3>
+<p>每台機器各占一個獨立區塊，包含：</p>
+<ul>
+  <li><strong>機器 Meta 資訊列</strong>：CVE 日期範圍 | 來源 | 最低嚴重度 | 軟體總計 N | 白名單 N | 子元件/重複 N | 掃描 N | 有弱點 N | CVE N</li>
+  <li><strong>軟體概覽表</strong>：列出所有有弱點與無弱點的軟體，顯示已安裝版本、最低安全版本、最高嚴重度、CVE 數、狀態</li>
+  <li><strong>CVE 詳細資訊（可展開）</strong>：每個有弱點的軟體各有一個折疊區塊，點擊展開後顯示：
+    <ul>
+      <li>CVE ID（點擊連結至 NVD）、嚴重度徽章、CVSS 版本、發布日期</li>
+      <li>CVE 描述文字</li>
+      <li>安全版本資訊（如有）</li>
+      <li>底部建議列：✗ 建議升級至 ≥ X.X.X / ✓ 無須升級 / ? 請手動確認</li>
+      <li>⚠ 可能誤判標記（若 CPE 條目與搜尋名稱不符）</li>
+    </ul>
+  </li>
+</ul>
+<div class="tip"><strong>左側色條代表機器狀態</strong>紅色 = 有需要升級的軟體；橘色 = 有弱點但無需升級或請手動確認；綠色 = 全部安全。</div>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════════ -->
@@ -354,6 +457,8 @@ Google</code></pre>
     </div>
   </div>
 </div>
+
+<p>報表 Header 的 <strong>CVE 日期範圍</strong> 顯示格式為 <code>YYYY/01/01~YYYY/MM/DD</code>，代表此次掃描僅呈現從 <code>MIN_YEAR</code> 年 1 月 1 日至掃描當天為止發布的 CVE。若未設定年份限制則顯示「不限」。</p>
 
 <h3>左側：軟體清單分流</h3>
 <table>
