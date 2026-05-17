@@ -5,7 +5,8 @@
   "main": "cve-checker.js",
   "scripts": {
     "start": "node cve-checker.js",
-    "check": "node cve-checker.js MEDIUM 5"
+    "check": "node cve-checker.js MEDIUM 5",
+    "web": "node web-server.js"
   },
   "engines": {
     "node": ">=18.0.0"
