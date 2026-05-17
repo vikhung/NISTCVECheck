@@ -113,17 +113,21 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid #e2e8f0;font-size:.
 
   <div class="nav-title">參數設定</div>
   <a href="#params">命令列參數</a>
+  <a href="#env">環境設定（.env.local）</a>
   <a href="#whitelist">白名單設定</a>
+  <a href="#portable">免安裝軟體設定</a>
 
   <div class="nav-title">報表說明</div>
   <a href="#report-dashboard">儀表板統計</a>
   <a href="#report-table">升級建議摘要</a>
   <a href="#report-cve">CVE 詳細資訊</a>
+  <a href="#report-mismatch">可能誤判的 CVE</a>
   <a href="#report-skipped">略過清單區塊</a>
 
   <div class="nav-title">進階</div>
   <a href="#severity">嚴重等級說明</a>
   <a href="#false-positive">誤判處理</a>
+  <a href="#api-reference">NVD API 說明</a>
   <a href="#faq">常見問題</a>
 </nav>
 
@@ -142,8 +146,9 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid #e2e8f0;font-size:.
   <li>直接從 Windows Registry 讀取已安裝軟體清單，無需手動整理</li>
   <li>支援讀取外部 JSON 檔案（可由 <code>findSW.ps1</code> 在其他機器產生後傳入）</li>
   <li>以 CVSS 嚴重等級、CVE 年份、掃描數量作為過濾條件</li>
-  <li>比對建議修復版本，自動判斷「已是最新版」或「建議升級」</li>
-  <li>CPE 比對機制，自動過濾與搜尋軟體無關的誤判 CVE</li>
+  <li>比對建議修復版本，自動判斷升級狀態（無須升級 / 需要升級 / 請手動確認）</li>
+  <li>CPE 比對機制，自動過濾與搜尋軟體無關的誤判 CVE，並列出供使用者自行判斷</li>
+  <li>支援免安裝軟體（Portable），透過 NVD CPE API 精確比對產品識別碼</li>
   <li>輸出含儀表板統計、升級摘要、CVE 詳情的單一 HTML 報表</li>
 </ul>
 </section>
@@ -155,7 +160,7 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid #e2e8f0;font-size:.
   <thead><tr><th>項目</th><th>需求</th></tr></thead>
   <tbody>
     <tr><td>作業系統</td><td>Windows 10 / 11（Registry 掃描模式需要）</td></tr>
-    <tr><td>Node.js</td><td>v18.0.0 以上</td></tr>
+    <tr><td>Node.js</td><td><strong>v18.0.0 以上</strong>（建議使用 v18 LTS 或更新版本）</td></tr>
     <tr><td>網路</td><td>可連線至 <code>services.nvd.nist.gov</code>（HTTPS 443）</td></tr>
     <tr><td>npm 套件</td><td><strong>不需要</strong>，僅使用 Node.js 內建模組</td></tr>
   </tbody>
@@ -169,8 +174,10 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid #e2e8f0;font-size:.
 <ol class="steps">
   <li>
     <div>
-      <strong>切換到工具目錄</strong>
-      <pre><code>cd D:\Projects\NISTCVECheck</code></pre>
+      <strong>建立設定檔</strong><br>
+      複製 <code>.env.local.example</code> 為 <code>.env.local</code>，填入 API Key 與白名單：
+      <pre><code>NIST_API_KEY=your-api-key-here
+WHITELIST=Microsoft,Apple,Google</code></pre>
     </div>
   </li>
   <li>
@@ -184,8 +191,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid #e2e8f0;font-size:.
     <div>
       <strong>查看報表</strong><br>
       掃描結束後，<code>report/</code> 目錄下會同時產生 HTML 與 JSON 兩個檔案：<br>
-      <code>report/vik_result_YYYYMMDDhhmmss.html</code>（視覺化報表）<br>
-      <code>report/vik_result_YYYYMMDDhhmmss.json</code>（供 team-report.js 讀取）<br>
+      <code>report/vik_result_YYYYMMDD.html</code>（視覺化報表）<br>
+      <code>report/vik_result_YYYYMMDD.json</code>（供 team-report.js 讀取）<br>
       以瀏覽器開啟 HTML 檔即可查閱。
     </div>
   </li>
@@ -260,7 +267,7 @@ node team-report.js
 
 <span class="comment"># 或指定自訂 team 目錄路徑</span>
 node team-report.js C:\scans\team</code></pre>
-<p>輸出檔案：<code>report/team_YYYYMMDDhhmmss.html</code></p>
+<p>輸出檔案：<code>report/team_YYYYMMDD.html</code></p>
 <div class="note"><strong>無需 API Key</strong>team-report.js 純讀取本機 JSON，不呼叫 NVD API，執行速度極快。</div>
 </section>
 
@@ -273,7 +280,7 @@ node team-report.js C:\scans\team</code></pre>
       <strong>各機器個別掃描</strong><br>
       在每台 Windows 機器上執行掃描，產生帶時間戳記的 JSON 結果檔：
       <pre><code>node cve-checker.js
-<span class="comment"># → report\vik_result_YYYYMMDDhhmmss.json</span></code></pre>
+<span class="comment"># → report\vik_result_YYYYMMDD.json</span></code></pre>
       若機器無 Node.js，可改用 PowerShell 腳本：
       <pre><code>powershell -ExecutionPolicy Bypass -File support\findSW.ps1
 <span class="comment"># → Desktop\esrm-scan.json（格式與上方相容）</span></code></pre>
@@ -293,7 +300,7 @@ node team-report.js C:\scans\team</code></pre>
     <div>
       <strong>產生彙總報表</strong>
       <pre><code>node team-report.js
-<span class="comment"># → report\team_YYYYMMDDhhmmss.html</span></code></pre>
+<span class="comment"># → report\team_YYYYMMDD.html</span></code></pre>
       以瀏覽器開啟產生的 HTML 即可查看整個團隊的報表。
     </div>
   </li>
@@ -375,7 +382,7 @@ node team-report.js C:\scans\team</code></pre>
     <tr>
       <td><code>args[3]</code></td>
       <td>MIN_YEAR</td>
-      <td>只顯示該年份（含）之後發布的 CVE；<code>-1</code> = 不限</td>
+      <td>只顯示該年份（含）之後發布的 CVE；<code>-1</code> = 當年 −10</td>
       <td>當前年份 −10</td>
     </tr>
   </tbody>
@@ -386,7 +393,6 @@ node team-report.js C:\scans\team</code></pre>
   <thead><tr><th>指令</th><th>說明</th></tr></thead>
   <tbody>
     <tr><td><code>node cve-checker.js</code></td><td>掃描 PC，MEDIUM 以上，近 10 年</td></tr>
-    <tr><td><code>node cve-checker.js -1</code></td><td>同上（明確指定 PC）</td></tr>
     <tr><td><code>node cve-checker.js scan.json</code></td><td>讀 scan.json，其餘預設</td></tr>
     <tr><td><code>node cve-checker.js scan.json HIGH</code></td><td>讀 scan.json，HIGH 以上</td></tr>
     <tr><td><code>node cve-checker.js -1 HIGH 5</code></td><td>PC，HIGH，只掃前 5 筆</td></tr>
@@ -394,21 +400,64 @@ node team-report.js C:\scans\team</code></pre>
     <tr><td><code>node cve-checker.js scan.json -1 -1 2020</code></td><td>讀 scan.json，MEDIUM，不限，2020 年後</td></tr>
   </tbody>
 </table>
+</section>
 
-<div class="warn"><strong>參數順序改變注意</strong>若您之前使用的是舊格式（第一個參數為嚴重等級，如 <code>node cve-checker.js HIGH</code>），請更新為新格式：<code>node cve-checker.js -1 HIGH</code>。若誤傳嚴重等級作為 FILE，程式會自動偵測並提示正確寫法。</div>
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="env">
+<h2>環境設定（.env.local）</h2>
+<p>所有環境設定集中在工具目錄下的 <code>.env.local</code> 檔案。複製 <code>.env.local.example</code> 為 <code>.env.local</code> 後依需求修改。此檔案不應提交至版本控制（已列入 <code>.gitignore</code>）。</p>
+
+<table>
+  <thead><tr><th>參數</th><th>預設值</th><th>說明</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>NIST_API_KEY</code></td>
+      <td>（空）</td>
+      <td>NVD API Key。有 Key 時速率限制為每 0.7 秒一筆；無 Key 則 6.5 秒。免費申請：<a href="https://nvd.nist.gov/developers/request-an-api-key" target="_blank">nvd.nist.gov</a></td>
+    </tr>
+    <tr>
+      <td><code>MAX_CVES_PER_SOFTWARE</code></td>
+      <td>50</td>
+      <td>每個軟體最多取回的 CVE 筆數。NVD 回傳順序為發布日期由新至舊，設定過低可能遺漏較舊的 CVE。</td>
+    </tr>
+    <tr>
+      <td><code>PORTABLE_ONLY</code></td>
+      <td>false</td>
+      <td><code>true</code> = 只掃描 <code>PORTABLE_N</code> 定義的軟體，略過 Registry / JSON 項目（適合只想快速確認特定軟體的情境）。</td>
+    </tr>
+    <tr>
+      <td><code>WHITELIST</code></td>
+      <td>（空）</td>
+      <td>逗號分隔的廠牌關鍵字，符合 Publisher 欄位的軟體略過掃描。例如 <code>Microsoft,Apple,Google</code>。</td>
+    </tr>
+    <tr>
+      <td><code>PORTABLE_N</code></td>
+      <td>（空）</td>
+      <td>免安裝軟體設定，詳見下節說明。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>範例 .env.local</h3>
+<pre><code>NIST_API_KEY=your-api-key-here
+MAX_CVES_PER_SOFTWARE=50
+PORTABLE_ONLY=false
+WHITELIST=Microsoft,Apple,Google
+
+PORTABLE_0=Eclipse IDE|202506|Eclipse Foundation
+PORTABLE_1=Apache Maven|3.8.6|Apache Software Foundation
+PORTABLE_2=Node.js|24.15.0|OpenJS Foundation</code></pre>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════════ -->
 <section id="whitelist">
 <h2>白名單設定</h2>
-<p>在工具同目錄下建立（或編輯）<code>whitelist.txt</code>，可指定哪些廠牌的軟體不進行 CVE 掃描。</p>
-<h3>格式</h3>
-<pre><code><span class="comment"># CVE Scanner Whitelist</span>
-<span class="comment"># 每行一個廠牌關鍵字（不分大小寫，部分比對 Publisher 欄位）</span>
-<span class="comment"># 以 # 開頭的行為註解，空行忽略</span>
-Microsoft
-Apple
-Google</code></pre>
+<p>白名單可指定哪些廠牌的軟體不進行 CVE 掃描，大幅減少不必要的 API 查詢。</p>
+
+<h3>設定方式（建議）</h3>
+<p>在 <code>.env.local</code> 中設定 <code>WHITELIST</code>，以逗號分隔廠牌關鍵字：</p>
+<pre><code>WHITELIST=Microsoft,Apple,Google</code></pre>
+
 <h3>比對規則</h3>
 <ul>
   <li>比對目標：軟體的 <strong>Publisher（發行商）</strong> 欄位</li>
@@ -416,9 +465,38 @@ Google</code></pre>
   <li>部分比對：關鍵字是 Publisher 的子字串即符合</li>
   <li>符合任一關鍵字即略過</li>
 </ul>
+
 <h3>效果</h3>
 <p>白名單軟體會被完全略過（不消耗 API 查詢次數），並在報表底部的「白名單略過的軟體」區塊中列出，依規則分組顯示。</p>
-<div class="tip"><strong>建議白名單</strong>通常可將 <code>Microsoft</code> 和 <code>Apple</code> 加入白名單，這兩家廠商的軟體普遍有完善的更新機制，且旗下軟體數量多，白名單可大幅減少掃描時間。</div>
+
+<div class="tip"><strong>建議白名單</strong>通常可將 <code>Microsoft</code>、<code>Apple</code>、<code>Google</code> 加入白名單，這些廠商的軟體普遍有完善的自動更新機制，且軟體數量多，加入白名單可大幅減少掃描時間。</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="portable">
+<h2>免安裝軟體設定（PORTABLE_N）</h2>
+<p>部分軟體（如 Eclipse、Maven、Neo4j）以免安裝方式執行，不會寫入 Windows Registry，無法透過一般掃描偵測到。<code>PORTABLE_N</code> 設定可將這些軟體手動加入掃描清單。</p>
+
+<h3>格式</h3>
+<pre><code><span class="comment"># 格式：軟體名稱|版本|發行商（版本與發行商可省略）</span>
+PORTABLE_0=Eclipse IDE|202506|Eclipse Foundation
+PORTABLE_1=Apache Maven|3.8.6|Apache Software Foundation
+PORTABLE_2=Node.js|24.15.0|OpenJS Foundation
+PORTABLE_3=Neo4j Community Edition|2025.05.0|Neo4j Inc</code></pre>
+
+<p>編號從 <code>0</code> 開始連續遞增，遇到第一個缺口即停止讀取。</p>
+
+<h3>特性</h3>
+<ul>
+  <li><strong>跳過白名單與子元件過濾</strong>：Portable 軟體直接進入查詢階段</li>
+  <li><strong>CPE API 精確比對</strong>：每筆 Portable 軟體會先呼叫 NVD CPE API，查找對應的精確產品識別碼（<code>cpe:2.3:a:{vendor}:{product}</code>），再以此識別碼驗證 CVE 是否真的與該軟體相關，大幅減少誤判</li>
+  <li><strong>計入軟體總計</strong>：Portable 軟體會計入報表的「軟體總計」數量</li>
+</ul>
+
+<h3>PORTABLE_ONLY 模式</h3>
+<p>設定 <code>PORTABLE_ONLY=true</code> 後，程式只掃描 <code>PORTABLE_N</code> 定義的軟體，略過 Registry / JSON 中的所有項目。適合只需快速檢查特定免安裝軟體的情境。</p>
+
+<div class="note"><strong>速率限制提醒</strong>每筆 Portable 軟體需消耗兩次 API 呼叫（CPE 查詢 + CVE 查詢），執行時間約為一般軟體的兩倍。</div>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════════ -->
@@ -464,8 +542,8 @@ Google</code></pre>
 <table>
   <thead><tr><th>方框</th><th>說明</th></tr></thead>
   <tbody>
-    <tr><td><strong>軟體總計</strong></td><td>Registry 或 JSON 中讀取到的所有軟體筆數</td></tr>
-    <tr><td><strong>白名單略過</strong> <span class="badge bg-gray">灰藍</span></td><td>Publisher 符合 whitelist.txt 關鍵字，跳過不掃</td></tr>
+    <tr><td><strong>軟體總計</strong></td><td>Registry / JSON 中讀取到的所有軟體筆數，加上 PORTABLE_N 設定的免安裝軟體數</td></tr>
+    <tr><td><strong>白名單略過</strong> <span class="badge bg-gray">灰藍</span></td><td>Publisher 符合白名單關鍵字，跳過不掃</td></tr>
     <tr><td><strong>子元件/重複略過</strong> <span class="badge bg-gray">灰藍</span></td><td>SKIP_PATTERNS 過濾的子元件 + 去重後的重複項</td></tr>
     <tr><td><strong>實際掃描</strong> <span class="badge bg-blue">藍</span></td><td>實際向 NIST NVD API 查詢的軟體數量</td></tr>
   </tbody>
@@ -477,9 +555,9 @@ Google</code></pre>
   <tbody>
     <tr><td><strong>無弱點</strong> <span class="badge bg-green">綠</span></td><td>已掃描，未找到符合篩選條件的 CVE</td></tr>
     <tr><td><strong>發現弱點</strong> <span class="badge bg-red">紅</span></td><td>找到 CVE，數字下方顯示總 CVE 筆數</td></tr>
-    <tr><td><strong>已是最新版</strong> <span class="badge bg-green">綠</span></td><td>雖有 CVE，但已安裝版本 ≥ 建議修復版本</td></tr>
+    <tr><td><strong>已是最新版</strong> <span class="badge bg-green">綠</span></td><td>雖有 CVE，但已安裝版本 ≥ 建議修復版本，<strong>且所有 CVE 均有明確修復版資訊</strong></td></tr>
     <tr><td><strong>建議升級</strong> <span class="badge bg-red">紅</span></td><td>已安裝版本低於建議修復版本，需升級</td></tr>
-    <tr><td><strong>請手動確認</strong> <span class="badge bg-yellow" style="color:#000">黃</span></td><td>有 CVE 但 NVD 無版本修復資訊，需人工查閱</td></tr>
+    <tr><td><strong>請手動確認</strong> <span class="badge bg-yellow" style="color:#000">黃</span></td><td>已安裝版本雖達修復要求，但有部分 CVE 尚無修復版資訊；或所有 CVE 均無修復版資訊</td></tr>
   </tbody>
 </table>
 </section>
@@ -492,26 +570,49 @@ Google</code></pre>
   <thead><tr><th>欄位</th><th>說明</th></tr></thead>
   <tbody>
     <tr><td><strong>Software</strong></td><td>軟體名稱</td></tr>
+    <tr><td><strong>Publisher</strong></td><td>軟體發行商（來自 Registry 或 JSON 的 Publisher 欄位；Portable 軟體來自 PORTABLE_N 第三欄）</td></tr>
     <tr><td><strong>已安裝版本</strong></td><td>目前 Registry / JSON 中記錄的版本號</td></tr>
     <tr><td><strong>最低安全版本（需達到）</strong></td><td>CVE 建議的最低安全版本，<code>≥ X</code> 表示需達到 X 版以上（含），<code>&gt; X</code> 表示需超過 X 版</td></tr>
-    <tr><td><strong>狀態</strong></td><td>✓ 無須升級 / ✗ 需要升級 / ? 請手動確認 / ✓ 無弱點</td></tr>
+    <tr><td><strong>狀態</strong></td><td>見下方狀態說明</td></tr>
   </tbody>
 </table>
 <p>表格分為兩段：上半段為有 CVE 的軟體，下半段為掃描後無弱點的軟體（以綠色分隔行區分）。</p>
 
-<h3>版本比對邏輯</h3>
-<ul>
-  <li>若已安裝版本 <strong>≥ 最低安全版本</strong> → 狀態為「無須升級」（已是最新版）</li>
-  <li>若已安裝版本 <strong>&lt; 最低安全版本</strong> → 狀態為「需要升級」</li>
-  <li>若 NVD 無提供版本修復資訊 → 狀態為「請手動確認」</li>
-</ul>
+<h3>升級狀態判斷邏輯</h3>
+<table>
+  <thead><tr><th>狀態</th><th>條件</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><span style="color:#dc2626;font-weight:700">✗ 需要升級</span></td>
+      <td>有已知修復版，但目前安裝版本未達到</td>
+    </tr>
+    <tr>
+      <td><span style="color:#d97706;font-weight:700">? 請手動確認</span></td>
+      <td>
+        目前版本達修復要求，但<strong>同批 CVE 中有部分無修復版資訊</strong>（NVD 尚未記錄該 CVE 的修復版本）；<br>或所有 CVE 均無修復版資訊
+      </td>
+    </tr>
+    <tr>
+      <td><span style="color:#16a34a;font-weight:700">✓ 無須升級</span></td>
+      <td>有修復版，目前版本達到要求，<strong>且所有 CVE 皆有明確修復版資訊</strong></td>
+    </tr>
+    <tr>
+      <td><span style="color:#16a34a;font-weight:700">✓ 無弱點</span></td>
+      <td>掃描後未發現符合篩選條件的 CVE</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="warn"><strong>「? 請手動確認」的常見情境</strong>某軟體的 NVD 頁面中，部分 CVE 有明確的「Up to (excluding) X.X」版本範圍，但另一部分 CVE 僅列出特定版本受影響、沒有版本範圍。後者代表 NVD 目前尚未記錄修復版本（可能是漏洞剛被揭露、廠商尚未發布修補，或 NVD 尚未更新資料）。即使已安裝版本滿足前者，整體狀態仍會顯示「? 請手動確認」，提醒使用者手動查閱各 CVE 連結。</div>
+
 <div class="note"><strong>最低安全版本的來源</strong>從 CVE 的 CPE（Common Platform Enumeration）資料中的 <code>versionEndExcluding</code>（不含，對應 <code>≥</code>）或 <code>versionEndIncluding</code>（含，對應 <code>&gt;</code>）欄位取得。若一個軟體有多筆 CVE，取所有 CVE 中的最高修復版本作為建議升級目標。</div>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════════ -->
 <section id="report-cve">
 <h2>報表說明 — CVE 詳細資訊</h2>
-<p>每筆有 CVE 的軟體都有可展開的詳細區塊，點擊標題列即可展開或收合。</p>
+<p>升級建議摘要表下方為可展開的 CVE 詳細區塊，每筆有 CVE 的軟體各一個折疊項目，點擊標題列即可展開或收合。<strong>CVE 條目依發布日期由新至舊排列。</strong></p>
+
 <h3>CVE 條目資訊</h3>
 <table>
   <thead><tr><th>項目</th><th>說明</th></tr></thead>
@@ -527,11 +628,12 @@ Google</code></pre>
       </td>
     </tr>
     <tr><td>CVSS 版本</td><td>評分所使用的 CVSS 標準版本（v4.0 / v3.1 / v3.0 / v2.0）</td></tr>
-    <tr><td>⚠ 可能誤判</td><td>CPE 條目與搜尋名稱不符，此 CVE 已被排除於版本分析之外（見下節說明）</td></tr>
-    <tr><td>安全版本</td><td>此 CVE 對應的最低安全版本，格式同升級建議摘要</td></tr>
+    <tr><td>發布日期</td><td>此 CVE 在 NVD 公開發布的日期（格式 YYYY-MM-DD）</td></tr>
     <tr><td>描述</td><td>CVE 英文描述（來自 NVD）</td></tr>
+    <tr><td>安全版本</td><td>此 CVE 對應的最低安全版本，格式同升級建議摘要</td></tr>
   </tbody>
 </table>
+
 <h3>底部建議</h3>
 <p>每個軟體區塊底部會顯示彙整後的最終建議：</p>
 <ul>
@@ -539,6 +641,34 @@ Google</code></pre>
   <li><span style="color:#991b1b;font-weight:700">✗ 建議升級至 ≥ X.X.X（目前：Y.Y.Y）</span></li>
   <li><span style="color:#92400e;font-weight:700">? 無版本修復資訊，請查閱各 CVE 連結</span></li>
 </ul>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="report-mismatch">
+<h2>報表說明 — 可能誤判的 CVE</h2>
+<p>CVE 詳細資訊區塊之後，若有被判定為可能誤判的 CVE，會單獨列在此區塊，<strong>不計入弱點統計或版本建議</strong>，供使用者自行判斷。</p>
+
+<h3>為何會出現「可能誤判」？</h3>
+<p>NVD 的關鍵字搜尋是全文比對，可能找到與目標軟體無關的 CVE。程式會檢查每筆 CVE 的 CPE（Common Platform Enumeration）條目，判斷搜尋的軟體名稱是否真的出現在 CPE 中：</p>
+<ul>
+  <li><strong>Portable 軟體</strong>：驗證 CVE 的 CPE 條目是否含有精確的 <code>:vendor:product:</code> 識別碼</li>
+  <li><strong>Registry 軟體</strong>：驗證搜尋名稱的所有字詞是否出現在 CPE 條目中</li>
+</ul>
+<p>若 CPE 存在但完全不符，則該 CVE 被標記為可能誤判，從版本分析中移除。</p>
+
+<h3>可能誤判清單欄位</h3>
+<table>
+  <thead><tr><th>欄位</th><th>說明</th></tr></thead>
+  <tbody>
+    <tr><td>CVE ID</td><td>點擊連結至 NVD 查看完整資訊</td></tr>
+    <tr><td>嚴重等級 / 分數 / CVSS 版本</td><td>同 CVE 詳細資訊區塊</td></tr>
+    <tr><td>發布日期</td><td>CVE 在 NVD 的公開發布日期</td></tr>
+    <tr><td>可能誤判原因</td><td>說明為何被判定為可能誤判，例如「CPE 條目中無 <code>:apache:maven:</code>，非本軟體直接受影響的 CVE」</td></tr>
+    <tr><td>描述</td><td>CVE 英文描述</td></tr>
+  </tbody>
+</table>
+
+<div class="tip"><strong>建議處理方式</strong>點擊 CVE ID 連結前往 NVD，查看「Known Affected Software Configurations」區塊，確認受影響的產品是否真的包含您使用的軟體。若確認確實相關，請納入人工評估。</div>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════════ -->
@@ -550,7 +680,7 @@ Google</code></pre>
   <tbody>
     <tr>
       <td><strong>白名單跳過的軟體</strong></td>
-      <td>Publisher 符合 whitelist.txt 關鍵字。依規則分組，顯示名稱、版本、發行商。</td>
+      <td>Publisher 符合白名單關鍵字（來自 <code>.env.local</code> 的 <code>WHITELIST</code> 設定）。依規則分組，顯示名稱、版本、發行商。</td>
     </tr>
     <tr>
       <td><strong>子元件跳過的軟體</strong></td>
@@ -568,7 +698,8 @@ Google</code></pre>
 <!-- ══════════════════════════════════════════════════════════════ -->
 <section id="severity">
 <h2>嚴重等級說明</h2>
-<p>CVE 嚴重等級基於 CVSS（Common Vulnerability Scoring System）評分：</p>
+<p>CVE 嚴重等級基於 <strong>CVSS（Common Vulnerability Scoring System，通用弱點評分系統）</strong>，由 <a href="https://www.first.org/cvss/" target="_blank">FIRST（Forum of Incident Response and Security Teams）</a> 制定，並由 NIST NVD 採用為標準評分機制。</p>
+
 <table>
   <thead><tr><th>等級</th><th>CVSS 分數範圍</th><th>說明</th></tr></thead>
   <tbody>
@@ -578,37 +709,186 @@ Google</code></pre>
     <tr><td><span class="badge bg-blue">LOW</span></td><td>0.1 – 3.9</td><td>低危，攻擊難度高或影響有限</td></tr>
   </tbody>
 </table>
-<p>程式預設篩選 <strong>MEDIUM 以上</strong>（分數 ≥ 4.0）的 CVE。建議：</p>
+
+<h3>CVSS 版本優先順序</h3>
+<p>同一 CVE 可能同時有多個 CVSS 版本的評分，程式取最新版本的分數：<strong>v4.0 &gt; v3.1 &gt; v3.0 &gt; v2.0</strong>。報表中的「CVSS 版本」欄位（如 <code>CVSS3.1</code>、<code>CVSS4.0</code>）即反映所使用的版本。</p>
+<div class="note"><strong>注意</strong>v2.0 與 v3.x/v4.0 的計算方式不同，相同數字的嚴重程度不能直接類比。建議以報表中標示的 CVSS 版本對照 NVD 原始資料判讀。</div>
+
+<h3>篩選建議</h3>
 <ul>
-  <li>日常掃描使用 <code>MEDIUM</code>（預設）</li>
+  <li>日常掃描使用 <code>MEDIUM</code>（預設，分數 ≥ 4.0）</li>
   <li>快速確認高風險項目使用 <code>HIGH</code></li>
   <li>需要零誤報的精簡報表使用 <code>CRITICAL</code></li>
 </ul>
-<p>CVSS 版本優先順序：v4.0 &gt; v3.1 &gt; v3.0 &gt; v2.0（取最新版本的分數）。</p>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════════ -->
 <section id="false-positive">
 <h2>誤判處理機制</h2>
-<p>NVD 的 <strong>關鍵字搜尋</strong>是全文比對，可能找到與軟體無關的 CVE。例如：搜尋「GitHub」可能找到某 Technicolor 設備的 CVE，因為其描述中提到了「GitHub repository」。</p>
-<h3>CPE 關聯性檢查</h3>
-<p>程式對每筆 CVE 執行 <strong>CPE（Common Platform Enumeration）關聯性驗證</strong>：</p>
+<p>NVD 的 <strong>關鍵字搜尋</strong>是全文比對，可能找到與軟體無關的 CVE。例如：搜尋「Maven」可能找到 Jenkins 的 CVE，因為其描述中提到了 Maven 插件。</p>
+
+<h3>兩階段關聯性檢查</h3>
+<p>程式針對 Registry 軟體與 Portable 軟體採用不同的驗證方式：</p>
+
+<h4>Portable 軟體（精確 CPE 比對）</h4>
+<ol>
+  <li>先透過 NVD CPE API 查找軟體對應的精確識別碼（<code>cpe:2.3:a:{vendor}:{product}:*</code>）</li>
+  <li>對每筆 CVE 驗證其 CPE 條目是否包含 <code>:{vendor}:{product}:</code> 字串</li>
+  <li>未出現者判定為可能誤判</li>
+</ol>
+
+<h4>Registry 軟體（關鍵字比對）</h4>
 <ol>
   <li>從 CVE 的 <code>configurations</code> 中提取所有 CPE 條目字串<br>（格式範例：<code>cpe:2.3:a:google:chrome:54.0.2840.87:*</code>）</li>
-  <li>將搜尋名稱拆解為字詞（例如「Google One」→ <code>["google", "one"]</code>）</li>
+  <li>將搜尋名稱拆解為字詞（例如「Google Chrome」→ <code>["google", "chrome"]</code>）</li>
   <li>驗證所有字詞是否都出現在某條 CPE 字串中</li>
-  <li>若 CPE 存在但完全不符 → 判定為<strong>可能誤判</strong>，從版本分析中排除</li>
+  <li>若 CPE 存在但完全不符 → 判定為可能誤判</li>
 </ol>
-<h3>回傳值說明</h3>
+
+<h3>判斷結果說明</h3>
 <table>
-  <thead><tr><th>回傳</th><th>代表意義</th><th>處置方式</th></tr></thead>
+  <thead><tr><th>判斷</th><th>代表意義</th><th>處置方式</th></tr></thead>
   <tbody>
-    <tr><td><code>true</code></td><td>CPE 符合搜尋名稱</td><td>正常納入分析</td></tr>
-    <tr><td><code>false</code></td><td>CPE 存在但不符搜尋名稱</td><td>從 relevant 陣列排除，不影響版本建議</td></tr>
-    <tr><td><code>null</code></td><td>CVE 無 CPE 資料，無法判斷</td><td>保留（寧可保留以免漏報）</td></tr>
+    <tr><td><code>符合</code></td><td>CPE 條目確認與目標軟體相關</td><td>納入版本分析與弱點統計</td></tr>
+    <tr><td><code>不符</code></td><td>CPE 存在但不含搜尋名稱</td><td>移至「可能誤判」區塊，不影響版本建議</td></tr>
+    <tr><td><code>無 CPE 資料</code></td><td>CVE 無 CPE 設定資料，無法判斷</td><td>保留（寧可保留以免漏報）</td></tr>
   </tbody>
 </table>
-<div class="warn"><strong>限制說明</strong>此機制仍可能有誤判或漏判。CPE 比對僅基於名稱字詞，對於縮寫、別名、拼寫差異（如 <code>ffmpeg</code> vs <code>FFmpeg</code>）可能出現誤差。建議將報表結果搭配 NVD 連結人工複核重要項目。</div>
+
+<div class="warn"><strong>限制說明</strong>此機制仍可能有誤判或漏判。CPE 比對僅基於名稱字詞或識別碼，對於縮寫、別名、拼寫差異可能出現誤差。建議將報表結果搭配 NVD 連結人工複核重要項目。</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="api-reference">
+<h2>NVD API 說明</h2>
+<p>程式使用 NIST NVD 提供的兩支 REST API，均為公開免費服務，無需帳號即可呼叫（但有 API Key 時速率限制較寬鬆）。</p>
+
+<div class="note"><strong>API Key 申請</strong>免費申請網址：<a href="https://nvd.nist.gov/developers/request-an-api-key" target="_blank">nvd.nist.gov/developers/request-an-api-key</a>。申請後數分鐘內會收到 Email，將 Key 填入 <code>.env.local</code> 的 <code>NIST_API_KEY</code> 即可生效。</div>
+
+<h3>認證方式（兩支 API 相同）</h3>
+<p>API Key 必須透過 <strong>HTTP Header</strong> 傳送：</p>
+<pre><code>apiKey: your-api-key-here</code></pre>
+<div class="warn"><strong>注意</strong>NVD API v2 不接受將 Key 放在 URL query parameter（例如 <code>?apiKey=…</code>），這樣做會收到 HTTP 404。程式已正確使用 Header 方式。</div>
+
+<h3>速率限制</h3>
+<table>
+  <thead><tr><th>條件</th><th>限制</th><th>程式間隔設定</th></tr></thead>
+  <tbody>
+    <tr><td>有 API Key</td><td>50 requests / 30 秒</td><td>每次請求間隔 <strong>0.7 秒</strong></td></tr>
+    <tr><td>無 API Key</td><td>5 requests / 30 秒</td><td>每次請求間隔 <strong>6.5 秒</strong></td></tr>
+  </tbody>
+</table>
+<p>Portable 軟體每筆需呼叫兩次 API（CPE 查詢 + CVE 查詢），各自計入速率限制。</p>
+
+<hr style="margin:28px 0;border:none;border-top:1px solid #e2e8f0">
+
+<h3>① CVE API v2（弱點查詢）</h3>
+<table>
+  <thead><tr><th>項目</th><th>說明</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Endpoint</strong></td><td><code>https://services.nvd.nist.gov/rest/json/cves/2.0</code></td></tr>
+    <tr><td><strong>Method</strong></td><td>GET</td></tr>
+    <tr><td><strong>呼叫時機</strong></td><td>每個唯一軟體名稱查詢一次</td></tr>
+  </tbody>
+</table>
+
+<h4>使用的查詢參數</h4>
+<table>
+  <thead><tr><th>參數</th><th>值</th><th>說明</th></tr></thead>
+  <tbody>
+    <tr><td><code>keywordSearch</code></td><td>軟體名稱（如 <code>Apache Maven</code>）</td><td>全文關鍵字搜尋，比對 CVE 描述與 CPE 資料</td></tr>
+    <tr><td><code>resultsPerPage</code></td><td><code>MAX_CVES_PER_SOFTWARE</code>（預設 50）</td><td>每次查詢最多回傳筆數；NVD 回傳順序為發布日期由新至舊</td></tr>
+    <tr><td><code>noRejected</code></td><td>（空值）</td><td>排除已被拒絕或撤銷的 CVE</td></tr>
+  </tbody>
+</table>
+
+<h4>回傳資料結構（簡化）</h4>
+<pre><code>{
+  <span class="str">"resultsPerPage"</span>: <span class="num">50</span>,
+  <span class="str">"totalResults"</span>:  <span class="num">123</span>,
+  <span class="str">"vulnerabilities"</span>: [
+    {
+      <span class="str">"cve"</span>: {
+        <span class="str">"id"</span>:          <span class="str">"CVE-2021-26291"</span>,
+        <span class="str">"published"</span>:   <span class="str">"2021-04-23T15:15:00.000"</span>,
+        <span class="str">"descriptions"</span>: [{ <span class="str">"lang"</span>: <span class="str">"en"</span>, <span class="str">"value"</span>: <span class="str">"..."</span> }],
+        <span class="str">"metrics"</span>: {
+          <span class="str">"cvssMetricV31"</span>: [{ <span class="str">"cvssData"</span>: { <span class="str">"baseScore"</span>: <span class="num">9.1</span>, <span class="str">"baseSeverity"</span>: <span class="str">"CRITICAL"</span> } }]
+        },
+        <span class="str">"configurations"</span>: [
+          { <span class="str">"nodes"</span>: [{ <span class="str">"cpeMatch"</span>: [
+            {
+              <span class="str">"criteria"</span>:            <span class="str">"cpe:2.3:a:apache:maven:*:*:*:*:*:*:*:*"</span>,
+              <span class="str">"versionEndExcluding"</span>: <span class="str">"3.8.1"</span>   <span class="comment">// 修復版資訊來源</span>
+            }
+          ]}]}
+        ]
+      }
+    }
+  ]
+}</code></pre>
+
+<h4>程式如何使用回傳資料</h4>
+<ul>
+  <li><code>metrics</code>：取 v4.0 / v3.1 / v3.0 / v2.0 中優先順序最高的分數作為嚴重等級</li>
+  <li><code>configurations[].nodes[].cpeMatch[].criteria</code>：用於關聯性驗證（判斷是否為誤判）</li>
+  <li><code>versionEndExcluding</code> / <code>versionEndIncluding</code>：取出修復版本，比對已安裝版本</li>
+  <li><code>published</code>：用於年份過濾（<code>MIN_YEAR</code>）及 CVE 排列順序</li>
+</ul>
+
+<div class="note"><strong>totalResults 與 resultsPerPage 的關係</strong>若 <code>totalResults</code> 大於 <code>resultsPerPage</code>，代表還有更多 CVE 未被取回。可調高 <code>MAX_CVES_PER_SOFTWARE</code> 取得更完整的結果，但執行時間也會略增。NVD 回傳順序為最新發布在前，設定過低時較舊的 CVE 可能被截斷。</div>
+
+<hr style="margin:28px 0;border:none;border-top:1px solid #e2e8f0">
+
+<h3>② CPE API v2（產品識別碼查詢）</h3>
+<table>
+  <thead><tr><th>項目</th><th>說明</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Endpoint</strong></td><td><code>https://services.nvd.nist.gov/rest/json/cpes/2.0</code></td></tr>
+    <tr><td><strong>Method</strong></td><td>GET</td></tr>
+    <tr><td><strong>呼叫時機</strong></td><td>僅對 <code>PORTABLE_N</code> 設定的免安裝軟體呼叫，在 CVE 查詢之前</td></tr>
+  </tbody>
+</table>
+
+<h4>使用的查詢參數</h4>
+<table>
+  <thead><tr><th>參數</th><th>值</th><th>說明</th></tr></thead>
+  <tbody>
+    <tr><td><code>keywordSearch</code></td><td>軟體名稱（如 <code>Apache Maven</code>）</td><td>搜尋包含此關鍵字的 CPE 條目</td></tr>
+    <tr><td><code>resultsPerPage</code></td><td>20（固定值）</td><td>取前 20 筆 CPE，通常足以找到正確的 <code>vendor:product</code></td></tr>
+  </tbody>
+</table>
+
+<h4>回傳資料結構（簡化）</h4>
+<pre><code>{
+  <span class="str">"products"</span>: [
+    {
+      <span class="str">"cpe"</span>: {
+        <span class="str">"cpeName"</span>: <span class="str">"cpe:2.3:a:apache:maven:3.8.6:*:*:*:*:*:*:*"</span>
+        <span class="comment">//           ^  ^       ^      ^</span>
+        <span class="comment">//           │  vendor  product version</span>
+        <span class="comment">//           └─ type: a=application, o=OS, h=hardware</span>
+      }
+    },
+    ...
+  ]
+}</code></pre>
+
+<h4>CPE 命名格式</h4>
+<p>CPE（Common Platform Enumeration）是 NIST 制定的標準化產品命名規則，格式為：</p>
+<pre><code>cpe:2.3:{type}:{vendor}:{product}:{version}:{update}:{edition}:...
+  例：cpe:2.3:a:apache:maven:3.8.6:*:*:*:*:*:*:*
+  例：cpe:2.3:a:7-zip:7-zip:24.09:*:*:*:*:*:*:*
+  例：cpe:2.3:a:neo4j:neo4j:2025.05.0:*:*:*:*:*:*:*</code></pre>
+
+<h4>程式如何使用回傳資料</h4>
+<ol>
+  <li><code>findBestCPEBase()</code> 從 20 筆結果中找出最符合軟體名稱的 <code>{vendor, product}</code>（優先全詞比對，次選首詞比對）</li>
+  <li>找到後記錄為 <code>cpeBase</code>，後續對每筆 CVE 驗證其 CPE 條目是否包含 <code>:vendor:product:</code> 精確字串</li>
+  <li>若 CPE API 找不到對應識別碼，降級為一般關鍵字比對模式</li>
+</ol>
+
+<div class="tip"><strong>為何 Portable 軟體要多一步 CPE 查詢？</strong>Registry 軟體的名稱（如 <code>7-Zip 24.09 (x64)</code>）通常足以辨識，但 Portable 軟體的名稱可能較短或有歧義（如只填 <code>Maven</code>）。先查 CPE 識別碼可避免把 Jenkins 的 Maven 插件 CVE 誤算為 Apache Maven 的弱點。</div>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════════ -->
@@ -616,29 +896,30 @@ Google</code></pre>
 <h2>常見問題</h2>
 
 <h3>Q：掃描速度很慢，可以加快嗎？</h3>
-<p>速度受 NVD API 速率限制影響。使用 API Key（已預設內建）可達到 50 req/30 s（間隔 0.7 秒），不使用 Key 只有 5 req/30 s（間隔 6.5 秒）。短期可用 <code>LIMIT</code> 參數限制掃描筆數，長期建議將大量固定廠牌加入白名單。</p>
+<p>速度受 NVD API 速率限制影響。使用 API Key 可達到 50 req/30 s（間隔 0.7 秒），不使用 Key 只有 5 req/30 s（間隔 6.5 秒）。短期可用 <code>LIMIT</code> 參數限制掃描筆數，長期建議將大量固定廠牌加入 <code>WHITELIST</code> 白名單。</p>
 
 <h3>Q：出現「HTTP 404」錯誤怎麼辦？</h3>
 <p>最常見原因是 API Key 傳遞方式錯誤。NVD API v2 必須透過 HTTP Header <code>apiKey:</code> 傳送，不可放在 URL query parameter 中。若您修改了程式碼，請確認未將 API Key 加入 <code>URLSearchParams</code>。</p>
 
 <h3>Q：「可能誤判」的 CVE 還要手動查嗎？</h3>
-<p>「可能誤判」的 CVE 已被排除在版本分析之外，不會影響升級建議。若仍想確認，可點擊 CVE ID 連結前往 NVD 查看詳情，確認受影響的軟體是否真的包含您使用的產品。</p>
+<p>「可能誤判」的 CVE 已被排除在版本分析之外，不會影響升級建議。每筆可能誤判項目都附有說明原因。若仍想確認，可點擊 CVE ID 連結前往 NVD，查看「Known Affected Software Configurations」確認受影響產品是否包含您使用的軟體。</p>
 
 <h3>Q：軟體找不到任何 CVE，是真的安全嗎？</h3>
 <p>不一定。NVD 的搜尋是關鍵字比對，若軟體名稱與 NVD 資料庫中的 CPE 命名不一致，就可能搜尋不到。建議：</p>
 <ul>
-  <li>查看程式輸出的 <code>Search: "xxx"</code> 欄位，確認搜尋字詞合理</li>
+  <li>查看程式終端機輸出的 <code>Search: "xxx"</code> 欄位，確認搜尋字詞合理</li>
   <li>直接前往 <a href="https://nvd.nist.gov/vuln/search" target="_blank">NVD 搜尋頁面</a>手動確認</li>
+  <li>對於重要的免安裝軟體，改用 <code>PORTABLE_N</code> 設定，程式會自動透過 CPE API 查找精確識別碼</li>
 </ul>
+
+<h3>Q：狀態顯示「? 請手動確認」是什麼意思？</h3>
+<p>表示該軟體的 CVE 中，有部分尚未在 NVD 記錄修復版本資訊。即使目前安裝版本滿足其他 CVE 的修復要求，仍無法確認對所有 CVE 都安全。請點擊各 CVE 連結查看 NVD 最新資訊，確認是否已有新版本修復。</p>
 
 <h3>Q：為什麼有些軟體沒有出現在任何區塊？</h3>
 <p>Registry 中 <code>DisplayName</code> 為空的項目會被完全忽略，不列入任何統計。</p>
 
 <h3>Q：同一個軟體有多個版本怎麼辦？</h3>
-<p>去重邏輯是以 <code>cleanProductName()</code> 清理版本號後的名稱為鍵，保留第一筆出現的條目，後續相同名稱的條目列在「重複去除的軟體」區塊。建議保留版本較新的軟體，移除舊版後重新掃描。</p>
-
-<h3>Q：<code>whitelist.txt</code> 不存在會怎樣？</h3>
-<p>程式會正常執行，只是不套用任何白名單過濾，終端機會顯示 <code>whitelist.txt not found or empty</code>。</p>
+<p>去重邏輯是以清理版本號後的名稱為鍵，保留第一筆出現的條目，後續相同名稱的條目列在「重複去除的軟體」區塊。建議保留版本較新的軟體，移除舊版後重新掃描。</p>
 </section>
 
 <footer>NIST CVE Scanner &nbsp;·&nbsp; 使用手冊 &nbsp;·&nbsp; 資料來源：<a href="https://nvd.nist.gov/" target="_blank">NIST National Vulnerability Database</a></footer>

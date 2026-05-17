@@ -23,13 +23,16 @@ function isSafeVersion(installed, rec) {
 }
 
 // ─── Load Reports ────────────────────────────────────────────────────────────
-function loadTeamReports(teamDir) {
-    if (!fs.existsSync(teamDir)) {
+async function loadTeamReports(teamDir) {
+    try {
+        await fs.promises.access(teamDir);
+    } catch {
         console.error(`找不到目錄：${teamDir}`);
         process.exit(1);
     }
 
-    const files = fs.readdirSync(teamDir)
+    const allFiles = await fs.promises.readdir(teamDir);
+    const files = allFiles
         .filter(f => f.toLowerCase().endsWith('.json'))
         .sort();
 
@@ -42,7 +45,8 @@ function loadTeamReports(teamDir) {
     for (const f of files) {
         const fullPath = path.join(teamDir, f);
         try {
-            const data = JSON.parse(fs.readFileSync(fullPath, 'utf-8'));
+            const raw = await fs.promises.readFile(fullPath, 'utf-8');
+            const data = JSON.parse(raw);
             if (!data.summary || !Array.isArray(data.results)) {
                 console.warn(`跳過 ${f}：缺少必要欄位（summary / results）`);
                 continue;
@@ -57,10 +61,11 @@ function loadTeamReports(teamDir) {
 }
 
 // ─── HTML Generator ──────────────────────────────────────────────────────────
-function generateTeamHTML(reports, outputPath) {
+async function generateTeamHTML(reports, outputPath) {
     const esc = s => (s || '')
         .replace(/&/g, '&amp;').replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        .replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
 
     const SEV_COLOR = {
         CRITICAL: '#dc2626', HIGH: '#ea580c', MEDIUM: '#d97706', LOW: '#2563eb',
@@ -87,7 +92,10 @@ function generateTeamHTML(reports, outputPath) {
         const needUpgrade = (r.results || []).filter(res =>
             res.recommendedVersion && !isSafeVersion(res.software?.version, res.recommendedVersion)
         ).length;
-        const noRec = (r.results || []).filter(res => !res.recommendedVersion).length;
+        const noRec = (r.results || []).filter(res =>
+            !res.recommendedVersion ||
+            (isSafeVersion(res.software?.version, res.recommendedVersion) && (res.cves || []).some(v => !v.fixedVersion))
+        ).length;
 
         let stClass, stText;
         if (needUpgrade > 0) {
@@ -153,14 +161,21 @@ function generateTeamHTML(reports, outputPath) {
     }).join('\n');
 
     // ── Per-machine detail sections ───────────────────────────────────────────
+    const SEV_ORDER = { CRITICAL: 4, HIGH: 3, MEDIUM: 2, LOW: 1 };
+
     const machineSections = reports.map((r, i) => {
+        const hasUnfixedCVE = res => (res.cves || []).some(v => !v.fixedVersion);
         const needUpgrade = (r.results || []).filter(res =>
             res.recommendedVersion && !isSafeVersion(res.software?.version, res.recommendedVersion)
         ).length;
+        const noRec = (r.results || []).filter(res =>
+            !res.recommendedVersion ||
+            (isSafeVersion(res.software?.version, res.recommendedVersion) && hasUnfixedCVE(res))
+        ).length;
         const aff = r.summary?.affectedSoftware || 0;
-        const borderColor = needUpgrade > 0 ? '#dc2626' : aff > 0 ? '#d97706' : '#16a34a';
-        const iconColor   = needUpgrade > 0 ? '#dc2626' : aff > 0 ? '#d97706' : '#16a34a';
-        const icon = needUpgrade > 0 ? '✗' : aff > 0 ? '?' : '✓';
+        const borderColor = needUpgrade > 0 ? '#dc2626' : noRec > 0 ? '#d97706' : '#16a34a';
+        const iconColor   = needUpgrade > 0 ? '#dc2626' : noRec > 0 ? '#d97706' : '#16a34a';
+        const icon = needUpgrade > 0 ? '✗' : noRec > 0 ? '?' : '✓';
         const mScanDateStr = (r.scanDate || r.generatedAt || '').substring(0, 10).replace(/-/g, '/');
         const mDateRange = r.minYear ? `${r.minYear}/01/01~${mScanDateStr}` : mScanDateStr;
         const wlCount = (r.whitelisted || []).length;
@@ -170,21 +185,29 @@ function generateTeamHTML(reports, outputPath) {
 
         const affectedRows = (r.results || []).map(res => {
             const installed = esc(res.software?.version || '?');
-            const topSev   = res.cves?.[0]?.severity || '';
-            const topScore = res.cves?.[0]?.cvssScore ?? '';
+            const topCVE = (res.cves || []).reduce((best, cve) =>
+                (SEV_ORDER[cve.severity] || 0) > (SEV_ORDER[best?.severity] || 0) ? cve : best, null);
+            const topSev   = topCVE?.severity || '';
+            const topScore = topCVE?.cvssScore ?? '';
+            const unfixedCVE = hasUnfixedCVE(res);
             let recTd, stTd;
             if (res.recommendedVersion) {
                 const safe = isSafeVersion(res.software?.version, res.recommendedVersion);
                 recTd = `${res.recommendedVersion.op === '>=' ? '≥' : '>'} ${esc(res.recommendedVersion.version)}`;
-                stTd  = safe
-                    ? `<td class="st safe">✓ 無須升級</td>`
-                    : `<td class="st danger">✗ 需要升級</td>`;
+                if (!safe) {
+                    stTd = `<td class="st danger">✗ 需要升級</td>`;
+                } else if (unfixedCVE) {
+                    stTd = `<td class="st warn">? 請手動確認</td>`;
+                } else {
+                    stTd = `<td class="st safe">✓ 無須升級</td>`;
+                }
             } else {
                 recTd = '—';
                 stTd  = `<td class="st warn">? 請手動確認</td>`;
             }
             return `<tr>
               <td>${esc(res.software?.name || '?')}</td>
+              <td>${esc(res.software?.publisher || '—')}</td>
               <td>${installed}</td>
               <td style="white-space:nowrap">${recTd}</td>
               <td>${topSev ? badge(topSev, topScore) : '—'}</td>
@@ -195,6 +218,7 @@ function generateTeamHTML(reports, outputPath) {
 
         const cleanRows = (r.cleanResults || []).map(res => `<tr>
               <td>${esc(res.software?.name || '?')}</td>
+              <td>${esc(res.software?.publisher || '—')}</td>
               <td>${esc(res.software?.version || '?')}</td>
               <td>—</td><td>—</td>
               <td style="text-align:center">0</td>
@@ -202,12 +226,12 @@ function generateTeamHTML(reports, outputPath) {
             </tr>`).join('\n');
 
         const separator = cleanRows
-            ? `<tr><td colspan="6" class="sep-lbl">── 以下軟體掃描後無發現弱點 ──</td></tr>`
+            ? `<tr><td colspan="7" class="sep-lbl">── 以下軟體掃描後無發現弱點 ──</td></tr>`
             : '';
 
         const tableHTML = (affectedRows || cleanRows) ? `
       <table>
-        <thead><tr><th>Software</th><th>已安裝版本</th><th>最低安全版本</th><th>最高嚴重度</th><th style="text-align:center">CVE 數</th><th>狀態</th></tr></thead>
+        <thead><tr><th>Software</th><th>Publisher</th><th>已安裝版本</th><th>最低安全版本</th><th>最高嚴重度</th><th style="text-align:center">CVE 數</th><th>狀態</th></tr></thead>
         <tbody>${affectedRows}${separator}${cleanRows}</tbody>
       </table>` : '<p class="empty">無掃描結果</p>';
 
@@ -215,20 +239,29 @@ function generateTeamHTML(reports, outputPath) {
             .filter(res => (res.cves || []).length > 0)
             .map(res => {
                 const installed = res.software?.version || '?';
-                const topSev   = res.cves[0]?.severity || 'NONE';
-                const topScore = res.cves[0]?.cvssScore ?? '';
+                const sortedCves = [...(res.cves || [])].sort((a, b) =>
+                    (b.published || '').localeCompare(a.published || ''));
+                const topCVE = (res.cves || []).reduce((best, cve) =>
+                    (SEV_ORDER[cve.severity] || 0) > (SEV_ORDER[best?.severity] || 0) ? cve : best, null);
+                const topSev   = topCVE?.severity || 'NONE';
+                const topScore = topCVE?.cvssScore ?? '';
+                const unfixedCVE = hasUnfixedCVE(res);
 
                 let recHtml;
                 if (res.recommendedVersion) {
                     const safe = isSafeVersion(res.software?.version, res.recommendedVersion);
-                    recHtml = safe
-                        ? `<div class="rec-bar safe">✓ 目前版本 (${esc(installed)}) 無弱點，無須升級</div>`
-                        : `<div class="rec-bar danger">✗ 建議升級至 ${res.recommendedVersion.op === '>=' ? '≥' : '>'} ${esc(res.recommendedVersion.version)}（目前：${esc(installed)}）</div>`;
+                    if (!safe) {
+                        recHtml = `<div class="rec-bar danger">✗ 建議升級至 ${res.recommendedVersion.op === '>=' ? '≥' : '>'} ${esc(res.recommendedVersion.version)}（目前：${esc(installed)}）</div>`;
+                    } else if (unfixedCVE) {
+                        recHtml = `<div class="rec-bar warn">? 目前版本 (${esc(installed)}) 部分 CVE 無修復版資訊，請手動確認</div>`;
+                    } else {
+                        recHtml = `<div class="rec-bar safe">✓ 目前版本 (${esc(installed)}) 無弱點，無須升級</div>`;
+                    }
                 } else {
                     recHtml = `<div class="rec-bar warn">? 無版本修復資訊，請查閱各 CVE 連結</div>`;
                 }
 
-                const cveRows = res.cves.map(cve => {
+                const cveRows = sortedCves.map(cve => {
                     const fixHtml = cve.fixedVersion
                         ? `<div class="fix">✓ 安全版本：${cve.fixedVersion.op === '>=' ? '≥' : '>'} ${esc(cve.fixedVersion.version)}</div>`
                         : '';
@@ -257,7 +290,7 @@ function generateTeamHTML(reports, outputPath) {
             ${badge(topSev, topScore)}
             <span class="cnt">${res.cves.length} CVE${res.cves.length > 1 ? 's' : ''}</span>
           </summary>
-          <div class="sw-meta">Search: "${esc(res.searchName || '')}"</div>
+          <div class="sw-meta">Publisher: ${esc(res.software?.publisher || 'N/A')} | Search: "${esc(res.searchName || '')}"</div>
           <div class="cve-list">${cveRows}</div>
           ${recHtml}
         </details>`;
@@ -401,28 +434,32 @@ footer{text-align:center;padding:20px;font-size:.78rem;color:#9ca3af}
 </body>
 </html>`;
 
-    fs.writeFileSync(outputPath, html, { encoding: 'utf8' });
+    const htmlBuf = Buffer.concat([Buffer.from([0xEF, 0xBB, 0xBF]), Buffer.from(html, 'utf8')]);
+    await fs.promises.writeFile(outputPath, htmlBuf);
 }
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
-function main() {
+async function main() {
     const args = process.argv.slice(2);
     const teamDir   = path.resolve(args[0] || path.join(__dirname, 'team'));
     const reportDir = path.join(__dirname, 'report');
 
     console.log(`Loading reports from: ${teamDir}`);
-    const reports = loadTeamReports(teamDir);
+    const reports = await loadTeamReports(teamDir);
     console.log(`Loaded ${reports.length} report(s): ${reports.map(r => r._file).join(', ')}`);
 
-    if (!fs.existsSync(reportDir)) fs.mkdirSync(reportDir);
+    await fs.promises.mkdir(reportDir, { recursive: true });
 
     const nowTs = new Date();
     const pad2 = n => String(n).padStart(2, '0');
-    const dateStamp = `${nowTs.getFullYear()}${pad2(nowTs.getMonth()+1)}${pad2(nowTs.getDate())}${pad2(nowTs.getHours())}${pad2(nowTs.getMinutes())}${pad2(nowTs.getSeconds())}`;
+    const dateStamp = `${nowTs.getFullYear()}${pad2(nowTs.getMonth()+1)}${pad2(nowTs.getDate())}`;
     const outputPath = path.join(reportDir, `team_${dateStamp}.html`);
 
-    generateTeamHTML(reports, outputPath);
+    await generateTeamHTML(reports, outputPath);
     console.log(`Team report saved: ${outputPath}`);
 }
 
-main();
+main().catch(e => {
+    console.error(`Fatal error: ${e.message}`);
+    process.exit(1);
+});
