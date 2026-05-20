@@ -62,14 +62,6 @@ main{max-width:860px;margin:24px auto;padding:0 16px 40px}
 
 /* Result */
 #result-card{display:none}
-.result-stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
-.stat-pill{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:10px;padding:10px 16px;text-align:center;min-width:80px}
-.stat-pill .n{font-size:1.7rem;font-weight:800;line-height:1;letter-spacing:-.03em}
-.stat-pill .l{font-size:.68rem;color:#64748b;margin-top:3px;white-space:nowrap}
-.stat-pill.danger{border-color:#fca5a5}.stat-pill.danger .n{color:#dc2626}
-.stat-pill.warn{border-color:#fde68a}.stat-pill.warn .n{color:#d97706}
-.stat-pill.ok{border-color:#86efac}.stat-pill.ok .n{color:#16a34a}
-.stat-pill.blue .n{color:#2563eb}
 .dl-row{display:flex;gap:10px;flex-wrap:wrap}
 .dl-btn{display:inline-flex;align-items:center;gap:8px;border-radius:8px;padding:11px 22px;font-size:.88rem;font-weight:700;text-decoration:none;transition:all .15s;cursor:pointer;border:none}
 .dl-btn.primary{background:#1e3a5f;color:#fff}
@@ -132,7 +124,7 @@ footer{text-align:center;padding:24px;font-size:.74rem;color:#94a3b8}
     </div>
     <div class="form-group">
       <label>CVE 最早年份</label>
-      <input type="number" id="min-year" placeholder="空白=當年−10">
+      <input type="number" id="min-year" placeholder="空白=當年−5（預設）">
       <span class="hint">只顯示該年份後發佈的 CVE</span>
     </div>
     <div class="form-group">
@@ -174,9 +166,9 @@ footer{text-align:center;padding:24px;font-size:.74rem;color:#94a3b8}
 <!-- Result -->
 <div class="card" id="result-card">
   <div class="card-title">✅ 掃描完成</div>
-  <div class="result-stats" id="result-stats"></div>
   <div class="dl-row">
     <button id="open-report-btn" class="dl-btn primary">📄 在新分頁開啟報表</button>
+    <a id="dl-html" class="dl-btn secondary" download="result.html">⬇ 下載報表 HTML</a>
     <a id="dl-json" class="dl-btn secondary" download="result.json">⬇ result.json</a>
   </div>
 </div>
@@ -337,19 +329,34 @@ function sleep(ms, signal) {
     });
 }
 
-async function nvdFetch(url, apiKey, signal, retries = 3) {
+const MAX_FETCH_RETRIES   = 10;   // total retry attempts per software item
+const FETCH_RETRY_DELAY_MS = 5000; // ms between retries (except 429 rate-limit)
+
+async function nvdFetch(url, apiKey, signal, retries = MAX_FETCH_RETRIES, onRetry = null) {
     const headers = {};
     // When proxied through local server, API key is added server-side to avoid CORS preflight
     if (apiKey && !window.__NVD_PROXY__) headers['apiKey'] = apiKey;
+    const attempt = MAX_FETCH_RETRIES - retries + 1;
+    const delaySec = FETCH_RETRY_DELAY_MS / 1000;
     let res;
     try {
-        res = await fetch(url, { headers, signal });
+        // 45 s per-request browser timeout: longer than proxy's 30 s NVD timeout so the
+        // proxy always responds first under normal conditions, but catches cases where the
+        // proxy hangs (e.g. 4 consecutive NVD timeouts = ~124 s wait without this guard).
+        const perReqSignal = typeof AbortSignal.any === 'function'
+            ? AbortSignal.any([signal, AbortSignal.timeout(45000)])
+            : signal;
+        res = await fetch(url, { headers, signal: perReqSignal });
     } catch (err) {
-        if (err.name === 'AbortError') throw err;
-        // Network-level failure (proxy crashed / socket reset) — retry with longer pause
+        if (err.name === 'AbortError' && signal.aborted) throw err; // user cancelled
+        // TimeoutError (45 s browser guard) or network error — retry
         if (retries > 0) {
-            await sleep(3000, signal);
-            return nvdFetch(url, apiKey, signal, retries - 1);
+            const isTimeout = err.name === 'TimeoutError' || (err.name === 'AbortError' && !signal.aborted);
+            onRetry?.(isTimeout
+                ? `請求逾時，${delaySec} 秒後重試 ${attempt}/${MAX_FETCH_RETRIES}…`
+                : `連線失敗 [${err.name}]，${delaySec} 秒後重試 ${attempt}/${MAX_FETCH_RETRIES}…`);
+            await sleep(FETCH_RETRY_DELAY_MS, signal);
+            return nvdFetch(url, apiKey, signal, retries - 1, onRetry);
         }
         throw err;
     }
@@ -359,27 +366,30 @@ async function nvdFetch(url, apiKey, signal, retries = 3) {
         } catch (_) {
             // Truncated response (proxy lost NVD connection mid-stream) — retry
             if (retries > 0) {
-                await sleep(3000, signal);
-                return nvdFetch(url, apiKey, signal, retries - 1);
+                onRetry?.(`回應不完整，${delaySec} 秒後重試 ${attempt}/${MAX_FETCH_RETRIES}…`);
+                await sleep(FETCH_RETRY_DELAY_MS, signal);
+                return nvdFetch(url, apiKey, signal, retries - 1, onRetry);
             }
             throw new Error('NVD API 回應不完整（連線中斷）');
         }
     }
     if (res.status === 429 && retries > 0) {
+        onRetry?.(`速率限制 (429)，15 秒後重試 ${attempt}/${MAX_FETCH_RETRIES}…`);
         await sleep(15000, signal);
-        return nvdFetch(url, apiKey, signal, retries - 1);
+        return nvdFetch(url, apiKey, signal, retries - 1, onRetry);
     }
-    // 502/503 = proxy couldn't reach NVD; 403 = NVD rejected — all worth one retry
-    if ((res.status === 502 || res.status === 503 || res.status === 403) && retries > 0) {
-        await sleep(5000, signal);
-        return nvdFetch(url, apiKey, signal, retries - 1);
+    // 502/503/504 = proxy error or NVD timeout; 403 = NVD rejected — all worth one retry
+    if ((res.status === 502 || res.status === 503 || res.status === 504 || res.status === 403) && retries > 0) {
+        onRetry?.(`HTTP ${res.status}，${delaySec} 秒後重試 ${attempt}/${MAX_FETCH_RETRIES}…`);
+        await sleep(FETCH_RETRY_DELAY_MS, signal);
+        return nvdFetch(url, apiKey, signal, retries - 1, onRetry);
     }
     throw new Error(`NVD API HTTP ${res.status}`);
 }
 
-async function searchCVEs(keyword, apiKey, maxCves, signal) {
+async function searchCVEs(keyword, apiKey, maxCves, signal, onRetry) {
     const params = new URLSearchParams({ keywordSearch: keyword, resultsPerPage: String(maxCves), noRejected: '' });
-    return nvdFetch(`${NVD_CVE_BASE}?${params}`, apiKey, signal);
+    return nvdFetch(`${NVD_CVE_BASE}?${params}`, apiKey, signal, MAX_FETCH_RETRIES, onRetry);
 }
 
 // ─── HTML Report (matches cve-checker.js generateHTML output) ─────────────────
@@ -645,7 +655,6 @@ const progressBar  = document.getElementById('progress-bar');
 const progressStats = document.getElementById('progress-stats');
 const progressLog  = document.getElementById('progress-log');
 const resultCard  = document.getElementById('result-card');
-const resultStats = document.getElementById('result-stats');
 
 // Restore settings
 const LS = { key: 'nvd_api_key', wl: 'nvd_whitelist', sev: 'nvd_severity', year: 'nvd_min_year', max: 'nvd_max_cves' };
@@ -721,7 +730,7 @@ scanBtn.addEventListener('click', async () => {
     const wlRaw      = $id('whitelist').value;
     const minSev     = $id('min-severity').value;
     const minYearVal = $id('min-year').value.trim();
-    const minYear    = minYearVal ? (parseInt(minYearVal) || 0) : (new Date().getFullYear() - 10);
+    const minYear    = minYearVal ? (parseInt(minYearVal) || 0) : (new Date().getFullYear() - 5);
     const maxCves    = Math.max(1, parseInt($id('max-cves').value) || 50);
     const whitelist  = wlRaw.split(',').map(s => s.trim()).filter(Boolean);
     const delay      = window.__NVD_DELAY__ ?? (apiKey ? 700 : 6500);
@@ -801,7 +810,8 @@ scanBtn.addEventListener('click', async () => {
             if (signal.aborted) break;
 
             try {
-                const resp = await searchCVEs(searchName, apiKey, maxCves, signal);
+                const resp = await searchCVEs(searchName, apiKey, maxCves, signal,
+                    msg => logLine(`  <span class="l-warn">  🔄 ${msg}</span>`));
                 const allCVEs = (resp.vulnerabilities || []).map(v => ({ ...v, _cvss: getCvss(v.cve) }));
 
                 const checked = allCVEs
@@ -867,12 +877,9 @@ scanBtn.addEventListener('click', async () => {
                 }
             } catch (apiErr) {
                 if (apiErr.name === 'AbortError') throw apiErr;
-                logLine(`  <span class="l-err">✗ 錯誤：${esc(apiErr.message)}</span>`);
-                if (/Failed to fetch|NetworkError|CORS/i.test(apiErr.message)) {
-                    const hint = window.__NVD_PROXY__
-                        ? '代理伺服器連線中斷，請重新整理頁面後再試。'
-                        : '可能是 CORS 問題。請確認可直接連線 NIST NVD (services.nvd.nist.gov)，或改用本機 Node.js 版本。';
-                    logLine(`  <span class="l-warn">  提示：${hint}</span>`);
+                logLine(`  <span class="l-err">✗ 重試 ${MAX_FETCH_RETRIES} 次後仍失敗：${esc(apiErr.message)}</span>`);
+                if (/CORS/i.test(apiErr.message)) {
+                    logLine(`  <span class="l-warn">  提示：可能是 CORS 問題。請確認可直接連線 NIST NVD (services.nvd.nist.gov)，或改用本機 Node.js 版本。</span>`);
                 }
             }
         }
@@ -881,11 +888,20 @@ scanBtn.addEventListener('click', async () => {
     }
 
     const cancelled = signal.aborted;
+    // Calculate status breakdown (also used by pills below)
+    const needUp      = results.filter(r => r.recommendedVersion && !isSafeVersion(r.software.version, r.recommendedVersion)).length;
+    const safeAlready = results.filter(r => r.recommendedVersion && isSafeVersion(r.software.version, r.recommendedVersion) && !r.cves.some(v => !v.fixedVersion)).length;
+    const manCheck    = results.filter(r => !r.recommendedVersion || (isSafeVersion(r.software.version, r.recommendedVersion) && r.cves.some(v => !v.fixedVersion))).length;
     logLine('─'.repeat(64), 'l-gray');
     if (cancelled) {
         logLine('<span class="l-warn">■ 掃描已取消</span>');
     } else {
-        logLine(`<span class="l-ok l-b">✓ 掃描完成</span> — ${idx} 項掃描・${results.length} 項有弱點・${totalCVEs} 筆 CVE`);
+        const parts = [];
+        if (safeAlready > 0) parts.push(`${safeAlready} 個已為最新版`);
+        if (needUp > 0) parts.push(`${needUp} 個建議升級`);
+        if (manCheck > 0) parts.push(`${manCheck} 個待確認`);
+        const breakdown = results.length > 0 && parts.length > 0 ? `，其中 ${parts.join('，')}` : '';
+        logLine(`<span class="l-ok l-b">✓ 掃描完成</span> — ${idx} 項掃描・${cleanResults.length} 項無弱點，${results.length} 項有弱點${breakdown}`);
     }
     updateBar(idx, total, totalCVEs);
 
@@ -921,16 +937,8 @@ scanBtn.addEventListener('click', async () => {
     const jsonUrl  = URL.createObjectURL(jsonBlob);
     blobUrls.push(htmlUrl, jsonUrl);
     $id('open-report-btn').onclick = () => window.open(htmlUrl, '_blank');
+    $id('dl-html').href = htmlUrl;
     $id('dl-json').href = jsonUrl;
-
-    // ── Result summary pills ───────────────────────────────────────────────────
-    const needUp   = results.filter(r => r.recommendedVersion && !isSafeVersion(r.software.version, r.recommendedVersion)).length;
-    const manCheck = results.filter(r => !r.recommendedVersion || (isSafeVersion(r.software.version, r.recommendedVersion) && r.cves.some(v => !v.fixedVersion))).length;
-    resultStats.innerHTML = `
-      <div class="stat-pill ${needUp > 0 ? 'danger' : 'ok'}"><div class="n">${needUp}</div><div class="l">建議升級</div></div>
-      <div class="stat-pill warn"><div class="n">${manCheck}</div><div class="l">請手動確認</div></div>
-      <div class="stat-pill ok"><div class="n">${cleanResults.length}</div><div class="l">無弱點</div></div>
-      <div class="stat-pill blue"><div class="n">${idx}</div><div class="l">已掃描</div></div>`;
 
     resultCard.style.display = 'block';
     resultCard.scrollIntoView({ behavior: 'smooth' });

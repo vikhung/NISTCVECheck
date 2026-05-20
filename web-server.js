@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 'use strict';
 
-const http  = require('http');
-const https = require('https');
-const fs    = require('fs');
-const path  = require('path');
-const os    = require('os');
+const http = require('http');
+const fs   = require('fs');
+const path = require('path');
+const os   = require('os');
 
 // ─── Port resolution ─────────────────────────────────────────────────────────
 // Priority: CLI arg → PORT env var → default 8093
@@ -73,49 +72,100 @@ if (defaultApiKey) {
 }
 const injectScript = `<script>(function(){\n  ${injectLines.join('\n  ')}\n})();</script>`;
 
-// Keep-alive agent: reuses the TLS connection across requests (same as CLI behaviour).
-// maxSockets:1 ensures sequential requests; keepAliveMsecs keeps the socket warm between the
-// ~700 ms inter-request delays.  If NVD closes a stale socket the client retry logic recovers.
-const nvdAgent = new https.Agent({ keepAlive: true, keepAliveMsecs: 10000, maxSockets: 1 });
+// Uses the same built-in fetch() (undici) as cve-checker.js — connection management
+// is handled automatically, eliminating the stale-socket ECONNRESET that plagued the
+// old https.request() + keepAlive agent approach.
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+const MAX_RETRIES    = 3;
+const RETRY_DELAY_MS = 1500;
 
 // ─── NVD proxy ────────────────────────────────────────────────────────────────
 function proxyNVD(req, res) {
     const qs = req.url.slice('/api/nvd'.length); // preserve '?...' query string
-    const reqHeaders = { 'User-Agent': 'CVE-Web-Scanner/1.0' };
-    if (defaultApiKey) reqHeaders['apiKey'] = defaultApiKey;
 
-    // Without this, an abrupt browser disconnect (TCP RST) while pipe() is active
+    // Without this, an abrupt browser disconnect (TCP RST) while writing
     // emits an unhandled 'error' on res and crashes the process.
     res.on('error', () => {});
 
-    // Guard against double-write (e.g. error fires after response already started)
+    // Stop retrying if the browser already disconnected.
+    let cancelled = false;
+    req.on('close', () => { cancelled = true; });
+
+    // Guard against double-write
     let settled = false;
     const fail = (code, msg) => {
         if (settled) {
-            // Headers already sent; just close the stream so the browser doesn't hang
             try { if (!res.writableEnded) res.end(); } catch (_) {}
             return;
         }
         settled = true;
+        const errBody = JSON.stringify({ error: msg });
         try {
-            if (!res.headersSent) res.writeHead(code, { 'Content-Type': 'application/json' });
-            if (!res.writableEnded)  res.end(JSON.stringify({ error: msg }));
+            if (!res.headersSent) res.writeHead(code, {
+                'Content-Type': 'application/json',
+                'Connection': 'close',
+                'Content-Length': Buffer.byteLength(errBody),
+            });
+            if (!res.writableEnded) res.end(errBody);
         } catch (_) {}
     };
 
-    const proxyReq = https.request(
-        { hostname: NVD_HOST, path: NVD_PATH + qs, method: 'GET', headers: reqHeaders, timeout: 30000, agent: nvdAgent },
-        proxyRes => {
+    async function tryRequest(retried) {
+        if (cancelled) return;
+
+        const reqHeaders = { 'User-Agent': 'CVE-Web-Scanner/1.0' };
+        if (defaultApiKey) reqHeaders['apiKey'] = defaultApiKey;
+
+        try {
+            const nvdRes = await fetch(`https://${NVD_HOST}${NVD_PATH}${qs}`, {
+                headers: reqHeaders,
+                signal: AbortSignal.timeout(30000),
+            });
+
+            // Retry on 5xx server errors
+            if (nvdRes.status >= 500 && retried < MAX_RETRIES) {
+                console.error(`[NVD proxy] HTTP ${nvdRes.status}，重試 ${retried + 1}/${MAX_RETRIES}`);
+                await sleep(RETRY_DELAY_MS);
+                return tryRequest(retried + 1);
+            }
+
+            const body = await nvdRes.arrayBuffer();
+            if (cancelled) return;
+
             settled = true;
-            res.writeHead(proxyRes.statusCode, { 'Content-Type': 'application/json; charset=utf-8' });
-            proxyRes.pipe(res);
-            // Handle mid-stream connection drop from NVD
-            proxyRes.on('error', () => { try { if (!res.writableEnded) res.end(); } catch (_) {} });
+            const buf = Buffer.from(body);
+            // Content-Length lets the browser know response boundaries without
+            // relying solely on TCP FIN timing (avoids race conditions on Windows).
+            // Connection: close forces a fresh TCP connection per request.
+            res.writeHead(nvdRes.status, {
+                'Content-Type': 'application/json; charset=utf-8',
+                'Connection': 'close',
+                'Content-Length': buf.length,
+            });
+            res.end(buf);
+
+        } catch (err) {
+            if (cancelled) return;
+            const isTimeout = err.name === 'TimeoutError' || err.name === 'AbortError';
+            if (retried < MAX_RETRIES) {
+                console.error(`[NVD proxy] ${isTimeout ? '逾時（30s）' : err.message}，重試 ${retried + 1}/${MAX_RETRIES}`);
+                await sleep(RETRY_DELAY_MS);
+                return tryRequest(retried + 1);
+            }
+            if (isTimeout) {
+                fail(504, 'NVD API timeout (30 s)');
+            } else {
+                console.error(`[NVD proxy] ${err.message}`);
+                fail(502, err.message);
+            }
         }
-    );
-    proxyReq.on('timeout', () => { proxyReq.destroy(); fail(504, 'NVD API timeout (30 s)'); });
-    proxyReq.on('error',   err => { console.error(`[NVD proxy] ${err.message}`); fail(502, err.message); });
-    proxyReq.end();
+    }
+
+    tryRequest(0).catch(err => {
+        console.error('[NVD proxy] 未預期錯誤：', err.message);
+        fail(500, 'Internal proxy error');
+    });
 }
 
 // ─── Request handler ──────────────────────────────────────────────────────────
@@ -155,10 +205,6 @@ const server = http.createServer((req, res) => {
     });
 });
 
-// Extend keep-alive timeout so the browser→proxy connection isn't closed
-// between scan items when NVD responses are slow (default 5 s is too short).
-server.keepAliveTimeout = 65000;
-server.headersTimeout   = 66000;
 
 // ─── Start ────────────────────────────────────────────────────────────────────
 server.listen(PORT, '0.0.0.0', () => {
