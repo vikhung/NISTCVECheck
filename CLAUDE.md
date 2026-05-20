@@ -22,6 +22,10 @@ node cve-checker.js scan.json -1 -1 2020   # -1 代表使用該參數的預設�
 
 # 顯示說明
 node cve-checker.js --help
+
+# npm 快速指令（package.json 定義）
+npm start           # 等同 node cve-checker.js
+npm run check       # 等同 node cve-checker.js MEDIUM 5
 ```
 
 不需要執行 `npm install`，程式僅使用 Node.js 內建模組（`fs`、`path`、`os`、`child_process`、`crypto`、內建 `fetch`）。Node.js 最低版本需求：**18.0.0**。
@@ -208,6 +212,49 @@ Apple
 ```
 
 每行一個廠牌關鍵字；不分大小寫部分比對軟體的 `publisher` 欄位。建議改用 `.env.local` 的 `WHITELIST=` 設定；兩者並存時自動合併去重（env 優先）。
+
+## Claude Code 自訂指令
+
+定義於 `.claude/commands/`，在 Claude Code 中以 `/` 前綴呼叫：
+
+| 指令 | 用途 |
+|------|------|
+| `/verify` | 確認 Node.js 版本、`team-report.js` 可執行、`cve-checker.js` 語法正確，及 v18+ API 使用情況 |
+| `/security-check` | 靜態安全分析（XSS、命令注入、路徑遍歷等）並評估 Node.js 現代化程度 |
+| `/update-docs` | 依程式碼實際狀態同步更新 `README.md`、`CLAUDE.md`、`docs/operator.html` |
+
+## web-server.js（Web 伺服器）
+
+```bash
+node web-server.js          # 預設 Port 8092
+PORT=9000 node web-server.js  # 自訂 Port
+npm run web                 # 同上（package.json 捷徑）
+```
+
+啟動後自動顯示本機與區域網路 IP，其他使用者可直接透過瀏覽器連線，無需安裝任何軟體。僅使用 Node.js 內建模組（`http`、`fs`、`path`、`os`）。
+
+## web-client.html（瀏覽器端 Web 掃描器）
+
+單一 HTML 檔案，無需任何後端或 Node.js，直接用瀏覽器開啟即可使用。
+
+```
+直接開啟：在 Windows Explorer 雙擊 web-client.html
+或放置於任何靜態網頁伺服器
+```
+
+功能：
+- 上傳 `scan.json`（由 `cve-checker.js` 或 `findSW.ps1` 產生）
+- 設定 NIST API Key（可選，設定後速率由 6.5 秒/次加快至 0.7 秒/次）
+- 設定白名單、最低嚴重度、年份範圍
+- 掃描進度即時顯示（可中途取消）
+- 下載 `result.html`（視覺化報表，與 CLI 版格式相同）和 `result.json`
+
+報表結構與 `cve-checker.js` 的 `generateHTML()` 輸出相同，`result.json` 亦與 CLI 版報表格式相容。
+
+**注意事項：**
+- 需要瀏覽器能直接連線 `services.nvd.nist.gov`（若遇 CORS 錯誤，表示網路限制，需改用本機 CLI 版）
+- 不支援 Portable 軟體（`PORTABLE_N`）與 Registry 直接掃描（需透過 scan.json 輸入）
+- 所有設定（API Key、白名單等）自動儲存於瀏覽器 localStorage
 
 ## 其他檔案
 
