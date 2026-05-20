@@ -6,7 +6,7 @@ cve-report-*.html
 team/
 
 # Local Claude Code settings (contain local paths)
-.claude/
+# .claude/
 
 # Logs
 logs

@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node *)",
+      "WebSearch",
+      "Bash(not exist *)",
+      "Bash(dir \"D:\\\\VikGitHub\\\\VikClaudeCode\\\\NISTCVECheck\\\\.claude\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8092/)",
+      "Bash(kill %1)"
+    ]
+  }
+}
