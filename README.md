@@ -35,7 +35,7 @@ PORTABLE_1=Apache Maven|3.8.6|Apache Software Foundation
 ## 使用方式
 
 ```bash
-# 直接掃描本機 Registry（預設值：MEDIUM 以上、近 10 年）
+# 直接掃描本機 Registry（預設值：HIGH 以上、近 5 年）
 node cve-checker.js
 
 # 使用預先產生的 JSON 檔案
@@ -49,9 +49,9 @@ node cve-checker.js scan.json -1 -1 2020   # -1 代表使用該參數的預設�
 | 參數 | 有效值 | 預設值 |
 |---|---|---|
 | `FILE` | 檔案路徑 \| `-1` \| 省略 | 本機 Registry |
-| `MIN_SEVERITY` | `LOW` / `MEDIUM` / `HIGH` / `CRITICAL` \| `-1` | `MEDIUM` |
+| `MIN_SEVERITY` | `LOW` / `MEDIUM` / `HIGH` / `CRITICAL` \| `-1` | `HIGH` |
 | `LIMIT` | N \| `-1` | 不限 |
-| `MIN_YEAR` | YYYY \| `-1` | 當年 − 10 |
+| `MIN_YEAR` | YYYY \| `-1` | 當年 − 5 |
 
 報表輸出至 `report/` 目錄，同時產生 HTML 與 JSON 兩個檔案：
 
@@ -80,14 +80,14 @@ node team-report.js C:\scans\team
 
 ## 在遠端機器產生掃描檔
 
-在任意 Windows 機器上執行 `support/findSW.ps1`，產生輸入 JSON：
+在任意 Windows 機器上執行 `findSW.ps1`，產生輸入 JSON：
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File support\findSW.ps1
-# 輸出位置：Desktop\esrm-scan.json
+powershell -ExecutionPolicy Bypass -File findSW.ps1
+# 輸出位置：scan.json
 
 # 自訂使用者名稱或輸出路徑
-powershell -ExecutionPolicy Bypass -File support\findSW.ps1 -EsrmUsername "john" -OutputPath "C:\scan.json"
+powershell -ExecutionPolicy Bypass -File findSW.ps1 -Username "john" -OutputPath "C:\scan.json"
 ```
 
 將產生的 `.json` 複製回來後，作為第一個參數傳入 `cve-checker.js` 即可。

@@ -5,18 +5,28 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## 執行方式
 
 ```bash
-# 直接掃描 PC Registry（所有預設值：MEDIUM 以上、近 10 年）
+# 直接掃描 PC Registry（所有預設值：HIGH 以上、近 5 年）
+# 注意：Registry 掃描僅支援 Windows
 node cve-checker.js
+npm start          # 等同上述指令
 
-# 使用預先產生的 JSON 檔案作為輸入
+# 快速測試（HIGH 以上、最多 5 筆軟體）
+node cve-checker.js -1 HIGH 5
+
+# 使用預先產生的 JSON 檔案作為輸入（跨平台）
 node cve-checker.js scan.json
 
 # 完整參數格式：[FILE] [MIN_SEVERITY] [LIMIT] [MIN_YEAR]
 node cve-checker.js -1 HIGH 5 2020
 node cve-checker.js scan.json -1 -1 2020   # -1 代表使用該參數的預設值
+
+# 顯示說明
+node cve-checker.js --help
 ```
 
-不需要執行 `npm install`，程式僅使用 Node.js 內建模組（`fs`、`path`、`os`、`child_process`、`crypto`、內建 `fetch`）。Node.js 最低版本需求：**18.0.0**（`fetch` 於 v18.0 加入、`AbortSignal.timeout` 於 v17.3 加入、`crypto.randomUUID` 於 v14.17 加入、`fs.promises` 於 v10 加入）。
+不需要執行 `npm install`，程式僅使用 Node.js 內建模組（`fs`、`path`、`os`、`child_process`、`crypto`、內建 `fetch`）。Node.js 最低版本需求：**18.0.0**。
+
+**輸出**：`report/vik_result_YYYYMMDD.html`（視覺化報表）與 `report/vik_result_YYYYMMDD.json`（供 team-report.js 讀取）。
 
 ## team-report.js（團隊彙整報表）
 
@@ -36,18 +46,18 @@ node team-report.js C:\scans\team
 **team-report.js 彙總報表結構：**
 - **機器總覽表**：各機器的 CVE 日期範圍（格式 `YYYY/01/01~YYYY/MM/DD`）、軟體總計、掃描數、有弱點數、CVE 數、狀態
 - **跨機器需升級軟體彙整**：依受影響機器數排序，顯示每台機器的版本
-- **各機器詳細結果**：每台機器的 meta 資訊列（CVE 日期範圍、來源、最低嚴重度、軟體總計、白名單數、子元件/重複數、掃描數、有弱點數、CVE 數）、軟體概覽表、**可展開的 CVE 詳細清單**（每筆有弱點軟體各一個 `<details>` 折疊區塊，含 CVE ID/連結、嚴重度、CVSS 版本、描述、安全版本、建議列）
+- **各機器詳細結果**：每台機器的 meta 資訊列、軟體概覽表、**可展開的 CVE 詳細清單**（每筆有弱點軟體各一個 `<details>` 折疊區塊，含 CVE ID/連結、嚴重度、CVSS 版本、描述、安全版本、建議列）
 
-## support/findSW.ps1
+## findSW.ps1
 
 在遠端 Windows 機器上產生輸入 JSON：
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File support\findSW.ps1
-# 預設輸出：Desktop\esrm-scan.json（UTF-8，無 BOM）
+powershell -ExecutionPolicy Bypass -File findSW.ps1
+# 預設輸出：scan.json（UTF-8，無 BOM）
 
 # 可選參數
-powershell -ExecutionPolicy Bypass -File support\findSW.ps1 -EsrmUsername "john" -OutputPath "C:\scan.json"
+powershell -ExecutionPolicy Bypass -File findSW.ps1 -Username "john" -OutputPath "C:\scan.json"
 ```
 
 **與內建 Registry 掃描器的差異**：`findSW.ps1` 只收錄同時具有 `DisplayName` 和 `DisplayVersion` 的項目；內建掃描器（`getInstalledSoftware()`）只要有 `DisplayName` 即收錄，`version` 可為空。因此兩者產出的軟體數量可能不同。
@@ -62,7 +72,7 @@ powershell -ExecutionPolicy Bypass -File support\findSW.ps1 -EsrmUsername "john"
 NIST_API_KEY=your-api-key-here
 ```
 
-未設定 Key 時仍可運作，但速率限制較嚴（每次請求間隔 6.5 秒；有 Key 則為 0.7 秒）。API Key 必須透過 HTTP **header** `apiKey:` 傳送（不可放 query param，否則 NVD 回傳 HTTP 404）。
+未設定 Key 時仍可運作，但速率限制較嚴（每次請求間隔 6.5 秒；有 Key 則為 0.7 秒）。API Key 必須透過 HTTP **header** `apiKey:` 傳送（不可放 query param，否則 NVD 回傳 HTTP 404）。HTTP 429 時自動等待 15 秒後重試，最多 3 次。
 
 ### 每次查詢最大 CVE 筆數（MAX_CVES_PER_SOFTWARE）
 
@@ -70,7 +80,7 @@ NIST_API_KEY=your-api-key-here
 MAX_CVES_PER_SOFTWARE=50
 ```
 
-NVD API 每次查詢最多回傳幾筆 CVE（預設 50）。數值越高越完整，但回應時間略增。NVD 回傳順序為發布日期由新至舊，若設定過低可能遺漏較舊的 CVE。
+NVD 回傳順序為發布日期由新至舊，若設定過低可能遺漏較舊的 CVE。
 
 ### 掃描模式（PORTABLE_ONLY）
 
@@ -132,40 +142,38 @@ PORTABLE_N       ─────────────────────
 1. **資料來源** — `getInstalledSoftware()` 執行內嵌的 PowerShell 腳本（將暫存 `.ps1` 以 UTF-8 BOM 寫入，透過 `Buffer.from([0xEF,0xBB,0xBF])` 避免編碼問題）；或以 `JSON.parse(fs.readFileSync(file))` 讀取指定 JSON 檔案。
 
 2. **三層過濾（Registry/JSON 項目，查詢前）**
-   - `matchWhitelist()`：略過 `publisher` 欄位符合白名單關鍵字的軟體（來源：`ENV.WHITELIST` 逗號分隔 ＋ `whitelist.txt` 逐行，自動合併去重）
+   - `matchWhitelist()`：略過 `publisher` 欄位符合白名單關鍵字的軟體
    - `shouldSkip()`：`SKIP_PATTERNS` 正則過濾子元件（VC++ Runtime 子項、Office Click-to-Run 元件、Python 子安裝項）
    - `cleanProductName()` 去重：去除版本號/架構字串後，名稱相同的多筆 Registry 項目合併為一次查詢
 
    若 `PORTABLE_ONLY=true`，Registry/JSON 項目略過此步驟（不加入 queryMap）。`report.summary.totalSoftware` = Registry/JSON 軟體數（PORTABLE_ONLY 時為 0）+ Portable 數。
 
-3. **Portable 軟體 CPE 查找** — 每筆 `PORTABLE_N` 項目先呼叫 `lookupCPEs(keyword)` 查詢 `https://services.nvd.nist.gov/rest/json/cpes/2.0`，再由 `findBestCPEBase()` 從結果中找出最符合的 `{vendor, product}` 組合（優先全詞比對，次選首詞比對）。找到後記錄為 `cpeBase`，供後續關聯性檢查使用；未找到則降級為關鍵字比對。
+3. **Portable 軟體 CPE 查找** — 每筆 `PORTABLE_N` 項目先呼叫 `lookupCPEs(keyword)` 查詢 NVD CPE API，再由 `findBestCPEBase()` 從結果中找出最符合的 `{vendor, product}` 組合（優先全詞比對，次選首詞比對）。找到後記錄為 `cpeBase`，供後續關聯性檢查使用；未找到則降級為關鍵字比對。
 
-4. **NVD CVE API** — `searchCVEs(keyword)` 呼叫 `https://services.nvd.nist.gov/rest/json/cves/2.0`，參數：`keywordSearch`、`resultsPerPage=MAX_CVES_PER_SOFTWARE`、`noRejected`。速率限制：有 Key 時每次請求間隔 700 ms；無 Key 時 6500 ms。Portable 軟體每筆消耗兩次 API 呼叫（CPE + CVE），各自計入速率限制。**注意**：`pubStartDate` 必須與 `pubEndDate` 成對使用，否則 NVD 回傳 HTTP 404；年份過濾改以 `minYear` 在客戶端篩選。
+4. **NVD CVE API** — `searchCVEs(keyword)` 呼叫 NVD CVE API，參數：`keywordSearch`、`resultsPerPage=MAX_CVES_PER_SOFTWARE`、`noRejected`。**注意**：`pubStartDate` 必須與 `pubEndDate` 成對使用，否則 NVD 回傳 HTTP 404；年份過濾改以 `minYear` 在客戶端篩選。
 
 5. **關聯性檢查（兩種模式）**
    - **Portable 軟體**（有 `cpeBase`）：`cveMatchesCPEBase(cve, vendor, product)` 驗證 CVE CPE 條目中是否含 `:vendor:product:`。回傳 `true`（符合）、`false`（確認不符）或 `null`（無 CPE 資料，保留）。
    - **Registry 軟體**：`cveRelevanceCheck(cve, searchName)` 驗證搜尋名稱的所有字詞是否都出現在 CPE 條目中。
-   - 回傳 `false` 的 CVE 列入 `mismatchedCVEs`（含 `mismatchReason` 說明文字），不計入弱點統計，但在報表「可能誤判」區塊供使用者自行判斷。
+   - 回傳 `false` 的 CVE 列入 `mismatchedCVEs`（含 `mismatchReason`），不計入弱點統計，但在報表「可能誤判」區塊顯示。
 
 6. **版本邏輯**
-   - `extractFixedVersion(cve, searchName, cpeBase)`：讀取 `configurations[].nodes[].cpeMatch[]`；`versionEndExcluding` → `op: ">="`, `versionEndIncluding` → `op: ">"`。有 `cpeBase` 時用 `vendor+product` 字詞過濾 CPE 條目（避免顯示名稱中含 "community"、"edition" 等不在 CPE 字串中的詞）；無 `cpeBase` 時用 `searchName` 字詞過濾。回傳所有符合 CPE 中的最高版本。
-   - `isSafeVersion(installed, rec)`：使用 `compareVersions()`（數字分段比對）檢查已安裝版本是否已滿足修復要求。
+   - `extractFixedVersion(cve, searchName, cpeBase)`：讀取 `configurations[].nodes[].cpeMatch[]`；`versionEndExcluding` → `op: ">="`, `versionEndIncluding` → `op: ">"`。
+   - `isSafeVersion(installed, rec)`：使用 `compareVersions()`（數字分段比對）。
 
 7. **升級狀態判斷** — 優先順序如下：
    - ✗ 需要升級：有 `recommendedVersion` 且已安裝版本不足
-   - ? 請手動確認：已安裝版本達到 `recommendedVersion`，但**同批 CVE 中有任何一筆 `fixedVersion === null`**（NVD 尚未記錄修復版）；或完全無 `recommendedVersion`
+   - ? 請手動確認：已安裝版本達到 `recommendedVersion`，但**同批 CVE 中有任何一筆 `fixedVersion === null`**；或完全無 `recommendedVersion`
    - ✓ 無須升級：有 `recommendedVersion`、版本達到要求，且**所有 CVE 均有明確修復版資訊**
 
-8. **HTML 報表** — `generateHTML(report, outputPath)`：純字串樣板，無需外部套件。同時輸出 `vik_result_YYYYMMDD.html`（視覺化報表）與同名 `.json`（供 team-report.js 讀取）。
+8. **HTML 報表** — `generateHTML(report, outputPath)`：純字串樣板，無需外部套件。
 
    **報表區塊順序：**
    1. Header 儀表板（CVE 日期範圍格式 `YYYY/01/01~YYYY/MM/DD`）
-   2. 升級建議摘要表（Software / Publisher / 已安裝版本 / 最低安全版本 / 狀態；有弱點在前、無弱點在後）
+   2. 升級建議摘要表（有弱點在前、無弱點在後）
    3. CVE 詳細資訊（可折疊，依發布日期由新至舊排列）
-   4. 可能誤判的 CVE（含 `mismatchReason` 說明）
-   5. 白名單略過
-   6. SKIP_PATTERNS 略過
-   7. 重複去除
+   4. 可能誤判的 CVE（含 `mismatchReason`）
+   5. 白名單略過 / SKIP_PATTERNS 略過 / 重複去除
 
 ### report 物件結構
 
@@ -185,9 +193,11 @@ report.skippedByDedup[]   — 被合併至其他條目（含 mergedAs 欄位）
 | 位置 | 名稱 | 有效值 | 預設值 |
 |------|------|--------|--------|
 | `args[0]` | FILE | 檔案路徑 \| `-1` \| 省略 | PC Registry |
-| `args[1]` | MIN_SEVERITY | LOW/MEDIUM/HIGH/CRITICAL \| `-1` | MEDIUM |
+| `args[1]` | MIN_SEVERITY | LOW/MEDIUM/HIGH/CRITICAL \| `-1` | HIGH |
 | `args[2]` | LIMIT | N \| `-1` | 不限 |
-| `args[3]` | MIN_YEAR | YYYY \| `-1` | 當年 −10 |
+| `args[3]` | MIN_YEAR | YYYY \| `-1` | 當年 −5 |
+
+**重要**：`args[0]` 是 FILE 而非 severity。若直接傳入 severity 名稱（如 `node cve-checker.js HIGH`），程式會偵測到並提示正確用法（`node cve-checker.js -1 HIGH`），然後結束。
 
 ### whitelist.txt 格式（向下相容）
 
@@ -203,3 +213,4 @@ Apple
 
 - `docs/operator.html` — 操作員使用說明（HTML 格式）
 - `scan.json` — 範例輸入檔，可用於測試（來自本機掃描結果）
+- `findSW.ps1` — 在無法直接執行 Node.js 的遠端機器上產生掃描 JSON

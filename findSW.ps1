@@ -3,24 +3,24 @@
     ESRM Agent v1.0.0 - Enterprise Software Risk Monitor
 .DESCRIPTION
     Scans locally installed software and generates a JSON file for upload to ESRM.
-.PARAMETER EsrmUsername
+.PARAMETER Username
     Your ESRM system username (default: Windows login name).
 .PARAMETER OutputPath
     Path where the JSON file will be saved (default: Desktop\esrm-scan.json).
 .EXAMPLE
     powershell -ExecutionPolicy Bypass -File esrm-agent.ps1
-    powershell -ExecutionPolicy Bypass -File esrm-agent.ps1 -EsrmUsername "john"
+    powershell -ExecutionPolicy Bypass -File esrm-agent.ps1 -Username "john"
 #>
 param(
-    [string]$EsrmUsername = $env:USERNAME.ToLower(),
-    [string]$OutputPath   = "$env:USERPROFILE\Desktop\esrm-scan.json"
+    [string]$Username = $env:USERNAME.ToLower(),
+    [string]$OutputPath   = "scan.json"
 )
 
 Write-Host "==================================="
-Write-Host " ESRM Agent v1.0.0"
+Write-Host " NISTCVECheck Scan PC Software v1.0.0"
 Write-Host "==================================="
 Write-Host ""
-Write-Host "[INFO] ESRM Username : $EsrmUsername"
+Write-Host "[INFO] ESRM Username : $Username"
 Write-Host "[INFO] Hostname      : $env:COMPUTERNAME"
 Write-Host "[INFO] Scanning installed software..."
 
@@ -64,7 +64,7 @@ Write-Host "[INFO] Found $($softwares.Count) installed software entries."
 $output = [ordered]@{
     generatedAt = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
     hostname    = $env:COMPUTERNAME
-    username    = $EsrmUsername
+    username    = $Username
     softwares   = $softwares
 }
 
@@ -85,6 +85,6 @@ Write-Host " 3. Click [Upload Scan Result] and select:"
 Write-Host "    $OutputPath"
 Write-Host ""
 Write-Host " NOTE: The username inside the JSON must match your ESRM login."
-Write-Host "       Current value: $EsrmUsername"
-Write-Host "       To override, run with: -EsrmUsername yourESRMaccount"
+Write-Host "       Current value: $Username"
+Write-Host "       To override, run with: -Username yourESRMaccount"
 Write-Host ""

@@ -184,7 +184,7 @@ WHITELIST=Microsoft,Apple,Google</code></pre>
     <div>
       <strong>執行掃描（使用所有預設值）</strong>
       <pre><code>node cve-checker.js</code></pre>
-      程式將掃描 PC Registry，查詢 MEDIUM 以上嚴重等級、近 10 年的 CVE。
+      程式將掃描 PC Registry，查詢 HIGH 以上嚴重等級、近 5 年的 CVE。
     </div>
   </li>
   <li>
@@ -240,19 +240,19 @@ node cve-checker.js C:\Users\USER\Desktop\esrm-scan.json HIGH</code></pre>
 <h2>findSW.ps1 說明</h2>
 <p><code>findSW.ps1</code> 是隨附的 PowerShell 腳本，可在無法直接執行 Node.js 的機器上收集軟體清單，再將產出的 JSON 傳給 CVE Scanner 掃描。</p>
 <h3>執行方式</h3>
-<pre><code><span class="comment"># 預設：儲存至 Desktop\esrm-scan.json</span>
+<pre><code><span class="comment"># 預設：儲存至 scan.json</span>
 powershell -ExecutionPolicy Bypass -File findSW.ps1
 
 <span class="comment"># 指定輸出路徑</span>
 powershell -ExecutionPolicy Bypass -File findSW.ps1 -OutputPath C:\temp\scan.json
 
-<span class="comment"># 指定 ESRM 使用者名稱（預設為 Windows 登入名稱）</span>
-powershell -ExecutionPolicy Bypass -File findSW.ps1 -EsrmUsername john</code></pre>
+<span class="comment"># 指定使用者名稱（預設為 Windows 登入名稱）</span>
+powershell -ExecutionPolicy Bypass -File findSW.ps1 -Username john</code></pre>
 <h3>與 CVE Scanner 搭配使用</h3>
 <ol class="steps">
-  <li><div>在目標機器執行 <code>findSW.ps1</code>，產生 <code>esrm-scan.json</code></div></li>
+  <li><div>在目標機器執行 <code>findSW.ps1</code>，產生 <code>scan.json</code></div></li>
   <li><div>將 JSON 檔案複製到安裝了 Node.js 的機器</div></li>
-  <li><div>執行 <code>node cve-checker.js esrm-scan.json</code></div></li>
+  <li><div>執行 <code>node cve-checker.js scan.json</code></div></li>
 </ol>
 <div class="note"><strong>編碼說明</strong><code>findSW.ps1</code> 輸出 UTF-8 無 BOM 格式，Node.js 可直接讀取。CVE Scanner 內建的 Registry 掃描則需 UTF-8 BOM（已自動處理），兩者格式不同但均相容。</div>
 </section>
@@ -282,8 +282,8 @@ node team-report.js C:\scans\team</code></pre>
       <pre><code>node cve-checker.js
 <span class="comment"># → report\vik_result_YYYYMMDD.json</span></code></pre>
       若機器無 Node.js，可改用 PowerShell 腳本：
-      <pre><code>powershell -ExecutionPolicy Bypass -File support\findSW.ps1
-<span class="comment"># → Desktop\esrm-scan.json（格式與上方相容）</span></code></pre>
+      <pre><code>powershell -ExecutionPolicy Bypass -File findSW.ps1
+<span class="comment"># → scan.json（格式與上方相容）</span></code></pre>
     </div>
   </li>
   <li>
@@ -370,8 +370,8 @@ node team-report.js C:\scans\team</code></pre>
     <tr>
       <td><code>args[1]</code></td>
       <td>MIN_SEVERITY</td>
-      <td>最低 CVE 嚴重等級篩選（<code>LOW</code> / <code>MEDIUM</code> / <code>HIGH</code> / <code>CRITICAL</code>）；<code>-1</code> = MEDIUM</td>
-      <td>MEDIUM</td>
+      <td>最低 CVE 嚴重等級篩選（<code>LOW</code> / <code>MEDIUM</code> / <code>HIGH</code> / <code>CRITICAL</code>）；<code>-1</code> = HIGH</td>
+      <td>HIGH</td>
     </tr>
     <tr>
       <td><code>args[2]</code></td>
@@ -382,8 +382,8 @@ node team-report.js C:\scans\team</code></pre>
     <tr>
       <td><code>args[3]</code></td>
       <td>MIN_YEAR</td>
-      <td>只顯示該年份（含）之後發布的 CVE；<code>-1</code> = 當年 −10</td>
-      <td>當前年份 −10</td>
+      <td>只顯示該年份（含）之後發布的 CVE；<code>-1</code> = 當年 −5</td>
+      <td>當前年份 −5</td>
     </tr>
   </tbody>
 </table>
@@ -392,12 +392,12 @@ node team-report.js C:\scans\team</code></pre>
 <table>
   <thead><tr><th>指令</th><th>說明</th></tr></thead>
   <tbody>
-    <tr><td><code>node cve-checker.js</code></td><td>掃描 PC，MEDIUM 以上，近 10 年</td></tr>
+    <tr><td><code>node cve-checker.js</code></td><td>掃描 PC，HIGH 以上，近 5 年</td></tr>
     <tr><td><code>node cve-checker.js scan.json</code></td><td>讀 scan.json，其餘預設</td></tr>
     <tr><td><code>node cve-checker.js scan.json HIGH</code></td><td>讀 scan.json，HIGH 以上</td></tr>
     <tr><td><code>node cve-checker.js -1 HIGH 5</code></td><td>PC，HIGH，只掃前 5 筆</td></tr>
     <tr><td><code>node cve-checker.js -1 CRITICAL -1 -1</code></td><td>PC，CRITICAL，不限數量，不限年份</td></tr>
-    <tr><td><code>node cve-checker.js scan.json -1 -1 2020</code></td><td>讀 scan.json，MEDIUM，不限，2020 年後</td></tr>
+    <tr><td><code>node cve-checker.js scan.json -1 -1 2020</code></td><td>讀 scan.json，HIGH，不限，2020 年後</td></tr>
   </tbody>
 </table>
 </section>
@@ -716,8 +716,8 @@ PORTABLE_3=Neo4j Community Edition|2025.05.0|Neo4j Inc</code></pre>
 
 <h3>篩選建議</h3>
 <ul>
-  <li>日常掃描使用 <code>MEDIUM</code>（預設，分數 ≥ 4.0）</li>
-  <li>快速確認高風險項目使用 <code>HIGH</code></li>
+  <li>日常掃描使用 <code>HIGH</code>（預設，分數 ≥ 7.0）</li>
+  <li>需要更全面覆蓋時使用 <code>MEDIUM</code></li>
   <li>需要零誤報的精簡報表使用 <code>CRITICAL</code></li>
 </ul>
 </section>

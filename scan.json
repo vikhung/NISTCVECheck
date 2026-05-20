@@ -1,15 +1,8 @@
 {
-    "generatedAt":  "2026-05-14T12:49:39.741Z",
-    "hostname":  "USER-PC",
-    "username":  "USER",
+    "generatedAt":  "2026-05-20T00:00:50.991Z",
+    "hostname":  "VIK-MINIPC",
+    "username":  "vik",
     "softwares":  [
-                      {
-                          "name":  "Android Studio",
-                          "version":  "2025.1",
-                          "publisher":  "Google LLC",
-                          "installDate":  null,
-                          "installPath":  null
-                      },
                       {
                           "name":  "Apple Mobile Device Support",
                           "version":  "19.4.0.10",
@@ -47,9 +40,9 @@
                       },
                       {
                           "name":  "Copilot",
-                          "version":  "148.0.3967.54",
+                          "version":  "148.0.3967.70",
                           "publisher":  "Microsoft Corporation",
-                          "installDate":  "20260512",
+                          "installDate":  "20260519",
                           "installPath":  "C:\\Program Files (x86)\\Microsoft\\Copilot\\Application"
                       },
                       {
@@ -57,7 +50,7 @@
                           "version":  "8.1",
                           "publisher":  "Gyan",
                           "installDate":  "20260415",
-                          "installPath":  "C:\\Users\\User\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe"
+                          "installPath":  "C:\\Users\\Vik\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe"
                       },
                       {
                           "name":  "Git",
@@ -75,9 +68,9 @@
                       },
                       {
                           "name":  "Google Chrome",
-                          "version":  "148.0.7778.97",
+                          "version":  "148.0.7778.168",
                           "publisher":  "Google LLC",
-                          "installDate":  "20260508",
+                          "installDate":  "20260519",
                           "installPath":  "C:\\Program Files\\Google\\Chrome\\Application"
                       },
                       {
@@ -102,6 +95,13 @@
                           "installPath":  "C:\\Program Files\\ImageMagick-7.1.2-Q16-HDRI"
                       },
                       {
+                          "name":  "Intel(R) Wireless Bluetooth(R)",
+                          "version":  "24.40.0.3",
+                          "publisher":  "Intel Corporation",
+                          "installDate":  "20260519",
+                          "installPath":  "C:\\Program Files (x86)\\Intel"
+                      },
+                      {
                           "name":  "iTunes",
                           "version":  "12.13.10.3",
                           "publisher":  "Apple Inc.",
@@ -124,16 +124,16 @@
                       },
                       {
                           "name":  "Microsoft Edge",
-                          "version":  "148.0.3967.54",
+                          "version":  "148.0.3967.70",
                           "publisher":  "Microsoft Corporation",
-                          "installDate":  "20260511",
+                          "installDate":  "20260519",
                           "installPath":  "C:\\Program Files (x86)\\Microsoft\\Edge\\Application"
                       },
                       {
                           "name":  "Microsoft Edge WebView2 執行階段",
-                          "version":  "148.0.3967.54",
+                          "version":  "148.0.3967.70",
                           "publisher":  "Microsoft Corporation",
-                          "installDate":  "20260513",
+                          "installDate":  "20260519",
                           "installPath":  "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application"
                       },
                       {
@@ -285,9 +285,9 @@
                       },
                       {
                           "name":  "Microsoft Visual Studio Code",
-                          "version":  "1.119.0",
+                          "version":  "1.120.0",
                           "publisher":  "Microsoft Corporation",
-                          "installDate":  "20260508",
+                          "installDate":  "20260520",
                           "installPath":  "C:\\Program Files\\Microsoft VS Code"
                       },
                       {
@@ -404,9 +404,9 @@
                       },
                       {
                           "name":  "UniGetUI",
-                          "version":  "2026.1.9",
+                          "version":  "2026.1.10",
                           "publisher":  "Devolutions Inc.",
-                          "installDate":  "20260508",
+                          "installDate":  "20260519",
                           "installPath":  "C:\\Program Files\\UniGetUI"
                       },
                       {
@@ -421,7 +421,7 @@
                           "version":  "43.5.0.26155",
                           "publisher":  "Cisco Systems, Inc",
                           "installDate":  "20230607",
-                          "installPath":  "C:\\Users\\User\\AppData\\Local\\Programs\\Cisco Spark"
+                          "installPath":  "C:\\Users\\Vik\\AppData\\Local\\Programs\\Cisco Spark"
                       },
                       {
                           "name":  "Windows Subsystem for Linux",
