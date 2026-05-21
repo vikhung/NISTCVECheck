@@ -1,15 +1,15 @@
-﻿<#
+<#
 .SYNOPSIS
-    ESRM Agent v1.0.0 - Enterprise Software Risk Monitor
+    findSW.ps1 v1.0.0 - Software Inventory Scanner
 .DESCRIPTION
-    Scans locally installed software and generates a JSON file for upload to ESRM.
+    Scans locally installed software and generates a JSON file for CVE scanning.
 .PARAMETER Username
-    Your ESRM system username (default: Windows login name).
+    Your username (default: Windows login name).
 .PARAMETER OutputPath
-    Path where the JSON file will be saved (default: Desktop\esrm-scan.json).
+    Path where the JSON file will be saved (default: scan.json).
 .EXAMPLE
-    powershell -ExecutionPolicy Bypass -File esrm-agent.ps1
-    powershell -ExecutionPolicy Bypass -File esrm-agent.ps1 -Username "john"
+    powershell -ExecutionPolicy Bypass -File findSW.ps1
+    powershell -ExecutionPolicy Bypass -File findSW.ps1 -Username "john"
 #>
 param(
     [string]$Username = $env:USERNAME.ToLower(),
@@ -20,7 +20,7 @@ Write-Host "==================================="
 Write-Host " NISTCVECheck Scan PC Software v1.0.0"
 Write-Host "==================================="
 Write-Host ""
-Write-Host "[INFO] ESRM Username : $Username"
+Write-Host "[INFO] Username      : $Username"
 Write-Host "[INFO] Hostname      : $env:COMPUTERNAME"
 Write-Host "[INFO] Scanning installed software..."
 
@@ -79,12 +79,7 @@ Write-Host "==================================="
 Write-Host " Next steps"
 Write-Host "==================================="
 Write-Host ""
-Write-Host " 1. Log in to the ESRM system."
-Write-Host " 2. Go to [My Software] in the left sidebar."
-Write-Host " 3. Click [Upload Scan Result] and select:"
-Write-Host "    $OutputPath"
-Write-Host ""
-Write-Host " NOTE: The username inside the JSON must match your ESRM login."
-Write-Host "       Current value: $Username"
-Write-Host "       To override, run with: -Username yourESRMaccount"
+Write-Host " 1. Copy $OutputPath to the machine running NISTCVECheck."
+Write-Host " 2. Run: node cve-checker.js $OutputPath"
+Write-Host "    Or upload via the web scanner (web-client.html)."
 Write-Host ""

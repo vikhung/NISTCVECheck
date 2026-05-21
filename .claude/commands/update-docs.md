@@ -1,4 +1,4 @@
-根據目前 cve-checker.js 和 team-report.js 的實際程式碼狀態，同步更新以下三個文件，確保內容一致、正確：
+根據目前 *.js 的實際程式碼狀態，同步更新以下三個文件，確保內容一致、正確：
 
 ## 需要更新的文件
 
@@ -9,9 +9,9 @@
 ## 更新原則
 
 - 只更新與程式碼實際行為不符的地方，不要改動仍然正確的內容
-- 輸出檔名格式：`vik_result_YYYYMMDDhhmmss.html/.json`（個人報表）、`team_YYYYMMDDhhmmss.html`（彙總報表）
-- Node.js 版本需求：v24 以上
-- 使用的內建模組：`fs`、`path`、`os`、`child_process`、`crypto`、內建 `fetch`（不再使用 `https` 模組）
+- 輸出檔名格式：`vik_result_YYYYMMDD.html/.json`（個人報表）、`team_YYYYMMDD.html`（彙總報表）
+- Node.js 版本需求：v18 以上
+- 使用的內建模組：`fs`、`path`、`os`、`child_process`、`crypto`、`fetch`（不再使用 `https` 模組）
 - 日期範圍格式：`YYYY/01/01~YYYY/MM/DD`
 
 ## 更新完畢後

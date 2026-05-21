@@ -51,17 +51,15 @@ main{max-width:860px;margin:24px auto;padding:0 16px 40px}
 #cancel-btn:disabled{opacity:.5;cursor:not-allowed}
 #scan-status{font-size:.83rem;color:#64748b}
 
-/* Progress */
-#progress-card{display:none}
-#progress-bar-wrap{background:#e2e8f0;border-radius:999px;height:7px;margin-bottom:11px;overflow:hidden}
-#progress-bar{height:100%;background:linear-gradient(90deg,#2563eb,#3b82f6);border-radius:999px;transition:width .4s ease;width:0}
-#progress-stats{font-size:.8rem;color:#64748b;margin-bottom:10px;display:flex;gap:16px;flex-wrap:wrap}
-#progress-stats strong{color:#1e293b}
-#progress-log{background:#0f172a;border-radius:9px;padding:14px 16px;font-family:'Cascadia Code','Fira Mono',Consolas,monospace;font-size:.76rem;color:#94a3b8;max-height:300px;overflow-y:auto;line-height:1.65;word-break:break-all}
+/* Progress & Result (nested inside tab panels) */
+.inner-section{border-top:1px solid #e2e8f0;margin-top:22px;padding-top:20px}
+.progress-bar-wrap{background:#e2e8f0;border-radius:999px;height:7px;margin-bottom:11px;overflow:hidden}
+.progress-bar{height:100%;background:linear-gradient(90deg,#2563eb,#3b82f6);border-radius:999px;transition:width .4s ease;width:0}
+.progress-stats{font-size:.8rem;color:#64748b;margin-bottom:10px;display:flex;gap:16px;flex-wrap:wrap}
+.progress-stats strong{color:#1e293b}
+.progress-log{background:#0f172a;border-radius:9px;padding:14px 16px;font-family:'Cascadia Code','Fira Mono',Consolas,monospace;font-size:.76rem;color:#94a3b8;max-height:300px;overflow-y:auto;line-height:1.65;word-break:break-all}
 .l-ok{color:#4ade80}.l-warn{color:#fbbf24}.l-err{color:#f87171}.l-info{color:#60a5fa}.l-gray{color:#64748b}.l-b{font-weight:700;color:#e2e8f0}
-
-/* Result */
-#result-card{display:none}
+.progress-log a{color:#60a5fa;text-decoration:none}.progress-log a:hover{text-decoration:underline}
 .dl-row{display:flex;gap:10px;flex-wrap:wrap}
 .dl-btn{display:inline-flex;align-items:center;gap:8px;border-radius:8px;padding:11px 22px;font-size:.88rem;font-weight:700;text-decoration:none;transition:all .15s;cursor:pointer;border:none}
 .dl-btn.primary{background:#1e3a5f;color:#fff}
@@ -80,6 +78,28 @@ main{max-width:860px;margin:24px auto;padding:0 16px 40px}
 #add-portable-btn{background:none;border:1.5px dashed #cbd5e1;border-radius:7px;padding:8px 16px;color:#64748b;cursor:pointer;font-size:.83rem;width:100%;transition:all .15s;margin-top:2px}
 #add-portable-btn:hover{border-color:#2563eb;color:#2563eb;background:#eff6ff}
 
+/* Tabs */
+.tab-bar{display:flex;gap:0;margin-bottom:-1px;position:relative;z-index:1;padding-left:1px}
+.tab-btn{background:#f8fafc;border:1px solid #e2e8f0;border-bottom:none;border-radius:10px 10px 0 0;padding:10px 22px;font-size:.88rem;font-weight:600;color:#64748b;cursor:pointer;margin-right:4px;transition:background .15s,color .15s;white-space:nowrap}
+.tab-btn:hover:not(.active){background:#eff6ff;color:#2563eb;border-color:#bfdbfe}
+.tab-btn.active{background:#fff;color:#1e3a5f}
+.tab-bar-bottom{margin-top:12px;padding-left:1px}
+.tab-bar-bottom .tab-btn{border-bottom:1px solid #e2e8f0;border-radius:0 0 10px 10px}
+.tab-panel{display:none;background:#fff;border:1px solid #e2e8f0;border-radius:0 12px 12px 12px;padding:22px 26px;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.tab-panel.active{display:block}
+.section-divider{border:none;border-top:1px solid #f1f5f9;margin:18px -26px}
+.tab-hint{font-size:.78rem;color:#64748b;margin-bottom:14px;line-height:1.5}
+/* Manual entry rows */
+#manual-list{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.manual-row{display:flex;gap:8px;align-items:center}
+.manual-row input{border:1px solid #e2e8f0;border-radius:7px;padding:8px 10px;font-size:.87rem;color:#1e293b;outline:none;transition:border-color .15s,box-shadow .15s;background:#fff}
+.manual-row input:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.mn-name{flex:3}.mn-ver{flex:1.5}
+.mn-del{flex:none;background:none;border:1px solid #e2e8f0;border-radius:6px;padding:7px 11px;cursor:pointer;color:#94a3b8;font-size:.85rem;line-height:1;transition:all .15s}
+.mn-del:hover{background:#fef2f2;border-color:#fca5a5;color:#ef4444}
+#add-manual-btn{background:none;border:1.5px dashed #cbd5e1;border-radius:7px;padding:8px 16px;color:#64748b;cursor:pointer;font-size:.83rem;width:100%;transition:all .15s;margin-top:2px}
+#add-manual-btn:hover{border-color:#2563eb;color:#2563eb;background:#eff6ff}
+
 footer{text-align:center;padding:24px;font-size:.74rem;color:#94a3b8}
 </style>
 </head>
@@ -92,21 +112,9 @@ footer{text-align:center;padding:24px;font-size:.74rem;color:#94a3b8}
 
 <main>
 
-<!-- Step 1: Upload -->
+<!-- Settings (shared: API key, severity, year, max CVEs) -->
 <div class="card">
-  <div class="card-title"><span class="step-badge">1</span> 上傳 scan.json</div>
-  <div id="drop-zone">
-    <span class="dz-icon">📂</span>
-    <div class="dz-label">點擊選擇檔案，或將 scan.json 拖曳至此</div>
-    <div class="dz-sub">由 cve-checker.js 或 findSW.ps1 在目標機器上產生的 JSON 掃描檔</div>
-  </div>
-  <input type="file" id="file-input" accept=".json,application/json">
-  <div id="file-info"></div>
-</div>
-
-<!-- Step 2: Settings -->
-<div class="card">
-  <div class="card-title"><span class="step-badge">2</span> 掃描設定（選填，設定會自動儲存）</div>
+  <div class="card-title">⚙ 掃描設定（選填，設定會自動儲存）</div>
   <div class="settings-grid">
     <div class="form-group">
       <label>NIST API Key</label>
@@ -132,49 +140,88 @@ footer{text-align:center;padding:24px;font-size:.74rem;color:#94a3b8}
       <input type="number" id="max-cves" value="50" min="1" max="2000">
       <span class="hint">NVD 回傳順序為最新優先</span>
     </div>
-    <div class="form-group full-width">
-      <label>白名單（Publisher 關鍵字，逗號分隔）</label>
-      <input type="text" id="whitelist" placeholder="例：Microsoft,Apple,Google">
-      <span class="hint">不分大小寫，部分比對 Publisher 欄位；符合者略過掃描</span>
+  </div>
+</div>
+
+<!-- Tab navigation -->
+<div class="tab-bar">
+  <button class="tab-btn active" data-tab="file">📁 檔案掃描(JSON)</button>
+  <button class="tab-btn" data-tab="manual">✏ 人工掃描</button>
+</div>
+
+<!-- Tab: File mode -->
+<div class="tab-panel active" id="tab-file">
+  <div class="card-title"><span class="step-badge">1</span> 上傳 scan.json</div>
+  <div id="drop-zone">
+    <span class="dz-icon">📂</span>
+    <div class="dz-label">點擊選擇檔案，或將 scan.json 拖曳至此</div>
+    <div class="dz-sub">由 cve-checker.js 或 findSW.ps1 在目標機器上產生的 JSON 掃描檔</div>
+  </div>
+  <input type="file" id="file-input" accept=".json,application/json">
+  <div id="file-info"></div>
+  <hr class="section-divider">
+  <div class="card-title" style="margin-top:4px"><span class="step-badge">2</span> 白名單（Publisher 關鍵字，逗號分隔）</div>
+  <div class="form-group" style="margin-bottom:0">
+    <input type="text" id="whitelist" placeholder="例：Microsoft,Apple,Google">
+    <span class="hint">不分大小寫，部分比對 Publisher 欄位；符合條件的軟體略過掃描</span>
+  </div>
+  <hr class="section-divider">
+  <div class="card-title" style="margin-top:4px"><span class="step-badge">3</span> 免安裝軟體（Portable / 未登錄於 Registry）</div>
+  <div id="portable-list"></div>
+  <button type="button" id="add-portable-btn">＋ 新增項目</button>
+  <p class="form-group" style="margin-top:8px"><span class="hint">不受白名單過濾，直接納入掃描。版本號可選填，用於比對是否需要升級。</span></p>
+  <!-- File scan: progress & result -->
+  <div class="inner-section" id="file-progress-card" style="display:none">
+    <div class="card-title">掃描進度</div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="file-progress-bar"></div></div>
+    <div class="progress-stats" id="file-progress-stats"></div>
+    <div class="progress-log" id="file-progress-log"></div>
+  </div>
+  <div class="inner-section" id="file-result-card" style="display:none">
+    <div class="card-title">✅ 掃描完成</div>
+    <div class="dl-row">
+      <button id="file-open-report-btn" class="dl-btn primary">📄 在新分頁開啟報表</button>
+      <a id="file-dl-html" class="dl-btn secondary" download="result.html">⬇ 下載報表 HTML</a>
+      <a id="file-dl-json" class="dl-btn secondary" download="result.json">⬇ result.json</a>
     </div>
   </div>
 </div>
 
-<!-- Step 3: Portable software -->
-<div class="card">
-  <div class="card-title"><span class="step-badge">3</span> 免安裝軟體（Portable / 未登錄於 Registry）</div>
-  <div id="portable-list"></div>
-  <button type="button" id="add-portable-btn">＋ 新增項目</button>
-  <p class="form-group" style="margin-top:8px"><span class="hint">不受白名單過濾，直接納入掃描。版本號可選填，用於比對是否需要升級。</span></p>
+<!-- Tab: Manual entry mode -->
+<div class="tab-panel" id="tab-manual">
+  <p class="tab-hint">直接輸入軟體名稱與版本號，不需要 scan.json 檔案。版本號可選填，留空仍可查詢 CVE，但無法判斷是否需要升級。此模式不套用白名單過濾。</p>
+  <div id="manual-list"></div>
+  <button type="button" id="add-manual-btn">＋ 新增軟體</button>
+  <!-- Manual scan: progress & result (no downloads) -->
+  <div class="inner-section" id="manual-progress-card" style="display:none">
+    <div class="card-title">掃描進度</div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="manual-progress-bar"></div></div>
+    <div class="progress-stats" id="manual-progress-stats"></div>
+    <div class="progress-log" id="manual-progress-log"></div>
+  </div>
+  <div class="inner-section" id="manual-result-card" style="display:none">
+    <div class="card-title">✅ 掃描完成</div>
+    <div class="dl-row">
+      <button id="manual-open-report-btn" class="dl-btn primary">📄 在新分頁開啟報表</button>
+    </div>
+  </div>
 </div>
 
-<!-- Step 4: Start -->
+<!-- Action -->
 <div class="card" id="action-card">
   <button id="scan-btn" disabled>▶ 開始掃描</button>
   <button id="cancel-btn">■ 取消掃描</button>
   <span id="scan-status">請先上傳 scan.json</span>
 </div>
 
-<!-- Progress -->
-<div class="card" id="progress-card">
-  <div class="card-title">掃描進度</div>
-  <div id="progress-bar-wrap"><div id="progress-bar"></div></div>
-  <div id="progress-stats"></div>
-  <div id="progress-log"></div>
-</div>
-
-<!-- Result -->
-<div class="card" id="result-card">
-  <div class="card-title">✅ 掃描完成</div>
-  <div class="dl-row">
-    <button id="open-report-btn" class="dl-btn primary">📄 在新分頁開啟報表</button>
-    <a id="dl-html" class="dl-btn secondary" download="result.html">⬇ 下載報表 HTML</a>
-    <a id="dl-json" class="dl-btn secondary" download="result.json">⬇ result.json</a>
-  </div>
+<!-- Bottom tab navigation -->
+<div class="tab-bar tab-bar-bottom">
+  <button class="tab-btn active" data-tab="file">📁 檔案掃描(JSON)</button>
+  <button class="tab-btn" data-tab="manual">✏ 人工掃描</button>
 </div>
 
 </main>
-<footer>CVE Web Scanner &nbsp;·&nbsp; Powered by <a href="https://nvd.nist.gov/developers/vulnerabilities" target="_blank">NIST NVD API 2.0</a></footer>
+<footer>CVE Web Scanner &nbsp;·&nbsp; Powered by <a href="https://nvd.nist.gov/developers/vulnerabilities" target="_blank">NIST NVD API 2.0</a><br>This product uses data from the NVD API but is not endorsed or certified by the NVD.</footer>
 
 <script>
 'use strict';
@@ -194,7 +241,8 @@ const SKIP_PATTERNS = [
 // ─── Module state ─────────────────────────────────────────────────────────────
 let scanData = null;
 let abortController = null;
-let blobUrls = [];
+const tabBlobUrls = { file: [], manual: [] };
+let activeTab = 'file';
 
 // ─── HTML escaping ────────────────────────────────────────────────────────────
 function esc(s) {
@@ -387,7 +435,7 @@ async function nvdFetch(url, apiKey, signal, retries = MAX_FETCH_RETRIES, onRetr
     throw new Error(`NVD API HTTP ${res.status}`);
 }
 
-async function searchCVEs(keyword, apiKey, maxCves, signal, onRetry) {
+async function searchCVEs(keyword, apiKey, maxCves, minYear, signal, onRetry) {
     const params = new URLSearchParams({ keywordSearch: keyword, resultsPerPage: String(maxCves), noRejected: '' });
     return nvdFetch(`${NVD_CVE_BASE}?${params}`, apiKey, signal, MAX_FETCH_RETRIES, onRetry);
 }
@@ -622,7 +670,7 @@ footer{text-align:center;padding:20px;font-size:.78rem;color:#9ca3af}
   </section>
   ${mismatchHTML}${wlHTML}${patternHTML}${dedupHTML}
 </main>
-<footer>NIST NVD CVE Scanner (Web) &nbsp;·&nbsp; ${esc(report.generatedAt)}</footer>
+<footer>NIST NVD CVE Scanner (Web) &nbsp;·&nbsp; ${esc(report.generatedAt)}<br>This product uses data from the NVD API but is not endorsed or certified by the NVD.</footer>
 </body>
 </html>`;
 }
@@ -635,6 +683,7 @@ const scanBtn     = document.getElementById('scan-btn');
 const cancelBtn   = document.getElementById('cancel-btn');
 const scanStatus  = document.getElementById('scan-status');
 const portableList = document.getElementById('portable-list');
+const manualList   = document.getElementById('manual-list');
 
 // ─── Portable rows ────────────────────────────────────────────────────────────
 function addPortableRow(name = '', version = '') {
@@ -650,11 +699,52 @@ function addPortableRow(name = '', version = '') {
 }
 document.getElementById('add-portable-btn').addEventListener('click', () => addPortableRow());
 // Portables are pre-populated by the server-injected script (runs after this block).
-const progressCard = document.getElementById('progress-card');
-const progressBar  = document.getElementById('progress-bar');
-const progressStats = document.getElementById('progress-stats');
-const progressLog  = document.getElementById('progress-log');
-const resultCard  = document.getElementById('result-card');
+
+// ─── Scan button state ────────────────────────────────────────────────────────
+function updateScanBtnState() {
+    if (activeTab === 'file') {
+        scanBtn.disabled = !scanData;
+        scanStatus.textContent = scanData ? `已就緒 — ${scanData.softwares.length} 筆軟體` : '請先上傳 scan.json';
+    } else {
+        const hasAny = [...manualList.querySelectorAll('.mn-name')].some(i => i.value.trim());
+        scanBtn.disabled = !hasAny;
+        scanStatus.textContent = hasAny ? '已就緒（手動輸入模式）' : '請新增至少一筆軟體';
+    }
+}
+
+// ─── Manual entry rows ────────────────────────────────────────────────────────
+function addManualRow(name = '', version = '') {
+    const row = document.createElement('div');
+    row.className = 'manual-row';
+    row.innerHTML = '<input type="text" class="mn-name" placeholder="軟體名稱（例：Eclipse IDE）">'
+                  + '<input type="text" class="mn-ver"  placeholder="版本號（例：2025.06）">'
+                  + '<button type="button" class="mn-del" title="移除">✕</button>';
+    row.querySelector('.mn-name').value = name;
+    row.querySelector('.mn-ver').value  = version;
+    row.querySelector('.mn-del').onclick = () => { row.remove(); updateScanBtnState(); };
+    row.querySelector('.mn-name').addEventListener('input', updateScanBtnState);
+    manualList.appendChild(row);
+    updateScanBtnState();
+}
+document.getElementById('add-manual-btn').addEventListener('click', () => addManualRow());
+addManualRow(); // default empty row
+
+// ─── Tab switching ────────────────────────────────────────────────────────────
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const target = btn.dataset.tab;
+        const fromBottom = btn.closest('.tab-bar-bottom') != null;
+        if (target === activeTab) {
+            if (fromBottom) document.querySelector('.tab-bar').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            return;
+        }
+        activeTab = target;
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === target));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === `tab-${target}`));
+        updateScanBtnState();
+        if (fromBottom) document.querySelector('.tab-bar').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+});
 
 // Restore settings
 const LS = { key: 'nvd_api_key', wl: 'nvd_whitelist', sev: 'nvd_severity', year: 'nvd_min_year', max: 'nvd_max_cves' };
@@ -684,8 +774,7 @@ function loadScanFile(file) {
                 `${data.softwares.length} 筆軟體 · Host: ${data.hostname||'?'} · User: ${data.username||'?'}`;
             fileInfo.style.display = 'block';
             fileInfo.innerHTML = `<strong>${esc(file.name)}</strong> — ${data.softwares.length} 筆 &nbsp;·&nbsp; Host: <strong>${esc(data.hostname||'?')}</strong> &nbsp;·&nbsp; User: <strong>${esc(data.username||'?')}</strong> &nbsp;·&nbsp; Generated: ${esc((data.generatedAt||'').substring(0,10))}`;
-            scanBtn.disabled = false;
-            scanStatus.textContent = `已就緒 — ${data.softwares.length} 筆軟體`;
+            updateScanBtnState();
         } catch (err) {
             alert(`JSON 格式錯誤：${err.message}`);
         }
@@ -704,18 +793,21 @@ dropZone.addEventListener('drop', e => {
 });
 
 // ─── Progress logging ─────────────────────────────────────────────────────────
-function logLine(html, cls) {
+function logLineTo(tab, html, cls) {
+    const log = $id(`${tab}-progress-log`);
+    if (!log) return;
     const d = document.createElement('div');
     if (cls) d.className = cls;
     d.innerHTML = html;
-    progressLog.appendChild(d);
-    progressLog.scrollTop = progressLog.scrollHeight;
+    log.appendChild(d);
+    log.scrollTop = log.scrollHeight;
 }
-function logClear() { progressLog.innerHTML = ''; }
+function logLine(html, cls) { logLineTo(activeTab, html, cls); }
+function logClear() { $id(`${activeTab}-progress-log`).innerHTML = ''; }
 function updateBar(done, total, cves) {
-    progressBar.style.width = `${total > 0 ? Math.round(done/total*100) : 0}%`;
+    $id(`${activeTab}-progress-bar`).style.width = `${total > 0 ? Math.round(done/total*100) : 0}%`;
     const left = Math.max(0, total - done);
-    progressStats.innerHTML =
+    $id(`${activeTab}-progress-stats`).innerHTML =
         `<span>已掃描 <strong>${done}</strong>/${total}</span>` +
         `<span>發現 <strong>${cves}</strong> 筆 CVE</span>` +
         (left > 0 ? `<span>剩餘 <strong>${left}</strong> 項</span>` : '');
@@ -723,7 +815,9 @@ function updateBar(done, total, cves) {
 
 // ─── Main scan ────────────────────────────────────────────────────────────────
 scanBtn.addEventListener('click', async () => {
-    if (!scanData) return;
+    const isManual = activeTab === 'manual';
+    const scanTab  = activeTab;
+    if (!isManual && !scanData) return;
 
     // Read settings
     const apiKey     = $id('api-key').value.trim();
@@ -751,45 +845,54 @@ scanBtn.addEventListener('click', async () => {
     cancelBtn.style.display = 'inline-block';
     cancelBtn.disabled = false;
     scanStatus.textContent = '掃描中…';
-    resultCard.style.display = 'none';
-    progressCard.style.display = 'block';
+    document.querySelectorAll('.tab-btn').forEach(b => b.disabled = true);
+    $id(`${activeTab}-result-card`).style.display = 'none';
+    $id(`${activeTab}-progress-card`).style.display = 'block';
     logClear();
 
-    // Revoke old download URLs
-    for (const u of blobUrls) URL.revokeObjectURL(u);
-    blobUrls = [];
+    // Revoke old download URLs for this tab only
+    for (const u of tabBlobUrls[activeTab]) URL.revokeObjectURL(u);
+    tabBlobUrls[activeTab] = [];
 
     // ── Build query map ────────────────────────────────────────────────────────
     const queryMap       = new Map();  // searchName → sw
-    const whitelisted    = [];
-    const skippedByPat   = [];
-    const skippedByDedup = [];
+    let whitelisted    = [];
+    let skippedByPat   = [];
+    let skippedByDedup = [];
+    let portableEntries = [];
 
-    for (const sw of scanData.softwares) {
-        const rule = matchWhitelist(sw, whitelist);
-        if (rule) { whitelisted.push({ name: sw.name, version: sw.version||'', publisher: sw.publisher||'', matchedRule: rule }); continue; }
-        if (shouldSkip(sw.name)) { skippedByPat.push({ name: sw.name, version: sw.version||'', publisher: sw.publisher||'' }); continue; }
-        const sn = cleanProductName(sw.name);
-        if (!queryMap.has(sn)) queryMap.set(sn, sw);
-        else skippedByDedup.push({ name: sw.name, version: sw.version||'', publisher: sw.publisher||'', mergedAs: sn });
+    if (isManual) {
+        for (const row of manualList.querySelectorAll('.manual-row')) {
+            const name = row.querySelector('.mn-name').value.trim();
+            const ver  = row.querySelector('.mn-ver').value.trim();
+            if (name && !queryMap.has(name)) queryMap.set(name, { name, version: ver, publisher: '' });
+        }
+    } else {
+        for (const sw of scanData.softwares) {
+            const rule = matchWhitelist(sw, whitelist);
+            if (rule) { whitelisted.push({ name: sw.name, version: sw.version||'', publisher: sw.publisher||'', matchedRule: rule }); continue; }
+            if (shouldSkip(sw.name)) { skippedByPat.push({ name: sw.name, version: sw.version||'', publisher: sw.publisher||'' }); continue; }
+            const sn = cleanProductName(sw.name);
+            if (!queryMap.has(sn)) queryMap.set(sn, sw);
+            else skippedByDedup.push({ name: sw.name, version: sw.version||'', publisher: sw.publisher||'', mergedAs: sn });
+        }
+        // ── Add portable entries (bypass whitelist + skip-patterns) ──────────
+        for (const row of portableList.querySelectorAll('.portable-row')) {
+            const name = row.querySelector('.pt-name').value.trim();
+            const ver  = row.querySelector('.pt-ver').value.trim();
+            if (!name) continue;
+            portableEntries.push({ name, version: ver, publisher: '' });
+        }
+        for (const pt of portableEntries) {
+            if (!queryMap.has(pt.name)) queryMap.set(pt.name, pt);
+        }
     }
 
-    // ── Add portable entries (bypass whitelist + skip-patterns) ────────────────
-    const portableEntries = [];
-    for (const row of portableList.querySelectorAll('.portable-row')) {
-        const name = row.querySelector('.pt-name').value.trim();
-        const ver  = row.querySelector('.pt-ver').value.trim();
-        if (!name) continue;
-        portableEntries.push({ name, version: ver, publisher: '' });
-    }
-    for (const pt of portableEntries) {
-        if (!queryMap.has(pt.name)) queryMap.set(pt.name, pt);
-    }
-
-    const total       = queryMap.size;
+    const total        = queryMap.size;
     const portableNote = portableEntries.length ? ` + <span class="l-b">${portableEntries.length}</span> Portable` : '';
-    logLine(`<span class="l-info">▶ 開始掃描</span> <span class="l-b">${total}</span> 項軟體${portableNote}`
-        + ` <span class="l-gray">(白名單:${whitelisted.length} 子元件:${skippedByPat.length} 去重:${skippedByDedup.length})</span>`);
+    const modeTag      = isManual ? ' <span class="l-info">[手動輸入]</span>' : '';
+    logLine(`<span class="l-info">▶ 開始掃描</span> <span class="l-b">${total}</span> 項軟體${portableNote}${modeTag}`
+        + (isManual ? '' : ` <span class="l-gray">(白名單:${whitelisted.length} 子元件:${skippedByPat.length} 去重:${skippedByDedup.length})</span>`));
     logLine(`<span class="l-gray">設定：嚴重度≥${minSev}，年份≥${minYear}，每項最多${maxCves}筆，`
         + `API Key:${apiKey?'已設定':'未設定(6.5秒/次)'}，預估${Math.ceil(total*delay/1000)}秒</span>`);
     logLine('─'.repeat(64), 'l-gray');
@@ -797,89 +900,201 @@ scanBtn.addEventListener('click', async () => {
     const results      = [];
     const cleanResults = [];
     let idx = 0, totalCVEs = 0;
+    let scanSid = null;
 
     try {
-        for (const [searchName, sw] of queryMap) {
-            if (signal.aborted) break;
-            idx++;
-            updateBar(idx - 1, total, totalCVEs);
-            logLine(`<span class="l-gray">[${idx}/${total}]</span> <span class="l-b">${esc(sw.name)}</span> <span class="l-gray">v${esc(sw.version||'?')}</span>`);
-            logLine(`<span class="l-gray">  search: "${esc(searchName)}"</span>`);
+        // ── Shared CVE processing helper ──────────────────────────────────────
+        const processOneResult = (searchName, sw, resp) => {
+            const allCVEs = (resp.vulnerabilities || []).map(v => ({ ...v, _cvss: getCvss(v.cve) }));
 
-            if (idx > 1) await sleep(delay, signal);
-            if (signal.aborted) break;
+            const checked = allCVEs
+                .filter(v => SEVERITY_ORDER.indexOf(v._cvss.severity) >= minIdx)
+                .filter(v => !minYear || new Date(v.cve.published).getFullYear() >= minYear)
+                .map(v => {
+                    const rel = cveRelevanceCheck(v.cve, searchName);
+                    return { ...v, _rel: rel, _mis: rel === false ? `CPE 條目中未含「${searchName}」相關字詞` : null };
+                });
 
-            try {
-                const resp = await searchCVEs(searchName, apiKey, maxCves, signal,
-                    msg => logLine(`  <span class="l-warn">  🔄 ${msg}</span>`));
-                const allCVEs = (resp.vulnerabilities || []).map(v => ({ ...v, _cvss: getCvss(v.cve) }));
+            const mismatched = checked.filter(v => v._rel === false).map(v => ({
+                id: v.cve.id, url: `https://nvd.nist.gov/vuln/detail/${v.cve.id}`,
+                severity: v._cvss.severity, cvssScore: v._cvss.score, cvssVersion: v._cvss.version,
+                description: v.cve.descriptions?.find(d => d.lang==='en')?.value || '',
+                published: v.cve.published, mismatchReason: v._mis,
+            }));
 
-                const checked = allCVEs
-                    .filter(v => SEVERITY_ORDER.indexOf(v._cvss.severity) >= minIdx)
-                    .filter(v => !minYear || new Date(v.cve.published).getFullYear() >= minYear)
-                    .map(v => {
-                        const rel = cveRelevanceCheck(v.cve, searchName);
-                        return { ...v, _rel: rel, _mis: rel === false ? `CPE 條目中未含「${searchName}」相關字詞` : null };
-                    });
+            const relevant = checked
+                .filter(v => v._rel !== false)
+                .sort((a, b) => (b.cve.published||'').localeCompare(a.cve.published||''));
 
-                const mismatched = checked.filter(v => v._rel === false).map(v => ({
-                    id: v.cve.id, url: `https://nvd.nist.gov/vuln/detail/${v.cve.id}`,
-                    severity: v._cvss.severity, cvssScore: v._cvss.score, cvssVersion: v._cvss.version,
-                    description: v.cve.descriptions?.find(d => d.lang==='en')?.value || '',
-                    published: v.cve.published, mismatchReason: v._mis,
-                }));
+            mismatched.sort((a, b) => (b.published||'').localeCompare(a.published||''));
 
-                const relevant = checked
-                    .filter(v => v._rel !== false)
-                    .sort((a, b) => (b.cve.published||'').localeCompare(a.cve.published||''));
-
-                if (mismatched.length) logLine(`<span class="l-warn">  ⚠ 排除 ${mismatched.length} 筆可能誤判 CVE</span>`);
-
-                if (relevant.length === 0) {
-                    logLine(`<span class="l-ok">  ✓ 無弱點（${esc(minSev)}以上）</span>`);
-                    cleanResults.push({
-                        software: { name: sw.name, version: sw.version||'', publisher: sw.publisher||'' },
-                        searchName, mismatchedCVEs: mismatched,
-                    });
-                } else {
-                    totalCVEs += relevant.length;
-                    const cveObjs = relevant.map(v => ({
-                        id: v.cve.id,
-                        url: `https://nvd.nist.gov/vuln/detail/${v.cve.id}`,
-                        severity: v._cvss.severity,
-                        cvssScore: v._cvss.score,
-                        cvssVersion: v._cvss.version,
-                        description: v.cve.descriptions?.find(d => d.lang==='en')?.value || '',
-                        published: v.cve.published,
-                        lastModified: v.cve.lastModified,
-                        fixedVersion: extractFixedVersion(v.cve, searchName),
-                    }));
-                    const rec = getRecommendedVersion(relevant, searchName);
-                    for (const cve of cveObjs.slice(0, 3)) {
-                        const cls = (cve.severity==='CRITICAL'||cve.severity==='HIGH') ? 'l-err' : 'l-warn';
-                        logLine(`  <span class="${cls}">${esc(cve.id)} [${cve.severity} ${cve.cvssScore}]</span> <span class="l-gray">${(cve.published||'').substring(0,10)}</span>`);
-                    }
-                    if (cveObjs.length > 3) logLine(`  <span class="l-gray">… 還有 ${cveObjs.length-3} 筆</span>`);
-                    if (rec) {
-                        if (isSafeVersion(sw.version, rec)) {
-                            logLine(`  <span class="l-ok">→ 目前版本 (${esc(sw.version)}) 已是安全版，無須升級</span>`);
-                        } else {
-                            logLine(`  <span class="l-err">→ 建議升級至 ${rec.op==='>='?'≥':'>'} ${esc(rec.version)}（目前：${esc(sw.version||'?')}）</span>`);
-                        }
-                    } else {
-                        logLine(`  <span class="l-warn">→ 無修復版本資訊，請手動確認</span>`);
-                    }
-                    results.push({
-                        software: { name: sw.name, version: sw.version||'', publisher: sw.publisher||'', installDate: sw.installDate||null },
-                        searchName, recommendedVersion: rec, cveCount: cveObjs.length,
-                        cves: cveObjs, mismatchedCVEs: mismatched,
-                    });
+            if (relevant.length === 0) {
+                for (const cve of mismatched) {
+                    const cls = (cve.severity==='CRITICAL'||cve.severity==='HIGH') ? 'l-err' : 'l-warn';
+                    logLine(`  <span class="${cls}"><a href="${cve.url}" target="_blank" rel="noopener">${esc(cve.id)}</a> [${cve.severity} ${cve.cvssScore}]</span> <span class="l-gray">${(cve.published||'').substring(0,10)}</span> <span class="l-warn"> ⚠ ${esc(cve.mismatchReason||'CPE不符')}</span>`);
                 }
-            } catch (apiErr) {
-                if (apiErr.name === 'AbortError') throw apiErr;
-                logLine(`  <span class="l-err">✗ 重試 ${MAX_FETCH_RETRIES} 次後仍失敗：${esc(apiErr.message)}</span>`);
-                if (/CORS/i.test(apiErr.message)) {
-                    logLine(`  <span class="l-warn">  提示：可能是 CORS 問題。請確認可直接連線 NIST NVD (services.nvd.nist.gov)，或改用本機 Node.js 版本。</span>`);
+                logLine(`<span class="l-ok">  ✓ 無弱點（${esc(minSev)}以上）</span>`);
+                cleanResults.push({
+                    software: { name: sw.name, version: sw.version||'', publisher: sw.publisher||'' },
+                    searchName, mismatchedCVEs: mismatched,
+                });
+                const mismatchDetails = mismatched.map(cve =>
+                    `  ${cve.id} [${cve.severity} ${cve.cvssScore}] ${(cve.published||'').substring(0,10)} ⚠ ${cve.mismatchReason||'CPE不符'}`
+                );
+                return { summary: `✓ 無弱點（取回${allCVEs.length}筆均不符條件）`, cveDetails: mismatchDetails };
+            } else {
+                totalCVEs += relevant.length;
+                const cveObjs = relevant.map(v => ({
+                    id: v.cve.id,
+                    url: `https://nvd.nist.gov/vuln/detail/${v.cve.id}`,
+                    severity: v._cvss.severity,
+                    cvssScore: v._cvss.score,
+                    cvssVersion: v._cvss.version,
+                    description: v.cve.descriptions?.find(d => d.lang==='en')?.value || '',
+                    published: v.cve.published,
+                    lastModified: v.cve.lastModified,
+                    fixedVersion: extractFixedVersion(v.cve, searchName),
+                }));
+                const rec = getRecommendedVersion(relevant, searchName);
+                // Merge matched + mismatched, sort newest-first
+                const allCveDisplay = [
+                    ...cveObjs.map(c => ({ ...c, _type: 'matched' })),
+                    ...mismatched.map(c => ({ ...c, _type: 'mismatch' })),
+                ].sort((a, b) => (b.published||'').localeCompare(a.published||''));
+                for (const cve of allCveDisplay) {
+                    const cls = (cve.severity==='CRITICAL'||cve.severity==='HIGH') ? 'l-err' : 'l-warn';
+                    if (cve._type === 'mismatch') {
+                        logLine(`  <span class="${cls}"><a href="${cve.url}" target="_blank" rel="noopener">${esc(cve.id)}</a> [${cve.severity} ${cve.cvssScore}]</span> <span class="l-gray">${(cve.published||'').substring(0,10)}</span> <span class="l-warn"> ⚠ ${esc(cve.mismatchReason||'CPE不符')}</span>`);
+                    } else {
+                        const fix = cve.fixedVersion
+                            ? `<span class="l-ok"> ✓ 安全版本：${cve.fixedVersion.op==='>='?'≥':'>'} ${esc(cve.fixedVersion.version)}</span>`
+                            : `<span class="l-warn"> ⚠ 無修復版本資訊</span>`;
+                        logLine(`  <span class="${cls}"><a href="${cve.url}" target="_blank" rel="noopener">${esc(cve.id)}</a> [${cve.severity} ${cve.cvssScore}]</span> <span class="l-gray">${(cve.published||'').substring(0,10)}</span>${fix}`);
+                    }
+                }
+                const hasUnfixed = cveObjs.some(c => !c.fixedVersion);
+                const needManualCheck = hasUnfixed;
+                if (rec) {
+                    if (!isSafeVersion(sw.version, rec)) {
+                        logLine(`  <span class="l-err">→ 建議升級至 ${rec.op==='>='?'≥':'>'} ${esc(rec.version)}（目前：${esc(sw.version||'?')}）</span>`);
+                    } else if (needManualCheck) {
+                        logLine(`  <span class="l-warn">→ 現有版本已達部分修復要求，但仍有 CVE 無修復版本資訊，請手動確認</span>`);
+                    } else {
+                        logLine(`  <span class="l-ok">→ 目前版本 (${esc(sw.version)}) 已是安全版，無須升級</span>`);
+                    }
+                } else {
+                    logLine(`  <span class="l-warn">→ 無修復版本資訊，請手動確認</span>`);
+                }
+                results.push({
+                    software: { name: sw.name, version: sw.version||'', publisher: sw.publisher||'', installDate: sw.installDate||null },
+                    searchName, recommendedVersion: rec, cveCount: cveObjs.length,
+                    cves: cveObjs, mismatchedCVEs: mismatched,
+                });
+                const maxSev = cveObjs.reduce((m, v) =>
+                    SEVERITY_ORDER.indexOf(v.severity) > SEVERITY_ORDER.indexOf(m) ? v.severity : m, 'NONE');
+                const cveDetails = allCveDisplay.map(cve => {
+                    if (cve._type === 'mismatch')
+                        return `  ${cve.id} [${cve.severity} ${cve.cvssScore}] ${(cve.published||'').substring(0,10)} ⚠ ${cve.mismatchReason||'CPE不符'}`;
+                    const fixStr = cve.fixedVersion
+                        ? `✓ 安全版本：${cve.fixedVersion.op === '>=' ? '≥' : '>'} ${cve.fixedVersion.version}`
+                        : '⚠ 無修復版本資訊';
+                    return `  ${cve.id} [${cve.severity} ${cve.cvssScore}] ${(cve.published||'').substring(0,10)} ${fixStr}`;
+                });
+                const n = `${cveObjs.length}/${allCVEs.length}筆[${maxSev}]`;
+                if (!rec)                                                return { summary: `→ ${n}，請手動確認`,                                                                 cveDetails };
+                if (isSafeVersion(sw.version, rec) && !needManualCheck) return { summary: `✓ ${n}，目前版本已達修復版本`,                                                        cveDetails };
+                if (isSafeVersion(sw.version, rec))                     return { summary: `→ ${n}，現有版本已達部分修復要求，但仍有 CVE 無修復版本資訊，請手動確認`,              cveDetails };
+                return                                                          { summary: `→ ${n}，建議升級至 ${rec.op==='>='?'≥':'>'} ${rec.version}`, cveDetails };
+            }
+        };
+
+        if (window.__NVD_PROXY__) {
+            // ── Proxy mode: stream from server, process each item as it arrives ─
+            const scanResp = await fetch('/api/scan', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    keywords: [...queryMap.keys()],
+                    maxCves,
+                    meta: {
+                        minSeverity:      minSev,
+                        minYear,
+                        portableCount:    portableEntries.length,
+                        whitelistedCount: whitelisted.length,
+                        skippedCount:     skippedByPat.length,
+                        dedupCount:       skippedByDedup.length,
+                    },
+                }),
+                signal,
+            });
+            if (!scanResp.ok) throw new Error(`伺服器掃描失敗：HTTP ${scanResp.status}`);
+
+            const reader = scanResp.body.getReader();
+            const dec = new TextDecoder();
+            let buf = '';
+            outer: while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                buf += dec.decode(value, { stream: true });
+                let nl;
+                while ((nl = buf.indexOf('\n')) !== -1) {
+                    const line = buf.slice(0, nl).trim();
+                    buf = buf.slice(nl + 1);
+                    if (!line) continue;
+                    const item = JSON.parse(line);
+                    if (item.done) break outer;
+                    if (item.sid) { scanSid = item.sid; continue; }
+                    const searchName = item.keyword;
+                    const sw = queryMap.get(searchName);
+                    if (!sw) continue;
+                    idx++;
+                    logLine(`<span class="l-gray">[${idx}/${total}]</span> <span class="l-b">${esc(sw.name)}</span> <span class="l-gray">v${esc(sw.version||'?')}</span>`);
+                    logLine(`<span class="l-gray">  search: "${esc(searchName)}"</span>`);
+                    let itemSummary = null, itemCveDetails = [];
+                    try {
+                        if (item.error) throw new Error(item.error);
+                        ({ summary: itemSummary, cveDetails: itemCveDetails } = processOneResult(searchName, sw, item.data));
+                    } catch (apiErr) {
+                        if (apiErr.name === 'AbortError') throw apiErr;
+                        itemSummary = `✗ 失敗：${apiErr.message}`;
+                        logLine(`  <span class="l-err">✗ 掃描失敗：${esc(apiErr.message)}</span>`);
+                    }
+                    if (scanSid && itemSummary) {
+                        const logLines = [
+                            `[${idx}/${total}] ${sw.name} v${sw.version||'?'} ${itemSummary}`,
+                            ...itemCveDetails,
+                        ];
+                        fetch('/api/log', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ sid: scanSid, msg: logLines.join('\n') }),
+                        }).catch(() => {});
+                    }
+                    updateBar(idx, total, totalCVEs);
+                }
+            }
+        } else {
+            // ── Direct mode: call NVD API per item ────────────────────────────
+            for (const [searchName, sw] of queryMap) {
+                if (signal.aborted) break;
+                idx++;
+                updateBar(idx - 1, total, totalCVEs);
+                logLine(`<span class="l-gray">[${idx}/${total}]</span> <span class="l-b">${esc(sw.name)}</span> <span class="l-gray">v${esc(sw.version||'?')}</span>`);
+                logLine(`<span class="l-gray">  search: "${esc(searchName)}"</span>`);
+
+                if (idx > 1) await sleep(delay, signal);
+                if (signal.aborted) break;
+
+                try {
+                    const resp = await searchCVEs(searchName, apiKey, maxCves, minYear, signal,
+                        msg => logLine(`  <span class="l-warn">  🔄 ${msg}</span>`));
+                    processOneResult(searchName, sw, resp);
+                } catch (apiErr) {
+                    if (apiErr.name === 'AbortError') throw apiErr;
+                    logLine(`  <span class="l-err">✗ 重試 ${MAX_FETCH_RETRIES} 次後仍失敗：${esc(apiErr.message)}</span>`);
+                    if (/CORS/i.test(apiErr.message)) {
+                        logLine(`  <span class="l-warn">  提示：可能是 CORS 問題。請確認可直接連線 NIST NVD (services.nvd.nist.gov)，或改用本機 Node.js 版本。</span>`);
+                    }
                 }
             }
         }
@@ -903,19 +1118,29 @@ scanBtn.addEventListener('click', async () => {
         const breakdown = results.length > 0 && parts.length > 0 ? `，其中 ${parts.join('，')}` : '';
         logLine(`<span class="l-ok l-b">✓ 掃描完成</span> — ${idx} 項掃描・${cleanResults.length} 項無弱點，${results.length} 項有弱點${breakdown}`);
     }
+    if (scanSid) {
+        const summaryMsg = cancelled
+            ? `■ 掃描取消（已完成 ${idx}/${total}）`
+            : `✓ 掃描完成 — ${idx}項掃描・${cleanResults.length}項無弱點，${results.length}項有弱點${needUp ? `（建議升級:${needUp}）` : ''}`;
+        fetch('/api/log', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ sid: scanSid, msg: summaryMsg }),
+        }).catch(() => {});
+    }
     updateBar(idx, total, totalCVEs);
 
     // ── Build report object (mirrors cve-checker.js structure) ────────────────
     const report = {
         generatedAt: new Date().toISOString(),
-        source: `Web (scan.json)`,
-        hostname: scanData.hostname || '',
-        username: scanData.username || '',
-        scanDate: scanData.generatedAt,
+        source: isManual ? 'Web (手動輸入)' : 'Web (scan.json)',
+        hostname: isManual ? '' : scanData.hostname || '',
+        username: isManual ? '' : (scanData.username || '').toLowerCase(),
+        scanDate: isManual ? null : scanData.generatedAt,
         minSeverity: minSev,
         minYear,
         summary: {
-            totalSoftware: scanData.softwares.length + portableEntries.length,
+            totalSoftware: isManual ? queryMap.size : (scanData.softwares.length + portableEntries.length),
             queriedSoftware: idx,
             affectedSoftware: results.length,
             totalCVEs,
@@ -935,15 +1160,29 @@ scanBtn.addEventListener('click', async () => {
     const jsonBlob = new Blob([jsonStr], { type: 'application/json;charset=utf-8' });
     const htmlUrl  = URL.createObjectURL(htmlBlob);
     const jsonUrl  = URL.createObjectURL(jsonBlob);
-    blobUrls.push(htmlUrl, jsonUrl);
-    $id('open-report-btn').onclick = () => window.open(htmlUrl, '_blank');
-    $id('dl-html').href = htmlUrl;
-    $id('dl-json').href = jsonUrl;
+    tabBlobUrls[scanTab].push(htmlUrl, jsonUrl);
+    const slog = msg => {
+        if (!scanSid) return;
+        fetch('/api/log', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ sid: scanSid, msg }) }).catch(() => {});
+    };
+    $id(`${scanTab}-open-report-btn`).onclick = () => {
+        window.open(htmlUrl, '_blank');
+        slog('📄 使用者開啟報表（新分頁）');
+    };
+    if (!isManual) {
+        $id('file-dl-html').href = htmlUrl;
+        $id('file-dl-html').onclick = () => slog('⬇ 使用者下載報表 HTML (result.html)');
+        $id('file-dl-json').href = jsonUrl;
+        $id('file-dl-json').onclick = () => slog('⬇ 使用者下載 result.json');
+    }
 
-    resultCard.style.display = 'block';
-    resultCard.scrollIntoView({ behavior: 'smooth' });
+    const rc = $id(`${scanTab}-result-card`);
+    rc.style.display = 'block';
+    rc.scrollIntoView({ behavior: 'smooth' });
 
     // Reset UI
+    document.querySelectorAll('.tab-btn').forEach(b => b.disabled = false);
     scanBtn.disabled = false;
     cancelBtn.style.display = 'none';
     scanStatus.textContent = cancelled ? '已取消' : '掃描完成';

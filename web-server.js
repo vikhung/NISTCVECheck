@@ -7,16 +7,14 @@ const path = require('path');
 const os   = require('os');
 
 // ─── Port resolution ─────────────────────────────────────────────────────────
-// Priority: CLI arg → PORT env var → default 8093
-// Usage: node web-server.js [PORT]
 const cliPort = parseInt(process.argv[2] || '', 10);
 const PORT    = (!isNaN(cliPort) && cliPort > 0 && cliPort < 65536)
                 ? cliPort
                 : parseInt(process.env.PORT || '8093', 10);
 
-const HTML    = path.join(__dirname, 'web-client.html');
-const NVD_HOST = 'services.nvd.nist.gov';
-const NVD_PATH = '/rest/json/cves/2.0';
+const HTML        = path.join(__dirname, 'web-client.html');
+const NVD_CVE_URL = 'https://services.nvd.nist.gov/rest/json/cves/2.0';
+const LOG_DIR     = path.join(__dirname, 'log');
 
 // ─── Load .env.local ─────────────────────────────────────────────────────────
 function loadEnv(filePath) {
@@ -36,6 +34,7 @@ function loadEnv(filePath) {
 const env              = loadEnv(path.join(__dirname, '.env.local'));
 const defaultApiKey    = env.NIST_API_KEY || '';
 const defaultWhitelist = env.WHITELIST    || '';
+const REQUEST_DELAY    = defaultApiKey ? 700 : 6500;
 
 // Parse PORTABLE_N=name|version entries
 const defaultPortables = [];
@@ -46,15 +45,70 @@ for (let i = 0; ; i++) {
     if (name.trim()) defaultPortables.push({ name: name.trim(), version: version.trim() });
 }
 
-// Injected before </body>:
-// - Tells browser to use local /api/nvd proxy (avoids CORS, API key stays server-side)
-// - Pre-fills whitelist if localStorage is empty
+// ─── Daily-rolling logger ─────────────────────────────────────────────────────
+fs.mkdirSync(LOG_DIR, { recursive: true });
+
+let _logStream = null;
+let _logDate   = '';
+
+function _logDateStr() {
+    const d = new Date();
+    return `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
+}
+
+function _logTs() {
+    const d   = new Date();
+    const ymd = _logDateStr();
+    const hh  = String(d.getHours()).padStart(2, '0');
+    const mm  = String(d.getMinutes()).padStart(2, '0');
+    const ss  = String(d.getSeconds()).padStart(2, '0');
+    const ms  = String(d.getMilliseconds()).padStart(3, '0');
+    return `${ymd} ${hh}${mm}${ss}${ms}`;
+}
+
+function _getStream() {
+    const today = _logDateStr();
+    if (today !== _logDate) {
+        try { _logStream?.end(); } catch (_) {}
+        _logStream = fs.createWriteStream(
+            path.join(LOG_DIR, `server_${today}.log`), { flags: 'a' }
+        );
+        _logDate = today;
+    }
+    return _logStream;
+}
+
+function slog(sid, msg) {
+    const line = `${sid}: ${_logTs()} ${msg}`;
+    console.log(line);
+    try { _getStream().write(line + '\n'); } catch (_) {}
+}
+
+// ─── Session ID ───────────────────────────────────────────────────────────────
+let _sessionSeq = 0;
+const newSid = () => `#${String((_sessionSeq = _sessionSeq % 9999 + 1)).padStart(4, '0')}`;
+
+// ─── Global NVD rate-limit queue ─────────────────────────────────────────────
+// All concurrent sessions share this queue so combined request rate never
+// exceeds REQUEST_DELAY regardless of how many users scan simultaneously.
+let _nvdLastAt = 0;
+let _nvdQueue  = Promise.resolve();
+
+function nvdSlot() {
+    const p = _nvdQueue.then(() => {
+        const wait = Math.max(0, _nvdLastAt + REQUEST_DELAY - Date.now());
+        return sleep(wait).then(() => { _nvdLastAt = Date.now(); });
+    });
+    _nvdQueue = p.catch(() => {});
+    return p;
+}
+
+// ─── Page injection ───────────────────────────────────────────────────────────
+// Injected before </body>: signals proxy mode and pre-fills settings.
 const injectLines = [
-    `window.__NVD_PROXY__   = '/api/nvd';`,
-    `window.__NVD_DELAY__   = ${defaultApiKey ? 700 : 6500};`,
+    `window.__NVD_PROXY__  = '/api/scan';`,
+    `window.__NVD_DELAY__  = ${REQUEST_DELAY};`,
 ];
-// Call addPortableRow() directly — the injected script runs after the main <script> block,
-// so the function is already defined and the portable list is populated immediately.
 for (const p of defaultPortables) {
     injectLines.push(`if(typeof addPortableRow==='function')addPortableRow(${JSON.stringify(p.name)},${JSON.stringify(p.version)});`);
 }
@@ -64,7 +118,6 @@ if (defaultWhitelist) {
     );
 }
 if (defaultApiKey) {
-    // Hide the API key field and insert a status label beside it (keep #api-key in DOM so scan code can still read .value)
     injectLines.push(
         `var fg=document.getElementById('api-key')?.closest('.form-group');`,
         `if(fg){fg.style.display='none';var el=document.createElement('div');el.className='form-group';el.innerHTML='<label>NIST API Key</label><span class="hint" style="color:#4ade80">&#10003; 由伺服器代理處理（.env.local）</span>';fg.parentNode.insertBefore(el,fg);}`
@@ -72,114 +125,159 @@ if (defaultApiKey) {
 }
 const injectScript = `<script>(function(){\n  ${injectLines.join('\n  ')}\n})();</script>`;
 
-// Uses the same built-in fetch() (undici) as cve-checker.js — connection management
-// is handled automatically, eliminating the stale-socket ECONNRESET that plagued the
-// old https.request() + keepAlive agent approach.
-const sleep = ms => new Promise(r => setTimeout(r, ms));
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+const sleep    = ms => new Promise(r => setTimeout(r, ms));
+const readBody = req => new Promise((resolve, reject) => {
+    const chunks = [];
+    req.on('data', c => chunks.push(c));
+    req.on('end',  () => resolve(Buffer.concat(chunks).toString('utf8')));
+    req.on('error', reject);
+});
 
-const MAX_RETRIES    = 3;
-const RETRY_DELAY_MS = 1500;
+// ─── POST /api/scan ───────────────────────────────────────────────────────────
+// Accepts { keywords: string[], maxCves: number, meta: object }.
+// Streams NDJSON: one {"keyword","data"} line per item, then {"done":true}.
+async function scanHandler(req, res) {
+    const sid = newSid();
+    const ip  = req.socket.remoteAddress || '?';
 
-// ─── NVD proxy ────────────────────────────────────────────────────────────────
-function proxyNVD(req, res) {
-    const qs = req.url.slice('/api/nvd'.length); // preserve '?...' query string
+    let keywords, maxCves, meta;
+    try {
+        const body = await readBody(req);
+        const parsed = JSON.parse(body);
+        keywords = parsed.keywords;
+        maxCves  = Math.max(1, parseInt(parsed.maxCves, 10) || 50);
+        meta     = parsed.meta || {};
+        if (!Array.isArray(keywords) || keywords.length === 0)
+            throw new Error('keywords must be a non-empty array');
+    } catch (err) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: err.message }));
+        return;
+    }
 
-    // Without this, an abrupt browser disconnect (TCP RST) while writing
-    // emits an unhandled 'error' on res and crashes the process.
-    res.on('error', () => {});
+    // ── Log scan start ────────────────────────────────────────────────────────
+    const total      = keywords.length;
+    const portable   = meta.portableCount    || 0;
+    const wl         = meta.whitelistedCount || 0;
+    const skipped    = meta.skippedCount     || 0;
+    const dedup      = meta.dedupCount       || 0;
+    const minSev      = meta.minSeverity      || '?';
+    const minYear     = meta.minYear && meta.minYear !== '?' ? Number(meta.minYear) : 0;
+    const apiKeyTag   = defaultApiKey ? '已設定' : '未設定';
+    const estSecs     = Math.ceil(total * REQUEST_DELAY / 1000);
+    const portableTag = portable ? ` + ${portable} Portable` : '';
+    const yearTag     = minYear ? String(minYear) : '不限';
 
-    // Stop retrying if the browser already disconnected.
+    slog(sid, `▶ [${ip}] 開始掃描 ${total} 項軟體${portableTag} (白名單:${wl} 子元件:${skipped} 去重:${dedup})`);
+    slog(sid, `  設定：嚴重度≥${minSev}，年份≥${yearTag}，每項最多${maxCves}筆，API Key:${apiKeyTag}，預估${estSecs}秒`);
+
     let cancelled = false;
     req.on('close', () => { cancelled = true; });
+    res.on('error', () => {});
 
-    // Guard against double-write
-    let settled = false;
-    const fail = (code, msg) => {
-        if (settled) {
-            try { if (!res.writableEnded) res.end(); } catch (_) {}
-            return;
-        }
-        settled = true;
-        const errBody = JSON.stringify({ error: msg });
+    res.writeHead(200, {
+        'Content-Type':      'application/x-ndjson',
+        'Cache-Control':     'no-cache',
+        'X-Accel-Buffering': 'no',
+    });
+    res.write(JSON.stringify({ sid }) + '\n');
+
+    const reqHeaders = { 'User-Agent': 'CVE-Web-Scanner/1.0' };
+    if (defaultApiKey) reqHeaders['apiKey'] = defaultApiKey;
+
+    let scanned = 0;
+    for (let i = 0; i < keywords.length; i++) {
+        if (cancelled) break;
+
+        await nvdSlot();
+        if (cancelled) break;
+
+        const keyword = keywords[i];
+        scanned++;
+
+        const params = new URLSearchParams({
+            keywordSearch:  keyword,
+            resultsPerPage: String(maxCves),
+            noRejected:     '',
+        });
+        const url = `${NVD_CVE_URL}?${params}`;
+
         try {
-            if (!res.headersSent) res.writeHead(code, {
-                'Content-Type': 'application/json',
-                'Connection': 'close',
-                'Content-Length': Buffer.byteLength(errBody),
-            });
-            if (!res.writableEnded) res.end(errBody);
-        } catch (_) {}
-    };
-
-    async function tryRequest(retried) {
-        if (cancelled) return;
-
-        const reqHeaders = { 'User-Agent': 'CVE-Web-Scanner/1.0' };
-        if (defaultApiKey) reqHeaders['apiKey'] = defaultApiKey;
-
-        try {
-            const nvdRes = await fetch(`https://${NVD_HOST}${NVD_PATH}${qs}`, {
-                headers: reqHeaders,
-                signal: AbortSignal.timeout(30000),
-            });
-
-            // Retry on 5xx server errors
-            if (nvdRes.status >= 500 && retried < MAX_RETRIES) {
-                console.error(`[NVD proxy] HTTP ${nvdRes.status}，重試 ${retried + 1}/${MAX_RETRIES}`);
-                await sleep(RETRY_DELAY_MS);
-                return tryRequest(retried + 1);
+            let nvdRes;
+            try {
+                nvdRes = await fetch(url, { headers: reqHeaders, signal: AbortSignal.timeout(30000) });
+            } catch (firstErr) {
+                if (firstErr.name === 'AbortError') throw firstErr;
+                slog(sid, `  [${scanned}/${total}] ${keyword} — TypeError，重試`);
+                nvdRes = await fetch(url, { headers: reqHeaders, signal: AbortSignal.timeout(30000) });
             }
 
-            const body = await nvdRes.arrayBuffer();
-            if (cancelled) return;
+            if (nvdRes.status === 429) {
+                slog(sid, `  [${scanned}/${total}] ${keyword} — 429 Rate Limit，等待15秒`);
+                await sleep(15000);
+                if (cancelled) break;
+                nvdRes = await fetch(url, { headers: reqHeaders, signal: AbortSignal.timeout(30000) });
+            }
 
-            settled = true;
-            const buf = Buffer.from(body);
-            // Content-Length lets the browser know response boundaries without
-            // relying solely on TCP FIN timing (avoids race conditions on Windows).
-            // Connection: close forces a fresh TCP connection per request.
-            res.writeHead(nvdRes.status, {
-                'Content-Type': 'application/json; charset=utf-8',
-                'Connection': 'close',
-                'Content-Length': buf.length,
-            });
-            res.end(buf);
+            if (!nvdRes.ok) {
+                const text = await nvdRes.text().catch(() => '');
+                throw new Error(`HTTP ${nvdRes.status}${text ? ': ' + text.slice(0, 120) : ''}`);
+            }
+
+            const data      = await nvdRes.json();
+            const nvdTotal  = data.totalResults ?? 0;
+            const returned  = data.vulnerabilities?.length ?? 0;
+            const extra = nvdTotal > returned ? `(取前${returned}筆)` : '';
+            slog(sid, `  [${scanned}/${total}] ${keyword} — 從NVD共取回${nvdTotal}筆${extra}，(尚未過濾嚴重度/年份/關聯性)`);
+            res.write(JSON.stringify({ keyword, data }) + '\n');
 
         } catch (err) {
-            if (cancelled) return;
-            const isTimeout = err.name === 'TimeoutError' || err.name === 'AbortError';
-            if (retried < MAX_RETRIES) {
-                console.error(`[NVD proxy] ${isTimeout ? '逾時（30s）' : err.message}，重試 ${retried + 1}/${MAX_RETRIES}`);
-                await sleep(RETRY_DELAY_MS);
-                return tryRequest(retried + 1);
-            }
-            if (isTimeout) {
-                fail(504, 'NVD API timeout (30 s)');
-            } else {
-                console.error(`[NVD proxy] ${err.message}`);
-                fail(502, err.message);
-            }
+            if (err.name === 'AbortError') break;
+            slog(sid, `  [${scanned}/${total}] ${keyword} — 失敗：${err.message}`);
+            res.write(JSON.stringify({ keyword, error: err.message }) + '\n');
         }
     }
 
-    tryRequest(0).catch(err => {
-        console.error('[NVD proxy] 未預期錯誤：', err.message);
-        fail(500, 'Internal proxy error');
-    });
+    if (cancelled) {
+        slog(sid, `■ [${ip}] 掃描取消（已完成 ${scanned}/${total}）`);
+    } else {
+        slog(sid, `✓ [${ip}] 掃描完成 ${scanned}/${total}`);
+    }
+
+    if (!cancelled) res.write(JSON.stringify({ done: true }) + '\n');
+    res.end();
 }
 
 // ─── Request handler ──────────────────────────────────────────────────────────
 const server = http.createServer((req, res) => {
+    if (req.url === '/api/log' && req.method === 'POST') {
+        readBody(req).then(body => {
+            try {
+                const { sid, msg } = JSON.parse(body);
+                if (sid && msg) {
+                    for (const line of String(msg).split('\n'))
+                        slog(sid, `  ${line}`);
+                }
+            } catch (_) {}
+            res.writeHead(204); res.end();
+        }).catch(() => { res.writeHead(400); res.end(); });
+        return;
+    }
+
+    if (req.url === '/api/scan' && req.method === 'POST') {
+        scanHandler(req, res).catch(err => {
+            console.error('[scan] unexpected error:', err.message);
+            if (!res.headersSent) { res.writeHead(500); res.end(JSON.stringify({ error: err.message })); }
+            else { try { res.end(); } catch (_) {} }
+        });
+        return;
+    }
+
     if (req.method !== 'GET') {
         res.writeHead(405); res.end(); return;
     }
 
-    // NVD proxy endpoint
-    if (req.url === '/api/nvd' || req.url.startsWith('/api/nvd?')) {
-        proxyNVD(req, res); return;
-    }
-
-    // Serve the web client
     if (req.url !== '/' && req.url !== '/index.html') {
         res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
         res.end('404 Not Found');
@@ -196,17 +294,19 @@ const server = http.createServer((req, res) => {
         const html = data.slice(0, idx) + injectScript + '\n' + data.slice(idx);
         const buf  = Buffer.from(html, 'utf8');
         res.writeHead(200, {
-            'Content-Type': 'text/html; charset=utf-8',
-            'Cache-Control': 'no-store',
-            'Content-Length': buf.length,
+            'Content-Type':           'text/html; charset=utf-8',
+            'Cache-Control':          'no-store',
+            'Content-Length':         buf.length,
             'X-Content-Type-Options': 'nosniff',
         });
         res.end(buf);
     });
 });
 
-
 // ─── Start ────────────────────────────────────────────────────────────────────
+server.keepAliveTimeout = 65000;
+server.headersTimeout   = 70000;
+
 server.listen(PORT, '0.0.0.0', () => {
     const c = { bold: '\x1b[1m', reset: '\x1b[0m', cyan: '\x1b[36m', green: '\x1b[32m', gray: '\x1b[90m' };
 
@@ -223,10 +323,11 @@ server.listen(PORT, '0.0.0.0', () => {
     }
 
     console.log(`${c.gray}${'─'.repeat(40)}${c.reset}`);
-    console.log(`${c.gray}NVD 代理：${c.reset} /api/nvd → ${NVD_HOST}`);
+    console.log(`${c.gray}掃描端點：${c.reset} POST /api/scan (NDJSON stream)`);
     if (defaultApiKey)    console.log(`${c.gray}API Key：${c.reset}  已載入（0.7 秒/次）`);
     else                  console.log(`${c.gray}API Key：${c.reset}  未設定（6.5 秒/次）`);
     if (defaultWhitelist) console.log(`${c.gray}白名單：${c.reset}   ${defaultWhitelist}`);
+    console.log(`${c.gray}Log：${c.reset}      ${LOG_DIR}`);
     console.log(`${c.gray}${'─'.repeat(40)}${c.reset}`);
     console.log(`${c.gray}Ctrl+C 停止伺服器${c.reset}\n`);
 });

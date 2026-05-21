@@ -154,7 +154,7 @@ PORTABLE_N       ─────────────────────
 
 3. **Portable 軟體 CPE 查找** — 每筆 `PORTABLE_N` 項目先呼叫 `lookupCPEs(keyword)` 查詢 NVD CPE API，再由 `findBestCPEBase()` 從結果中找出最符合的 `{vendor, product}` 組合（優先全詞比對，次選首詞比對）。找到後記錄為 `cpeBase`，供後續關聯性檢查使用；未找到則降級為關鍵字比對。
 
-4. **NVD CVE API** — `searchCVEs(keyword)` 呼叫 NVD CVE API，參數：`keywordSearch`、`resultsPerPage=MAX_CVES_PER_SOFTWARE`、`noRejected`。**注意**：`pubStartDate` 必須與 `pubEndDate` 成對使用，否則 NVD 回傳 HTTP 404；年份過濾改以 `minYear` 在客戶端篩選。
+4. **NVD CVE API** — `searchCVEs(keyword)` 呼叫 NVD CVE API，參數：`keywordSearch`、`resultsPerPage=MAX_CVES_PER_SOFTWARE`、`noRejected`。**注意**：`pubStartDate` 必須與 `pubEndDate` 成對使用，否則 NVD 回傳 HTTP 404；且 **NVD API 強制限制日期範圍上限為 120 天**，超過亦回 HTTP 404，因此無法以 `pubStartDate=YYYY-01-01` 搭配今日日期的方式過濾年份（實際範圍常逾千天）。年份過濾以 `minYear` 在客戶端進行，為刻意設計而非遺漏。
 
 5. **關聯性檢查（兩種模式）**
    - **Portable 軟體**（有 `cpeBase`）：`cveMatchesCPEBase(cve, vendor, product)` 驗證 CVE CPE 條目中是否含 `:vendor:product:`。回傳 `true`（符合）、`false`（確認不符）或 `null`（無 CPE 資料，保留）。
@@ -213,21 +213,22 @@ Apple
 
 每行一個廠牌關鍵字；不分大小寫部分比對軟體的 `publisher` 欄位。建議改用 `.env.local` 的 `WHITELIST=` 設定；兩者並存時自動合併去重（env 優先）。
 
-## Claude Code 自訂指令
+## Claude Code 內建指令
 
-定義於 `.claude/commands/`，在 Claude Code 中以 `/` 前綴呼叫：
+在 Claude Code 中以 `/` 前綴呼叫的內建 skill：
 
 | 指令 | 用途 |
 |------|------|
 | `/verify` | 確認 Node.js 版本、`team-report.js` 可執行、`cve-checker.js` 語法正確，及 v18+ API 使用情況 |
 | `/security-check` | 靜態安全分析（XSS、命令注入、路徑遍歷等）並評估 Node.js 現代化程度 |
-| `/update-docs` | 依程式碼實際狀態同步更新 `README.md`、`CLAUDE.md`、`docs/operator.html` |
+| `/update-docs` | 根據 `*.js` 實際程式碼狀態，同步更新 `README.md`、`CLAUDE.md`、`docs/operator.html` |
 
 ## web-server.js（Web 伺服器）
 
 ```bash
-node web-server.js          # 預設 Port 8092
-PORT=9000 node web-server.js  # 自訂 Port
+node web-server.js          # 預設 Port 8093
+node web-server.js 9000     # 自訂 Port（位置引數優先）
+PORT=9000 node web-server.js  # 或以環境變數指定
 npm run web                 # 同上（package.json 捷徑）
 ```
 
@@ -252,12 +253,12 @@ npm run web                 # 同上（package.json 捷徑）
 報表結構與 `cve-checker.js` 的 `generateHTML()` 輸出相同，`result.json` 亦與 CLI 版報表格式相容。
 
 **注意事項：**
-- 需要瀏覽器能直接連線 `services.nvd.nist.gov`（若遇 CORS 錯誤，表示網路限制，需改用本機 CLI 版）
-- 不支援 Portable 軟體（`PORTABLE_N`）與 Registry 直接掃描（需透過 scan.json 輸入）
+- 需要瀏覽器能直接連線 `services.nvd.nist.gov`（若遇 CORS 錯誤，表示網路限制，需改用 `web-server.js` 代理模式）
+- 不支援 Registry 直接掃描（需透過 scan.json 輸入）；不支援 `PORTABLE_ONLY` 模式與 `.env.local` 的 `PORTABLE_N` 設定（UI 中的「免安裝軟體」列表可手動補充，但採關鍵字比對而非 CPE API 精確比對）
 - 所有設定（API Key、白名單等）自動儲存於瀏覽器 localStorage
 
 ## 其他檔案
 
-- `docs/operator.html` — 操作員使用說明（HTML 格式）
+- `docs/operator.html` — 完整操作手冊（CLI 版 + Web 版合併，含 tree-view 側欄導覽）
 - `scan.json` — 範例輸入檔，可用於測試（來自本機掃描結果）
 - `findSW.ps1` — 在無法直接執行 Node.js 的遠端機器上產生掃描 JSON

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NIST CVE Scanner — 使用手冊</title>
+<title>NIST CVE Scanner — 操作手冊</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans TC',sans-serif;background:#f8fafc;color:#1e293b;line-height:1.7;font-size:15px}
@@ -15,8 +15,14 @@ nav{width:240px;flex-shrink:0;background:#1e3a5f;color:#e2e8f0;padding:28px 0;po
 .content{flex:1;padding:48px 56px;max-width:900px}
 
 /* Nav */
-.nav-title{font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;opacity:.45;padding:0 20px 8px;margin-top:20px}
+.nav-title{font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;opacity:.6;padding:6px 20px;margin-top:16px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;transition:opacity .15s}
 .nav-title:first-child{margin-top:0}
+.nav-title:hover{opacity:.9}
+.nav-title::after{content:'▾';font-size:.72rem;transition:transform .2s;flex-shrink:0}
+.nav-title.collapsed::after{transform:rotate(-90deg)}
+.nav-group{overflow:hidden;transition:max-height .35s ease;max-height:600px}
+.nav-group.collapsed{max-height:0}
+.nav-sep{height:1px;background:rgba(255,255,255,.12);margin:8px 0}
 nav a{display:block;padding:6px 20px;font-size:.86rem;color:#cbd5e1;border-left:3px solid transparent;transition:all .15s}
 nav a:hover{color:#fff;background:rgba(255,255,255,.06);text-decoration:none}
 nav a.active{color:#fff;border-left-color:#60a5fa;background:rgba(96,165,250,.1)}
@@ -84,6 +90,21 @@ tr:hover td{background:#fafafa}
 .dc.ok{background:rgba(34,197,94,.18)}.dc.ok .n{color:#86efac}
 .dc.hi{background:rgba(239,68,68,.22)}.dc.hi .n{color:#fca5a5}
 
+/* Console mockup */
+.console{background:#0f172a;border-radius:9px;padding:14px 16px;font-family:'Cascadia Code',Consolas,monospace;font-size:.76rem;color:#94a3b8;line-height:1.65;margin:16px 0}
+.console .c-ok{color:#4ade80}.console .c-warn{color:#fbbf24}.console .c-err{color:#f87171}
+.console .c-info{color:#60a5fa}.console .c-gray{color:#64748b}.console .c-bold{font-weight:700;color:#e2e8f0}
+.console a{color:#60a5fa;text-decoration:none}.console a:hover{text-decoration:underline}
+/* UI mockup */
+.ui-mock{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px 22px;margin:16px 0;font-size:.88rem}
+.ui-btn{display:inline-block;padding:8px 20px;border-radius:7px;font-weight:700;font-size:.85rem;white-space:nowrap}
+.ui-btn.primary{background:#1e3a5f;color:#fff}
+.ui-btn.secondary{background:#f1f5f9;color:#1e293b;border:1px solid #e2e8f0}
+.ui-field{border:1px solid #e2e8f0;border-radius:7px;padding:7px 10px;font-size:.85rem;color:#1e293b;background:#fff;width:100%;margin:4px 0}
+/* warn-box alias for web sections */
+.warn-box{background:#fefce8;border-left:4px solid #eab308;color:#713f12;border-radius:8px;padding:14px 18px;margin:18px 0;font-size:.9rem}
+.warn-box strong{display:block;margin-bottom:4px}
+
 /* Section anchor offset */
 section{scroll-margin-top:20px}
 
@@ -97,45 +118,104 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid #e2e8f0;font-size:.
 <!-- ─── Navigation ──────────────────────────────────────────────── -->
 <nav>
   <div class="nav-title">入門</div>
-  <a href="#intro">工具簡介</a>
-  <a href="#requirements">系統需求</a>
-  <a href="#quickstart">快速開始</a>
+  <div class="nav-group">
+    <a href="#intro">工具簡介</a>
+    <a href="#requirements">系統需求</a>
+    <a href="#quickstart">快速開始</a>
+  </div>
 
   <div class="nav-title">資料來源</div>
-  <a href="#source-registry">掃描 PC Registry</a>
-  <a href="#source-file">使用 JSON 檔案</a>
-  <a href="#findsw">findSW.ps1 說明</a>
+  <div class="nav-group">
+    <a href="#source-registry">掃描 PC Registry</a>
+    <a href="#source-file">使用 JSON 檔案</a>
+    <a href="#findsw">findSW.ps1 說明</a>
+  </div>
 
   <div class="nav-title">彙總報表</div>
-  <a href="#team-report">team-report.js 簡介</a>
-  <a href="#team-workflow">工作流程</a>
-  <a href="#team-report-content">彙總報表說明</a>
+  <div class="nav-group">
+    <a href="#team-report">team-report.js 簡介</a>
+    <a href="#team-workflow">工作流程</a>
+    <a href="#team-report-content">彙總報表說明</a>
+  </div>
 
   <div class="nav-title">參數設定</div>
-  <a href="#params">命令列參數</a>
-  <a href="#env">環境設定（.env.local）</a>
-  <a href="#whitelist">白名單設定</a>
-  <a href="#portable">免安裝軟體設定</a>
+  <div class="nav-group">
+    <a href="#params">命令列參數</a>
+    <a href="#env">環境設定（.env.local）</a>
+    <a href="#whitelist">白名單設定</a>
+    <a href="#portable">免安裝軟體設定</a>
+  </div>
 
   <div class="nav-title">報表說明</div>
-  <a href="#report-dashboard">儀表板統計</a>
-  <a href="#report-table">升級建議摘要</a>
-  <a href="#report-cve">CVE 詳細資訊</a>
-  <a href="#report-mismatch">可能誤判的 CVE</a>
-  <a href="#report-skipped">略過清單區塊</a>
+  <div class="nav-group">
+    <a href="#report-dashboard">儀表板統計</a>
+    <a href="#report-table">升級建議摘要</a>
+    <a href="#report-cve">CVE 詳細資訊</a>
+    <a href="#report-mismatch">可能誤判的 CVE</a>
+    <a href="#report-skipped">略過清單區塊</a>
+  </div>
 
   <div class="nav-title">進階</div>
-  <a href="#severity">嚴重等級說明</a>
-  <a href="#false-positive">誤判處理</a>
-  <a href="#api-reference">NVD API 說明</a>
-  <a href="#faq">常見問題</a>
+  <div class="nav-group">
+    <a href="#severity">嚴重等級說明</a>
+    <a href="#false-positive">誤判處理</a>
+    <a href="#api-reference">NVD API 說明</a>
+    <a href="#faq">常見問題</a>
+  </div>
+
+  <div class="nav-sep"></div>
+
+  <div class="nav-title">🌐 Web 入門</div>
+  <div class="nav-group">
+    <a href="#web-intro">工具簡介</a>
+    <a href="#web-modes">兩種使用模式</a>
+    <a href="#web-quickstart">快速開始</a>
+  </div>
+
+  <div class="nav-title">🌐 掃描設定</div>
+  <div class="nav-group">
+    <a href="#web-settings">掃描設定說明</a>
+    <a href="#web-apikey">NIST API Key</a>
+  </div>
+
+  <div class="nav-title">🌐 檔案掃描模式</div>
+  <div class="nav-group">
+    <a href="#web-file">上傳 scan.json</a>
+    <a href="#web-whitelist">白名單設定</a>
+    <a href="#web-portable">免安裝軟體</a>
+  </div>
+
+  <div class="nav-title">🌐 人工掃描</div>
+  <div class="nav-group">
+    <a href="#web-manual">手動輸入軟體</a>
+  </div>
+
+  <div class="nav-title">🌐 掃描過程</div>
+  <div class="nav-group">
+    <a href="#web-progress">進度 Console 說明</a>
+    <a href="#web-cancel">取消掃描</a>
+  </div>
+
+  <div class="nav-title">🌐 掃描結果</div>
+  <div class="nav-group">
+    <a href="#web-report">開啟與下載報表</a>
+    <a href="#web-report-content">報表內容說明</a>
+    <a href="#web-status">升級狀態判斷</a>
+  </div>
+
+  <div class="nav-title">🌐 進階</div>
+  <div class="nav-group">
+    <a href="#web-server">伺服器代理模式</a>
+    <a href="#web-limitations">功能限制</a>
+    <a href="#web-faq">常見問題</a>
+  </div>
 </nav>
 
 <!-- ─── Content ─────────────────────────────────────────────────── -->
 <div class="content">
 
 <h1>NIST CVE Scanner</h1>
-<p class="subtitle">Windows 軟體弱點掃描工具 — 使用手冊</p>
+<p class="subtitle">Windows 軟體弱點掃描工具 — 操作手冊（CLI 版 &amp; Web 版）</p>
 
 <!-- ══════════════════════════════════════════════════════════════ -->
 <section id="intro">
@@ -216,7 +296,7 @@ HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*        <span class="
 <h2>使用 JSON 檔案</h2>
 <p>將預先產生的軟體清單 JSON 檔案路徑作為第一個參數傳入：</p>
 <pre><code>node cve-checker.js scan.json
-node cve-checker.js C:\Users\USER\Desktop\esrm-scan.json HIGH</code></pre>
+node cve-checker.js C:\Users\USER\Desktop\scan.json HIGH</code></pre>
 <h3>JSON 檔案格式</h3>
 <pre><code>{
   <span class="str">"generatedAt"</span>: <span class="str">"2026-05-14T12:49:39.741Z"</span>,
@@ -922,13 +1002,486 @@ PORTABLE_3=Neo4j Community Edition|2025.05.0|Neo4j Inc</code></pre>
 <p>去重邏輯是以清理版本號後的名稱為鍵，保留第一筆出現的條目，後續相同名稱的條目列在「重複去除的軟體」區塊。建議保留版本較新的軟體，移除舊版後重新掃描。</p>
 </section>
 
-<footer>NIST CVE Scanner &nbsp;·&nbsp; 使用手冊 &nbsp;·&nbsp; 資料來源：<a href="https://nvd.nist.gov/" target="_blank">NIST National Vulnerability Database</a></footer>
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="web-intro">
+<h2>Web 掃描器 — 工具簡介</h2>
+<p>CVE Web Scanner 是一套純瀏覽器端的軟體弱點掃描工具，不需要安裝任何軟體，直接以瀏覽器開啟 <code>web-client.html</code> 即可使用。</p>
+<p>功能與 Node.js 命令列版（<code>cve-checker.js</code>）相同：</p>
+<ul>
+  <li>載入 <code>scan.json</code>（由 <code>findSW.ps1</code> 或 <code>cve-checker.js</code> 在目標機器產生）</li>
+  <li>或直接手動輸入軟體名稱與版本號（人工掃描模式）</li>
+  <li>查詢 NIST NVD CVE API，依嚴重度、年份過濾</li>
+  <li>比對建議修復版本，判斷升級狀態</li>
+  <li>產出與 CLI 版格式相同的 HTML 視覺化報表及 JSON 結果</li>
+</ul>
+<div class="note"><strong>與命令列版的差異</strong>Web 版不支援直接讀取 Windows Registry（需先產生 scan.json）、不支援 Portable 軟體的 CPE 精確比對（人工掃描模式），以及不支援 <code>.env.local</code> 環境設定。這些功能請使用命令列版 <code>cve-checker.js</code>。</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="web-modes">
+<h2>Web 掃描器 — 兩種使用模式</h2>
+
+<h3>模式一：獨立瀏覽器模式（Standalone）</h3>
+<p>直接在 Windows 檔案總管中雙擊 <code>web-client.html</code> 開啟，或拖曳至瀏覽器視窗。</p>
+<ul>
+  <li>無需伺服器、無需 Node.js</li>
+  <li>由瀏覽器直接呼叫 <code>services.nvd.nist.gov</code></li>
+  <li>NIST API Key 需在掃描設定中手動輸入，並儲存於瀏覽器 <code>localStorage</code></li>
+</ul>
+<div class="warn-box"><strong>若遭遇 CORS 錯誤</strong>部分企業網路或防火牆會封鎖瀏覽器對 <code>services.nvd.nist.gov</code> 的直接請求（CORS 限制）。此時請改用伺服器代理模式。</div>
+
+<h3>模式二：伺服器代理模式（Proxy via web-server.js）</h3>
+<p>在安裝了 Node.js 的機器上啟動 <code>web-server.js</code>，由伺服器代理所有 NVD API 請求：</p>
+<pre><code>node web-server.js          <span class="comment"># 預設 Port 8093</span>
+node web-server.js 9000     <span class="comment"># 自訂 Port</span></code></pre>
+<p>啟動後以瀏覽器開啟顯示的網址即可（支援區域網路多人同時使用）：</p>
+<pre><code>本機：    http://localhost:8093
+區域網路：http://192.168.x.x:8093  ← 其他電腦可直接連線</code></pre>
+<ul>
+  <li>API Key 設定於伺服器端 <code>.env.local</code>，瀏覽器端不需輸入</li>
+  <li>多個使用者共用同一個 NVD API 速率限制佇列</li>
+  <li>伺服器自動記錄 Log 至 <code>log/server_YYYYMMDD.log</code></li>
+</ul>
+<div class="tip"><strong>建議使用伺服器代理模式</strong>可避免 CORS 問題，且 API Key 集中管理較安全，不會暴露在瀏覽器端。</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="web-quickstart">
+<h2>Web 掃描器 — 快速開始</h2>
+
+<h3>獨立模式</h3>
+<ol class="steps">
+  <li><div>在 Windows 檔案總管中雙擊 <code>web-client.html</code>，以瀏覽器開啟</div></li>
+  <li><div>若有 NIST API Key，在「掃描設定」的 API Key 欄位填入（可省略，但速率較慢）</div></li>
+  <li><div>切換至「📁 檔案掃描(JSON)」頁籤，上傳 scan.json 檔案</div></li>
+  <li><div>點擊「▶ 開始掃描」，等待進度完成</div></li>
+  <li><div>掃描完成後點擊「📄 在新分頁開啟報表」查看結果</div></li>
+</ol>
+
+<h3>伺服器代理模式</h3>
+<ol class="steps">
+  <li>
+    <div>
+      設定 <code>.env.local</code>（複製自 <code>.env.local.example</code>），填入 API Key：
+      <pre><code>NIST_API_KEY=your-api-key-here
+WHITELIST=Microsoft,Apple,Google</code></pre>
+    </div>
+  </li>
+  <li>
+    <div>
+      啟動 Web 伺服器：
+      <pre><code>node web-server.js
+<span class="comment"># 或使用 npm run web</span></code></pre>
+    </div>
+  </li>
+  <li><div>以瀏覽器開啟終端機顯示的本機或區域網路網址</div></li>
+  <li><div>上傳 scan.json 並開始掃描（API Key 已由伺服器代理，無需重新輸入）</div></li>
+</ol>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="web-settings">
+<h2>Web 掃描器 — 掃描設定說明</h2>
+<p>頁面頂端的「⚙ 掃描設定」區塊，兩個掃描模式共用：</p>
+
+<table>
+  <thead><tr><th>欄位</th><th>說明</th><th>預設值</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>NIST API Key</strong></td>
+      <td>NVD API 驗證金鑰。有 Key 時每次請求間隔 0.7 秒；無 Key 則 6.5 秒。伺服器代理模式下此欄位隱藏（由伺服器處理）</td>
+      <td>（空）</td>
+    </tr>
+    <tr>
+      <td><strong>最低嚴重度</strong></td>
+      <td>只顯示達此等級以上的 CVE。選項：LOW / MEDIUM / HIGH / CRITICAL</td>
+      <td>HIGH</td>
+    </tr>
+    <tr>
+      <td><strong>CVE 最早年份</strong></td>
+      <td>只顯示此年份（含）之後發布的 CVE。留空代表「當年 −5」</td>
+      <td>當年 −5</td>
+    </tr>
+    <tr>
+      <td><strong>每項軟體最多 CVE 筆數</strong></td>
+      <td>NVD 回傳順序為最新優先；設定過低可能遺漏較舊的 CVE</td>
+      <td>50</td>
+    </tr>
+  </tbody>
+</table>
+<p>所有設定均自動儲存於瀏覽器 <code>localStorage</code>，下次開啟時自動帶入。</p>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="web-apikey">
+<h2>Web 掃描器 — NIST API Key</h2>
+<p>API Key 可免費申請，申請後數分鐘內會收到 Email：</p>
+<p><a href="https://nvd.nist.gov/developers/request-an-api-key" target="_blank" rel="noopener">nvd.nist.gov/developers/request-an-api-key</a></p>
+
+<table>
+  <thead><tr><th>條件</th><th>速率限制</th><th>掃描間隔</th><th>20 筆軟體預估時間</th></tr></thead>
+  <tbody>
+    <tr><td>有 API Key</td><td>50 req / 30 秒</td><td>0.7 秒</td><td>約 15 秒</td></tr>
+    <tr><td>無 API Key</td><td>5 req / 30 秒</td><td>6.5 秒</td><td>約 2 分鐘</td></tr>
+  </tbody>
+</table>
+
+<div class="warn-box"><strong>安全注意事項</strong>在獨立模式下，API Key 儲存於瀏覽器 localStorage（明文）。若在公用電腦上使用，掃描完成後請清除瀏覽器 localStorage 或使用無痕模式。建議在受信任的個人電腦上使用，或改用伺服器代理模式（Key 儲存在伺服器端 <code>.env.local</code>，不暴露給瀏覽器）。</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="web-file">
+<h2>Web 掃描器 — 上傳 scan.json（檔案掃描模式）</h2>
+<p>切換至「📁 檔案掃描(JSON)」頁籤，第一步是上傳掃描來源檔案。</p>
+
+<h3>如何取得 scan.json</h3>
+<table>
+  <thead><tr><th>方式</th><th>指令</th><th>適用情境</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>PowerShell 腳本</td>
+      <td><code>powershell -ExecutionPolicy Bypass -File findSW.ps1</code></td>
+      <td>目標機器無 Node.js，或只想快速收集清單</td>
+    </tr>
+    <tr>
+      <td>Node.js CLI</td>
+      <td><code>node cve-checker.js</code>（產生 <code>report/vik_result_YYYYMMDD.json</code>）</td>
+      <td>已安裝 Node.js，且需要同時產生 CLI 版報表</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>上傳方式</h3>
+<ul>
+  <li><strong>點擊上傳</strong>：點擊上傳區域，選擇 JSON 檔案</li>
+  <li><strong>拖曳上傳</strong>：將 JSON 檔案直接拖曳至上傳區域</li>
+</ul>
+<p>上傳成功後，上傳區域底部會顯示：檔案名稱、軟體筆數、主機名稱（Host）、使用者名稱（User）、掃描產生時間。</p>
+<div class="note"><strong>檔案格式</strong>必須是由 <code>findSW.ps1</code> 或 <code>cve-checker.js</code> 產生的 JSON 格式（含 <code>softwares</code> 陣列）。一般的軟體清單 Excel 或 CSV 不支援直接上傳。</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="web-whitelist">
+<h2>Web 掃描器 — 白名單設定（檔案掃描模式）</h2>
+<p>白名單位於「📁 檔案掃描(JSON)」頁籤的第二步，輸入逗號分隔的廠牌關鍵字：</p>
+<pre><code>Microsoft,Apple,Google,Adobe</code></pre>
+<ul>
+  <li>比對目標：軟體的 <strong>Publisher（發行商）</strong> 欄位</li>
+  <li>不分大小寫，部分比對（關鍵字是 Publisher 的子字串即符合）</li>
+  <li>符合白名單的軟體完全跳過掃描，列於報表底部的「白名單略過」區塊</li>
+</ul>
+<div class="tip"><strong>建議白名單</strong><code>Microsoft,Apple,Google</code> 是常見起點。這些廠商的軟體數量多、更新機制完善，加入白名單可大幅縮短掃描時間。</div>
+<div class="note"><strong>注意</strong>白名單設定屬於「📁 檔案掃描(JSON)」頁籤，不適用於「✏ 人工掃描」模式。</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="web-portable">
+<h2>Web 掃描器 — 免安裝軟體設定（檔案掃描模式）</h2>
+<p>「📁 檔案掃描(JSON)」頁籤的第三步，可加入未寫入 Windows Registry 的免安裝軟體（如 Eclipse IDE、Apache Maven）：</p>
+
+<div class="ui-mock">
+  <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
+    <input class="ui-field" style="flex:3" value="Eclipse IDE" readonly>
+    <input class="ui-field" style="flex:1.5" value="2025.06" readonly>
+    <span style="color:#dc2626;font-weight:700;cursor:pointer">✕</span>
+  </div>
+  <div style="display:flex;gap:8px;align-items:center">
+    <input class="ui-field" style="flex:3" placeholder="軟體名稱（例：Apache Maven）" readonly>
+    <input class="ui-field" style="flex:1.5" placeholder="版本號（可選填）" readonly>
+    <span style="color:#dc2626;font-weight:700;cursor:pointer">✕</span>
+  </div>
+  <div style="margin-top:10px"><span style="color:#2563eb;font-size:.85rem;cursor:pointer">＋ 新增項目</span></div>
+</div>
+
+<table>
+  <thead><tr><th>欄位</th><th>說明</th></tr></thead>
+  <tbody>
+    <tr><td><strong>軟體名稱</strong></td><td>用於 NVD 關鍵字搜尋，建議使用完整英文名稱（如 <code>Apache Maven</code> 而非 <code>Maven</code>）</td></tr>
+    <tr><td><strong>版本號</strong></td><td>可選填，填入後可比對是否需要升級；留空仍可查詢 CVE</td></tr>
+  </tbody>
+</table>
+<div class="note"><strong>與 CLI 版的差異</strong>Web 版免安裝軟體不進行 CPE API 精確比對，CPE 關聯性驗證採用與 Registry 軟體相同的關鍵字比對模式。若需精確 CPE 比對，請使用命令列版並設定 <code>PORTABLE_N</code>。</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="web-manual">
+<h2>Web 掃描器 — 人工掃描模式</h2>
+<p>切換至「✏ 人工掃描」頁籤，直接輸入想查詢的軟體名稱與版本號，無需準備 scan.json 檔案。</p>
+
+<div class="ui-mock">
+  <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
+    <input class="ui-field" style="flex:3" value="WinRAR" readonly>
+    <input class="ui-field" style="flex:1.5" value="7.10" readonly>
+    <span style="color:#dc2626;font-weight:700;cursor:pointer">✕</span>
+  </div>
+  <div style="display:flex;gap:8px;align-items:center">
+    <input class="ui-field" style="flex:3" placeholder="軟體名稱（例：Eclipse IDE）" readonly>
+    <input class="ui-field" style="flex:1.5" placeholder="版本號（例：2025.06）" readonly>
+    <span style="color:#dc2626;font-weight:700;cursor:pointer">✕</span>
+  </div>
+  <div style="margin-top:10px"><span style="color:#2563eb;font-size:.85rem;cursor:pointer">＋ 新增軟體</span></div>
+</div>
+
+<ul>
+  <li>頁面開啟時預設已有一筆空白輸入列</li>
+  <li>點擊「＋ 新增軟體」可增加更多輸入列</li>
+  <li>版本號可留空（仍可查詢 CVE，但無法判斷是否需要升級）</li>
+  <li>至少須填入一筆軟體名稱，「▶ 開始掃描」按鈕才會啟用</li>
+  <li>此模式<strong>不套用白名單過濾</strong>，也<strong>不提供 result.json 下載</strong></li>
+</ul>
+<div class="tip"><strong>適合用途</strong>想快速確認特定軟體是否有已知 CVE，而不需要完整掃描整台電腦。例如：臨時查詢某個剛安裝的工具、確認某軟體版本是否安全。</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="web-progress">
+<h2>Web 掃描器 — 掃描進度 Console 說明</h2>
+<p>點擊「▶ 開始掃描」後，頁籤面板內會展開進度區塊，包含進度條、統計列與黑底 Console 視窗。</p>
+
+<h3>Console 輸出格式範例</h3>
+<div class="console">
+<div><span class="c-info">▶ 開始掃描</span> <span class="c-bold">19</span> 項軟體 <span class="c-gray">(白名單:33 子元件:9 去重:1)</span></div>
+<div><span class="c-gray">設定：嚴重度≥HIGH，年份≥2021，每項最多50筆，API Key:已設定，預估15秒</span></div>
+<div><span class="c-gray">────────────────────────────────────────────────────────────────</span></div>
+<div><span class="c-gray">[1/19]</span> <span class="c-bold">Apache Maven</span> <span class="c-gray">v3.8.6</span></div>
+<div><span class="c-gray">  search: "Apache Maven"</span></div>
+<div>  <span class="c-err"><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-48988" target="_blank" rel="noopener">CVE-2024-48988</a> [HIGH 7.6]</span> <span class="c-gray">2025-08-22</span> <span class="c-warn"> ⚠ CPE 條目中未含「Apache Maven」相關字詞</span></div>
+<div>  <span class="c-ok"><a href="https://nvd.nist.gov/vuln/detail/CVE-2022-29599" target="_blank" rel="noopener">CVE-2022-29599</a> [CRITICAL 9.8]</span> <span class="c-gray">2022-05-23</span> <span class="c-ok">✓ 安全版本：≥ 3.3.3</span></div>
+<div>  <span class="c-ok"><a href="https://nvd.nist.gov/vuln/detail/CVE-2021-26291" target="_blank" rel="noopener">CVE-2021-26291</a> [CRITICAL 9.1]</span> <span class="c-gray">2021-04-23</span> <span class="c-ok">✓ 安全版本：≥ 3.8.1</span></div>
+<div>  <span class="c-ok">→ 目前版本 (3.8.6) 已是安全版，無須升級</span></div>
+<div><span class="c-gray">[2/19]</span> <span class="c-bold">WinRAR</span> <span class="c-gray">v7.10</span></div>
+<div><span class="c-gray">  search: "WinRAR"</span></div>
+<div>  <span class="c-err"><a href="https://nvd.nist.gov/vuln/detail/CVE-2023-40477" target="_blank" rel="noopener">CVE-2023-40477</a> [HIGH 7.8]</span> <span class="c-gray">2023-08-23</span> <span class="c-ok">✓ 安全版本：≥ 6.23</span></div>
+<div>  <span class="c-ok">→ 目前版本 (7.10) 已是安全版，無須升級</span></div>
+<div><span class="c-gray">────────────────────────────────────────────────────────────────</span></div>
+<div><span class="c-ok c-bold">✓ 掃描完成</span> — 19 項掃描・17 項無弱點，2 項有弱點，其中 2 個已為最新版</div>
+</div>
+
+<h3>Console 各行說明</h3>
+<table>
+  <thead><tr><th>顏色</th><th>代表意義</th></tr></thead>
+  <tbody>
+    <tr><td><span style="color:#60a5fa;font-weight:700">藍色</span></td><td>掃描啟動訊息、模式說明</td></tr>
+    <tr><td><span style="color:#64748b;font-weight:700">灰色</span></td><td>一般資訊（設定摘要、軟體名稱、搜尋字詞、分隔線）</td></tr>
+    <tr><td><span style="color:#f87171;font-weight:700">紅色</span></td><td>CRITICAL / HIGH 等級的 CVE ID</td></tr>
+    <tr><td><span style="color:#fbbf24;font-weight:700">黃色</span></td><td>MEDIUM / LOW 等級的 CVE ID；警告訊息（⚠ CPE 不符、⚠ 無修復版資訊）</td></tr>
+    <tr><td><span style="color:#4ade80;font-weight:700">綠色</span></td><td>安全版本資訊（✓ 安全版本：≥ X.X.X）；目前版本安全；掃描完成</td></tr>
+  </tbody>
+</table>
+
+<h3>CVE 連結</h3>
+<p>Console 中每筆 CVE ID 均為可點擊的連結，點擊後在新分頁開啟 NVD 官網的完整 CVE 詳情頁面，無需透過報表即可快速查閱。</p>
+
+<h3>「⚠ CPE 條目中未含...」的意義</h3>
+<p>程式對每筆 CVE 進行關聯性驗證，確認搜尋到的 CVE 是否真的與該軟體有關。若 CVE 的 CPE（Common Platform Enumeration）條目中未出現搜尋名稱，該 CVE 會被標記為可能誤判，顯示 ⚠ 警告，並列入報表的「可能誤判」區塊，<strong>不影響版本建議或升級狀態</strong>。</p>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="web-cancel">
+<h2>Web 掃描器 — 取消掃描</h2>
+<p>掃描進行中，「▶ 開始掃描」按鈕旁會出現「■ 取消掃描」按鈕。點擊後程式會在完成當前軟體查詢後停止，已取得的結果仍可產出部分報表。</p>
+<div class="note"><strong>掃描期間頁籤鎖定</strong>掃描進行中，頁面頂部與底部的頁籤切換按鈕均會暫時停用，防止切換頁籤時干擾掃描進行。掃描完成或取消後自動解鎖。</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="web-report">
+<h2>Web 掃描器 — 開啟與下載報表</h2>
+<p>掃描完成後，頁籤面板底部會顯示結果區塊：</p>
+
+<div class="ui-mock">
+  <div style="font-size:.82rem;font-weight:700;color:#1e3a5f;margin-bottom:12px">✅ 掃描完成</div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap">
+    <span class="ui-btn primary">📄 在新分頁開啟報表</span>
+    <span class="ui-btn secondary">⬇ 下載報表 HTML</span>
+    <span class="ui-btn secondary">⬇ result.json</span>
+  </div>
+  <div style="font-size:.78rem;color:#94a3b8;margin-top:8px">（人工掃描模式僅提供「在新分頁開啟報表」按鈕）</div>
+</div>
+
+<table>
+  <thead><tr><th>按鈕</th><th>說明</th><th>適用模式</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>📄 在新分頁開啟報表</strong></td>
+      <td>在瀏覽器新分頁中開啟 HTML 視覺化報表，與 CLI 版報表格式完全相同</td>
+      <td>兩種模式</td>
+    </tr>
+    <tr>
+      <td><strong>⬇ 下載報表 HTML</strong></td>
+      <td>將報表下載為 <code>result.html</code> 儲存至本機（可離線查閱、轉寄給他人）</td>
+      <td>檔案掃描模式</td>
+    </tr>
+    <tr>
+      <td><strong>⬇ result.json</strong></td>
+      <td>下載掃描結果 JSON（與 CLI 版格式相容，可供 <code>team-report.js</code> 彙整多台機器報表）</td>
+      <td>檔案掃描模式</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="tip"><strong>切換頁籤後仍可開啟</strong>掃描完成後，即使切換至另一個頁籤再切換回來，「開啟報表」與「下載」按鈕仍然有效，不會因切換頁籤而失效。但若在同一頁籤<strong>重新掃描</strong>，前一次的報表連結會被撤銷。</div>
+<div class="note"><strong>伺服器 Log 記錄</strong>使用伺服器代理模式時，點擊「開啟報表」、「下載報表 HTML」、「下載 result.json」均會自動記錄至後端 <code>log/server_YYYYMMDD.log</code>，方便管理者追蹤報表使用情況。</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="web-report-content">
+<h2>Web 掃描器 — 報表內容說明</h2>
+<p>Web 版產出的 HTML 報表與命令列版（<code>cve-checker.js</code>）格式相同，包含以下區塊：</p>
+<ol>
+  <li><strong>Header 儀表板</strong>：軟體總計、白名單略過、子元件/重複略過、實際掃描數；發現弱點數、CVE 總數、各狀態分類統計</li>
+  <li><strong>升級建議摘要表</strong>：列出所有掃描軟體，顯示已安裝版本、最低安全版本、升級狀態</li>
+  <li><strong>CVE 詳細資訊</strong>：每個有弱點軟體的可展開區塊，包含 CVE ID 連結、嚴重度、發布日期、描述、安全版本、升級建議</li>
+  <li><strong>可能誤判的 CVE</strong>：CPE 條目與搜尋名稱不符的 CVE，供使用者自行確認</li>
+  <li><strong>略過清單</strong>：白名單跳過、子元件跳過、重複去除的軟體清單</li>
+</ol>
+<p>報表詳細說明請參閱本手冊的「<a href="#report-dashboard">報表說明 — 儀表板統計</a>」章節。</p>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="web-status">
+<h2>Web 掃描器 — 升級狀態判斷邏輯</h2>
+<p>Console 與報表中的升級狀態依以下優先順序判斷：</p>
+<table>
+  <thead><tr><th>狀態</th><th>Console 訊息</th><th>條件</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><span style="color:#dc2626;font-weight:700">✗ 需要升級</span></td>
+      <td><code>→ 建議升級至 ≥ X.X.X（目前：Y.Y.Y）</code></td>
+      <td>有已知修復版，但目前安裝版本未達到</td>
+    </tr>
+    <tr>
+      <td><span style="color:#d97706;font-weight:700">? 請手動確認</span></td>
+      <td><code>→ 現有版本已達部分修復要求，但仍有 CVE 無修復版本資訊，請手動確認</code><br>或<br><code>→ 無修復版本資訊，請手動確認</code></td>
+      <td>目前版本達修復要求，但<strong>有部分 CVE 尚無修復版資訊</strong>；或所有 CVE 均無修復版資訊</td>
+    </tr>
+    <tr>
+      <td><span style="color:#16a34a;font-weight:700">✓ 無須升級</span></td>
+      <td><code>→ 目前版本 (X.X.X) 已是安全版，無須升級</code></td>
+      <td>有修復版，目前版本達到要求，且<strong>所有 CVE 均有明確修復版資訊</strong></td>
+    </tr>
+    <tr>
+      <td><span style="color:#16a34a;font-weight:700">✓ 無弱點</span></td>
+      <td><code>✓ 無弱點（HIGH 以上）</code></td>
+      <td>未找到符合篩選條件的 CVE（CPE 不符的誤判 CVE 不計入）</td>
+    </tr>
+  </tbody>
+</table>
+<div class="note"><strong>「⚠ CPE 不符」不觸發手動確認</strong>若某軟體的所有符合條件 CVE 都有明確修復版、且目前版本已達到要求，即使同時有數筆「CPE 不符」的可能誤判 CVE，狀態仍會顯示「✓ 無須升級」，而非要求手動確認。手動確認僅在有匹配的 CVE 但<strong>缺少修復版資訊</strong>時才會觸發。</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="web-server">
+<h2>Web 掃描器 — 伺服器代理模式詳細說明</h2>
+
+<h3>啟動 web-server.js</h3>
+<pre><code><span class="comment"># 預設 Port 8093</span>
+node web-server.js
+
+<span class="comment"># 指定 Port</span>
+node web-server.js 9000
+
+<span class="comment"># 使用 npm 捷徑</span>
+npm run web</code></pre>
+
+<h3>啟動後顯示資訊</h3>
+<pre><code>CVE Web Scanner
+────────────────────────────────────────
+本機：    http://localhost:8093
+區域網路：http://192.168.1.100:8093
+────────────────────────────────────────
+掃描端點：POST /api/scan (NDJSON stream)
+API Key：  已載入（0.7 秒/次）
+Log：      ...\NISTCVECheck\log
+────────────────────────────────────────</code></pre>
+
+<h3>server.log 記錄格式</h3>
+<p>伺服器代理模式下，所有掃描活動均記錄至 <code>log/server_YYYYMMDD.log</code>：</p>
+<div class="console">
+<div><span class="c-gray">#0001: 20260521 143022123 ▶ [192.168.1.50] 開始掃描 19 項軟體 (白名單:33 子元件:9 去重:1)</span></div>
+<div><span class="c-gray">#0001: 20260521 143023100   [1/19] Apache Maven v3.8.6 ✓ 2/3筆[CRITICAL]，目前版本已達修復版本</span></div>
+<div><span class="c-gray">#0001: 20260521 143038200 ✓ [192.168.1.50] 掃描完成 19/19</span></div>
+<div><span class="c-gray">#0001: 20260521 143041000   📄 使用者開啟報表（新分頁）</span></div>
+<div><span class="c-gray">#0001: 20260521 143045000   ⬇ 使用者下載報表 HTML (result.html)</span></div>
+</div>
+
+<table>
+  <thead><tr><th>欄位</th><th>說明</th></tr></thead>
+  <tbody>
+    <tr><td><code>#0001</code></td><td>Session ID，每次連線自動遞增（#0001–#9999 循環）</td></tr>
+    <tr><td><code>20260521 143022123</code></td><td>日期時間（YYYYMMDD HHMMSSmmm）</td></tr>
+    <tr><td>訊息內文</td><td>掃描摘要、各軟體結果、使用者操作記錄</td></tr>
+  </tbody>
+</table>
+
+<h3>.env.local 伺服器端設定</h3>
+<table>
+  <thead><tr><th>參數</th><th>說明</th></tr></thead>
+  <tbody>
+    <tr><td><code>NIST_API_KEY</code></td><td>NVD API Key，由伺服器統一使用，瀏覽器端不需輸入</td></tr>
+    <tr><td><code>WHITELIST</code></td><td>預設白名單，自動帶入頁面</td></tr>
+    <tr><td><code>PORTABLE_N</code></td><td>預設免安裝軟體清單，自動帶入「免安裝軟體」欄位</td></tr>
+  </tbody>
+</table>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="web-limitations">
+<h2>Web 掃描器 — 功能限制</h2>
+<table>
+  <thead><tr><th>功能</th><th>Web 版</th><th>CLI 版（cve-checker.js）</th></tr></thead>
+  <tbody>
+    <tr><td>直接掃描 Windows Registry</td><td>❌ 不支援（需先產生 scan.json）</td><td>✅ 支援</td></tr>
+    <tr><td>Portable 軟體 CPE 精確比對</td><td>⚠ 僅關鍵字比對（誤判率較高）</td><td>✅ CPE API 精確比對</td></tr>
+    <tr><td>PORTABLE_ONLY 模式</td><td>❌ 不支援</td><td>✅ 支援</td></tr>
+    <tr><td>.env.local 環境設定</td><td>⚠ 僅伺服器代理模式支援</td><td>✅ 完整支援</td></tr>
+    <tr><td>多台機器彙整（team-report.js）</td><td>⚠ 需下載 result.json 後手動執行</td><td>✅ 直接產出 JSON</td></tr>
+    <tr><td>無網路連線使用</td><td>❌ 需連線至 services.nvd.nist.gov</td><td>❌ 同樣需要網路</td></tr>
+  </tbody>
+</table>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="web-faq">
+<h2>Web 掃描器 — 常見問題</h2>
+
+<h3>Q：出現「CORS 錯誤」或無法連線 NVD，怎麼辦？</h3>
+<p>這表示您的瀏覽器或網路環境封鎖了對 <code>services.nvd.nist.gov</code> 的直接請求。請改用伺服器代理模式：在有網路權限的機器上啟動 <code>web-server.js</code>，再以瀏覽器連線至該伺服器。</p>
+
+<h3>Q：上傳 scan.json 後顯示「JSON 格式錯誤」？</h3>
+<p>請確認 JSON 檔案中包含 <code>softwares</code> 陣列（<code>findSW.ps1</code> 或 <code>cve-checker.js</code> 產生的格式）。若是自行建立的 JSON 或其他工具產生的格式，可能不相容。</p>
+
+<h3>Q：掃描中途關閉瀏覽器分頁會怎樣？</h3>
+<p>獨立模式下掃描會直接中斷。伺服器代理模式下，伺服器會偵測到連線關閉並停止後續 API 查詢，Log 中會記錄「掃描取消（已完成 N/M）」。</p>
+
+<h3>Q：兩個頁籤可以同時掃描嗎？</h3>
+<p>不行。每次只能有一個頁籤進行掃描，掃描期間另一個頁籤的按鈕會停用。請等待當前掃描完成或取消後再切換。</p>
+
+<h3>Q：掃描完成後切換頁籤，報表還能開啟嗎？</h3>
+<p>可以。每個頁籤的報表連結獨立保存，切換頁籤不會影響另一個頁籤的報表。但若在<strong>同一頁籤重新執行掃描</strong>，前一次的報表連結會被撤銷。</p>
+
+<h3>Q：如何將 Web 版結果納入 team-report.js 彙整？</h3>
+<p>在「📁 檔案掃描(JSON)」模式掃描完成後，點擊「⬇ result.json」下載 JSON 結果，再將其複製至 <code>team</code> 目錄，搭配其他機器的 JSON 一起執行 <code>node team-report.js</code> 即可。</p>
+
+<h3>Q：人工掃描模式的結果與檔案掃描模式一樣準確嗎？</h3>
+<p>查詢流程相同，但人工掃描模式沒有白名單過濾、也不進行 Registry 子元件去重。CVE 關聯性驗證採用關鍵字比對（非 CPE API 精確比對），與 Registry 軟體相同。搜尋名稱的精準度直接影響結果準確性，建議使用完整的英文軟體名稱。</p>
+</section>
+
+<footer>NIST CVE Scanner &nbsp;·&nbsp; 操作手冊（CLI &amp; Web）&nbsp;·&nbsp; 資料來源：<a href="https://nvd.nist.gov/" target="_blank" rel="noopener">NIST National Vulnerability Database</a></footer>
 
 </div><!-- .content -->
 </div><!-- .layout -->
 
 <script>
-// Highlight active nav link on scroll
+// Tree-view toggle
+document.querySelectorAll('.nav-title').forEach(title => {
+    const group = title.nextElementSibling;
+    if (!group || !group.classList.contains('nav-group')) return;
+    title.addEventListener('click', () => {
+        const collapsed = group.classList.toggle('collapsed');
+        title.classList.toggle('collapsed', collapsed);
+    });
+});
+
+// Scroll-spy: highlight active link and auto-expand its group
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('nav a');
 const observer = new IntersectionObserver(entries => {
@@ -936,7 +1489,17 @@ const observer = new IntersectionObserver(entries => {
         if (e.isIntersecting) {
             navLinks.forEach(a => a.classList.remove('active'));
             const active = document.querySelector(`nav a[href="#${e.target.id}"]`);
-            if (active) active.classList.add('active');
+            if (active) {
+                active.classList.add('active');
+                const group = active.closest('.nav-group');
+                if (group && group.classList.contains('collapsed')) {
+                    group.classList.remove('collapsed');
+                    const title = group.previousElementSibling;
+                    if (title && title.classList.contains('nav-title')) {
+                        title.classList.remove('collapsed');
+                    }
+                }
+            }
         }
     });
 }, { threshold: 0.3 });

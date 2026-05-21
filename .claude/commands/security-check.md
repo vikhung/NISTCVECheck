@@ -1,4 +1,4 @@
-對 cve-checker.js 和 team-report.js 進行靜態安全分析，並評估 Node.js v24 現代化改善空間。
+對 *.js 進行靜態安全分析，並評估 Node.js v18 現代化改善空間。
 
 ## A. 安全弱點掃描
 

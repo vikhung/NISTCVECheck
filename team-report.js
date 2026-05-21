@@ -430,7 +430,7 @@ footer{text-align:center;padding:20px;font-size:.78rem;color:#9ca3af}
   </section>
   ${machineSections}
 </main>
-<footer>NIST NVD Team CVE Report &nbsp;·&nbsp; ${esc(generatedAt)}</footer>
+<footer>NIST NVD Team CVE Report &nbsp;·&nbsp; ${esc(generatedAt)}<br>This product uses data from the NVD API but is not endorsed or certified by the NVD.</footer>
 </body>
 </html>`;
 
