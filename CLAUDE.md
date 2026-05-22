@@ -234,6 +234,16 @@ npm run web                 # 同上（package.json 捷徑）
 
 啟動後自動顯示本機與區域網路 IP，其他使用者可直接透過瀏覽器連線，無需安裝任何軟體。僅使用 Node.js 內建模組（`http`、`fs`、`path`、`os`）。
 
+### web-server.js 架構
+
+**NDJSON 代理（`POST /api/scan`）**：接受 `{ keywords: string[], maxCves: number, meta: object }`，串流回應每筆 NVD 查詢結果（`application/x-ndjson`）。第一行回傳 `{ sid }` session ID；後續每行為 `{ keyword, data }` 或 `{ keyword, error }`；串流結束代表掃描完成。採用此設計的原因：舊版的 per-request 代理因 NVD 6.5 秒延遲超過 keep-alive 逾時，導致 socket 被複用時拋出 TypeError，NDJSON 單一長連線可規避此問題。
+
+**全域速率限制佇列**：`nvdSlot()` 以 Promise 鏈確保所有並行 session 共用同一個 NVD 請求計時器（`_nvdLastAt`），任何時刻合計請求速率不超過 `REQUEST_DELAY`。
+
+**頁面注入**：伺服器在回傳 `web-client.html` 時，於 `</body>` 前插入 `<script>` 設定 `window.__NVD_PROXY__`（指向 `/api/scan`）、`window.__NVD_DELAY__`，並預填 `PORTABLE_N`、`WHITELIST`，以及隱藏 API Key 欄位（改顯示「由伺服器代理處理」）。
+
+**每日滾動日誌**：所有請求與 NVD 查詢進度寫入 `log/server_YYYYMMDD.log`（append），日期變更時自動切換新檔。
+
 ## web-client.html（瀏覽器端 Web 掃描器）
 
 單一 HTML 檔案，無需任何後端或 Node.js，直接用瀏覽器開啟即可使用。

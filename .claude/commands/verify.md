@@ -15,7 +15,7 @@
 執行 `node --check cve-checker.js`，確認無語法錯誤。
 
 ### 4. 驗證關鍵 API 存在
-執行以下檢查，確認所有 Node.js v24 API 都已正確使用：
+執行以下檢查，確認所有 Node.js v18 API 都已正確使用：
 - `fetch` 已使用（不使用 `https` 模組）
 - `AbortSignal.timeout` 已使用
 - `execFileSync` 已使用（不使用 `execSync`）

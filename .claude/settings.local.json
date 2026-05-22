@@ -8,7 +8,8 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8092/)",
       "Bash(kill %1)",
       "Bash(git *)",
-      "Bash(powershell *)"
+      "Bash(powershell *)",
+      "Bash(dir D:VikGitHubVikClaudeCodeNISTCVECheck *)"
     ]
   }
 }

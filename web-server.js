@@ -278,6 +278,21 @@ const server = http.createServer((req, res) => {
         res.writeHead(405); res.end(); return;
     }
 
+    if (req.url === '/findSW.ps1') {
+        const ps1 = path.join(__dirname, 'findSW.ps1');
+        fs.readFile(ps1, (err, data) => {
+            if (err) { res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' }); res.end('findSW.ps1 not found'); return; }
+            res.writeHead(200, {
+                'Content-Type':        'application/octet-stream',
+                'Content-Disposition': 'attachment; filename="findSW.ps1"',
+                'Content-Length':      data.length,
+                'Cache-Control':       'no-store',
+            });
+            res.end(data);
+        });
+        return;
+    }
+
     if (req.url !== '/' && req.url !== '/index.html') {
         res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
         res.end('404 Not Found');
