@@ -2,6 +2,13 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 專案執行原則
+
+### 1. 所有的交談都以繁體中文為主。
+### 2. Node.js 請使用原生功能，不要使用任何需額外下載之套件。
+
+
+
 ## 執行方式
 
 ```bash
@@ -25,7 +32,7 @@ node cve-checker.js --help
 
 # npm 快速指令（package.json 定義）
 npm start           # 等同 node cve-checker.js
-npm run check       # 等同 node cve-checker.js MEDIUM 5
+npm run check       # 等同 node cve-checker.js -1 HIGH 5
 ```
 
 不需要執行 `npm install`，程式僅使用 Node.js 內建模組（`fs`、`path`、`os`、`child_process`、`crypto`、內建 `fetch`）。Node.js 最低版本需求：**18.0.0**。
@@ -86,13 +93,21 @@ MAX_CVES_PER_SOFTWARE=50
 
 NVD 回傳順序為發布日期由新至舊，若設定過低可能遺漏較舊的 CVE。
 
+### Portable 功能總開關（PORTABLE_ENABLE）
+
+```
+PORTABLE_ENABLE=true
+```
+
+`false` = 完全停用 Portable 功能：即使設定了 `PORTABLE_N`，也不會掃描；Web 介面亦隱藏輸入區塊。預設 `true`。
+
 ### 掃描模式（PORTABLE_ONLY）
 
 ```
 PORTABLE_ONLY=false
 ```
 
-`true` = 只掃描 `PORTABLE_N` 定義的軟體，略過 Registry / JSON 檔案中的項目（Registry 仍會讀取以取得 hostname/username）。`false` = 掃描全部（預設）。
+`true` = 只掃描 `PORTABLE_N` 定義的軟體，略過 Registry / JSON 檔案中的項目（Registry 仍會讀取以取得 hostname/username）。`false` = 掃描全部（預設）。`PORTABLE_ENABLE=false` 時此設定無效。
 
 ### 白名單（WHITELIST）
 
@@ -143,7 +158,7 @@ PORTABLE_N       ─────────────────────
 
 ### 主要處理階段
 
-1. **資料來源** — `getInstalledSoftware()` 執行內嵌的 PowerShell 腳本（將暫存 `.ps1` 以 UTF-8 BOM 寫入，透過 `Buffer.from([0xEF,0xBB,0xBF])` 避免編碼問題）；或以 `JSON.parse(fs.readFileSync(file))` 讀取指定 JSON 檔案。
+1. **資料來源** — `getInstalledSoftware()` 依輸入來源走兩條路徑：有指定 JSON 檔時以 `JSON.parse(fs.readFileSync(file))` 讀取；否則執行內嵌的 PowerShell 腳本讀取 Windows Registry（將暫存 `.ps1` 以 UTF-8 BOM 寫入，透過 `Buffer.from([0xEF,0xBB,0xBF])` 避免編碼問題）。
 
 2. **三層過濾（Registry/JSON 項目，查詢前）**
    - `matchWhitelist()`：略過 `publisher` 欄位符合白名單關鍵字的軟體
@@ -215,13 +230,13 @@ Apple
 
 ## Claude Code 內建指令
 
-在 Claude Code 中以 `/` 前綴呼叫的內建 skill：
+在 Claude Code 中以 `/` 前綴呼叫的內建 skill（定義於 `.claude/skills/`）：
 
 | 指令 | 用途 |
 |------|------|
-| `/verify` | 確認 Node.js 版本、`team-report.js` 可執行、`cve-checker.js` 語法正確，及 v18+ API 使用情況 |
-| `/security-check` | 靜態安全分析（XSS、命令注入、路徑遍歷等）並評估 Node.js 現代化程度 |
-| `/update-docs` | 根據 `*.js` 實際程式碼狀態，同步更新 `README.md`、`CLAUDE.md`、`docs/operator.html` |
+| `/code-verify` | 確認 Node.js 版本、三支 JS 語法正確、`team-report.js` 可執行，及 `cve-checker.js` / `web-server.js` 的 v18+ API 使用情況 |
+| `/code-security` | 靜態安全分析（XSS、命令注入、路徑遍歷等）並評估 Node.js 現代化程度 |
+| `/project-document` | 根據 `*.js` 實際程式碼狀態，同步更新 `README.md`、`CLAUDE.md`、`docs/operator.html` |
 
 ## web-server.js（Web 伺服器）
 
@@ -242,7 +257,7 @@ npm run web                 # 同上（package.json 捷徑）
 
 **頁面注入**：伺服器在回傳 `web-client.html` 時，於 `</body>` 前插入 `<script>` 設定 `window.__NVD_PROXY__`（指向 `/api/scan`）、`window.__NVD_DELAY__`，並預填 `PORTABLE_N`、`WHITELIST`，以及隱藏 API Key 欄位（改顯示「由伺服器代理處理」）。
 
-**每日滾動日誌**：所有請求與 NVD 查詢進度寫入 `log/server_YYYYMMDD.log`（append），日期變更時自動切換新檔。
+**每日滾動日誌**：所有請求與 NVD 查詢進度寫入 `logs/server_YYYYMMDD.log`（append），日期變更時自動切換新檔。
 
 ## web-client.html（瀏覽器端 Web 掃描器）
 

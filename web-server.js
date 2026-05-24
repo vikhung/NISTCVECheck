@@ -14,7 +14,7 @@ const PORT    = (!isNaN(cliPort) && cliPort > 0 && cliPort < 65536)
 
 const HTML        = path.join(__dirname, 'web-client.html');
 const NVD_CVE_URL = 'https://services.nvd.nist.gov/rest/json/cves/2.0';
-const LOG_DIR     = path.join(__dirname, 'log');
+const LOG_DIR     = path.join(__dirname, 'logs');
 
 // ─── Load .env.local ─────────────────────────────────────────────────────────
 function loadEnv(filePath) {
@@ -35,14 +35,17 @@ const env              = loadEnv(path.join(__dirname, '.env.local'));
 const defaultApiKey    = env.NIST_API_KEY || '';
 const defaultWhitelist = env.WHITELIST    || '';
 const REQUEST_DELAY    = defaultApiKey ? 700 : 6500;
+const portableEnable   = (env.PORTABLE_ENABLE || 'true').toLowerCase() !== 'false';
 
-// Parse PORTABLE_N=name|version entries
+// Parse PORTABLE_N=name|version entries (only when portable feature is enabled)
 const defaultPortables = [];
-for (let i = 0; ; i++) {
-    const val = env[`PORTABLE_${i}`];
-    if (!val) break;
-    const [name = '', version = ''] = val.split('|');
-    if (name.trim()) defaultPortables.push({ name: name.trim(), version: version.trim() });
+if (portableEnable) {
+    for (let i = 0; ; i++) {
+        const val = env[`PORTABLE_${i}`];
+        if (!val) break;
+        const [name = '', version = ''] = val.split('|');
+        if (name.trim()) defaultPortables.push({ name: name.trim(), version: version.trim() });
+    }
 }
 
 // ─── Daily-rolling logger ─────────────────────────────────────────────────────
@@ -106,11 +109,16 @@ function nvdSlot() {
 // ─── Page injection ───────────────────────────────────────────────────────────
 // Injected before </body>: signals proxy mode and pre-fills settings.
 const injectLines = [
-    `window.__NVD_PROXY__  = '/api/scan';`,
-    `window.__NVD_DELAY__  = ${REQUEST_DELAY};`,
+    `window.__NVD_PROXY__       = '/api/scan';`,
+    `window.__NVD_DELAY__       = ${REQUEST_DELAY};`,
+    `window.__PORTABLE_ENABLE__ = ${portableEnable};`,
 ];
-for (const p of defaultPortables) {
-    injectLines.push(`if(typeof addPortableRow==='function')addPortableRow(${JSON.stringify(p.name)},${JSON.stringify(p.version)});`);
+if (portableEnable) {
+    for (const p of defaultPortables) {
+        injectLines.push(`if(typeof addPortableRow==='function')addPortableRow(${JSON.stringify(p.name)},${JSON.stringify(p.version)});`);
+    }
+} else {
+    injectLines.push(`var _ps=document.getElementById('portable-section');if(_ps)_ps.style.display='none';`);
 }
 if (defaultWhitelist) {
     injectLines.push(

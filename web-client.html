@@ -169,11 +169,13 @@ footer{text-align:center;padding:24px;font-size:.74rem;color:#94a3b8}
     <input type="text" id="whitelist" placeholder="例：Microsoft,Apple,Google">
     <span class="hint">不分大小寫，部分比對 Publisher 欄位；符合條件的軟體略過掃描</span>
   </div>
+  <div id="portable-section">
   <hr class="section-divider">
   <div class="card-title" style="margin-top:4px"><span class="step-badge">3</span> 免安裝軟體（Portable / 未登錄於 Registry）</div>
   <div id="portable-list"></div>
   <button type="button" id="add-portable-btn">＋ 新增項目</button>
   <p class="form-group" style="margin-top:8px"><span class="hint">不受白名單過濾，直接納入掃描。版本號可選填，用於比對是否需要升級。</span></p>
+  </div>
   <!-- File scan: progress & result -->
   <div class="inner-section" id="file-progress-card" style="display:none">
     <div class="card-title">掃描進度</div>
@@ -703,6 +705,7 @@ function addPortableRow(name = '', version = '') {
 }
 document.getElementById('add-portable-btn').addEventListener('click', () => addPortableRow());
 // Portables are pre-populated by the server-injected script (runs after this block).
+// portable-section visibility is also controlled by the server-injected script.
 
 // ─── Scan button state ────────────────────────────────────────────────────────
 function updateScanBtnState() {
