@@ -161,7 +161,7 @@ footer{text-align:center;padding:24px;font-size:.74rem;color:#94a3b8}
   <div id="file-info"></div>
   <div id="findsw-dl-hint" style="display:none;margin-top:10px;font-size:.8rem;color:#64748b;background:#f8fafc;border-radius:7px;padding:9px 13px;border-left:3px solid #2563eb">
     還沒有 scan.json？先在目標 Windows 機器上執行 <strong>findSW.ps1</strong> 產生掃描檔，再上傳至此。
-    &nbsp;<a href="/findSW.ps1" download="findSW.ps1" style="color:#2563eb;font-weight:600">⬇ 下載 findSW.ps1</a>
+    &nbsp;<span style="color:#64748b">（請向系統維護人員索取 PS1 檔案掃描工具）</span>
   </div>
   <hr class="section-divider">
   <div class="card-title" style="margin-top:4px"><span class="step-badge">2</span> 白名單（Publisher 關鍵字，逗號分隔）</div>
@@ -900,8 +900,11 @@ scanBtn.addEventListener('click', async () => {
     const modeTag      = isManual ? ' <span class="l-info">[手動輸入]</span>' : '';
     logLine(`<span class="l-info">▶ 開始掃描</span> <span class="l-b">${total}</span> 項軟體${portableNote}${modeTag}`
         + (isManual ? '' : ` <span class="l-gray">(白名單:${whitelisted.length} 子元件:${skippedByPat.length} 去重:${skippedByDedup.length})</span>`));
+    const apiKeyLabel = window.__NVD_PROXY__
+        ? (delay <= 700 ? '伺服器代理(已設定)' : '伺服器代理(未設定,6.5秒/次)')
+        : (apiKey ? '已設定' : '未設定(6.5秒/次)');
     logLine(`<span class="l-gray">設定：嚴重度≥${minSev}，年份≥${minYear}，每項最多${maxCves}筆，`
-        + `API Key:${apiKey?'已設定':'未設定(6.5秒/次)'}，預估${Math.ceil(total*delay/1000)}秒</span>`);
+        + `API Key:${apiKeyLabel}，預估${Math.ceil(total*delay/1000)}秒</span>`);
     logLine('─'.repeat(64), 'l-gray');
 
     const results      = [];

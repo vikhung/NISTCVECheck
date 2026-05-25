@@ -247,7 +247,7 @@ PORT=9000 node web-server.js  # 或以環境變數指定
 npm run web                 # 同上（package.json 捷徑）
 ```
 
-啟動後自動顯示本機與區域網路 IP，其他使用者可直接透過瀏覽器連線，無需安裝任何軟體。僅使用 Node.js 內建模組（`http`、`fs`、`path`、`os`）。
+啟動後自動顯示本機與區域網路 IP，其他使用者可直接透過瀏覽器連線，無需安裝任何軟體。僅使用 Node.js 內建模組（`http`、`fs`、`path`、`os`、`crypto`）。
 
 ### web-server.js 架構
 
@@ -255,7 +255,7 @@ npm run web                 # 同上（package.json 捷徑）
 
 **全域速率限制佇列**：`nvdSlot()` 以 Promise 鏈確保所有並行 session 共用同一個 NVD 請求計時器（`_nvdLastAt`），任何時刻合計請求速率不超過 `REQUEST_DELAY`。
 
-**頁面注入**：伺服器在回傳 `web-client.html` 時，於 `</body>` 前插入 `<script>` 設定 `window.__NVD_PROXY__`（指向 `/api/scan`）、`window.__NVD_DELAY__`，並預填 `PORTABLE_N`、`WHITELIST`，以及隱藏 API Key 欄位（改顯示「由伺服器代理處理」）。
+**頁面注入**：伺服器以 `require('./_bundle')` 載入頁面內容與非敏感設定（`_bundle.js` 由 `build.js` 預先打包自 `web-client.html` 與 `.env.local`，不含 `NIST_API_KEY`）。每次請求產生隨機 nonce（`crypto.randomBytes`），於 `</body>` 前注入帶 nonce 的 `<script>`，設定 `window.__NVD_PROXY__`、`window.__NVD_DELAY__`，並預填 `PORTABLE_N`、`WHITELIST`、隱藏 API Key 欄位。回應同時附帶 `Content-Security-Policy: script-src 'nonce-...'` 與 `X-Content-Type-Options: nosniff` 標頭。修改 `web-client.html` 或 `.env.local` 後須執行 `node build.js`（`npm run web` 已自動執行）。
 
 **每日滾動日誌**：所有請求與 NVD 查詢進度寫入 `logs/server_YYYYMMDD.log`（append），日期變更時自動切換新檔。
 
@@ -287,3 +287,5 @@ npm run web                 # 同上（package.json 捷徑）
 - `docs/operator.html` — 完整操作手冊（CLI 版 + Web 版合併，含 tree-view 側欄導覽）
 - `scan.json` — 範例輸入檔，可用於測試（來自本機掃描結果）
 - `findSW.ps1` — 在無法直接執行 Node.js 的遠端機器上產生掃描 JSON
+- `build.js` — 將 `web-client.html` 與 `.env.local` 非敏感設定打包為 `_bundle.js`；修改任一來源後執行 `node build.js`（`NIST_API_KEY` 刻意排除）
+- `_bundle.js` — 由 `build.js` 自動生成，供 `web-server.js` 以 `require()` 載入（不需手動編輯）

@@ -10,7 +10,8 @@
       "Bash(git *)",
       "Bash(powershell *)",
       "Bash(dir D:VikGitHubVikClaudeCodeNISTCVECheck *)",
-      "PowerShell(Get-ChildItem \"D:\\\\VikGitHub\\\\VikClaudeCode\\\\NISTCVECheck\" -File | Where-Object { $_.Extension -in '.js','.html','.ps1','.md' } | Select-Object Name, Length)"
+      "PowerShell(Get-ChildItem \"D:\\\\VikGitHub\\\\VikClaudeCode\\\\NISTCVECheck\" -File | Where-Object { $_.Extension -in '.js','.html','.ps1','.md' } | Select-Object Name, Length)",
+      "Bash(npm run *)"
     ]
   }
 }

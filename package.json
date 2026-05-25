@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node cve-checker.js",
     "check": "node cve-checker.js -1 HIGH 5",
+    "bundle": "node build.js",
+    "preweb": "node build.js",
     "web": "node web-server.js"
   },
   "engines": {
