@@ -263,6 +263,12 @@ function shouldSkip(name) {
     return SKIP_PATTERNS.some(p => p.test(name));
 }
 
+function formatDateTime(iso) {
+    const d = new Date(iso);
+    const pad = n => String(n).padStart(2, '0');
+    return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+}
+
 function cleanProductName(name) {
     return name
         .replace(/\s+\d+[\d.]*(\.\d+)*(\s|$)/g, ' ')
@@ -629,8 +635,9 @@ footer{text-align:center;padding:20px;font-size:.78rem;color:#9ca3af}
 <header>
   <h1>CVE Vulnerability Report</h1>
   <div class="meta">
-    Generated: ${esc(report.generatedAt.substring(0,10))} &nbsp;|&nbsp;
+    Generated: ${esc(formatDateTime(report.generatedAt))} &nbsp;|&nbsp;
     Host: ${esc(report.hostname||'?')} &nbsp;|&nbsp;
+    IP: ${esc(report.ip||'?')} &nbsp;|&nbsp;
     User: ${esc(report.username||'?')} &nbsp;|&nbsp;
     Min Severity: <strong>${esc(report.minSeverity)}</strong> &nbsp;|&nbsp;
     CVE 日期範圍：<strong>${esc(minYearLabel)}</strong>
@@ -1145,6 +1152,7 @@ scanBtn.addEventListener('click', async () => {
         generatedAt: new Date().toISOString(),
         source: isManual ? 'Web (手動輸入)' : 'Web (scan.json)',
         hostname: isManual ? '' : scanData.hostname || '',
+        ip: isManual ? '' : scanData.ip || '',
         username: isManual ? '' : (scanData.username || '').toLowerCase(),
         scanDate: isManual ? null : scanData.generatedAt,
         minSeverity: minSev,

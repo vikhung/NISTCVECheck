@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
-// Run this script after modifying web-client.html or .env.local:
-//   node build.js
+// Run this script after modifying web/web-client.html or .env.local:
+//   node web/build.js
 // Generates _bundle.js with the HTML page and non-sensitive config for web-server.js to require().
 // NIST_API_KEY is intentionally excluded — it never flows to HTML output.
 const fs   = require('fs');
@@ -21,7 +21,7 @@ function loadEnv(filePath) {
     return env;
 }
 
-const env = loadEnv(path.join(__dirname, '.env.local'));
+const env = loadEnv(path.join(__dirname, '..', '.env.local'));
 
 const portableEnable = (env.PORTABLE_ENABLE || 'true').toLowerCase() !== 'false';
 const whitelist      = env.WHITELIST || '';

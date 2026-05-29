@@ -33,6 +33,8 @@ node cve-checker.js --help
 # npm 快速指令（package.json 定義）
 npm start           # 等同 node cve-checker.js
 npm run check       # 等同 node cve-checker.js -1 HIGH 5
+npm run bundle      # 等同 node web/build.js（重新打包 web/web-client.html + .env.local → web/_bundle.js）
+npm run web         # 自動執行 node web/build.js 再啟動 node web/web-server.js（preweb hook）
 ```
 
 不需要執行 `npm install`，程式僅使用 Node.js 內建模組（`fs`、`path`、`os`、`child_process`、`crypto`、內建 `fetch`）。Node.js 最低版本需求：**18.0.0**。
@@ -71,11 +73,25 @@ powershell -ExecutionPolicy Bypass -File findSW.ps1
 powershell -ExecutionPolicy Bypass -File findSW.ps1 -Username "john" -OutputPath "C:\scan.json"
 ```
 
-**與內建 Registry 掃描器的差異**：`findSW.ps1` 只收錄同時具有 `DisplayName` 和 `DisplayVersion` 的項目；內建掃描器（`getInstalledSoftware()`）只要有 `DisplayName` 即收錄，`version` 可為空。因此兩者產出的軟體數量可能不同。
+**與內建 Registry 掃描器的一致性**：兩者均只收錄同時具有 `DisplayName` 和 `DisplayVersion` 的項目，確保掃描結果一致。這樣可自動排除 Windows KB 更新（僅有 `DisplayName` 但無 `DisplayVersion`），避免無意義的 NVD 查詢。
 
 ## .env.local 設定
 
 所有環境設定存放於 **`.env.local`**（此檔案不應提交至版本控制；請參考 `.env.local.example`）。程式啟動時以內建解析器讀取（`loadEnv()`，無需 `dotenv` 套件）。
+
+### Proxy（企業環境）
+
+```
+HTTPS_PROXY=http://proxy.company.com:8080
+```
+
+Node.js 內建 `fetch()`（底層 undici）不自動讀取系統 Proxy 設定，必須明確設定。程式優先讀取 `.env.local` 的 `HTTPS_PROXY`，其次 `HTTP_PROXY`，再其次系統環境變數。支援需要帳密驗證的格式：`http://user:password@proxy:port`。**注意**：程式實際使用 Node.js 內建 `http`＋`tls` 模組透過 CONNECT 建立隧道（`_makeProxyFetch()`），並非 undici 原生 Proxy 支援。
+
+若 Proxy 進行 SSL Inspection（自簽憑證）導致 TLS 驗證失敗，可設定：
+
+```
+PROXY_SKIP_TLS_VERIFY=true
+```
 
 ### NIST NVD API Key
 
@@ -238,13 +254,13 @@ Apple
 | `/code-security` | 靜態安全分析（XSS、命令注入、路徑遍歷等）並評估 Node.js 現代化程度 |
 | `/project-document` | 根據 `*.js` 實際程式碼狀態，同步更新 `README.md`、`CLAUDE.md`、`docs/operator.html` |
 
-## web-server.js（Web 伺服器）
+## web/web-server.js（Web 伺服器）
 
 ```bash
-node web-server.js          # 預設 Port 8093
-node web-server.js 9000     # 自訂 Port（位置引數優先）
-PORT=9000 node web-server.js  # 或以環境變數指定
-npm run web                 # 同上（package.json 捷徑）
+node web/web-server.js          # 預設 Port 8093
+node web/web-server.js 9000     # 自訂 Port（位置引數優先）
+PORT=9000 node web/web-server.js  # 或以環境變數指定
+npm run web                     # 同上（package.json 捷徑）
 ```
 
 啟動後自動顯示本機與區域網路 IP，其他使用者可直接透過瀏覽器連線，無需安裝任何軟體。僅使用 Node.js 內建模組（`http`、`fs`、`path`、`os`、`crypto`）。
@@ -255,16 +271,16 @@ npm run web                 # 同上（package.json 捷徑）
 
 **全域速率限制佇列**：`nvdSlot()` 以 Promise 鏈確保所有並行 session 共用同一個 NVD 請求計時器（`_nvdLastAt`），任何時刻合計請求速率不超過 `REQUEST_DELAY`。
 
-**頁面注入**：伺服器以 `require('./_bundle')` 載入頁面內容與非敏感設定（`_bundle.js` 由 `build.js` 預先打包自 `web-client.html` 與 `.env.local`，不含 `NIST_API_KEY`）。每次請求產生隨機 nonce（`crypto.randomBytes`），於 `</body>` 前注入帶 nonce 的 `<script>`，設定 `window.__NVD_PROXY__`、`window.__NVD_DELAY__`，並預填 `PORTABLE_N`、`WHITELIST`、隱藏 API Key 欄位。回應同時附帶 `Content-Security-Policy: script-src 'nonce-...'` 與 `X-Content-Type-Options: nosniff` 標頭。修改 `web-client.html` 或 `.env.local` 後須執行 `node build.js`（`npm run web` 已自動執行）。
+**頁面注入**：伺服器以 `require('./_bundle')` 載入頁面內容與非敏感設定（`web/_bundle.js` 由 `web/build.js` 預先打包自 `web/web-client.html` 與根目錄 `.env.local`，不含 `NIST_API_KEY`）。每次請求產生隨機 nonce（`crypto.randomBytes`），於 `</body>` 前注入帶 nonce 的 `<script>`，設定 `window.__NVD_PROXY__`、`window.__NVD_DELAY__`，並預填 `PORTABLE_N`、`WHITELIST`、隱藏 API Key 欄位。回應同時附帶 `Content-Security-Policy: script-src 'nonce-...'` 與 `X-Content-Type-Options: nosniff` 標頭。修改 `web-client.html` 或 `.env.local` 後須執行 `node build.js`（`npm run web` 已自動執行）。
 
 **每日滾動日誌**：所有請求與 NVD 查詢進度寫入 `logs/server_YYYYMMDD.log`（append），日期變更時自動切換新檔。
 
-## web-client.html（瀏覽器端 Web 掃描器）
+## web/web-client.html（瀏覽器端 Web 掃描器）
 
 單一 HTML 檔案，無需任何後端或 Node.js，直接用瀏覽器開啟即可使用。
 
 ```
-直接開啟：在 Windows Explorer 雙擊 web-client.html
+直接開啟：在 Windows Explorer 雙擊 web/web-client.html
 或放置於任何靜態網頁伺服器
 ```
 
@@ -287,5 +303,8 @@ npm run web                 # 同上（package.json 捷徑）
 - `docs/operator.html` — 完整操作手冊（CLI 版 + Web 版合併，含 tree-view 側欄導覽）
 - `scan.json` — 範例輸入檔，可用於測試（來自本機掃描結果）
 - `findSW.ps1` — 在無法直接執行 Node.js 的遠端機器上產生掃描 JSON
-- `build.js` — 將 `web-client.html` 與 `.env.local` 非敏感設定打包為 `_bundle.js`；修改任一來源後執行 `node build.js`（`NIST_API_KEY` 刻意排除）
-- `_bundle.js` — 由 `build.js` 自動生成，供 `web-server.js` 以 `require()` 載入（不需手動編輯）
+- `web/` — 所有 Web 相關檔案集中於此：
+  - `web/web-server.js` — Node.js HTTP 伺服器（讀取根目錄 `.env.local` 與 `logs/`）
+  - `web/web-client.html` — 瀏覽器端 HTML 掃描器（可直接雙擊開啟）
+  - `web/build.js` — 將 `web/web-client.html` 與根目錄 `.env.local` 非敏感設定打包為 `web/_bundle.js`；修改任一來源後執行 `node web/build.js`（`NIST_API_KEY` 刻意排除）
+  - `web/_bundle.js` — 由 `web/build.js` 自動生成，供 `web/web-server.js` 以 `require()` 載入（不需手動編輯）。**已納入 git 追蹤**

@@ -20,8 +20,15 @@ Write-Host "==================================="
 Write-Host " NISTCVECheck Scan PC Software v1.0.0"
 Write-Host "==================================="
 Write-Host ""
+$localIP = try {
+    ([System.Net.Dns]::GetHostAddresses([System.Net.Dns]::GetHostName()) |
+     Where-Object { $_.AddressFamily -eq 'InterNetwork' } |
+     Select-Object -First 1).IPAddressToString
+} catch { '' }
+
 Write-Host "[INFO] Username      : $Username"
 Write-Host "[INFO] Hostname      : $env:COMPUTERNAME"
+Write-Host "[INFO] IP            : $localIP"
 Write-Host "[INFO] Scanning installed software..."
 
 $registryPaths = @(
@@ -65,6 +72,7 @@ $output = [ordered]@{
     generatedAt = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
     hostname    = $env:COMPUTERNAME
     username    = $Username
+    ip          = $localIP
     softwares   = $softwares
 }
 
