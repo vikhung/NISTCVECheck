@@ -1,5 +1,5 @@
 {
-    "generatedAt":  "2026-05-28T12:28:39.003Z",
+    "generatedAt":  "2026-06-04T02:29:43.765Z",
     "hostname":  "VIK-MINIPC",
     "username":  "vik",
     "ip":  "172.20.10.4",
@@ -26,8 +26,8 @@
                           "installPath":  "C:\\Program Files (x86)\\Bonjour"
                       },
                       {
-                          "name":  "Bruno 3.3.0",
-                          "version":  "3.3.0",
+                          "name":  "Bruno 3.4.2",
+                          "version":  "3.4.2",
                           "publisher":  "Anoop M D",
                           "installDate":  null,
                           "installPath":  null
@@ -69,17 +69,17 @@
                       },
                       {
                           "name":  "Google Chrome",
-                          "version":  "148.0.7778.181",
+                          "version":  "148.0.7778.217",
                           "publisher":  "Google LLC",
-                          "installDate":  "20260528",
+                          "installDate":  "20260604",
                           "installPath":  "C:\\Program Files\\Google\\Chrome\\Application"
                       },
                       {
                           "name":  "Google Drive",
-                          "version":  "125.0.0.0",
+                          "version":  "126.0.5.0",
                           "publisher":  "Google LLC",
                           "installDate":  null,
-                          "installPath":  "C:\\Program Files\\Google\\Drive File Stream\\125.0.0.0\\GoogleDriveFS.exe"
+                          "installPath":  "C:\\Program Files\\Google\\Drive File Stream\\126.0.5.0\\GoogleDriveFS.exe"
                       },
                       {
                           "name":  "Google One",
@@ -125,16 +125,16 @@
                       },
                       {
                           "name":  "Microsoft Edge",
-                          "version":  "148.0.3967.83",
+                          "version":  "148.0.3967.96",
                           "publisher":  "Microsoft Corporation",
-                          "installDate":  "20260525",
+                          "installDate":  "20260601",
                           "installPath":  "C:\\Program Files (x86)\\Microsoft\\Edge\\Application"
                       },
                       {
                           "name":  "Microsoft Edge WebView2 執行階段",
-                          "version":  "148.0.3967.83",
+                          "version":  "148.0.3967.96",
                           "publisher":  "Microsoft Corporation",
-                          "installDate":  "20260525",
+                          "installDate":  "20260601",
                           "installPath":  "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application"
                       },
                       {
@@ -405,9 +405,9 @@
                       },
                       {
                           "name":  "UniGetUI",
-                          "version":  "2026.1.10",
+                          "version":  "2026.2.0",
                           "publisher":  "Devolutions Inc.",
-                          "installDate":  "20260519",
+                          "installDate":  "20260603",
                           "installPath":  "C:\\Program Files\\UniGetUI"
                       },
                       {

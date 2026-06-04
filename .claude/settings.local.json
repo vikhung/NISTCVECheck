@@ -11,7 +11,11 @@
       "Bash(powershell *)",
       "Bash(dir D:VikGitHubVikClaudeCodeNISTCVECheck *)",
       "PowerShell(Get-ChildItem \"D:\\\\VikGitHub\\\\VikClaudeCode\\\\NISTCVECheck\" -File | Where-Object { $_.Extension -in '.js','.html','.ps1','.md' } | Select-Object Name, Length)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "PowerShell(node --check cve-checker.js; if \\($?\\) { \"OK\" })",
+      "WebFetch(domain:nvd.nist.gov)",
+      "PowerShell(try { $p = New-Object -ComObject PowerPoint.Application; $p.Quit\\(\\); \"PowerPoint COM: OK\" } catch { \"PowerPoint COM: NOT_AVAILABLE\" })",
+      "PowerShell(Remove-Item *)"
     ]
   }
 }

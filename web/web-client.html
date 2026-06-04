@@ -380,6 +380,49 @@ function getRecommendedVersion(rawCves, searchName) {
     return best;
 }
 
+// Check if a CVE only lists exact affected versions (no ranges).
+// Returns null                          → has ranges or can't determine → skip
+// Returns { affected: true }            → installed version is in exact affected list
+// Returns { affected: false, versions } → not in list → CVE doesn't apply
+function cveExactVersionCheck(installedVersion, cve, searchName) {
+    const words = searchName
+        ? searchName.toLowerCase().replace(/[^a-z0-9]/g, ' ').split(/\s+/).filter(w => w.length >= 2)
+        : [];
+
+    const matchingEntries = [];
+    for (const config of (cve.configurations || [])) {
+        for (const node of (config.nodes || [])) {
+            for (const match of (node.cpeMatch || [])) {
+                if (!match.vulnerable) continue;
+                if (words.length && match.criteria) {
+                    const cpe = match.criteria.toLowerCase().replace(/[_:]/g, ' ');
+                    if (!words.every(w => cpe.includes(w))) continue;
+                }
+                matchingEntries.push(match);
+            }
+        }
+    }
+
+    if (matchingEntries.length === 0) return null;
+
+    const hasRange = matchingEntries.some(m =>
+        m.versionEndExcluding || m.versionEndIncluding ||
+        m.versionStartIncluding || m.versionStartExcluding
+    );
+    if (hasRange) return null;
+
+    // CPE 2.3 format: cpe:2.3:a:vendor:product:VERSION:...
+    const affectedVersions = matchingEntries
+        .map(m => (m.criteria || '').split(':')[5] || '')
+        .filter(v => v && v !== '*' && v !== '-');
+
+    if (affectedVersions.length === 0) return null;
+    if (!installedVersion || installedVersion === '?') return null;
+
+    const isAffected = affectedVersions.some(v => compareVersions(installedVersion, v) === 0);
+    return isAffected ? { affected: true } : { affected: false, versions: affectedVersions };
+}
+
 // ─── Rate-limited fetch ───────────────────────────────────────────────────────
 function sleep(ms, signal) {
     return new Promise((resolve, reject) => {
@@ -486,20 +529,6 @@ function buildHTMLReport(report) {
     <tbody>${report.skippedByPattern.map(sw => `<tr><td>${esc(sw.name)}</td><td>${esc(sw.version)}</td><td>${esc(sw.publisher)}</td></tr>`).join('')}</tbody></table>
   </section>`;
 
-    const allMismatched = [...(report.results||[]),...(report.cleanResults||[])].filter(r => r.mismatchedCVEs?.length);
-    const totalMismatched = allMismatched.reduce((s, r) => s + r.mismatchedCVEs.length, 0);
-    const mismatchHTML = totalMismatched === 0 ? '' : `
-  <section id="mismatched-cves">
-    <h2>可能誤判的 CVE（${totalMismatched} 筆，來自 ${allMismatched.length} 項軟體）</h2>
-    <p class="sec-note">以下 CVE 由關鍵字搜尋找到，但其 CPE 設定條目與搜尋名稱不符，程式判定為可能誤判而排除。供使用者自行確認是否實際相關。</p>
-    ${allMismatched.map(r => `
-    <details>
-      <summary><span class="sw-name">${esc(r.software.name)}</span><span class="sw-ver">v${esc(r.software.version||'?')}</span><span class="mismatch" style="margin-left:8px">${r.mismatchedCVEs.length} 筆可能誤判</span></summary>
-      <div class="cve-list">${r.mismatchedCVEs.map(cve => `
-        <div class="cve cve-mismatch"><div class="cve-hd"><a href="${esc(cve.url)}" target="_blank" class="cve-id">${esc(cve.id)}</a>${badge(cve.severity,cve.cvssScore)}<span class="cvss-v">CVSS${esc(cve.cvssVersion||'')}</span><span class="mismatch">⚠ 可能誤判</span><span class="pub">${(cve.published||'').substring(0,10)}</span></div>
-        <p class="desc">${esc(cve.description||'')}</p>${cve.mismatchReason?`<p class="mismatch-reason">可能誤判 — ${esc(cve.mismatchReason)}</p>`:''}</div>`).join('')}</div>
-    </details>`).join('')}
-  </section>`;
 
     const dedupHTML = (report.skippedByDedup || []).length === 0 ? '' : `
   <section id="skipped-dedup">
@@ -623,9 +652,7 @@ summary:hover{background:#f0f0f0}
 .fix{font-size:.78rem;color:#16a34a;font-weight:600;margin-top:3px}
 .rec{padding:9px 16px;font-size:.85rem;font-weight:600;border-top:1px solid #e5e7eb}
 .rec.safe{color:#166534;background:#f0fdf4}.rec.danger{color:#991b1b;background:#fef2f2}.rec.warn{color:#92400e;background:#fffbeb}
-.mismatch{background:#fef3c7;color:#92400e;font-size:.7rem;font-weight:700;padding:1px 7px;border-radius:4px;border:1px solid #fcd34d}
-.cve-mismatch{opacity:.7;border-left:3px solid #fcd34d}
-.mismatch-reason{font-size:.78rem;color:#92400e;margin-top:4px;font-style:italic}
+
 .wl-group{margin-bottom:16px}
 .wl-rule{display:inline-block;background:#e0f2fe;color:#0369a1;font-size:.78rem;font-weight:700;padding:2px 10px;border-radius:4px;margin-bottom:6px}
 footer{text-align:center;padding:20px;font-size:.78rem;color:#9ca3af}
@@ -681,7 +708,7 @@ footer{text-align:center;padding:20px;font-size:.78rem;color:#9ca3af}
     <h2>CVE 詳細資訊（點擊展開）</h2>
     ${detailsHTML||'<p class="sec-note">所有掃描軟體均無發現 CVE</p>'}
   </section>
-  ${mismatchHTML}${wlHTML}${patternHTML}${dedupHTML}
+  ${wlHTML}${patternHTML}${dedupHTML}
 </main>
 <footer>NIST NVD CVE Scanner (Web) &nbsp;·&nbsp; ${esc(report.generatedAt)}<br>This product uses data from the NVD API but is not endorsed or certified by the NVD.</footer>
 </body>
@@ -929,10 +956,21 @@ scanBtn.addEventListener('click', async () => {
                 .filter(v => !minYear || new Date(v.cve.published).getFullYear() >= minYear)
                 .map(v => {
                     const rel = cveRelevanceCheck(v.cve, searchName);
-                    return { ...v, _rel: rel, _mis: rel === false ? `CPE 條目中未含「${searchName}」相關字詞` : null };
+                    let finalRel = rel;
+                    let mis = null;
+                    if (rel === false) {
+                        mis = `CPE 條目中未含「${searchName}」相關字詞`;
+                    } else if (sw.version && sw.version !== '?') {
+                        const exactCheck = cveExactVersionCheck(sw.version, v.cve, searchName);
+                        if (exactCheck && !exactCheck.affected) {
+                            finalRel = false;
+                            mis = `只有特定版本 ${exactCheck.versions.join('、')} 受影響，已安裝版本 ${sw.version} 不符`;
+                        }
+                    }
+                    return { ...v, _rel: finalRel, _mis: mis };
                 });
 
-            const mismatched = checked.filter(v => v._rel === false).map(v => ({
+            const mismatched = checked.filter(v => v._rel !== true).map(v => ({
                 id: v.cve.id, url: `https://nvd.nist.gov/vuln/detail/${v.cve.id}`,
                 severity: v._cvss.severity, cvssScore: v._cvss.score, cvssVersion: v._cvss.version,
                 description: v.cve.descriptions?.find(d => d.lang==='en')?.value || '',
@@ -940,25 +978,18 @@ scanBtn.addEventListener('click', async () => {
             }));
 
             const relevant = checked
-                .filter(v => v._rel !== false)
+                .filter(v => v._rel === true) // only confirmed-relevant CVEs (null = no CPE data → filtered out)
                 .sort((a, b) => (b.cve.published||'').localeCompare(a.cve.published||''));
 
             mismatched.sort((a, b) => (b.published||'').localeCompare(a.published||''));
 
             if (relevant.length === 0) {
-                for (const cve of mismatched) {
-                    const cls = (cve.severity==='CRITICAL'||cve.severity==='HIGH') ? 'l-err' : 'l-warn';
-                    logLine(`  <span class="${cls}"><a href="${cve.url}" target="_blank" rel="noopener">${esc(cve.id)}</a> [${cve.severity} ${cve.cvssScore}]</span> <span class="l-gray">${(cve.published||'').substring(0,10)}</span> <span class="l-warn"> ⚠ ${esc(cve.mismatchReason||'CPE不符')}</span>`);
-                }
                 logLine(`<span class="l-ok">  ✓ 無弱點（${esc(minSev)}以上）</span>`);
                 cleanResults.push({
                     software: { name: sw.name, version: sw.version||'', publisher: sw.publisher||'' },
                     searchName, mismatchedCVEs: mismatched,
                 });
-                const mismatchDetails = mismatched.map(cve =>
-                    `  ${cve.id} [${cve.severity} ${cve.cvssScore}] ${(cve.published||'').substring(0,10)} ⚠ ${cve.mismatchReason||'CPE不符'}`
-                );
-                return { summary: `✓ 無弱點（取回${allCVEs.length}筆均不符條件）`, cveDetails: mismatchDetails };
+                return { summary: `✓ 無弱點（取回${allCVEs.length}筆均不符條件）`, cveDetails: [] };
             } else {
                 totalCVEs += relevant.length;
                 const cveObjs = relevant.map(v => ({
@@ -973,21 +1004,13 @@ scanBtn.addEventListener('click', async () => {
                     fixedVersion: extractFixedVersion(v.cve, searchName),
                 }));
                 const rec = getRecommendedVersion(relevant, searchName);
-                // Merge matched + mismatched, sort newest-first
-                const allCveDisplay = [
-                    ...cveObjs.map(c => ({ ...c, _type: 'matched' })),
-                    ...mismatched.map(c => ({ ...c, _type: 'mismatch' })),
-                ].sort((a, b) => (b.published||'').localeCompare(a.published||''));
-                for (const cve of allCveDisplay) {
+                const sortedCves = [...cveObjs].sort((a, b) => (b.published||'').localeCompare(a.published||''));
+                for (const cve of sortedCves) {
                     const cls = (cve.severity==='CRITICAL'||cve.severity==='HIGH') ? 'l-err' : 'l-warn';
-                    if (cve._type === 'mismatch') {
-                        logLine(`  <span class="${cls}"><a href="${cve.url}" target="_blank" rel="noopener">${esc(cve.id)}</a> [${cve.severity} ${cve.cvssScore}]</span> <span class="l-gray">${(cve.published||'').substring(0,10)}</span> <span class="l-warn"> ⚠ ${esc(cve.mismatchReason||'CPE不符')}</span>`);
-                    } else {
-                        const fix = cve.fixedVersion
-                            ? `<span class="l-ok"> ✓ 安全版本：${cve.fixedVersion.op==='>='?'≥':'>'} ${esc(cve.fixedVersion.version)}</span>`
-                            : `<span class="l-warn"> ⚠ 無修復版本資訊</span>`;
-                        logLine(`  <span class="${cls}"><a href="${cve.url}" target="_blank" rel="noopener">${esc(cve.id)}</a> [${cve.severity} ${cve.cvssScore}]</span> <span class="l-gray">${(cve.published||'').substring(0,10)}</span>${fix}`);
-                    }
+                    const fix = cve.fixedVersion
+                        ? `<span class="l-ok"> ✓ 安全版本：${cve.fixedVersion.op==='>='?'≥':'>'} ${esc(cve.fixedVersion.version)}</span>`
+                        : `<span class="l-warn"> ⚠ 無修復版本資訊</span>`;
+                    logLine(`  <span class="${cls}"><a href="${cve.url}" target="_blank" rel="noopener">${esc(cve.id)}</a> [${cve.severity} ${cve.cvssScore}]</span> <span class="l-gray">${(cve.published||'').substring(0,10)}</span>${fix}`);
                 }
                 const hasUnfixed = cveObjs.some(c => !c.fixedVersion);
                 const needManualCheck = hasUnfixed;
@@ -1009,9 +1032,7 @@ scanBtn.addEventListener('click', async () => {
                 });
                 const maxSev = cveObjs.reduce((m, v) =>
                     SEVERITY_ORDER.indexOf(v.severity) > SEVERITY_ORDER.indexOf(m) ? v.severity : m, 'NONE');
-                const cveDetails = allCveDisplay.map(cve => {
-                    if (cve._type === 'mismatch')
-                        return `  ${cve.id} [${cve.severity} ${cve.cvssScore}] ${(cve.published||'').substring(0,10)} ⚠ ${cve.mismatchReason||'CPE不符'}`;
+                const cveDetails = sortedCves.map(cve => {
                     const fixStr = cve.fixedVersion
                         ? `✓ 安全版本：${cve.fixedVersion.op === '>=' ? '≥' : '>'} ${cve.fixedVersion.version}`
                         : '⚠ 無修復版本資訊';

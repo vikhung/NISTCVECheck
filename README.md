@@ -42,6 +42,18 @@ npm run web                                # 啟動 Web 伺服器（預設 Port 
 
 報表輸出至 `report/vik_result_YYYYMMDD.html`（視覺化）與 `report/vik_result_YYYYMMDD.json`（供 team-report.js 讀取）。
 
+## CVE 過濾原則
+
+掃描結果只保留「CPE 確認相關」的 CVE，以下情況會靜默過濾（不顯示於報表）：
+
+- CVE 的 CPE 條目中不含搜尋軟體名稱的關鍵字
+- CVE 只列出特定精確版本受影響，且已安裝版本不在其中
+- CVE 尚無 CPE 資料（NVD 未完成 enrichment，無法驗證相關性）
+
+> NVD 的關鍵字搜尋會比對 CVE 描述全文，可能命中無關結果（例如搜尋 `bruno` 時匹配到作者名「Bruno Cavalcante」的 WordPress 主題弱點）。無 CPE 資料時無法驗證相關性，因此一律過濾。
+
+過濾掉的項目仍保存於 JSON 報表的 `mismatchedCVEs` 欄位，供進階使用者自行查閱。
+
 ## 完整操作說明
 
 詳細設定（白名單、免安裝軟體、Web 伺服器、團隊彙整流程等）請參閱 [docs/operator.html](docs/operator.html)。

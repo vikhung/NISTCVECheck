@@ -77,7 +77,9 @@ async function generateTeamHTML(reports, outputPath) {
         return `<span class="badge" style="background:${bg}">${label}</span>`;
     };
 
-    const generatedAt = new Date().toISOString();
+    const _now = new Date();
+    const _p2 = n => String(n).padStart(2, '0');
+    const generatedAt = `${_now.getFullYear()}-${_p2(_now.getMonth()+1)}-${_p2(_now.getDate())} ${_p2(_now.getHours())}:${_p2(_now.getMinutes())}:${_p2(_now.getSeconds())}`;
 
     // ── Aggregate stats ───────────────────────────────────────────────────────
     const totalMachines = reports.length;
@@ -185,10 +187,6 @@ async function generateTeamHTML(reports, outputPath) {
 
         const affectedRows = (r.results || []).map(res => {
             const installed = esc(res.software?.version || '?');
-            const topCVE = (res.cves || []).reduce((best, cve) =>
-                (SEV_ORDER[cve.severity] || 0) > (SEV_ORDER[best?.severity] || 0) ? cve : best, null);
-            const topSev   = topCVE?.severity || '';
-            const topScore = topCVE?.cvssScore ?? '';
             const unfixedCVE = hasUnfixedCVE(res);
             let recTd, stTd;
             if (res.recommendedVersion) {
@@ -210,8 +208,6 @@ async function generateTeamHTML(reports, outputPath) {
               <td>${esc(res.software?.publisher || '—')}</td>
               <td>${installed}</td>
               <td style="white-space:nowrap">${recTd}</td>
-              <td>${topSev ? badge(topSev, topScore) : '—'}</td>
-              <td style="text-align:center">${res.cveCount || 0}</td>
               ${stTd}
             </tr>`;
         }).join('\n');
@@ -220,18 +216,17 @@ async function generateTeamHTML(reports, outputPath) {
               <td>${esc(res.software?.name || '?')}</td>
               <td>${esc(res.software?.publisher || '—')}</td>
               <td>${esc(res.software?.version || '?')}</td>
-              <td>—</td><td>—</td>
-              <td style="text-align:center">0</td>
+              <td>—</td>
               <td class="st safe">✓ 無弱點</td>
             </tr>`).join('\n');
 
         const separator = cleanRows
-            ? `<tr><td colspan="7" class="sep-lbl">── 以下軟體掃描後無發現弱點 ──</td></tr>`
+            ? `<tr><td colspan="5" class="sep-lbl">── 以下軟體掃描後無發現弱點 ──</td></tr>`
             : '';
 
         const tableHTML = (affectedRows || cleanRows) ? `
       <table>
-        <thead><tr><th>Software</th><th>Publisher</th><th>已安裝版本</th><th>最低安全版本</th><th>最高嚴重度</th><th style="text-align:center">CVE 數</th><th>狀態</th></tr></thead>
+        <thead><tr><th>Software</th><th>Publisher</th><th>已安裝版本</th><th>最低安全版本</th><th>狀態</th></tr></thead>
         <tbody>${affectedRows}${separator}${cleanRows}</tbody>
       </table>` : '<p class="empty">無掃描結果</p>';
 
@@ -265,16 +260,12 @@ async function generateTeamHTML(reports, outputPath) {
                     const fixHtml = cve.fixedVersion
                         ? `<div class="fix">✓ 安全版本：${cve.fixedVersion.op === '>=' ? '≥' : '>'} ${esc(cve.fixedVersion.version)}</div>`
                         : '';
-                    const mismatchBadge = cve.cpeRelevant === false
-                        ? `<span class="mismatch" title="CPE 條目與搜尋名稱不符，可能為誤判">⚠ 可能誤判</span>`
-                        : '';
                     return `
-            <div class="cve-item${cve.cpeRelevant === false ? ' cve-mismatch' : ''}">
+            <div class="cve-item">
               <div class="cve-hd">
                 <a href="${esc(cve.url)}" target="_blank" class="cve-id">${esc(cve.id)}</a>
                 ${badge(cve.severity, cve.cvssScore)}
                 <span class="cvss-v">CVSS${esc(String(cve.cvssVersion || ''))}</span>
-                ${mismatchBadge}
                 <span class="pub">${(cve.published || '').substring(0, 10)}</span>
               </div>
               <p class="desc">${esc(cve.description || '')}</p>
@@ -313,8 +304,7 @@ async function generateTeamHTML(reports, outputPath) {
         白名單 ${wlCount} &nbsp;|&nbsp;
         子元件/重複 ${skipCount} &nbsp;|&nbsp;
         掃描 ${r.summary?.queriedSoftware || 0} &nbsp;|&nbsp;
-        有弱點 <strong style="color:${aff > 0 ? '#dc2626' : '#16a34a'}">${aff}</strong> &nbsp;|&nbsp;
-        CVE ${r.summary?.totalCVEs || 0}
+        <strong style="color:${needUpgrade > 0 ? '#dc2626' : '#16a34a'}">${needUpgrade}</strong> 需升級・<strong style="color:${noRec > 0 ? '#d97706' : '#16a34a'}">${aff - needUpgrade}</strong> 已最新版・<strong>${(r.cleanResults || []).length}</strong> 無弱點
       </p>
       ${tableHTML}
       ${cveDetailsWrapHTML}
@@ -374,7 +364,7 @@ summary:hover{background:#f0f0f0}
 .sw-meta{padding:4px 14px;font-size:.76rem;color:#9ca3af}
 .cve-list{padding:8px 14px 4px}
 .cve-item{background:#f9fafb;border-radius:6px;padding:8px 12px;margin-bottom:6px}
-.cve-item.cve-mismatch{opacity:.7;border-left:3px solid #fcd34d}
+
 .cve-hd{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:3px}
 .cve-id{font-weight:700;font-family:monospace;font-size:.86rem;color:#1e3a5f}
 .cvss-v{font-size:.7rem;color:#9ca3af}
@@ -383,7 +373,7 @@ summary:hover{background:#f0f0f0}
 .fix{font-size:.76rem;color:#16a34a;font-weight:600;margin-top:3px}
 .rec-bar{padding:8px 14px;font-size:.83rem;font-weight:600;border-top:1px solid #e5e7eb}
 .rec-bar.safe{color:#166534;background:#f0fdf4}.rec-bar.danger{color:#991b1b;background:#fef2f2}.rec-bar.warn{color:#92400e;background:#fffbeb}
-.mismatch{background:#fef3c7;color:#92400e;font-size:.68rem;font-weight:700;padding:1px 6px;border-radius:4px;border:1px solid #fcd34d}
+
 footer{text-align:center;padding:20px;font-size:.78rem;color:#9ca3af}
 </style>
 </head>
@@ -391,7 +381,7 @@ footer{text-align:center;padding:20px;font-size:.78rem;color:#9ca3af}
 <header>
   <h1>Team CVE Vulnerability Report</h1>
   <div class="hmeta">
-    Generated: ${esc(generatedAt.substring(0, 10))} &nbsp;|&nbsp;
+    Generated: ${esc(generatedAt)} &nbsp;|&nbsp;
     機器總數：<strong>${totalMachines}</strong> &nbsp;|&nbsp;
     有弱點機器：<strong>${machinesWithVulns}</strong>
   </div>

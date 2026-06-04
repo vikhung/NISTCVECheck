@@ -27,7 +27,7 @@ node cve-checker.js scan.json
 node cve-checker.js -1 HIGH 5 2020
 node cve-checker.js scan.json -1 -1 2020   # -1 代表使用該參數的預設值
 
-# 顯示說明
+# 顯示說明（usage 摘要在每次啟動時都會印出；--help 僅讓程式提早結束）
 node cve-checker.js --help
 
 # npm 快速指令（package.json 定義）
@@ -39,7 +39,7 @@ npm run web         # 自動執行 node web/build.js 再啟動 node web/web-serv
 
 不需要執行 `npm install`，程式僅使用 Node.js 內建模組（`fs`、`path`、`os`、`child_process`、`crypto`、內建 `fetch`）。Node.js 最低版本需求：**18.0.0**。
 
-**輸出**：`report/vik_result_YYYYMMDD.html`（視覺化報表）與 `report/vik_result_YYYYMMDD.json`（供 team-report.js 讀取）。
+**輸出**：`report/vik_result_YYYYMMDD.html`（視覺化報表）與 `report/vik_result_YYYYMMDD.json`（供 team-report.js 讀取）。`report/` 目錄由程式自動建立，無需手動建立。`logs/` 目錄亦由 `web-server.js` 啟動時自動建立。
 
 ## team-report.js（團隊彙整報表）
 
@@ -55,6 +55,8 @@ node team-report.js C:\scans\team
 1. 各機器執行 `node cve-checker.js` 或 `findSW.ps1` → 產生 `vik_result_YYYYMMDD.json`
 2. 將各機器的 `vik_result_YYYYMMDD.json` 複製至 `.\team` 目錄
 3. 執行 `node team-report.js` → 產生 `.\report\team_YYYYMMDD.html`
+
+**注意**：`team-report.js` 內部自行定義了 `compareVersions()` 與 `isSafeVersion()`，並非從 `cve-checker.js` 引用。若修改版本比較邏輯，兩個檔案都需同步更新。
 
 **team-report.js 彙總報表結構：**
 - **機器總覽表**：各機器的 CVE 日期範圍（格式 `YYYY/01/01~YYYY/MM/DD`）、軟體總計、掃描數、有弱點數、CVE 數、狀態
@@ -187,10 +189,12 @@ PORTABLE_N       ─────────────────────
 
 4. **NVD CVE API** — `searchCVEs(keyword)` 呼叫 NVD CVE API，參數：`keywordSearch`、`resultsPerPage=MAX_CVES_PER_SOFTWARE`、`noRejected`。**注意**：`pubStartDate` 必須與 `pubEndDate` 成對使用，否則 NVD 回傳 HTTP 404；且 **NVD API 強制限制日期範圍上限為 120 天**，超過亦回 HTTP 404，因此無法以 `pubStartDate=YYYY-01-01` 搭配今日日期的方式過濾年份（實際範圍常逾千天）。年份過濾以 `minYear` 在客戶端進行，為刻意設計而非遺漏。
 
-5. **關聯性檢查（兩種模式）**
-   - **Portable 軟體**（有 `cpeBase`）：`cveMatchesCPEBase(cve, vendor, product)` 驗證 CVE CPE 條目中是否含 `:vendor:product:`。回傳 `true`（符合）、`false`（確認不符）或 `null`（無 CPE 資料，保留）。
+5. **關聯性檢查（兩種模式）+ 精確版本過濾**
+   - **Portable 軟體**（有 `cpeBase`）：`cveMatchesCPEBase(cve, vendor, product)` 驗證 CVE CPE 條目中是否含 `:vendor:product:`。回傳 `true`（符合）、`false`（確認不符）或 `null`（無 CPE 資料，同樣過濾）。
    - **Registry 軟體**：`cveRelevanceCheck(cve, searchName)` 驗證搜尋名稱的所有字詞是否都出現在 CPE 條目中。
-   - 回傳 `false` 的 CVE 列入 `mismatchedCVEs`（含 `mismatchReason`），不計入弱點統計，但在報表「可能誤判」區塊顯示。
+   - 前述兩項通過後，再執行 `cveExactVersionCheck(installedVersion, cve, searchName, cpeBase)`：若 CVE 的 CPE 設定**全部為精確版本比對**（無 `versionEndExcluding`/`versionStartIncluding` 等範圍欄位），且已安裝版本不在受影響清單中，則同樣判為不符。
+   - 關聯性函式回傳值處理原則：`true` = 確認相關，保留；`false` = 確認不符，過濾；`null` = 無 CPE 資料（NVD 未完成 enrichment），**同樣過濾**。三種 non-true 結果（`false` 與 `null`）一律列入 `mismatchedCVEs`，**不計入弱點統計，也不在任何報表或 log 中顯示**；資料仍保存於 JSON 供後續處理。
+   - **`null` 過濾的設計理由**：NVD `keywordSearch` 會比對 CVE 描述全文，單字詞如 `bruno` 可能命中無關軟體（例如作者名「Bruno Cavalcante」）。無 CPE 資料時無法驗證相關性，保留反而產生大量誤報，故與 CPE 不符情況一律過濾。
 
 6. **版本邏輯**
    - `extractFixedVersion(cve, searchName, cpeBase)`：讀取 `configurations[].nodes[].cpeMatch[]`；`versionEndExcluding` → `op: ">="`, `versionEndIncluding` → `op: ">"`。
@@ -207,8 +211,7 @@ PORTABLE_N       ─────────────────────
    1. Header 儀表板（CVE 日期範圍格式 `YYYY/01/01~YYYY/MM/DD`）
    2. 升級建議摘要表（有弱點在前、無弱點在後）
    3. CVE 詳細資訊（可折疊，依發布日期由新至舊排列）
-   4. 可能誤判的 CVE（含 `mismatchReason`）
-   5. 白名單略過 / SKIP_PATTERNS 略過 / 重複去除
+   4. 白名單略過 / SKIP_PATTERNS 略過 / 重複去除
 
 ### report 物件結構
 

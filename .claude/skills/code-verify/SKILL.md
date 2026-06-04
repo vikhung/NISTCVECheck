@@ -16,7 +16,7 @@ description: 當使用者要求驗證程式可執行、確認環境正常、或�
 分別執行：
 - `node --check cve-checker.js`
 - `node --check team-report.js`
-- `node --check web-server.js`
+- `node --check web/web-server.js`
 
 
 ### 3. 驗證 team-report.js 功能
