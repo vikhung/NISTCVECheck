@@ -168,11 +168,14 @@ PORTABLE_N       ─────────────────────
   "generatedAt": "2026-05-14T12:49:39.741Z",
   "hostname": "MACHINE-NAME",
   "username": "user",
+  "ip": "192.168.1.100",
   "softwares": [
     { "name": "App Name", "version": "1.0.0", "publisher": "Vendor", "installDate": null, "installPath": null }
   ]
 }
 ```
+
+`ip` 為選填欄位，Registry 掃描時由 `getLocalIP()` 自動填入；`findSW.ps1` 產生的 JSON 通常不含此欄位（顯示為 `?`）。
 
 ### 主要處理階段
 
@@ -185,13 +188,20 @@ PORTABLE_N       ─────────────────────
 
    若 `PORTABLE_ONLY=true`，Registry/JSON 項目略過此步驟（不加入 queryMap）。`report.summary.totalSoftware` = Registry/JSON 軟體數（PORTABLE_ONLY 時為 0）+ Portable 數。
 
-3. **Portable 軟體 CPE 查找** — 每筆 `PORTABLE_N` 項目先呼叫 `lookupCPEs(keyword)` 查詢 NVD CPE API，再由 `findBestCPEBase()` 從結果中找出最符合的 `{vendor, product}` 組合（優先全詞比對，次選首詞比對）。找到後記錄為 `cpeBase`，供後續關聯性檢查使用；未找到則降級為關鍵字比對。
+3. **Portable 軟體 CPE 查找** — 每筆 `PORTABLE_N` 項目先呼叫 `lookupCPEs(keyword)` 查詢 NVD CPE API，再由 `findAllCPEBases(products, nameWords)` 收集**所有符合**的 `{vendor, product}` 組合，回傳陣列。比對分三個 Pass：
+   - **Pass 0**：vendor 欄位單獨即含所有關鍵字（例如 `putty:putty` 的 vendor `putty` 含 `putty`）
+   - **Pass 1**：vendor + product 合併後含所有關鍵字（例如 `simon_tatham:putty` 的 `simon tatham putty` 含 `putty`）
+   - **Pass 2**（fallback）：僅在前兩 Pass 皆無結果時啟動，以關鍵字第一個字在 product 中比對（避免對「Neo4j Community Edition」等多字詞名稱過度剔除）
+
+   結果陣列存入 `cpeBases`，首項（最優先）另存 `cpeBase = cpeBases[0]` 供版本提取使用；未找到任何 CPE 時降級為關鍵字比對。
+
+   **設計理由**：NVD 對同一軟體可能以多個 vendor 名稱登記（例如 PuTTY 同時有 `cpe:2.3:a:putty:putty:*` 與 `cpe:2.3:a:simon_tatham:putty:*`）。若只取單一 CPE，可能遺漏以另一 vendor 名稱登記的 CVE。收集全部後以 OR 邏輯比對，確保兩種命名方式均能命中。
 
 4. **NVD CVE API** — `searchCVEs(keyword)` 呼叫 NVD CVE API，參數：`keywordSearch`、`resultsPerPage=MAX_CVES_PER_SOFTWARE`、`noRejected`。**注意**：`pubStartDate` 必須與 `pubEndDate` 成對使用，否則 NVD 回傳 HTTP 404；且 **NVD API 強制限制日期範圍上限為 120 天**，超過亦回 HTTP 404，因此無法以 `pubStartDate=YYYY-01-01` 搭配今日日期的方式過濾年份（實際範圍常逾千天）。年份過濾以 `minYear` 在客戶端進行，為刻意設計而非遺漏。
 
 5. **關聯性檢查（兩種模式）+ 精確版本過濾**
-   - **Portable 軟體**（有 `cpeBase`）：`cveMatchesCPEBase(cve, vendor, product)` 驗證 CVE CPE 條目中是否含 `:vendor:product:`。回傳 `true`（符合）、`false`（確認不符）或 `null`（無 CPE 資料，同樣過濾）。
-   - **Registry 軟體**：`cveRelevanceCheck(cve, searchName)` 驗證搜尋名稱的所有字詞是否都出現在 CPE 條目中。
+   - **Portable 軟體**（有 `cpeBases`）：`cveMatchesCPEBase(cve, bases)` 驗證 CVE CPE 條目中是否含任一 `:vendor:product:`（OR 邏輯）。回傳 `true`（至少一個符合）、`false`（確認均不符）或 `null`（無 CPE 資料，同樣過濾）。
+   - **Registry 軟體**（無 `cpeBases`）：`cveRelevanceCheck(cve, searchName)` 驗證搜尋名稱的所有字詞是否都出現在 CPE 條目中。
    - 前述兩項通過後，再執行 `cveExactVersionCheck(installedVersion, cve, searchName, cpeBase)`：若 CVE 的 CPE 設定**全部為精確版本比對**（無 `versionEndExcluding`/`versionStartIncluding` 等範圍欄位），且已安裝版本不在受影響清單中，則同樣判為不符。
    - 關聯性函式回傳值處理原則：`true` = 確認相關，保留；`false` = 確認不符，過濾；`null` = 無 CPE 資料（NVD 未完成 enrichment），**同樣過濾**。三種 non-true 結果（`false` 與 `null`）一律列入 `mismatchedCVEs`，**不計入弱點統計，也不在任何報表或 log 中顯示**；資料仍保存於 JSON 供後續處理。
    - **`null` 過濾的設計理由**：NVD `keywordSearch` 會比對 CVE 描述全文，單字詞如 `bruno` 可能命中無關軟體（例如作者名「Bruno Cavalcante」）。無 CPE 資料時無法驗證相關性，保留反而產生大量誤報，故與 CPE 不符情況一律過濾。
@@ -216,15 +226,23 @@ PORTABLE_N       ─────────────────────
 ### report 物件結構
 
 ```
+report.generatedAt    — 報表產生時間（ISO 8601）
+report.source         — 資料來源字串（"Windows Registry" 或 "File: /path"）
+report.hostname / .ip / .username — 主機資訊（ip 讀自輸入 JSON，可能為空字串）
+report.scanDate       — 輸入 JSON 的 generatedAt（Registry 模式同 report.generatedAt）
+report.minSeverity / .minYear — 本次掃描參數
 report.summary.{totalSoftware, queriedSoftware, affectedSoftware, totalCVEs}
-report.results[]      — 有 CVE 的軟體（含 recommendedVersion、cpeBase、cves[]、mismatchedCVEs[]）
+report.results[]      — 有 CVE 的軟體（含 recommendedVersion、cpeBase、cveCount、cves[]、mismatchedCVEs[]）
 report.cleanResults[] — 已掃描但無 CVE 超過門檻的軟體（含 cpeBase、mismatchedCVEs[]）
+report.errors[]       — NVD API 查詢失敗的項目（含 name、error 欄位）
 report.whitelisted[]  — 被白名單略過（含 matchedRule 欄位）
 report.skippedByPattern[] — 被 SKIP_PATTERNS 略過
 report.skippedByDedup[]   — 被合併至其他條目（含 mergedAs 欄位）
 ```
 
 `cpeBase`（僅 Portable 軟體有值）：`{ vendor: string, product: string }`，對應 CPE API 查找到的精確識別碼。
+
+`cves[]` 每筆項目含：`id、published、lastModified、severity、cvssScore、cvssVersion、description、fixedVersion、url`，以及 `cpeRelevant`（`true`=確認相關、`false`=確認不符、`null`=無 CPE 資料）。
 
 ### 參數對照表
 
@@ -236,6 +254,8 @@ report.skippedByDedup[]   — 被合併至其他條目（含 mergedAs 欄位）
 | `args[3]` | MIN_YEAR | YYYY \| `-1` | 當年 −5 |
 
 **重要**：`args[0]` 是 FILE 而非 severity。若直接傳入 severity 名稱（如 `node cve-checker.js HIGH`），程式會偵測到並提示正確用法（`node cve-checker.js -1 HIGH`），然後結束。
+
+**MIN_YEAR 注意**：程式碼將 `-1` 對應至 `currentYear − 5`（與省略相同），並非「不限年份」。`printUsage` 顯示「-1 表示不限年份」係描述有誤；目前無命令列引數可達成真正不限年份（需修改程式碼將 `-1` 對應至 `null`）。
 
 ### whitelist.txt 格式（向下相容）
 
@@ -298,7 +318,7 @@ npm run web                     # 同上（package.json 捷徑）
 
 **注意事項：**
 - 需要瀏覽器能直接連線 `services.nvd.nist.gov`（若遇 CORS 錯誤，表示網路限制，需改用 `web-server.js` 代理模式）
-- 不支援 Registry 直接掃描（需透過 scan.json 輸入）；不支援 `PORTABLE_ONLY` 模式與 `.env.local` 的 `PORTABLE_N` 設定（UI 中的「免安裝軟體」列表可手動補充，但採關鍵字比對而非 CPE API 精確比對）
+- 不支援 Registry 直接掃描（需透過 scan.json 輸入）；不支援 `PORTABLE_ONLY` 模式與 `.env.local` 的 `PORTABLE_N` 設定（UI 中的「免安裝軟體」列表可手動補充，掃描前自動進行 CPE API 查找，關聯性比對邏輯與 CLI 一致）
 - 所有設定（API Key、白名單等）自動儲存於瀏覽器 localStorage
 
 ## 其他檔案

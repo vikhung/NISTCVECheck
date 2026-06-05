@@ -15,7 +15,8 @@
       "PowerShell(node --check cve-checker.js; if \\($?\\) { \"OK\" })",
       "WebFetch(domain:nvd.nist.gov)",
       "PowerShell(try { $p = New-Object -ComObject PowerPoint.Application; $p.Quit\\(\\); \"PowerPoint COM: OK\" } catch { \"PowerPoint COM: NOT_AVAILABLE\" })",
-      "PowerShell(Remove-Item *)"
+      "PowerShell(Remove-Item *)",
+      "Bash(grep -v \"^\\\\s*//\")"
     ]
   }
 }

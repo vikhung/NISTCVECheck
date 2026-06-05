@@ -935,7 +935,7 @@ PORTABLE_3=Neo4j Community Edition|2025.05.0|Neo4j Inc</code></pre>
   <thead><tr><th>參數</th><th>值</th><th>說明</th></tr></thead>
   <tbody>
     <tr><td><code>keywordSearch</code></td><td>軟體名稱（如 <code>Apache Maven</code>）</td><td>搜尋包含此關鍵字的 CPE 條目</td></tr>
-    <tr><td><code>resultsPerPage</code></td><td>20（固定值）</td><td>取前 20 筆 CPE，通常足以找到正確的 <code>vendor:product</code></td></tr>
+    <tr><td><code>resultsPerPage</code></td><td>10000（固定值，NVD API 最大值）</td><td>取盡可能多的 CPE 條目，確保收集到所有 <code>vendor:product</code> 命名組合（部分軟體如 Node.js 有數百條 CPE，設定過低會遺漏）</td></tr>
   </tbody>
 </table>
 
