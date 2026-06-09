@@ -4,23 +4,7 @@
 const fs = require('fs');
 const path = require('path');
 
-// ─── Version Helpers ─────────────────────────────────────────────────────────
-function compareVersions(a, b) {
-    const parse = v => String(v).split('.').map(n => parseInt(n, 10) || 0);
-    const ap = parse(a), bp = parse(b);
-    const len = Math.max(ap.length, bp.length);
-    for (let i = 0; i < len; i++) {
-        const diff = (ap[i] || 0) - (bp[i] || 0);
-        if (diff !== 0) return diff;
-    }
-    return 0;
-}
-
-function isSafeVersion(installed, rec) {
-    if (!installed || !rec) return false;
-    const cmp = compareVersions(installed, rec.version);
-    return rec.op === '>=' ? cmp >= 0 : cmp > 0;
-}
+const { compareVersions, isSafeVersion } = require('./lib/cve-logic');
 
 // ─── Load Reports ────────────────────────────────────────────────────────────
 async function loadTeamReports(teamDir) {

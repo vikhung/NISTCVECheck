@@ -5,7 +5,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## 專案執行原則
 
 ### 1. 所有的交談都以繁體中文為主。
-### 2. Node.js 請使用原生功能，不要使用任何需額外下載之套件。
+### 2. 每當討論出架構決策或注意事項，立即更新本文件的對應章節，不要等到對話結束才整理。
+### 3. 程式碼、函式庫應用繁體中文記錄註解，讓使用者知道這段程式碼用途。
+### 4. Node.js 請使用原生功能，不要使用任何需額外下載之套件。
 
 
 
@@ -56,7 +58,7 @@ node team-report.js C:\scans\team
 2. 將各機器的 `vik_result_YYYYMMDD.json` 複製至 `.\team` 目錄
 3. 執行 `node team-report.js` → 產生 `.\report\team_YYYYMMDD.html`
 
-**注意**：`team-report.js` 內部自行定義了 `compareVersions()` 與 `isSafeVersion()`，並非從 `cve-checker.js` 引用。若修改版本比較邏輯，兩個檔案都需同步更新。
+**注意**：`team-report.js` 現在與 `cve-checker.js` 同樣從 `lib/cve-logic.js` 引用 `compareVersions()` 與 `isSafeVersion()`。若修改版本比較邏輯，只需更新 `lib/cve-logic.js` 一處。
 
 **team-report.js 彙總報表結構：**
 - **機器總覽表**：各機器的 CVE 日期範圍（格式 `YYYY/01/01~YYYY/MM/DD`）、軟體總計、掃描數、有弱點數、CVE 數、狀態
@@ -148,7 +150,42 @@ PORTABLE_3=Neo4j Community Edition|2025.05.0|Neo4j Inc
 
 ## 架構說明
 
-所有邏輯集中於單一檔案：**`cve-checker.js`**。
+### 共通邏輯模組：`lib/cve-logic.js`
+
+**修改 CVE 業務邏輯時，只需編輯 `lib/cve-logic.js` 一個檔案。**
+
+`lib/cve-logic.js` 是所有 CVE 處理邏輯的唯一來源，包含：`SEVERITY_ORDER`、`compareVersions`、`isSafeVersion`、`getCvss`、`findAllCPEBases`、`cveMatchesCPEBase`、`cveRelevanceCheck`、`cveExactVersionCheck`、`_cpeWords`、`_matchInRange`、`isVersionInAnyRange`、`extractFixedVersion`、`getRecommendedVersion`、`extractAllRanges`（共 14 個匯出）。
+
+- **`cve-checker.js`**：`require('./lib/cve-logic')` 引入
+- **`team-report.js`**：`require('./lib/cve-logic')` 引入
+- **`web/web-client.html`**：由 `node web/build.js` 將 `lib/cve-logic.js` 完整內嵌（**build artifact，勿直接編輯**）
+- **`web/web-client.src.html`**：Web 端的模板原始碼，含 `// @@CVE_LOGIC@@` 注入標記
+
+**修改流程**：編輯 `lib/cve-logic.js` → 執行 `node web/build.js` → `web-client.html` 與 `_bundle.js` 自動更新。
+
+### 共通報表模組：`lib/report-html.js`
+
+**修改報表 HTML 產生邏輯時，只需編輯 `lib/report-html.js` 一個檔案。**
+
+`lib/report-html.js` 匯出單一函式 `buildHTMLReport(report)`：純函式，接收 report 物件，回傳完整 HTML 字串，無任何 I/O 或 Node.js 專屬 API。CLI 與 Web 版報表由此函式統一產生，確保格式一致。
+
+- **`cve-checker.js`**：`generateHTML(report, outputPath)` 內部 `require('./lib/report-html')` 取得 `buildHTMLReport`，產生 HTML 後寫入檔案。
+- **`team-report.js`**：**不使用**（team 報表有獨立的 HTML 產生邏輯）。
+- **`web/web-client.html`**：由 `node web/build.js` 將 `lib/report-html.js` 完整內嵌（**build artifact，勿直接編輯**）
+- **`web/web-client.src.html`**：含 `// @@REPORT_HTML@@` 注入標記，位於 `// @@CVE_LOGIC@@` 之後（注入順序重要：report-html.js 依賴 cve-logic.js 的 `isSafeVersion`，瀏覽器中後者需先定義於作用域）
+
+`lib/report-html.js` 的依賴解析方式：
+```js
+// Node.js：require 取得；瀏覽器：@@CVE_LOGIC@@ 已注入，typeof isSafeVersion 非 undefined
+const _isSafeVersion =
+    typeof isSafeVersion !== 'undefined'
+        ? isSafeVersion
+        : require('./cve-logic').isSafeVersion;
+```
+
+**修改流程**：編輯 `lib/report-html.js` → 執行 `node web/build.js` → `web-client.html` 與 `_bundle.js` 自動更新。
+
+### CLI 主程式：`cve-checker.js`
 
 ### 資料流程
 
@@ -215,7 +252,7 @@ PORTABLE_N       ─────────────────────
    - ? 請手動確認：已安裝版本達到 `recommendedVersion`，但**同批 CVE 中有任何一筆 `fixedVersion === null`**；或完全無 `recommendedVersion`
    - ✓ 無須升級：有 `recommendedVersion`、版本達到要求，且**所有 CVE 均有明確修復版資訊**
 
-8. **HTML 報表** — `generateHTML(report, outputPath)`：純字串樣板，無需外部套件。
+8. **HTML 報表** — `generateHTML(report, outputPath)` 呼叫 `lib/report-html.js` 的 `buildHTMLReport(report)` 產生 HTML 字串後寫入檔案。CLI 與 Web 版使用同一份模板邏輯，格式完全一致。
 
    **報表區塊順序：**
    1. Header 儀表板（CVE 日期範圍格式 `YYYY/01/01~YYYY/MM/DD`）
@@ -255,7 +292,7 @@ report.skippedByDedup[]   — 被合併至其他條目（含 mergedAs 欄位）
 
 **重要**：`args[0]` 是 FILE 而非 severity。若直接傳入 severity 名稱（如 `node cve-checker.js HIGH`），程式會偵測到並提示正確用法（`node cve-checker.js -1 HIGH`），然後結束。
 
-**MIN_YEAR 注意**：程式碼將 `-1` 對應至 `currentYear − 5`（與省略相同），並非「不限年份」。`printUsage` 顯示「-1 表示不限年份」係描述有誤；目前無命令列引數可達成真正不限年份（需修改程式碼將 `-1` 對應至 `null`）。
+**MIN_YEAR 注意（已知程式碼 bug）**：`main()` 第 885 行將 `-1` 對應至 `currentYear − 5`（與省略相同），並非「不限年份」。但 `printUsage` 明確範例 `node cve-checker.js -1 -1 -1 -1  # 不限年份` 與此行為矛盾，屬於程式碼邏輯與使用者說明不符的 bug，而非單純文件錯誤。修正方式：將 `main()` 中 `minYearRaw === -1 ? new Date().getFullYear() - 5 : minYearRaw` 改為 `minYearRaw === -1 ? null : minYearRaw`，並在後續年份過濾邏輯中處理 `null`（跳過過濾）。
 
 ### whitelist.txt 格式（向下相容）
 
@@ -314,7 +351,7 @@ npm run web                     # 同上（package.json 捷徑）
 - 掃描進度即時顯示（可中途取消）
 - 下載 `result.html`（視覺化報表，與 CLI 版格式相同）和 `result.json`
 
-報表結構與 `cve-checker.js` 的 `generateHTML()` 輸出相同，`result.json` 亦與 CLI 版報表格式相容。
+報表由 `lib/report-html.js` 的 `buildHTMLReport()` 產生，與 CLI 版格式完全相同（同一份程式碼）。`result.json` 亦與 CLI 版報表格式相容。
 
 **注意事項：**
 - 需要瀏覽器能直接連線 `services.nvd.nist.gov`（若遇 CORS 錯誤，表示網路限制，需改用 `web-server.js` 代理模式）
@@ -326,8 +363,11 @@ npm run web                     # 同上（package.json 捷徑）
 - `docs/operator.html` — 完整操作手冊（CLI 版 + Web 版合併，含 tree-view 側欄導覽）
 - `scan.json` — 範例輸入檔，可用於測試（來自本機掃描結果）
 - `findSW.ps1` — 在無法直接執行 Node.js 的遠端機器上產生掃描 JSON
+- `lib/cve-logic.js` — 共通 CVE 業務邏輯（唯一來源，詳見上方架構說明）
+- `lib/report-html.js` — 共通報表 HTML 產生邏輯（唯一來源，詳見上方架構說明）；匯出 `buildHTMLReport(report)`
 - `web/` — 所有 Web 相關檔案集中於此：
   - `web/web-server.js` — Node.js HTTP 伺服器（讀取根目錄 `.env.local` 與 `logs/`）
-  - `web/web-client.html` — 瀏覽器端 HTML 掃描器（可直接雙擊開啟）
-  - `web/build.js` — 將 `web/web-client.html` 與根目錄 `.env.local` 非敏感設定打包為 `web/_bundle.js`；修改任一來源後執行 `node web/build.js`（`NIST_API_KEY` 刻意排除）
+  - `web/web-client.src.html` — Web 掃描器的**模板源碼**，含 `// @@CVE_LOGIC@@` 與 `// @@REPORT_HTML@@` 兩個注入標記；編輯此檔後執行 `node web/build.js`
+  - `web/web-client.html` — 瀏覽器端 HTML 掃描器（可直接雙擊開啟）；**build artifact**，由 `web/build.js` 從模板 + `lib/cve-logic.js` + `lib/report-html.js` 產生，已納入 git 追蹤
+  - `web/build.js` — 讀取 `web/web-client.src.html`，依序將 `lib/cve-logic.js`（注入 `@@CVE_LOGIC@@`）與 `lib/report-html.js`（注入 `@@REPORT_HTML@@`）內嵌為 `web/web-client.html`；再與根目錄 `.env.local` 非敏感設定打包為 `web/_bundle.js`（`NIST_API_KEY` 刻意排除）。**注意**：`PORTABLE_N` 打包時僅保留 `{ name, version }`，`publisher` 欄位不包含在 bundle 內，故 Web 介面預填的 Portable 清單不顯示發行商。
   - `web/_bundle.js` — 由 `web/build.js` 自動生成，供 `web/web-server.js` 以 `require()` 載入（不需手動編輯）。**已納入 git 追蹤**

@@ -40,7 +40,17 @@ const hasApiKey    = !!(env.NIST_API_KEY || '').trim();
 const requestDelay = hasApiKey ? 700 : 6500;
 const config       = { portableEnable, whitelist, portables, requestDelay };
 
-const html = fs.readFileSync(path.join(__dirname, 'web-client.html'), 'utf8');
+// Inject shared modules from lib/ into the template to produce web-client.html
+const cveLogic    = fs.readFileSync(path.join(__dirname, '..', 'lib', 'cve-logic.js'), 'utf8');
+const reportHTML  = fs.readFileSync(path.join(__dirname, '..', 'lib', 'report-html.js'), 'utf8');
+const template    = fs.readFileSync(path.join(__dirname, 'web-client.src.html'), 'utf8');
+const MARKER_LOGIC  = '// @@CVE_LOGIC@@';
+const MARKER_REPORT = '// @@REPORT_HTML@@';
+if (!template.includes(MARKER_LOGIC))  throw new Error(`Marker "${MARKER_LOGIC}" not found in web-client.src.html`);
+if (!template.includes(MARKER_REPORT)) throw new Error(`Marker "${MARKER_REPORT}" not found in web-client.src.html`);
+const html = template.replace(MARKER_LOGIC, cveLogic).replace(MARKER_REPORT, reportHTML);
+fs.writeFileSync(path.join(__dirname, 'web-client.html'), html, 'utf8');
+console.log(`injected: lib/cve-logic.js (${cveLogic.length} chars) + lib/report-html.js (${reportHTML.length} chars) → web-client.html`);
 
 const out = '// Auto-generated — do not edit manually. Run: node build.js\n'
           + `module.exports = ${JSON.stringify({ html, config }, null, 2)};\n`;
