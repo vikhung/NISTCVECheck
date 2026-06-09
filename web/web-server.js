@@ -201,7 +201,7 @@ const injectLines = [
 ];
 if (portableEnable) {
     for (const p of defaultPortables) {
-        injectLines.push(`if(typeof addPortableRow==='function')addPortableRow(${jsStr(p.name)},${jsStr(p.version)});`);
+        injectLines.push(`if(typeof addPortableRow==='function')addPortableRow(${jsStr(p.name)},${jsStr(p.version)},${jsStr(p.publisher||'')});`);
     }
 } else {
     injectLines.push(`var _ps=document.getElementById('portable-section');if(_ps)_ps.style.display='none';`);
@@ -266,13 +266,14 @@ async function scanHandler(req, res) {
     const sid = newSid();
     const ip  = req.socket.remoteAddress || '?';
 
-    let keywords, maxCves, meta;
+    let keywords, maxCves, meta, cpeMap;
     try {
         const body = await readBody(req);
         const parsed = JSON.parse(body);
         keywords = parsed.keywords;
         maxCves  = Math.max(1, parseInt(parsed.maxCves, 10) || 50);
         meta     = parsed.meta || {};
+        cpeMap   = (parsed.cpeMap && typeof parsed.cpeMap === 'object') ? parsed.cpeMap : {};
         if (!Array.isArray(keywords) || keywords.length === 0)
             throw new Error('keywords must be a non-empty array');
     } catch (err) {
@@ -322,11 +323,12 @@ async function scanHandler(req, res) {
         const keyword = keywords[i];
         scanned++;
 
-        const params = new URLSearchParams({
-            keywordSearch:  keyword,
-            resultsPerPage: String(maxCves),
-            noRejected:     '',
-        });
+        // Portable 軟體（已知 CPE base）：改用 virtualMatchString，取完整 CVE 歷史（2000 筆）
+        // 與 CLI 的 searchCVEsByCPE 行為一致，避免 keywordSearch 只取前 N 筆造成漏報
+        const cpeName = cpeMap[keyword];
+        const params = cpeName
+            ? new URLSearchParams({ virtualMatchString: cpeName, resultsPerPage: '2000', noRejected: '' })
+            : new URLSearchParams({ keywordSearch: keyword, resultsPerPage: String(maxCves), noRejected: '' });
         const url = `${NVD_CVE_URL}?${params}`;
 
         try {

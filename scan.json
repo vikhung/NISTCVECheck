@@ -1,77 +1,56 @@
 {
-    "generatedAt":  "2026-06-04T02:29:43.765Z",
-    "hostname":  "VIK-MINIPC",
-    "username":  "vik",
-    "ip":  "172.20.10.4",
+    "generatedAt":  "2026-06-09T14:52:03.672Z",
+    "hostname":  "VIKPC-2025",
+    "username":  "vikhung",
+    "ip":  "192.168.0.109",
     "softwares":  [
                       {
-                          "name":  "Apple Mobile Device Support",
-                          "version":  "19.4.0.10",
-                          "publisher":  "Apple Inc.",
-                          "installDate":  "20260316",
-                          "installPath":  "C:\\Program Files\\Common Files\\Apple\\Mobile Device Support"
-                      },
-                      {
-                          "name":  "Apple Software Update",
-                          "version":  "2.7.0.3",
-                          "publisher":  "Apple Inc.",
-                          "installDate":  "20230617",
-                          "installPath":  "C:\\Program Files (x86)\\Apple Software Update"
-                      },
-                      {
-                          "name":  "Bonjour",
-                          "version":  "3.1.0.1",
-                          "publisher":  "Apple Inc.",
-                          "installDate":  "20230617",
-                          "installPath":  "C:\\Program Files (x86)\\Bonjour"
-                      },
-                      {
-                          "name":  "Bruno 3.4.2",
-                          "version":  "3.4.2",
-                          "publisher":  "Anoop M D",
+                          "name":  "7-Zip 24.09 (x64)",
+                          "version":  "24.09",
+                          "publisher":  "Igor Pavlov",
                           "installDate":  null,
-                          "installPath":  null
+                          "installPath":  "C:\\Program Files\\7-Zip"
+                      },
+                      {
+                          "name":  "Brother MFL-Pro Suite DCP-T500W",
+                          "version":  "1.0.2.0",
+                          "publisher":  "Brother Industries, Ltd.",
+                          "installDate":  "20250615",
+                          "installPath":  "C:\\Program Files (x86)\\Brother\\Brmfl14k"
                       },
                       {
                           "name":  "Cisco Webex Meetings",
-                          "version":  "43.6.0",
+                          "version":  "45.2.0",
                           "publisher":  "Cisco Webex LLC",
                           "installDate":  null,
                           "installPath":  null
                       },
                       {
                           "name":  "Copilot",
-                          "version":  "148.0.3967.70",
+                          "version":  "148.0.3967.96",
                           "publisher":  "Microsoft Corporation",
-                          "installDate":  "20260519",
+                          "installDate":  "20260605",
                           "installPath":  "C:\\Program Files (x86)\\Microsoft\\Copilot\\Application"
                       },
                       {
                           "name":  "FFmpeg",
-                          "version":  "8.1",
+                          "version":  "8.0.1",
                           "publisher":  "Gyan",
-                          "installDate":  "20260415",
-                          "installPath":  "C:\\Users\\Vik\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe"
+                          "installDate":  "20260304",
+                          "installPath":  "C:\\Users\\vikhu\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe"
                       },
                       {
                           "name":  "Git",
-                          "version":  "2.53.0.2",
+                          "version":  "2.49.0",
                           "publisher":  "The Git Development Community",
-                          "installDate":  "20260415",
+                          "installDate":  "20250615",
                           "installPath":  "C:\\Program Files\\Git"
                       },
                       {
-                          "name":  "GitHub",
-                          "version":  "1.0",
-                          "publisher":  "Google\\Chrome",
-                          "installDate":  "20230519",
-                          "installPath":  null
-                      },
-                      {
                           "name":  "Google Chrome",
-                          "version":  "148.0.7778.217",
+                          "version":  "148.0.7778.218",
                           "publisher":  "Google LLC",
-                          "installDate":  "20260604",
+                          "installDate":  "20260607",
                           "installPath":  "C:\\Program Files\\Google\\Chrome\\Application"
                       },
                       {
@@ -82,59 +61,45 @@
                           "installPath":  "C:\\Program Files\\Google\\Drive File Stream\\126.0.5.0\\GoogleDriveFS.exe"
                       },
                       {
-                          "name":  "Google One",
-                          "version":  "1.0",
-                          "publisher":  "Google\\Chrome",
-                          "installDate":  "20251211",
+                          "name":  "HiCOS PKI Smart Card",
+                          "version":  "3.2.5.01219",
+                          "publisher":  "Chunghwa Telecom",
+                          "installDate":  "20260516",
                           "installPath":  null
                       },
                       {
-                          "name":  "ImageMagick 7.1.2-21 Q16-HDRI (64-bit) (2026-04-21)",
-                          "version":  "7.1.2.21",
+                          "name":  "ImageMagick 7.1.2-15 Q16-HDRI (64-bit) (2026-02-22)",
+                          "version":  "7.1.2.15",
                           "publisher":  "ImageMagick Studio LLC",
-                          "installDate":  "20260506",
+                          "installDate":  "20260304",
                           "installPath":  "C:\\Program Files\\ImageMagick-7.1.2-Q16-HDRI"
                       },
                       {
-                          "name":  "Intel(R) Wireless Bluetooth(R)",
-                          "version":  "24.40.0.3",
-                          "publisher":  "Intel Corporation",
-                          "installDate":  "20260519",
-                          "installPath":  "C:\\Program Files (x86)\\Intel"
-                      },
-                      {
-                          "name":  "iTunes",
-                          "version":  "12.13.10.3",
-                          "publisher":  "Apple Inc.",
-                          "installDate":  "20260316",
-                          "installPath":  "C:\\Program Files\\iTunes"
+                          "name":  "Java(TM) SE Development Kit 21.0.6 (64-bit)",
+                          "version":  "21.0.6.0",
+                          "publisher":  "Oracle Corporation",
+                          "installDate":  "20250615",
+                          "installPath":  "C:\\Program Files\\Java\\jdk-21"
                       },
                       {
                           "name":  "LINE",
-                          "version":  "9.14.0.3764",
+                          "version":  "9.5.0.3497",
                           "publisher":  "LY Corporation",
                           "installDate":  null,
                           "installPath":  null
                       },
                       {
-                          "name":  "Local 10.1.0",
-                          "version":  "10.1.0",
-                          "publisher":  "WPEngine, Inc.",
-                          "installDate":  null,
-                          "installPath":  null
-                      },
-                      {
                           "name":  "Microsoft Edge",
-                          "version":  "148.0.3967.96",
+                          "version":  "149.0.4022.52",
                           "publisher":  "Microsoft Corporation",
-                          "installDate":  "20260601",
-                          "installPath":  "C:\\Program Files (x86)\\Microsoft\\Edge\\Application"
+                          "installDate":  "20240903",
+                          "installPath":  null
                       },
                       {
                           "name":  "Microsoft Edge WebView2 執行階段",
                           "version":  "148.0.3967.96",
                           "publisher":  "Microsoft Corporation",
-                          "installDate":  "20260601",
+                          "installDate":  "20260530",
                           "installPath":  "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application"
                       },
                       {
@@ -145,270 +110,109 @@
                           "installPath":  "C:\\Program Files\\Microsoft Office"
                       },
                       {
-                          "name":  "Microsoft Teams Meeting Add-in for Microsoft Office",
-                          "version":  "1.26.08901",
-                          "publisher":  "Microsoft",
-                          "installDate":  "20260505",
-                          "installPath":  null
-                      },
-                      {
                           "name":  "Microsoft Update Health Tools",
                           "version":  "5.72.0.0",
                           "publisher":  "Microsoft Corporation",
-                          "installDate":  "20231103",
+                          "installDate":  "20250615",
                           "installPath":  null
                       },
                       {
-                          "name":  "Microsoft Visual C++ 2012 Redistributable (x64) - 11.0.61030",
-                          "version":  "11.0.61030.0",
+                          "name":  "Microsoft Visual C++ 2010  x64 Redistributable - 10.0.30319",
+                          "version":  "10.0.30319",
+                          "publisher":  "Microsoft Corporation",
+                          "installDate":  "20250615",
+                          "installPath":  null
+                      },
+                      {
+                          "name":  "Microsoft Visual C++ 2010  x86 Redistributable - 10.0.30319",
+                          "version":  "10.0.30319",
+                          "publisher":  "Microsoft Corporation",
+                          "installDate":  "20250615",
+                          "installPath":  null
+                      },
+                      {
+                          "name":  "Microsoft Visual C++ 2015-2022 Redistributable (x64) - 14.44.35211",
+                          "version":  "14.44.35211.0",
                           "publisher":  "Microsoft Corporation",
                           "installDate":  null,
                           "installPath":  null
                       },
                       {
-                          "name":  "Microsoft Visual C++ 2012 Redistributable (x86) - 11.0.61030",
-                          "version":  "11.0.61030.0",
+                          "name":  "Microsoft Visual C++ 2015-2022 Redistributable (x86) - 14.44.35211",
+                          "version":  "14.44.35211.0",
                           "publisher":  "Microsoft Corporation",
                           "installDate":  null,
                           "installPath":  null
                       },
                       {
-                          "name":  "Microsoft Visual C++ 2012 x64 Additional Runtime - 11.0.61030",
-                          "version":  "11.0.61030",
+                          "name":  "Microsoft Visual C++ 2022 X64 Additional Runtime - 14.44.35211",
+                          "version":  "14.44.35211",
                           "publisher":  "Microsoft Corporation",
-                          "installDate":  "20250106",
+                          "installDate":  "20260201",
                           "installPath":  null
                       },
                       {
-                          "name":  "Microsoft Visual C++ 2012 x64 Minimum Runtime - 11.0.61030",
-                          "version":  "11.0.61030",
+                          "name":  "Microsoft Visual C++ 2022 X64 Minimum Runtime - 14.44.35211",
+                          "version":  "14.44.35211",
                           "publisher":  "Microsoft Corporation",
-                          "installDate":  "20250106",
+                          "installDate":  "20260201",
                           "installPath":  null
                       },
                       {
-                          "name":  "Microsoft Visual C++ 2012 x86 Additional Runtime - 11.0.61030",
-                          "version":  "11.0.61030",
+                          "name":  "Microsoft Visual C++ 2022 X86 Additional Runtime - 14.44.35211",
+                          "version":  "14.44.35211",
                           "publisher":  "Microsoft Corporation",
-                          "installDate":  "20250106",
+                          "installDate":  "20260202",
                           "installPath":  null
                       },
                       {
-                          "name":  "Microsoft Visual C++ 2012 x86 Minimum Runtime - 11.0.61030",
-                          "version":  "11.0.61030",
+                          "name":  "Microsoft Visual C++ 2022 X86 Minimum Runtime - 14.44.35211",
+                          "version":  "14.44.35211",
                           "publisher":  "Microsoft Corporation",
-                          "installDate":  "20250106",
+                          "installDate":  "20260202",
                           "installPath":  null
                       },
                       {
-                          "name":  "Microsoft Visual C++ 2013 Redistributable (x64) - 12.0.40664",
-                          "version":  "12.0.40664.0",
+                          "name":  "Microsoft Visual Studio Code (User)",
+                          "version":  "1.123.0",
                           "publisher":  "Microsoft Corporation",
-                          "installDate":  null,
-                          "installPath":  null
-                      },
-                      {
-                          "name":  "Microsoft Visual C++ 2013 Redistributable (x86) - 12.0.40664",
-                          "version":  "12.0.40664.0",
-                          "publisher":  "Microsoft Corporation",
-                          "installDate":  null,
-                          "installPath":  null
-                      },
-                      {
-                          "name":  "Microsoft Visual C++ 2013 x64 Additional Runtime - 12.0.40664",
-                          "version":  "12.0.40664",
-                          "publisher":  "Microsoft Corporation",
-                          "installDate":  "20250909",
-                          "installPath":  null
-                      },
-                      {
-                          "name":  "Microsoft Visual C++ 2013 x64 Minimum Runtime - 12.0.40664",
-                          "version":  "12.0.40664",
-                          "publisher":  "Microsoft Corporation",
-                          "installDate":  "20250909",
-                          "installPath":  null
-                      },
-                      {
-                          "name":  "Microsoft Visual C++ 2013 x86 Additional Runtime - 12.0.40664",
-                          "version":  "12.0.40664",
-                          "publisher":  "Microsoft Corporation",
-                          "installDate":  "20250909",
-                          "installPath":  null
-                      },
-                      {
-                          "name":  "Microsoft Visual C++ 2013 x86 Minimum Runtime - 12.0.40664",
-                          "version":  "12.0.40664",
-                          "publisher":  "Microsoft Corporation",
-                          "installDate":  "20250909",
-                          "installPath":  null
-                      },
-                      {
-                          "name":  "Microsoft Visual C++ 2022 X64 Additional Runtime - 14.50.35719",
-                          "version":  "14.50.35719",
-                          "publisher":  "Microsoft Corporation",
-                          "installDate":  "20251230",
-                          "installPath":  null
-                      },
-                      {
-                          "name":  "Microsoft Visual C++ 2022 X64 Minimum Runtime - 14.50.35719",
-                          "version":  "14.50.35719",
-                          "publisher":  "Microsoft Corporation",
-                          "installDate":  "20251230",
-                          "installPath":  null
-                      },
-                      {
-                          "name":  "Microsoft Visual C++ 2022 X86 Additional Runtime - 14.50.35719",
-                          "version":  "14.50.35719",
-                          "publisher":  "Microsoft Corporation",
-                          "installDate":  "20251230",
-                          "installPath":  null
-                      },
-                      {
-                          "name":  "Microsoft Visual C++ 2022 X86 Minimum Runtime - 14.50.35719",
-                          "version":  "14.50.35719",
-                          "publisher":  "Microsoft Corporation",
-                          "installDate":  "20251230",
-                          "installPath":  null
-                      },
-                      {
-                          "name":  "Microsoft Visual C++ v14 Redistributable (x64) - 14.50.35719",
-                          "version":  "14.50.35719.0",
-                          "publisher":  "Microsoft Corporation",
-                          "installDate":  null,
-                          "installPath":  null
-                      },
-                      {
-                          "name":  "Microsoft Visual C++ v14 Redistributable (x86) - 14.50.35719",
-                          "version":  "14.50.35719.0",
-                          "publisher":  "Microsoft Corporation",
-                          "installDate":  null,
-                          "installPath":  null
-                      },
-                      {
-                          "name":  "Microsoft Visual Studio Code",
-                          "version":  "1.122.0",
-                          "publisher":  "Microsoft Corporation",
-                          "installDate":  "20260528",
-                          "installPath":  "C:\\Program Files\\Microsoft VS Code"
+                          "installDate":  "20260609",
+                          "installPath":  "C:\\Users\\vikhu\\AppData\\Local\\Programs\\Microsoft VS Code"
                       },
                       {
                           "name":  "Office 16 Click-to-Run Extensibility Component",
                           "version":  "16.0.17928.20216",
                           "publisher":  "Microsoft Corporation",
-                          "installDate":  "20260312",
+                          "installDate":  "20260302",
                           "installPath":  null
                       },
                       {
                           "name":  "Office 16 Click-to-Run Licensing Component",
                           "version":  "16.0.17932.20190",
                           "publisher":  "Microsoft Corporation",
-                          "installDate":  "20260312",
+                          "installDate":  "20260302",
                           "installPath":  null
                       },
                       {
                           "name":  "Office 16 Click-to-Run Localization Component",
                           "version":  "16.0.17928.20216",
                           "publisher":  "Microsoft Corporation",
-                          "installDate":  "20260312",
+                          "installDate":  "20260302",
                           "installPath":  null
                       },
                       {
-                          "name":  "PostgreSQL 18",
-                          "version":  "18.3-3",
-                          "publisher":  "PostgreSQL Global Development Group",
-                          "installDate":  "20260417",
-                          "installPath":  "C:\\Program Files\\PostgreSQL\\18"
+                          "name":  "Realtek USB 2.0 Card Reader",
+                          "version":  "6.1.7600.00042",
+                          "publisher":  "Realtek Semiconductor Corp.",
+                          "installDate":  "20250615",
+                          "installPath":  "C:\\Program Files (x86)\\Realtek\\Realtek USB 2.0 Card Reader"
                       },
                       {
-                          "name":  "Python 3.11.9 (64-bit)",
-                          "version":  "3.11.9150.0",
-                          "publisher":  "Python Software Foundation",
-                          "installDate":  null,
+                          "name":  "StatusMonitor",
+                          "version":  "1.33.1.0",
+                          "publisher":  "Brother Industries, Ltd.",
+                          "installDate":  "20250927",
                           "installPath":  null
-                      },
-                      {
-                          "name":  "Python 3.11.9 Add to Path (64-bit)",
-                          "version":  "3.11.9150.0",
-                          "publisher":  "Python Software Foundation",
-                          "installDate":  "20250909",
-                          "installPath":  null
-                      },
-                      {
-                          "name":  "Python 3.11.9 Core Interpreter (64-bit)",
-                          "version":  "3.11.9150.0",
-                          "publisher":  "Python Software Foundation",
-                          "installDate":  "20250909",
-                          "installPath":  null
-                      },
-                      {
-                          "name":  "Python 3.11.9 Development Libraries (64-bit)",
-                          "version":  "3.11.9150.0",
-                          "publisher":  "Python Software Foundation",
-                          "installDate":  "20250909",
-                          "installPath":  null
-                      },
-                      {
-                          "name":  "Python 3.11.9 Documentation (64-bit)",
-                          "version":  "3.11.9150.0",
-                          "publisher":  "Python Software Foundation",
-                          "installDate":  "20250909",
-                          "installPath":  null
-                      },
-                      {
-                          "name":  "Python 3.11.9 Executables (64-bit)",
-                          "version":  "3.11.9150.0",
-                          "publisher":  "Python Software Foundation",
-                          "installDate":  "20250909",
-                          "installPath":  null
-                      },
-                      {
-                          "name":  "Python 3.11.9 pip Bootstrap (64-bit)",
-                          "version":  "3.11.9150.0",
-                          "publisher":  "Python Software Foundation",
-                          "installDate":  "20250909",
-                          "installPath":  null
-                      },
-                      {
-                          "name":  "Python 3.11.9 Standard Library (64-bit)",
-                          "version":  "3.11.9150.0",
-                          "publisher":  "Python Software Foundation",
-                          "installDate":  "20250909",
-                          "installPath":  null
-                      },
-                      {
-                          "name":  "Python 3.11.9 Tcl/Tk Support (64-bit)",
-                          "version":  "3.11.9150.0",
-                          "publisher":  "Python Software Foundation",
-                          "installDate":  "20250909",
-                          "installPath":  null
-                      },
-                      {
-                          "name":  "Python 3.11.9 Test Suite (64-bit)",
-                          "version":  "3.11.9150.0",
-                          "publisher":  "Python Software Foundation",
-                          "installDate":  "20250909",
-                          "installPath":  null
-                      },
-                      {
-                          "name":  "Python 3.11.9 Utility Scripts (64-bit)",
-                          "version":  "3.11.9150.0",
-                          "publisher":  "Python Software Foundation",
-                          "installDate":  "20250909",
-                          "installPath":  null
-                      },
-                      {
-                          "name":  "Python Launcher",
-                          "version":  "3.13.5150.0",
-                          "publisher":  "Python Software Foundation",
-                          "installDate":  "20250909",
-                          "installPath":  null
-                      },
-                      {
-                          "name":  "UniGetUI",
-                          "version":  "2026.2.0",
-                          "publisher":  "Devolutions Inc.",
-                          "installDate":  "20260603",
-                          "installPath":  "C:\\Program Files\\UniGetUI"
                       },
                       {
                           "name":  "VLC media player",
@@ -419,31 +223,24 @@
                       },
                       {
                           "name":  "Webex",
-                          "version":  "43.5.0.26155",
+                          "version":  "45.4.1.32313",
                           "publisher":  "Cisco Systems, Inc",
-                          "installDate":  "20230607",
-                          "installPath":  "C:\\Users\\Vik\\AppData\\Local\\Programs\\Cisco Spark"
+                          "installDate":  "20250615",
+                          "installPath":  "C:\\Users\\vikhu\\AppData\\Local\\Programs\\Cisco Spark"
                       },
                       {
                           "name":  "Windows Subsystem for Linux",
-                          "version":  "2.7.3.0",
+                          "version":  "2.5.9.0",
                           "publisher":  "Microsoft Corporation",
-                          "installDate":  "20260511",
+                          "installDate":  "20250706",
                           "installPath":  null
                       },
                       {
-                          "name":  "WinRAR 7.01 (32 位元)",
-                          "version":  "7.01.0",
-                          "publisher":  "win.rar GmbH",
-                          "installDate":  null,
-                          "installPath":  "C:\\Program Files (x86)\\WinRAR"
-                      },
-                      {
-                          "name":  "WinRAR 7.22 (64 位元)",
-                          "version":  "7.22.0",
-                          "publisher":  "win.rar GmbH",
-                          "installDate":  null,
-                          "installPath":  "C:\\Program Files\\WinRAR"
+                          "name":  "跨平台網頁元件 版本 1.3.4.103349",
+                          "version":  "1.3.4.103349",
+                          "publisher":  "Chunghwa Telecom Co., Ltd.",
+                          "installDate":  "20260516",
+                          "installPath":  "C:\\Program Files (x86)\\HiPKILocalSignServer"
                       }
                   ]
 }

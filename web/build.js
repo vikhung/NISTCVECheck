@@ -31,8 +31,8 @@ if (portableEnable) {
     for (let i = 0; ; i++) {
         const val = env[`PORTABLE_${i}`];
         if (!val) break;
-        const [name = '', version = ''] = val.split('|');
-        if (name.trim()) portables.push({ name: name.trim(), version: version.trim() });
+        const [name = '', version = '', publisher = ''] = val.split('|');
+        if (name.trim()) portables.push({ name: name.trim(), version: version.trim(), publisher: publisher.trim() });
     }
 }
 
