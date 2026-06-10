@@ -10,8 +10,3 @@
 (4)那些弱點符合年分，那些不符合
 (5)那些弱點建議改善版本號比我指定的新(符合)，那些比我舊(已修正)
 
-
-(二)、微調
-1.將cve-checker.js、team-report.js搬到web中
-2.請將web目錄更換為script，並新增指令如 npm run cve check、npm run merge
-

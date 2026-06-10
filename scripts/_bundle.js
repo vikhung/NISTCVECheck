@@ -6,9 +6,24 @@ module.exports = {
     "whitelist": "Microsoft,Apple,Google",
     "portables": [
       {
-        "name": "Node.js",
-        "version": "24.0.0",
+        "name": "putty",
+        "version": "0.73",
         "publisher": ""
+      },
+      {
+        "name": "Apache Maven",
+        "version": "3.8.6",
+        "publisher": "Apache Software Foundation"
+      },
+      {
+        "name": "Node.js",
+        "version": "24.15.0",
+        "publisher": "OpenJS Foundation"
+      },
+      {
+        "name": "Neo4j Community Edition",
+        "version": "2025.05.0",
+        "publisher": "Neo4j Inc"
       }
     ],
     "requestDelay": 700

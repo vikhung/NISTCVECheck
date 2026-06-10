@@ -22,12 +22,12 @@ NIST_API_KEY=your-api-key-here
 
 ```bash
 # CLI 掃描
-node cve-checker.js                        # 掃描本機 Registry
-node cve-checker.js scan.json              # 使用 JSON 檔案輸入
-node cve-checker.js -1 HIGH 5 2020        # 指定嚴重度/筆數/年份
+node scripts/cve-checker.js                        # 掃描本機 Registry
+node scripts/cve-checker.js scan.json              # 使用 JSON 檔案輸入
+node scripts/cve-checker.js -1 HIGH 5 2020        # 指定嚴重度/筆數/年份
 
 # 彙總多台機器
-node team-report.js                        # 讀取 .\team\ 目錄產生彙總報表
+node scripts/team-report.js                        # 讀取 .\team\ 目錄產生彙總報表
 
 # Web 介面
 npm run web                                # 啟動 Web 伺服器（預設 Port 8093）
@@ -40,7 +40,7 @@ npm run web                                # 啟動 Web 伺服器（預設 Port 
 | `LIMIT` | N \| `-1` | 不限 |
 | `MIN_YEAR` | YYYY \| `-1` | 當年 − 5 |
 
-報表輸出至 `report/vik_result_YYYYMMDD.html`（視覺化）與 `report/vik_result_YYYYMMDD.json`（供 team-report.js 讀取）。
+報表輸出至 `report/vik_result_YYYYMMDD.html`（視覺化）與 `report/vik_result_YYYYMMDD.json`（供 scripts/team-report.js 讀取）。
 
 ## CVE 過濾原則
 

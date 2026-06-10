@@ -25,7 +25,12 @@
       "PowerShell(Set-Location *)",
       "PowerShell(Set-Location \"D:\\\\VikGitHub\\\\VikClaudeCode\\\\NISTCVECheck\"; $src = Get-Content web/web-client.src.html -Raw; Write-Host \"Has marker: $\\($src.Contains\\('// @@CVE_LOGIC@@'\\)\\)\"; Write-Host \"Has compareVersions \\(should be false\\): $\\($src.Contains\\('function compareVersions'\\)\\)\"; Write-Host \"Has SEVERITY_ORDER \\(should be false\\): $\\($src.Contains\\(\"const SEVERITY_ORDER\"\\)\\)\")",
       "PowerShell(Get-ChildItem \"D:\\\\VikGitHub\\\\VikClaudeCode\\\\NISTCVECheck\" -File | Where-Object { $_.Name -notmatch '^\\\\.' } | Select-Object Name | Sort-Object Name)",
-      "Bash(curl -s http://localhost:8093/)"
+      "Bash(curl -s http://localhost:8093/)",
+      "Bash(cd /d D:\\\\VikGitHub\\\\VikClaudeCode\\\\NISTCVECheck)",
+      "Bash(dir /b)",
+      "PowerShell(Rename-Item *)",
+      "PowerShell(git *)",
+      "PowerShell(\\(Get-Content \"D:\\\\VikGitHub\\\\VikClaudeCode\\\\NISTCVECheck\\\\CLAUDE.md\"\\).Count)"
     ]
   }
 }

@@ -4,7 +4,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const { compareVersions, isSafeVersion } = require('./lib/cve-logic');
+const { compareVersions, isSafeVersion } = require('../lib/cve-logic');
 
 // ─── Load Reports ────────────────────────────────────────────────────────────
 async function loadTeamReports(teamDir) {
@@ -415,8 +415,8 @@ footer{text-align:center;padding:20px;font-size:.78rem;color:#9ca3af}
 // ─── Main ─────────────────────────────────────────────────────────────────────
 async function main() {
     const args = process.argv.slice(2);
-    const teamDir   = path.resolve(args[0] || path.join(__dirname, 'team'));
-    const reportDir = path.join(__dirname, 'report');
+    const teamDir   = path.resolve(args[0] || path.join(__dirname, '..', 'team'));
+    const reportDir = path.join(__dirname, '..', 'report');
 
     console.log(`Loading reports from: ${teamDir}`);
     const reports = await loadTeamReports(teamDir);

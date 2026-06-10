@@ -263,7 +263,7 @@ WHITELIST=Microsoft,Apple,Google</code></pre>
   <li>
     <div>
       <strong>執行掃描（使用所有預設值）</strong>
-      <pre><code>node cve-checker.js</code></pre>
+      <pre><code>node scripts/cve-checker.js</code></pre>
       程式將掃描 PC Registry，查詢 HIGH 以上嚴重等級、近 5 年的 CVE。
     </div>
   </li>
@@ -295,8 +295,8 @@ HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*        <span class="
 <section id="source-file">
 <h2>使用 JSON 檔案</h2>
 <p>將預先產生的軟體清單 JSON 檔案路徑作為第一個參數傳入：</p>
-<pre><code>node cve-checker.js scan.json
-node cve-checker.js C:\Users\USER\Desktop\scan.json HIGH</code></pre>
+<pre><code>node scripts/cve-checker.js scan.json
+node scripts/cve-checker.js C:\Users\USER\Desktop\scan.json HIGH</code></pre>
 <h3>JSON 檔案格式</h3>
 <pre><code>{
   <span class="str">"generatedAt"</span>: <span class="str">"2026-05-14T12:49:39.741Z"</span>,
@@ -332,7 +332,7 @@ powershell -ExecutionPolicy Bypass -File findSW.ps1 -Username john</code></pre>
 <ol class="steps">
   <li><div>在目標機器執行 <code>findSW.ps1</code>，產生 <code>scan.json</code></div></li>
   <li><div>將 JSON 檔案複製到安裝了 Node.js 的機器</div></li>
-  <li><div>執行 <code>node cve-checker.js scan.json</code></div></li>
+  <li><div>執行 <code>node scripts/cve-checker.js scan.json</code></div></li>
 </ol>
 <div class="note"><strong>編碼說明</strong><code>findSW.ps1</code> 輸出 UTF-8 無 BOM 格式，Node.js 可直接讀取。CVE Scanner 內建的 Registry 掃描則需 UTF-8 BOM（已自動處理），兩者格式不同但均相容。</div>
 </section>
@@ -343,10 +343,10 @@ powershell -ExecutionPolicy Bypass -File findSW.ps1 -Username john</code></pre>
 <p><code>team-report.js</code> 可將多台機器各自產生的 JSON 掃描結果整合為一份彙總 HTML 報表，適合資安人員或管理者一次掌握整個團隊的軟體弱點狀態。</p>
 <h3>執行方式</h3>
 <pre><code><span class="comment"># 讀取 .\team 目錄中所有 JSON，產生彙總報表至 .\report</span>
-node team-report.js
+node scripts/team-report.js
 
 <span class="comment"># 或指定自訂 team 目錄路徑</span>
-node team-report.js C:\scans\team</code></pre>
+node scripts/team-report.js C:\scans\team</code></pre>
 <p>輸出檔案：<code>report/team_YYYYMMDD.html</code></p>
 <div class="note"><strong>無需 API Key</strong>team-report.js 純讀取本機 JSON，不呼叫 NVD API，執行速度極快。</div>
 </section>
@@ -359,7 +359,7 @@ node team-report.js C:\scans\team</code></pre>
     <div>
       <strong>各機器個別掃描</strong><br>
       在每台 Windows 機器上執行掃描，產生帶時間戳記的 JSON 結果檔：
-      <pre><code>node cve-checker.js
+      <pre><code>node scripts/cve-checker.js
 <span class="comment"># → report\vik_result_YYYYMMDD.json</span></code></pre>
       若機器無 Node.js，可改用 PowerShell 腳本：
       <pre><code>powershell -ExecutionPolicy Bypass -File findSW.ps1
@@ -379,7 +379,7 @@ node team-report.js C:\scans\team</code></pre>
   <li>
     <div>
       <strong>產生彙總報表</strong>
-      <pre><code>node team-report.js
+      <pre><code>node scripts/team-report.js
 <span class="comment"># → report\team_YYYYMMDD.html</span></code></pre>
       以瀏覽器開啟產生的 HTML 即可查看整個團隊的報表。
     </div>
@@ -435,7 +435,7 @@ node team-report.js C:\scans\team</code></pre>
 <!-- ══════════════════════════════════════════════════════════════ -->
 <section id="params">
 <h2>命令列參數</h2>
-<pre><code>node cve-checker.js [FILE] [MIN_SEVERITY] [LIMIT] [MIN_YEAR]</code></pre>
+<pre><code>node scripts/cve-checker.js [FILE] [MIN_SEVERITY] [LIMIT] [MIN_YEAR]</code></pre>
 <p>所有參數均為選填，以 <strong>位置</strong> 區分（非具名參數）。任何參數傳入 <code>-1</code> 代表「使用預設值」。</p>
 
 <table>
@@ -472,12 +472,12 @@ node team-report.js C:\scans\team</code></pre>
 <table>
   <thead><tr><th>指令</th><th>說明</th></tr></thead>
   <tbody>
-    <tr><td><code>node cve-checker.js</code></td><td>掃描 PC，HIGH 以上，近 5 年</td></tr>
-    <tr><td><code>node cve-checker.js scan.json</code></td><td>讀 scan.json，其餘預設</td></tr>
-    <tr><td><code>node cve-checker.js scan.json HIGH</code></td><td>讀 scan.json，HIGH 以上</td></tr>
-    <tr><td><code>node cve-checker.js -1 HIGH 5</code></td><td>PC，HIGH，只掃前 5 筆</td></tr>
-    <tr><td><code>node cve-checker.js -1 CRITICAL -1 -1</code></td><td>PC，CRITICAL，不限數量，近 5 年（預設）</td></tr>
-    <tr><td><code>node cve-checker.js scan.json -1 -1 2020</code></td><td>讀 scan.json，HIGH，不限，2020 年後</td></tr>
+    <tr><td><code>node scripts/cve-checker.js</code></td><td>掃描 PC，HIGH 以上，近 5 年</td></tr>
+    <tr><td><code>node scripts/cve-checker.js scan.json</code></td><td>讀 scan.json，其餘預設</td></tr>
+    <tr><td><code>node scripts/cve-checker.js scan.json HIGH</code></td><td>讀 scan.json，HIGH 以上</td></tr>
+    <tr><td><code>node scripts/cve-checker.js -1 HIGH 5</code></td><td>PC，HIGH，只掃前 5 筆</td></tr>
+    <tr><td><code>node scripts/cve-checker.js -1 CRITICAL -1 -1</code></td><td>PC，CRITICAL，不限數量，近 5 年（預設）</td></tr>
+    <tr><td><code>node scripts/cve-checker.js scan.json -1 -1 2020</code></td><td>讀 scan.json，HIGH，不限，2020 年後</td></tr>
   </tbody>
 </table>
 </section>
@@ -1145,7 +1145,7 @@ WHITELIST=Microsoft,Apple,Google</code></pre>
     </tr>
     <tr>
       <td>Node.js CLI</td>
-      <td><code>node cve-checker.js</code>（產生 <code>report/vik_result_YYYYMMDD.json</code>）</td>
+      <td><code>node scripts/cve-checker.js</code>（產生 <code>report/vik_result_YYYYMMDD.json</code>）</td>
       <td>已安裝 Node.js，且需要同時產生 CLI 版報表</td>
     </tr>
   </tbody>
@@ -1459,7 +1459,7 @@ Log：      ...\NISTCVECheck\log
 <p>可以。每個頁籤的報表連結獨立保存，切換頁籤不會影響另一個頁籤的報表。但若在<strong>同一頁籤重新執行掃描</strong>，前一次的報表連結會被撤銷。</p>
 
 <h3>Q：如何將 Web 版結果納入 team-report.js 彙整？</h3>
-<p>在「📁 檔案掃描(JSON)」模式掃描完成後，點擊「⬇ result.json」下載 JSON 結果，再將其複製至 <code>team</code> 目錄，搭配其他機器的 JSON 一起執行 <code>node team-report.js</code> 即可。</p>
+<p>在「📁 檔案掃描(JSON)」模式掃描完成後，點擊「⬇ result.json」下載 JSON 結果，再將其複製至 <code>team</code> 目錄，搭配其他機器的 JSON 一起執行 <code>node scripts/team-report.js</code> 即可。</p>
 
 <h3>Q：人工掃描模式的結果與檔案掃描模式一樣準確嗎？</h3>
 <p>查詢流程相同，但人工掃描模式沒有白名單過濾、也不進行 Registry 子元件去重。CVE 關聯性驗證採用關鍵字比對（非 CPE API 精確比對），與 Registry 軟體相同。搜尋名稱的精準度直接影響結果準確性，建議使用完整的英文軟體名稱。</p>
