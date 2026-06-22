@@ -59,11 +59,14 @@ powershell -ExecutionPolicy Bypass -File findSW.ps1  # 遠端機器產生 scan.j
 | `PORTABLE_ONLY` | `true` = 只掃描 PORTABLE_N，略過 Registry/JSON 項目 | false |
 | `WHITELIST` | 逗號分隔廠牌關鍵字，比對 `publisher` 欄位。可與 `whitelist.txt` 並存（合併去重） | — |
 | `PORTABLE_N` | 格式：`名稱\|版本\|發行商`（版本、發行商可省略）。從 0 連續遞增，遇缺口停止。略過白名單/SKIP_PATTERNS，走 CPE 精確查詢。 | — |
+| `CACHE_DISABLE` | `true` = 停用本機 CVE 快取（每次都直接查 NVD API） | false |
+| `CACHE_ALIAS_N` | 格式：`canonical\|alias1\|alias2`（`\|` 分隔）。第一個為 canonical 名稱，其餘別名查詢時共用同一個快取檔案（`data/kw_<canonical>.json`）。從 0 連續遞增，遇缺口停止。 | — |
 
 範例：
 ```
 PORTABLE_0=Eclipse IDE|202506|Eclipse Foundation
 PORTABLE_1=Node.js|24.15.0|OpenJS Foundation
+CACHE_ALIAS_0=maven|apache maven|apache-maven|mvn
 ```
 
 ## 架構說明
@@ -76,6 +79,7 @@ PORTABLE_1=Node.js|24.15.0|OpenJS Foundation
 |------|------|------------|
 | `lib/cve-logic.js` | 所有 CVE 業務邏輯（15 個匯出：`SEVERITY_ORDER`、`compareVersions`、`isSafeVersion`、`getCvss`、`findAllCPEBases`、`cveMatchesCPEBase`、`cveRelevanceCheck`、`cveExactVersionCheck`、`_cpeWords`、`_matchInRange`、`isVersionInAnyRange`、`extractFixedVersion`、`getRecommendedVersion`、`getBranchFixVersion`、`extractAllRanges`） | `node scripts/build.js` |
 | `lib/report-html.js` | 匯出 `buildHTMLReport(report)`：純函式，CLI 與 Web 版報表共用 | `node scripts/build.js` |
+| `lib/nvd-client.js` | NVD API 客戶端（**純 server-side，不注入 web**）：本機 CVE 快取（`data/<key>.json`）、日期分段查詢（120 天/段）、增量更新（`lastModStartDate`）、alias 對應（`CACHE_ALIAS_N`）。匯出 `createNvdClient({ fetchFn, apiKey, delay, cacheDir, aliases, slotFn, logger })`。CLI 與 Web Server 均 require 此模組，確保快取與速率限制共用同一套邏輯。 | — |
 
 `lib/report-html.js` 在瀏覽器中依賴 `isSafeVersion`，`build.js` 注入時必須先注入 `cve-logic.js`（`@@CVE_LOGIC@@`）再注入 `report-html.js`（`@@REPORT_HTML@@`）。
 
@@ -84,10 +88,26 @@ PORTABLE_1=Node.js|24.15.0|OpenJS Foundation
 ```
 Windows Registry  ──┐
                      ├─► softwares[]  ──► 白名單過濾 → SKIP_PATTERNS 過濾 → cleanProductName 去重
-findSW.ps1 JSON  ──┘                                                        ──► NVD CVE API 查詢
-PORTABLE_N       ──────────────────────────────────────────────────────────► NVD CPE API → NVD CVE API
+findSW.ps1 JSON  ──┘                                                        ──► nvd-client.fetchCVEs()
+PORTABLE_N       ──────────────────────────────────────────────────────────► NVD CPE API → nvd-client.fetchCVEs()
+                                                                             ↑
+                                                               data/<key>.json（本機快取）
+                                                               命中 < 1h：直接回傳
+                                                               命中 ≥ 1h：增量查詢（lastModStartDate）
+                                                               未命中：全量查詢（120 天分段）
                                                                              ──► 關聯性檢查 → HTML/JSON 報表
 ```
+
+**快取檔案結構** (`data/<key>.json`)：
+```json
+{
+  "cacheKey": "kw_nodejs",
+  "coverageStart": "2021-01-01T00:00:00.000Z",
+  "lastFetchedAt": "2026-06-22T10:30:00.000Z",
+  "cves": [ /* NVD vulnerabilities[] 原始物件陣列 */ ]
+}
+```
+快取 key 命名：keyword 查詢 → `kw_<sanitized>`；CPE 查詢 → `cpe_<vendor>_<product>`。`sanitizeCacheKey()` 將名稱轉為 lowercase 並將非字母數字字元替換為 `_`。
 
 ### 主要處理邏輯
 
@@ -102,7 +122,7 @@ PORTABLE_N       ─────────────────────
 
 **Portable 軟體 CPE 查找**（`findAllCPEBases`）：三個 Pass 依序比對，Pass 0 優先（vendor 單獨含關鍵字），Pass 1（vendor+product 合併含關鍵字），Pass 2 fallback（product 含第一個字）。回傳**所有符合**的 `{vendor, product}` 陣列（OR 邏輯），確保同一軟體不同 vendor 名稱（如 PuTTY 的 `putty:putty` 與 `simon_tatham:putty`）均能命中。
 
-**NVD CVE API 限制**：`pubStartDate`/`pubEndDate` 必須成對使用，且範圍上限 120 天，超過回 HTTP 404。因此年份過濾在客戶端以 `minYear` 處理，為刻意設計。
+**NVD CVE API 限制**：`pubStartDate`/`pubEndDate` 必須成對使用，且範圍上限 120 天，超過回 HTTP 404。`lib/nvd-client.js` 的 `splitDateRange()` 自動將查詢切為多段（每段 ≤ 120 天，由新到舊）。年份過濾在客戶端以 `minYear` 處理，為刻意設計。
 
 **關聯性檢查回傳值**：
 - `true` = 確認相關，保留
@@ -139,6 +159,8 @@ report.skippedByPattern[] / skippedByDedup[] — 過濾/去重略過
 ```
 lib/cve-logic.js          — CVE 業務邏輯（唯一來源）
 lib/report-html.js        — HTML 報表產生（唯一來源）
+lib/nvd-client.js         — NVD API 客戶端（快取 + 日期分段 + 增量更新，唯一來源）
+data/                     — 本機 CVE 快取（kw_<name>.json / cpe_<vendor>_<product>.json），自動建立
 scripts/
   cve-checker.js          — CLI 主程式
   team-report.js          — 團隊彙整報表

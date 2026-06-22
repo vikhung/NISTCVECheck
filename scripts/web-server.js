@@ -6,6 +6,8 @@ const fs     = require('fs');
 const path   = require('path');
 const os     = require('os');
 const crypto = require('crypto');
+const { createNvdClient } = require('../lib/nvd-client');
+const { findAllCPEBases } = require('../lib/cve-logic');
 
 // ─── Port resolution ─────────────────────────────────────────────────────────
 const cliPort = parseInt(process.argv[2] || '', 10);
@@ -132,6 +134,20 @@ const REQUEST_DELAY    = CONFIG.requestDelay;
 const portableEnable   = CONFIG.portableEnable;
 const defaultPortables = CONFIG.portables;
 
+// 解析 CACHE_ALIAS_N 環境變數（格式：canonical|alias1|alias2）
+function _loadAliases() {
+    const aliases = {};
+    let i = 0;
+    while (true) {
+        const entry = env[`CACHE_ALIAS_${i}`];
+        if (!entry) break;
+        const parts = entry.split('|').map(s => s.trim().toLowerCase()).filter(Boolean);
+        if (parts.length >= 2) aliases[parts[0]] = parts.slice(1);
+        i++;
+    }
+    return aliases;
+}
+
 // ─── Daily-rolling logger ─────────────────────────────────────────────────────
 fs.mkdirSync(LOG_DIR, { recursive: true });
 
@@ -189,6 +205,23 @@ function nvdSlot() {
     _nvdQueue = p.catch(() => {});
     return p;
 }
+
+// ─── NVD Client（快取 + 120 天分段查詢）─────────────────────────────────────
+// slotFn 傳入全域 nvdSlot，確保所有 session 共用同一速率限制。
+// 快取存於 <project>/data/ 目錄；CACHE_DISABLE=true 可停用快取。
+const _cacheDisable = (env.CACHE_DISABLE || '').toLowerCase() === 'true';
+const _cacheDir     = _cacheDisable ? null : path.join(__dirname, '..', 'data');
+const nvdClient     = createNvdClient({
+    fetchFn:  _fetch,
+    apiKey:   defaultApiKey,
+    delay:    REQUEST_DELAY,
+    cacheDir: _cacheDir,
+    aliases:  _loadAliases(),
+    slotFn:   nvdSlot,
+    logger: (level, _kw, msg) => {
+        if (level === 'warn') console.warn(`[nvd-client] ${msg}`);
+    },
+});
 
 // ─── Page injection ───────────────────────────────────────────────────────────
 // Injected before </body>: signals proxy mode and pre-fills settings.
@@ -310,55 +343,67 @@ async function scanHandler(req, res) {
     });
     res.write(JSON.stringify({ sid }) + '\n');
 
-    const reqHeaders = { 'User-Agent': 'CVE-Web-Scanner/1.0' };
-    if (defaultApiKey) reqHeaders['apiKey'] = defaultApiKey;
+    // 解析 minYear（來自 meta.minYear），使用 UTC 避免時區偏移
+    const coverageStart = minYear
+        ? new Date(Date.UTC(minYear, 0, 1))
+        : new Date(Date.UTC(new Date().getUTCFullYear() - 5, 0, 1));
 
     let scanned = 0;
     for (let i = 0; i < keywords.length; i++) {
         if (cancelled) break;
-
-        await nvdSlot();
-        if (cancelled) break;
+        // 速率控制由 nvdClient 內部透過 slotFn=nvdSlot 處理，此處無需再呼叫 nvdSlot()
 
         const keyword = keywords[i];
         scanned++;
 
-        // Portable 軟體（已知 CPE base）：改用 virtualMatchString，取完整 CVE 歷史（2000 筆）
-        // 與 CLI 的 searchCVEsByCPE 行為一致，避免 keywordSearch 只取前 N 筆造成漏報
-        const cpeName = cpeMap[keyword];
-        const params = cpeName
-            ? new URLSearchParams({ virtualMatchString: cpeName, resultsPerPage: '2000', noRejected: '' })
-            : new URLSearchParams({ keywordSearch: keyword, resultsPerPage: String(maxCves), noRejected: '' });
-        const url = `${NVD_CVE_URL}?${params}`;
-
         try {
-            let nvdRes;
-            try {
-                nvdRes = await _fetch(url, { headers: reqHeaders, signal: AbortSignal.timeout(30000) });
-            } catch (firstErr) {
-                if (firstErr.name === 'AbortError') throw firstErr;
-                slog(sid, `  [${scanned}/${total}] ${keyword} — TypeError，重試`);
-                nvdRes = await _fetch(url, { headers: reqHeaders, signal: AbortSignal.timeout(30000) });
+            // 進度 log 回調：寫入 server log 並同時以 NDJSON log 行推送給前端
+            const itemLog = (level, msg) => {
+                slog(sid, `  [${scanned}/${total}] ${keyword} ${msg}`);
+                if (!cancelled) res.write(JSON.stringify({ keyword, log: msg, level }) + '\n');
+            };
+
+            // Portable 軟體使用前端傳來的 CPE；一般軟體先自動偵測 CPE，找不到才 fallback 至 keywordSearch
+            // CPE virtualMatchString 為索引查詢，比 keywordSearch 全文掃描更快且更穩定（降低 503）
+            const cpeName = cpeMap[keyword]; // Portable 由前端傳入，e.g. 'cpe:2.3:a:vendor:product:*'
+            let queryType, queryValue, detectedCpeBases = [];
+            if (cpeName) {
+                const m = cpeName.match(/^cpe:2\.3:a:([^:]+):([^:]+):/);
+                queryType  = 'cpe';
+                queryValue = m ? { vendor: m[1], product: m[2] } : { vendor: 'unknown', product: 'unknown' };
+            } else {
+                try {
+                    const cpeData = await nvdClient.fetchCPEs(keyword);
+                    const nameWords = keyword.toLowerCase().replace(/[^a-z0-9]/g, ' ').split(/\s+/).filter(w => w.length >= 2);
+                    detectedCpeBases = findAllCPEBases(cpeData.products || [], nameWords);
+                } catch {}
+                if (detectedCpeBases.length > 0) {
+                    queryType  = 'cpe';
+                    queryValue = detectedCpeBases[0];
+                    itemLog('info', `自動偵測 CPE（${detectedCpeBases.length} 個）: ${detectedCpeBases.map(b => `${b.vendor}:${b.product}`).join(' | ')}`);
+                } else {
+                    queryType  = 'keyword';
+                    queryValue = keyword;
+                }
             }
 
-            if (nvdRes.status === 429) {
-                slog(sid, `  [${scanned}/${total}] ${keyword} — 429 Rate Limit，等待15秒`);
-                await sleep(15000);
-                if (cancelled) break;
-                nvdRes = await _fetch(url, { headers: reqHeaders, signal: AbortSignal.timeout(30000) });
-            }
+            const { cves, fromCache, newCount } = await nvdClient.fetchCVEs({
+                queryType,
+                queryValue,
+                coverageStart,
+                endDate: new Date(),
+                log:     itemLog,
+            });
 
-            if (!nvdRes.ok) {
-                const text = await nvdRes.text().catch(() => '');
-                throw new Error(`HTTP ${nvdRes.status}${text ? ': ' + text.slice(0, 120) : ''}`);
-            }
+            if (cancelled) break;
 
-            const data      = await nvdRes.json();
-            const nvdTotal  = data.totalResults ?? 0;
-            const returned  = data.vulnerabilities?.length ?? 0;
-            const extra = nvdTotal > returned ? `(取前${returned}筆)` : '';
-            slog(sid, `  [${scanned}/${total}] ${keyword} — 從NVD共取回${nvdTotal}筆${extra}，(尚未過濾嚴重度/年份/關聯性)`);
-            res.write(JSON.stringify({ keyword, data }) + '\n');
+            const data = { vulnerabilities: cves, totalResults: cves.length, resultsPerPage: cves.length };
+            const cacheTag = fromCache ? '（快取）' : `（新增 ${newCount} 筆）`;
+            slog(sid, `  [${scanned}/${total}] ${keyword} — 共 ${cves.length} 筆 CVE${cacheTag}，（尚未過濾嚴重度/年份/關聯性）`);
+            // 自動偵測到的 cpeBases 一併送回前端，讓前端改用 cveMatchesCPEBase 精確比對
+            const ndjsonPayload = { keyword, data };
+            if (detectedCpeBases.length > 0) ndjsonPayload.cpeBases = detectedCpeBases;
+            res.write(JSON.stringify(ndjsonPayload) + '\n');
 
         } catch (err) {
             if (err.name === 'AbortError') break;

@@ -723,7 +723,18 @@ scanBtn.addEventListener('click', async () => {
                     } else {
                         fix = `<span class="l-warn"> ⚠ 無修復版本資訊</span>`;
                     }
-                    logLine(`  <span class="${cls}"><a href="${cve.url}" target="_blank" rel="noopener">${esc(cve.id)}</a> [${cve.severity} ${cve.cvssScore}]</span> <span class="l-gray">${(cve.published||'').substring(0,10)}</span>${fix}`);
+                    // 需求五：版本比較結論
+                    let conclusion = '';
+                    if (sw.version && sw.version !== '?') {
+                        if (!cve.fixedVersion) {
+                            conclusion = ` <span class="l-gray">==> 查無建議版本，請手動確認</span>`;
+                        } else if (isSafeVersion(sw.version, cve.fixedVersion)) {
+                            conclusion = ` <span class="l-ok">==> 目前版本已達修復版本，無須升級</span>`;
+                        } else {
+                            conclusion = ` <span class="l-err">==> 目前版本 (${esc(sw.version)}) 比建議版本舊，建議升級</span>`;
+                        }
+                    }
+                    logLine(`  <span class="${cls}"><a href="${cve.url}" target="_blank" rel="noopener">${esc(cve.id)}</a> [${cve.severity} ${cve.cvssScore}]</span> <span class="l-gray">${(cve.published||'').substring(0,10)}</span>${fix}${conclusion}`);
                 }
                 const hasUnfixed = cveObjs.some(c => !c.fixedVersion);
                 const needManualCheck = hasUnfixed;
@@ -845,7 +856,17 @@ scanBtn.addEventListener('click', async () => {
                     const item = JSON.parse(line);
                     if (item.done) break outer;
                     if (item.sid) { scanSid = item.sid; continue; }
+                    // 伺服器送出的進度 log 行（快取狀態、日期分段）
+                    if (item.log != null) {
+                        const cls = item.level === 'warn' ? 'l-warn' : item.level === 'cache' ? 'l-ok' : 'l-info';
+                        logLine(`  <span class="${cls}">${esc(item.log)}</span>`);
+                        continue;
+                    }
                     const searchName = item.keyword;
+                    // 伺服器自動偵測到 CPE 時，更新 cpeBasesMap 讓 processOneResult 改用精確比對
+                    if (item.cpeBases && item.cpeBases.length > 0) {
+                        cpeBasesMap.set(searchName, item.cpeBases);
+                    }
                     const sw = queryMap.get(searchName);
                     if (!sw) continue;
                     idx++;
