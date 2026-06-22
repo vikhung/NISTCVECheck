@@ -32,5 +32,9 @@
       "PowerShell(git *)",
       "PowerShell(\\(Get-Content \"D:\\\\VikGitHub\\\\VikClaudeCode\\\\NISTCVECheck\\\\CLAUDE.md\"\\).Count)"
     ]
-  }
+  },
+  "enabledMcpjsonServers": [
+    "playwright",
+    "context7"
+  ]
 }

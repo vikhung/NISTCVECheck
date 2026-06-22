@@ -8,66 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 2. 每當討論出架構決策或注意事項，立即更新本文件的對應章節，不要等到對話結束才整理。
 3. 程式碼、函式庫應用繁體中文記錄註解，讓使用者知道這段程式碼用途。
 4. Node.js 請使用原生功能，不要使用任何需額外下載之套件。
-
-## 執行方式
-
-```bash
-node scripts/cve-checker.js               # 掃描本機 Registry（HIGH 以上、近 5 年）
-node scripts/cve-checker.js scan.json     # 使用 JSON 檔案輸入（跨平台）
-node scripts/cve-checker.js -1 HIGH 5 2020  # FILE MIN_SEVERITY LIMIT MIN_YEAR
-
-node scripts/team-report.js              # 讀取 .\team\ 目錄產生彙總報表
-node scripts/team-report.js C:\scans\team
-
-node scripts/web-server.js               # 啟動 Web 伺服器（預設 Port 8093）
-npm run web                              # 同上（先自動執行 build.js）
-npm run bundle                           # 單獨重新打包 web-client.html + .env.local
-
-powershell -ExecutionPolicy Bypass -File findSW.ps1  # 遠端機器產生 scan.json
-```
-
-| 參數 | 有效值 | 預設 |
-|------|--------|------|
-| `FILE` | 路徑 \| `-1` \| 省略 | PC Registry |
-| `MIN_SEVERITY` | LOW/MEDIUM/HIGH/CRITICAL \| `-1` | HIGH |
-| `LIMIT` | N \| `-1` | 不限 |
-| `MIN_YEAR` | YYYY \| `-1` | 當年 −5 |
-
-**注意**：`args[0]` 是 FILE 而非 severity；傳入 severity 字串程式會報錯提示。
-
-**MIN_YEAR bug**：`-1` 實際對應 `currentYear − 5`（與省略相同），並非「不限年份」，與 `--help` 說明矛盾。修正方式：`cve-checker.js:399` 改 `minYearRaw === -1 ? null : minYearRaw`，並在年份過濾處理 `null`。
-
-不需要 `npm install`。Node.js 最低版本：**18.0.0**。
-
-輸出：`report/vik_result_YYYYMMDD.html` 與 `report/vik_result_YYYYMMDD.json`（目錄自動建立）。
-
-## team-report.js 工作流程
-
-1. 各機器執行 `node scripts/cve-checker.js` 或 `findSW.ps1` → 產生 `vik_result_YYYYMMDD.json`
-2. 將各機器的 JSON 複製至 `.\team` 目錄
-3. 執行 `node scripts/team-report.js` → 產生 `.\report\team_YYYYMMDD.html`
-
-## .env.local 設定
-
-| 變數 | 說明 | 預設 |
-|------|------|------|
-| `NIST_API_KEY` | NVD API Key（有 Key：0.7s/req；無：6.5s/req）。必須用 HTTP header `apiKey:` 傳送，放 query param 會 HTTP 404。HTTP 429 自動等 15s 重試 3 次。 | — |
-| `HTTPS_PROXY` / `HTTP_PROXY` | Proxy URL，支援 `http://user:pass@host:port`。底層以 `http`+`tls` CONNECT 隧道實作（非 undici 原生 Proxy）。 | — |
-| `PROXY_SKIP_TLS_VERIFY` | `true` = 停用 TLS 驗證（SSL Inspection 環境） | false |
-| `MAX_CVES_PER_SOFTWARE` | 每個軟體最多查詢幾筆 CVE（NVD 回傳由新至舊，過低會遺漏舊 CVE） | 50 |
-| `PORTABLE_ENABLE` | `false` = 完全停用 Portable 功能 | true |
-| `PORTABLE_ONLY` | `true` = 只掃描 PORTABLE_N，略過 Registry/JSON 項目 | false |
-| `WHITELIST` | 逗號分隔廠牌關鍵字，比對 `publisher` 欄位。可與 `whitelist.txt` 並存（合併去重） | — |
-| `PORTABLE_N` | 格式：`名稱\|版本\|發行商`（版本、發行商可省略）。從 0 連續遞增，遇缺口停止。略過白名單/SKIP_PATTERNS，走 CPE 精確查詢。 | — |
-| `CACHE_DISABLE` | `true` = 停用本機 CVE 快取（每次都直接查 NVD API） | false |
-| `CACHE_ALIAS_N` | 格式：`canonical\|alias1\|alias2`（`\|` 分隔）。第一個為 canonical 名稱，其餘別名查詢時共用同一個快取檔案（`data/kw_<canonical>.json`）。從 0 連續遞增，遇缺口停止。 | — |
-
-範例：
-```
-PORTABLE_0=Eclipse IDE|202506|Eclipse Foundation
-PORTABLE_1=Node.js|24.15.0|OpenJS Foundation
-CACHE_ALIAS_0=maven|apache maven|apache-maven|mvn
-```
+5. 操作方式（指令、參數、設定檔）寫在 `README.md`；本文件只放系統處理原則與架構決策。
 
 ## 架構說明
 
@@ -101,13 +42,14 @@ PORTABLE_N       ─────────────────────
 **快取檔案結構** (`data/<key>.json`)：
 ```json
 {
+  "cveCount": 42,
   "cacheKey": "kw_nodejs",
   "coverageStart": "2021-01-01T00:00:00.000Z",
   "lastFetchedAt": "2026-06-22T10:30:00.000Z",
   "cves": [ /* NVD vulnerabilities[] 原始物件陣列 */ ]
 }
 ```
-快取 key 命名：keyword 查詢 → `kw_<sanitized>`；CPE 查詢 → `cpe_<vendor>_<product>`。`sanitizeCacheKey()` 將名稱轉為 lowercase 並將非字母數字字元替換為 `_`。
+`cveCount` 為描述性欄位（= `cves.length`），方便人工檢視檔案時不必數陣列長度，無程式邏輯依賴。快取 key 命名：keyword 查詢 → `kw_<sanitized>`；CPE 查詢 → `cpe_<vendor>_<product>`。`sanitizeCacheKey()` 將名稱轉為 lowercase 並將非字母數字字元替換為 `_`。
 
 ### 主要處理邏輯
 
@@ -180,3 +122,8 @@ docs/operator.html        — 完整操作手冊
 | `/code-verify` | 確認 Node.js 版本、JS 語法正確、v18+ API 使用情況 |
 | `/code-security` | 靜態安全分析（XSS、命令注入、路徑遍歷等）並評估 Node.js 現代化程度 |
 | `/project-document` | 根據實際程式碼狀態，同步更新 `README.md`、`CLAUDE.md`、`docs/operator.html` |
+
+## MCP 伺服器（`.mcp.json`）
+
+- `context7`：查詢函式庫/框架最新文件（本專案無外部套件依賴，主要用於查 Node.js 內建 API 行為）。
+- `playwright`（Edge）：可用於實際開啟 `scripts/web-client.html` 操作驗證 Web 介面功能。
