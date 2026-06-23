@@ -26,7 +26,7 @@ node scripts/cve-checker.js                        # 掃描本機 Registry
 node scripts/cve-checker.js scan.json              # 使用 JSON 檔案輸入
 node scripts/cve-checker.js -1 HIGH 5 2020        # 指定嚴重度/筆數/年份
 npm start                                          # = node scripts/cve-checker.js
-npm run check                                      # = node scripts/cve-checker.js -1 HIGH 3
+npm run check                                      # = node scripts/cve-checker.js -1 HIGH 4
 
 # 彙總多台機器
 node scripts/team-report.js                        # 讀取 .\team\ 目錄產生彙總報表
@@ -63,9 +63,9 @@ powershell -ExecutionPolicy Bypass -File findSW.ps1
 | 變數 | 說明 | 預設 |
 |------|------|------|
 | `NIST_API_KEY` | NVD API Key（有 Key：0.7s/req；無：6.5s/req） | — |
+| `LOG_LEVEL` | `DEBUG` = 顯示除錯 log（目前為向 NVD 發出的完整 curl 查詢指令）；`INFO` = 不顯示 | INFO |
 | `HTTPS_PROXY` / `HTTP_PROXY` | Proxy URL，支援 `http://user:pass@host:port` | — |
 | `PROXY_SKIP_TLS_VERIFY` | `true` = 停用 TLS 驗證（SSL Inspection 環境） | false |
-| `MAX_CVES_PER_SOFTWARE` | 每個軟體最多查詢幾筆 CVE（NVD 回傳由新至舊，過低會遺漏舊 CVE） | 50 |
 | `PORTABLE_ENABLE` | `false` = 完全停用 Portable 功能 | true |
 | `PORTABLE_ONLY` | `true` = 只掃描 `PORTABLE_N`，略過 Registry/JSON 項目 | false |
 | `WHITELIST` | 逗號分隔廠牌關鍵字，比對 `publisher` 欄位。可與 `whitelist.txt` 並存（合併去重） | — |

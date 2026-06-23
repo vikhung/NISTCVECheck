@@ -1,0 +1,90 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - heading "CVE Web Scanner" [level=1] [ref=e3]
+    - paragraph [ref=e4]: 上傳 scan.json → 查詢 NIST NVD CVE API → 檢視弱點報表 · 無需安裝 Node.js，零伺服器
+  - main [ref=e5]:
+    - generic [ref=e6]:
+      - button "📁 檔案掃描(JSON)" [ref=e7] [cursor=pointer]
+      - button "🔍 CVE 查詢" [ref=e8] [cursor=pointer]
+      - button "📖 使用說明" [ref=e9] [cursor=pointer]
+    - generic [ref=e10]:
+      - generic [ref=e11]: ⚙ 掃描設定（選填，設定會自動儲存）
+      - generic [ref=e12]:
+        - generic [ref=e13]:
+          - generic [ref=e14]: NIST API Key
+          - generic [ref=e15]: ✓ 由伺服器代理處理（.env.local）
+        - generic [ref=e16]:
+          - generic [ref=e17]: 最低嚴重度
+          - combobox [ref=e18]:
+            - option "LOW（全部）"
+            - option "MEDIUM"
+            - option "HIGH（預設）" [selected]
+            - option "CRITICAL（僅最高）"
+        - generic [ref=e19]:
+          - generic [ref=e20]: CVE 最早年份
+          - spinbutton [ref=e21]
+          - generic [ref=e22]: 只顯示該年份後發佈的 CVE
+        - generic [ref=e23]:
+          - generic [ref=e24]: 每項軟體最多 CVE 筆數
+          - spinbutton [ref=e25]: "50"
+          - generic [ref=e26]: NVD 回傳順序為最新優先
+      - separator [ref=e27]
+      - generic [ref=e28]:
+        - generic [ref=e29]: "1"
+        - text: 上傳 scan.json
+      - generic [ref=e30] [cursor=pointer]:
+        - generic: 📂
+        - generic: 點擊選擇檔案，或將 scan.json 拖曳至此
+        - generic: 由 cve-checker.js 或 findSW.ps1 在目標機器上產生的 JSON 掃描檔
+      - generic [ref=e31]:
+        - text: 還沒有 scan.json？先在目標 Windows 機器上執行
+        - strong [ref=e32]: findSW.ps1
+        - text: 產生掃描檔，再上傳至此。 （請向系統維護人員索取 PS1 檔案掃描工具）
+      - separator [ref=e33]
+      - generic [ref=e34]:
+        - generic [ref=e35]: "2"
+        - text: 白名單（Publisher 關鍵字，逗號分隔）
+      - generic [ref=e36]:
+        - textbox "例：Microsoft,Apple,Google" [ref=e37]: Microsoft,Apple,Google
+        - generic [ref=e38]: 不分大小寫，部分比對 Publisher 欄位；符合條件的軟體略過掃描
+      - generic [ref=e39]:
+        - separator [ref=e40]
+        - generic [ref=e41]:
+          - generic [ref=e42]: "3"
+          - text: 免安裝軟體（Portable / 未登錄於 Registry）
+        - generic [ref=e43]:
+          - generic [ref=e44]:
+            - textbox "軟體名稱（例：Eclipse IDE）" [ref=e45]: putty
+            - textbox "版本號（選填）" [ref=e46]: "0.73"
+            - textbox "供應商（選填）" [ref=e47]
+            - button "✕" [ref=e48] [cursor=pointer]
+          - generic [ref=e49]:
+            - textbox "軟體名稱（例：Eclipse IDE）" [ref=e50]: Apache Maven
+            - textbox "版本號（選填）" [ref=e51]: 3.8.6
+            - textbox "供應商（選填）" [ref=e52]: Apache Software Foundation
+            - button "✕" [ref=e53] [cursor=pointer]
+          - generic [ref=e54]:
+            - textbox "軟體名稱（例：Eclipse IDE）" [ref=e55]: Node.js
+            - textbox "版本號（選填）" [ref=e56]: 24.15.0
+            - textbox "供應商（選填）" [ref=e57]: OpenJS Foundation
+            - button "✕" [ref=e58] [cursor=pointer]
+          - generic [ref=e59]:
+            - textbox "軟體名稱（例：Eclipse IDE）" [ref=e60]: Neo4j Community Edition
+            - textbox "版本號（選填）" [ref=e61]: 2025.05.0
+            - textbox "供應商（選填）" [ref=e62]: Neo4j Inc
+            - button "✕" [ref=e63] [cursor=pointer]
+        - button "＋ 新增項目" [ref=e64] [cursor=pointer]
+        - paragraph [ref=e65]:
+          - generic [ref=e66]: 不受白名單過濾，直接納入掃描。版本號可選填，用於比對是否需要升級。
+      - generic [ref=e67]:
+        - button "▶ 開始掃描" [ref=e68] [cursor=pointer]
+        - generic [ref=e69]: 已就緒（僅掃描 Portable 軟體）
+    - generic [ref=e70]:
+      - button "📁 檔案掃描(JSON)" [ref=e71] [cursor=pointer]
+      - button "🔍 CVE 查詢" [ref=e72] [cursor=pointer]
+      - button "📖 使用說明" [ref=e73] [cursor=pointer]
+  - contentinfo [ref=e74]:
+    - text: CVE Web Scanner · Powered by
+    - link "NIST NVD API 2.0" [ref=e75] [cursor=pointer]:
+      - /url: https://nvd.nist.gov/developers/vulnerabilities
+    - text: This product uses data from the NVD API but is not endorsed or certified by the NVD.

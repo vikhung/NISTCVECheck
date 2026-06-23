@@ -90,16 +90,29 @@ main{max-width:860px;margin:24px auto;padding:0 16px 40px}
 .tab-panel.active{display:block}
 .section-divider{border:none;border-top:1px solid #f1f5f9;margin:18px -26px}
 .tab-hint{font-size:.78rem;color:#64748b;margin-bottom:14px;line-height:1.5}
-/* Manual entry rows */
-#manual-list{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
-.manual-row{display:flex;gap:8px;align-items:center}
-.manual-row input{border:1px solid #e2e8f0;border-radius:7px;padding:8px 10px;font-size:.87rem;color:#1e293b;outline:none;transition:border-color .15s,box-shadow .15s;background:#fff}
-.manual-row input:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
-.mn-name{flex:3}.mn-ver{flex:1.5}
-.mn-del{flex:none;background:none;border:1px solid #e2e8f0;border-radius:6px;padding:7px 11px;cursor:pointer;color:#94a3b8;font-size:.85rem;line-height:1;transition:all .15s}
-.mn-del:hover{background:#fef2f2;border-color:#fca5a5;color:#ef4444}
-#add-manual-btn{background:none;border:1.5px dashed #cbd5e1;border-radius:7px;padding:8px 16px;color:#64748b;cursor:pointer;font-size:.83rem;width:100%;transition:all .15s;margin-top:2px}
-#add-manual-btn:hover{border-color:#2563eb;color:#2563eb;background:#eff6ff}
+
+/* CVE Query tab */
+.proxy-only-note{background:#fefce8;border-left:4px solid #eab308;color:#713f12;border-radius:8px;padding:12px 16px;font-size:.85rem;margin-bottom:14px}
+.cve-search-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.cve-search-row input[type=text]{flex:2;min-width:200px}
+.cve-search-row select,.cve-search-row input[type=number]{flex:1;min-width:130px}
+.cve-search-row input,.cve-search-row select{border:1px solid #e2e8f0;border-radius:7px;padding:8px 10px;font-size:.87rem;color:#1e293b;outline:none;background:#fff}
+.cve-search-row input:focus,.cve-search-row select:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.cve-search-row button{flex:none}
+.cve-group{border:1px solid #e2e8f0;border-radius:9px;padding:14px 18px;margin-bottom:12px}
+.cve-group-title{font-size:.82rem;font-weight:700;color:#1e3a5f;margin-bottom:8px}
+.cve-row{border-top:1px solid #f1f5f9;padding:9px 0;font-size:.84rem}
+.cve-row:first-child{border-top:none}
+.cve-row .cve-id{font-weight:700;font-family:'Cascadia Code','Fira Mono',Consolas,monospace}
+.cve-row .cve-desc{color:#64748b;font-size:.8rem;margin-top:3px;line-height:1.5}
+.cve-empty,.cve-loading{color:#94a3b8;font-size:.85rem;padding:10px 0}
+.sev-critical{color:#dc2626;font-weight:700}.sev-high{color:#ea580c;font-weight:700}
+.sev-medium{color:#d97706;font-weight:700}.sev-low{color:#2563eb;font-weight:700}
+
+/* Help tab */
+#tab-help ul,#tab-help ol{margin:0 0 14px 22px}
+#tab-help li{margin-bottom:5px;font-size:.87rem;line-height:1.6}
+#tab-help p{font-size:.87rem;margin-bottom:12px;line-height:1.6;color:#334155}
 
 footer{text-align:center;padding:24px;font-size:.74rem;color:#94a3b8}
 </style>
@@ -113,8 +126,17 @@ footer{text-align:center;padding:24px;font-size:.74rem;color:#94a3b8}
 
 <main>
 
-<!-- Settings (shared: API key, severity, year, max CVEs) -->
-<div class="card">
+<!-- Tab navigation -->
+<div class="tab-bar">
+  <button class="tab-btn active" data-tab="file">📁 檔案掃描(JSON)</button>
+  <button class="tab-btn" data-tab="cve-query">🔍 CVE 查詢</button>
+  <button class="tab-btn" data-tab="help">📖 使用說明</button>
+</div>
+
+<!-- Tab: File mode -->
+<div class="tab-panel active" id="tab-file">
+
+  <!-- Settings (moved in from former shared top card) -->
   <div class="card-title">⚙ 掃描設定（選填，設定會自動儲存）</div>
   <div class="settings-grid">
     <div class="form-group">
@@ -142,17 +164,9 @@ footer{text-align:center;padding:24px;font-size:.74rem;color:#94a3b8}
       <span class="hint">NVD 回傳順序為最新優先</span>
     </div>
   </div>
-</div>
+  <hr class="section-divider">
 
-<!-- Tab navigation -->
-<div class="tab-bar">
-  <button class="tab-btn active" data-tab="file">📁 檔案掃描(JSON)</button>
-  <button class="tab-btn" data-tab="manual">✏ 人工掃描</button>
-</div>
-
-<!-- Tab: File mode -->
-<div class="tab-panel active" id="tab-file">
-  <div class="card-title"><span class="step-badge">1</span> 上傳 scan.json</div>
+  <div class="card-title" style="margin-top:4px"><span class="step-badge">1</span> 上傳 scan.json</div>
   <div id="drop-zone">
     <span class="dz-icon">📂</span>
     <div class="dz-label">點擊選擇檔案，或將 scan.json 拖曳至此</div>
@@ -192,39 +206,67 @@ footer{text-align:center;padding:24px;font-size:.74rem;color:#94a3b8}
       <a id="file-dl-json" class="dl-btn secondary" download="result.json">⬇ result.json</a>
     </div>
   </div>
+
+  <!-- Action (moved in from former shared card below the tabs) -->
+  <div class="inner-section" id="action-card">
+    <button id="scan-btn" disabled>▶ 開始掃描</button>
+    <button id="cancel-btn">■ 取消掃描</button>
+    <span id="scan-status">請先上傳 scan.json，或新增 Portable 軟體項目</span>
+  </div>
 </div>
 
-<!-- Tab: Manual entry mode -->
-<div class="tab-panel" id="tab-manual">
-  <p class="tab-hint">直接輸入軟體名稱與版本號，不需要 scan.json 檔案。版本號可選填，留空仍可查詢 CVE，但無法判斷是否需要升級。此模式不套用白名單過濾。</p>
-  <div id="manual-list"></div>
-  <button type="button" id="add-manual-btn">＋ 新增軟體</button>
-  <!-- Manual scan: progress & result (no downloads) -->
-  <div class="inner-section" id="manual-progress-card" style="display:none">
-    <div class="card-title">掃描進度</div>
-    <div class="progress-bar-wrap"><div class="progress-bar" id="manual-progress-bar"></div></div>
-    <div class="progress-stats" id="manual-progress-stats"></div>
-    <div class="progress-log" id="manual-progress-log"></div>
+<!-- Tab: CVE Query -->
+<div class="tab-panel" id="tab-cve-query">
+  <p class="tab-hint">查詢系統本機已快取的 CVE 資料（任何一次掃描查過的軟體都會留下記錄），不會重新對 NVD 發出請求。</p>
+  <div id="cve-query-proxy-note" class="proxy-only-note" style="display:none">
+    ⚠ 此功能僅在伺服器代理模式下可用（需先執行 <code>npm run web</code> 啟動 <code>web-server.js</code>）。獨立模式（直接以瀏覽器開啟此檔案）無法讀取伺服器本機的快取資料。
   </div>
-  <div class="inner-section" id="manual-result-card" style="display:none">
-    <div class="card-title">✅ 掃描完成</div>
-    <div class="dl-row">
-      <button id="manual-open-report-btn" class="dl-btn primary">📄 在新分頁開啟報表</button>
+  <div id="cve-query-form">
+    <div class="cve-search-row">
+      <input type="text" id="cve-q" placeholder="軟體關鍵字（例：putty）或 CVE ID（例：CVE-2024-12345）">
+      <select id="cve-min-severity">
+        <option value="LOW" selected>LOW（全部）</option>
+        <option value="MEDIUM">MEDIUM</option>
+        <option value="HIGH">HIGH</option>
+        <option value="CRITICAL">CRITICAL（僅最高）</option>
+      </select>
+      <input type="number" id="cve-min-year" placeholder="最早年份（選填）">
+      <button type="button" id="cve-search-btn" class="dl-btn primary">🔍 搜尋</button>
     </div>
   </div>
+  <div id="cve-query-result"></div>
 </div>
 
-<!-- Action -->
-<div class="card" id="action-card">
-  <button id="scan-btn" disabled>▶ 開始掃描</button>
-  <button id="cancel-btn">■ 取消掃描</button>
-  <span id="scan-status">請先上傳 scan.json，或新增 Portable 軟體項目</span>
+<!-- Tab: Help -->
+<div class="tab-panel" id="tab-help">
+  <p class="tab-hint">CVE Web Scanner 提供三個頁籤，說明如下。</p>
+
+  <div class="card-title">📁 檔案掃描(JSON)</div>
+  <ol>
+    <li>填寫掃描設定（NIST API Key 選填、最低嚴重度、CVE 最早年份、每項軟體最多 CVE 筆數），設定會自動儲存於瀏覽器</li>
+    <li>上傳 <code>scan.json</code>（由 <code>cve-checker.js</code> 或 <code>findSW.ps1</code> 在目標機器上產生）</li>
+    <li>設定白名單（Publisher 關鍵字，符合條件的軟體略過掃描）</li>
+    <li>如有免安裝（Portable）軟體，於第 3 步手動加入名稱與版本</li>
+    <li>點擊「▶ 開始掃描」，完成後可在新分頁開啟報表，或下載 HTML / JSON 結果</li>
+  </ol>
+
+  <div class="card-title" style="margin-top:22px">🔍 CVE 查詢</div>
+  <p>查詢系統本機已快取的 CVE 資料——任何一次掃描（不論是這台伺服器或其他人執行過的）查過的軟體，都會留下記錄，可在此直接查詢，不需要重新掃描。</p>
+  <ul>
+    <li>輸入軟體名稱關鍵字（例：<code>putty</code>）或完整 CVE ID（例：<code>CVE-2024-12345</code>）</li>
+    <li>可加上最低嚴重度、最早年份篩選結果</li>
+    <li><strong>僅伺服器代理模式可用</strong>：獨立模式（直接雙擊開啟本檔案）無法讀取伺服器本機的快取資料</li>
+  </ul>
+
+  <div class="card-title" style="margin-top:22px">關於本工具</div>
+  <p>資料來源為 <a href="https://nvd.nist.gov/developers/vulnerabilities" target="_blank">NIST NVD CVE API 2.0</a>。完整操作手冊（白名單、Portable、伺服器代理模式等詳細設定）請參閱專案內的 <code>docs/operator.html</code>。</p>
 </div>
 
 <!-- Bottom tab navigation -->
 <div class="tab-bar tab-bar-bottom">
   <button class="tab-btn active" data-tab="file">📁 檔案掃描(JSON)</button>
-  <button class="tab-btn" data-tab="manual">✏ 人工掃描</button>
+  <button class="tab-btn" data-tab="cve-query">🔍 CVE 查詢</button>
+  <button class="tab-btn" data-tab="help">📖 使用說明</button>
 </div>
 
 </main>
@@ -248,7 +290,7 @@ const SKIP_PATTERNS = [
 // ─── Module state ─────────────────────────────────────────────────────────────
 let scanData = null;
 let abortController = null;
-const tabBlobUrls = { file: [], manual: [] };
+const tabBlobUrls = { file: [] };
 let activeTab = 'file';
 
 // ─── HTML escaping ────────────────────────────────────────────────────────────
@@ -1111,7 +1153,6 @@ const scanBtn     = document.getElementById('scan-btn');
 const cancelBtn   = document.getElementById('cancel-btn');
 const scanStatus  = document.getElementById('scan-status');
 const portableList = document.getElementById('portable-list');
-const manualList   = document.getElementById('manual-list');
 
 // ─── Portable rows ────────────────────────────────────────────────────────────
 function addPortableRow(name = '', version = '', publisher = '') {
@@ -1135,42 +1176,19 @@ document.getElementById('add-portable-btn').addEventListener('click', () => addP
 
 // ─── Scan button state ────────────────────────────────────────────────────────
 function updateScanBtnState() {
-    if (activeTab === 'file') {
-        const hasPortable = [...portableList.querySelectorAll('.pt-name')].some(i => i.value.trim());
-        const ready = !!(scanData || hasPortable);
-        scanBtn.disabled = !ready;
-        if (scanData && hasPortable) {
-            scanStatus.textContent = `已就緒 — ${scanData.softwares.length} 筆軟體 + Portable`;
-        } else if (scanData) {
-            scanStatus.textContent = `已就緒 — ${scanData.softwares.length} 筆軟體`;
-        } else if (hasPortable) {
-            scanStatus.textContent = '已就緒（僅掃描 Portable 軟體）';
-        } else {
-            scanStatus.textContent = '請先上傳 scan.json，或新增 Portable 軟體項目';
-        }
+    const hasPortable = [...portableList.querySelectorAll('.pt-name')].some(i => i.value.trim());
+    const ready = !!(scanData || hasPortable);
+    scanBtn.disabled = !ready;
+    if (scanData && hasPortable) {
+        scanStatus.textContent = `已就緒 — ${scanData.softwares.length} 筆軟體 + Portable`;
+    } else if (scanData) {
+        scanStatus.textContent = `已就緒 — ${scanData.softwares.length} 筆軟體`;
+    } else if (hasPortable) {
+        scanStatus.textContent = '已就緒（僅掃描 Portable 軟體）';
     } else {
-        const hasAny = [...manualList.querySelectorAll('.mn-name')].some(i => i.value.trim());
-        scanBtn.disabled = !hasAny;
-        scanStatus.textContent = hasAny ? '已就緒（手動輸入模式）' : '請新增至少一筆軟體';
+        scanStatus.textContent = '請先上傳 scan.json，或新增 Portable 軟體項目';
     }
 }
-
-// ─── Manual entry rows ────────────────────────────────────────────────────────
-function addManualRow(name = '', version = '') {
-    const row = document.createElement('div');
-    row.className = 'manual-row';
-    row.innerHTML = '<input type="text" class="mn-name" placeholder="軟體名稱（例：Eclipse IDE）">'
-                  + '<input type="text" class="mn-ver"  placeholder="版本號（例：2025.06）">'
-                  + '<button type="button" class="mn-del" title="移除">✕</button>';
-    row.querySelector('.mn-name').value = name;
-    row.querySelector('.mn-ver').value  = version;
-    row.querySelector('.mn-del').onclick = () => { row.remove(); updateScanBtnState(); };
-    row.querySelector('.mn-name').addEventListener('input', updateScanBtnState);
-    manualList.appendChild(row);
-    updateScanBtnState();
-}
-document.getElementById('add-manual-btn').addEventListener('click', () => addManualRow());
-addManualRow(); // default empty row
 
 // ─── Tab switching ────────────────────────────────────────────────────────────
 document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -1200,6 +1218,100 @@ if (localStorage.getItem(LS.sev) === 'MEDIUM') localStorage.removeItem(LS.sev);
 restore('min-severity', LS.sev);
 restore('min-year', LS.year);
 restore('max-cves', LS.max);
+
+// ─── CVE Query tab ────────────────────────────────────────────────────────────
+// 查詢伺服器本機已快取的 CVE 資料（data/*.json，由任何一次掃描留下），僅代理模式可用，
+// 因為瀏覽器無法直接讀取伺服器本機檔案系統。
+(function initCveQuery() {
+    const note   = $id('cve-query-proxy-note');
+    const form   = $id('cve-query-form');
+    const result = $id('cve-query-result');
+    const qInput = $id('cve-q');
+    const btn    = $id('cve-search-btn');
+
+    // window.__NVD_PROXY__ 由伺服器注入的 <script> 設定，該段注入在本區塊「之後」才執行
+    // （build.js/web-server.js 把注入腳本插在 </body> 前，晚於這個主要 <script>），
+    // 所以這裡不能在頁面載入當下立刻判斷，要等使用者實際切到這個頁籤時才檢查。
+    function applyProxyGate() {
+        const available = !!window.__NVD_PROXY__;
+        note.style.display = available ? 'none' : 'block';
+        form.style.display = available ? 'block' : 'none';
+        return available;
+    }
+    document.querySelector('button[data-tab="cve-query"]')?.addEventListener('click', applyProxyGate);
+
+    // cacheKey（如 kw_apache_maven、cpe_usebruno_bruno）還原成人類可讀標籤；
+    // 只是去掉前綴、把底線換成空白的近似值，不保證跟原始輸入大小寫/全名一致。
+    function humanizeCacheKey(key) {
+        return key.replace(/^(kw_|cpe_)/, '').replace(/_/g, ' ').trim() || key;
+    }
+
+    function sevClass(sev) {
+        return sev === 'CRITICAL' ? 'sev-critical'
+             : sev === 'HIGH'     ? 'sev-high'
+             : sev === 'MEDIUM'   ? 'sev-medium'
+             : 'sev-low';
+    }
+
+    function renderResults(groups, minIdx, minYear) {
+        let totalCves = 0;
+        const groupsHtml = groups.map(g => {
+            const cves = (g.cves || [])
+                .map(v => ({ cve: v.cve, _cvss: getCvss(v.cve) }))
+                .filter(v => SEVERITY_ORDER.indexOf(v._cvss.severity) >= minIdx)
+                .filter(v => !minYear || new Date(v.cve.published).getFullYear() >= minYear)
+                .sort((a, b) => (b.cve.published || '').localeCompare(a.cve.published || ''));
+            if (cves.length === 0) return '';
+            totalCves += cves.length;
+            const rows = cves.map(({ cve, _cvss }) => {
+                const desc = cve.descriptions?.find(d => d.lang === 'en')?.value || '';
+                const pub  = (cve.published || '').substring(0, 10);
+                return `<div class="cve-row">
+                    <span class="cve-id"><a href="https://nvd.nist.gov/vuln/detail/${esc(cve.id)}" target="_blank" rel="noopener">${esc(cve.id)}</a></span>
+                    <span class="${sevClass(_cvss.severity)}"> [${esc(_cvss.severity)} ${esc(String(_cvss.score ?? ''))}]</span>
+                    <span style="color:#94a3b8"> CVSS${esc(String(_cvss.version || ''))} &nbsp;${esc(pub)}</span>
+                    <div class="cve-desc">${esc(desc)}</div>
+                </div>`;
+            }).join('');
+            return `<div class="cve-group">
+                <div class="cve-group-title">${esc(humanizeCacheKey(g.cacheKey))} <span style="color:#94a3b8;font-weight:400">（${cves.length} 筆，快取更新於 ${esc((g.lastFetchedAt || '').substring(0, 10))}）</span></div>
+                ${rows}
+            </div>`;
+        }).filter(Boolean).join('');
+
+        result.innerHTML = groupsHtml
+            ? `<p class="tab-hint">共 ${groups.length} 個快取項目符合，${totalCves} 筆 CVE 符合篩選條件</p>${groupsHtml}`
+            : '<p class="cve-empty">沒有符合條件的結果</p>';
+    }
+
+    async function runSearch() {
+        if (!applyProxyGate()) return;
+        const q = qInput.value.trim();
+        if (q.length < 2) {
+            result.innerHTML = '<p class="cve-empty">請輸入至少 2 個字元</p>';
+            return;
+        }
+        const minIdx = SEVERITY_ORDER.indexOf($id('cve-min-severity').value);
+        const minYearVal = $id('cve-min-year').value.trim();
+        const minYear = minYearVal ? (parseInt(minYearVal) || 0) : 0;
+
+        result.innerHTML = '<p class="cve-loading">查詢中…</p>';
+        btn.disabled = true;
+        try {
+            const res = await fetch(`/api/cve-data?q=${encodeURIComponent(q)}`);
+            const data = await res.json().catch(() => ({}));
+            if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+            renderResults(data.results || [], minIdx, minYear);
+        } catch (e) {
+            result.innerHTML = `<p class="cve-empty">查詢失敗：${esc(e.message)}</p>`;
+        } finally {
+            btn.disabled = false;
+        }
+    }
+
+    btn.addEventListener('click', runSearch);
+    qInput.addEventListener('keydown', e => { if (e.key === 'Enter') runSearch(); });
+})();
 
 // ─── File handling ────────────────────────────────────────────────────────────
 function loadScanFile(file) {
@@ -1258,9 +1370,8 @@ function updateBar(done, total, cves) {
 
 // ─── Main scan ────────────────────────────────────────────────────────────────
 scanBtn.addEventListener('click', async () => {
-    const isManual = activeTab === 'manual';
     const scanTab  = activeTab;
-    if (!isManual && !scanData && ![...portableList.querySelectorAll('.pt-name')].some(i => i.value.trim())) return;
+    if (!scanData && ![...portableList.querySelectorAll('.pt-name')].some(i => i.value.trim())) return;
 
     // Read settings
     const apiKey     = $id('api-key').value.trim();
@@ -1304,41 +1415,32 @@ scanBtn.addEventListener('click', async () => {
     let skippedByDedup = [];
     let portableEntries = [];
 
-    if (isManual) {
-        for (const row of manualList.querySelectorAll('.manual-row')) {
-            const name = row.querySelector('.mn-name').value.trim();
-            const ver  = row.querySelector('.mn-ver').value.trim();
-            if (name && !queryMap.has(name)) queryMap.set(name, { name, version: ver, publisher: '' });
+    if (scanData) {
+        for (const sw of scanData.softwares) {
+            const rule = matchWhitelist(sw, whitelist);
+            if (rule) { whitelisted.push({ name: sw.name, version: sw.version||'', publisher: sw.publisher||'', matchedRule: rule }); continue; }
+            if (shouldSkip(sw.name)) { skippedByPat.push({ name: sw.name, version: sw.version||'', publisher: sw.publisher||'' }); continue; }
+            const sn = cleanProductName(sw.name);
+            if (!queryMap.has(sn)) queryMap.set(sn, sw);
+            else skippedByDedup.push({ name: sw.name, version: sw.version||'', publisher: sw.publisher||'', mergedAs: sn });
         }
-    } else {
-        if (scanData) {
-            for (const sw of scanData.softwares) {
-                const rule = matchWhitelist(sw, whitelist);
-                if (rule) { whitelisted.push({ name: sw.name, version: sw.version||'', publisher: sw.publisher||'', matchedRule: rule }); continue; }
-                if (shouldSkip(sw.name)) { skippedByPat.push({ name: sw.name, version: sw.version||'', publisher: sw.publisher||'' }); continue; }
-                const sn = cleanProductName(sw.name);
-                if (!queryMap.has(sn)) queryMap.set(sn, sw);
-                else skippedByDedup.push({ name: sw.name, version: sw.version||'', publisher: sw.publisher||'', mergedAs: sn });
-            }
-        }
-        // ── Add portable entries (bypass whitelist + skip-patterns) ──────────
-        for (const row of portableList.querySelectorAll('.portable-row')) {
-            const name = row.querySelector('.pt-name').value.trim();
-            const ver  = row.querySelector('.pt-ver').value.trim();
-            const pub  = row.querySelector('.pt-pub')?.value.trim() || '';
-            if (!name) continue;
-            portableEntries.push({ name, version: ver, publisher: pub });
-        }
-        for (const pt of portableEntries) {
-            if (!queryMap.has(pt.name)) queryMap.set(pt.name, pt);
-        }
+    }
+    // ── Add portable entries (bypass whitelist + skip-patterns) ──────────
+    for (const row of portableList.querySelectorAll('.portable-row')) {
+        const name = row.querySelector('.pt-name').value.trim();
+        const ver  = row.querySelector('.pt-ver').value.trim();
+        const pub  = row.querySelector('.pt-pub')?.value.trim() || '';
+        if (!name) continue;
+        portableEntries.push({ name, version: ver, publisher: pub });
+    }
+    for (const pt of portableEntries) {
+        if (!queryMap.has(pt.name)) queryMap.set(pt.name, pt);
     }
 
     const total        = queryMap.size;
     const portableNote = portableEntries.length ? ` + <span class="l-b">${portableEntries.length}</span> Portable` : '';
-    const modeTag      = isManual ? ' <span class="l-info">[手動輸入]</span>' : '';
-    logLine(`<span class="l-info">▶ 開始掃描</span> <span class="l-b">${total}</span> 項軟體${portableNote}${modeTag}`
-        + (isManual ? '' : ` <span class="l-gray">(白名單:${whitelisted.length} 子元件:${skippedByPat.length} 去重:${skippedByDedup.length})</span>`));
+    logLine(`<span class="l-info">▶ 開始掃描</span> <span class="l-b">${total}</span> 項軟體${portableNote}`
+        + ` <span class="l-gray">(白名單:${whitelisted.length} 子元件:${skippedByPat.length} 去重:${skippedByDedup.length})</span>`);
     const apiKeyLabel = window.__NVD_PROXY__
         ? (delay <= 700 ? '伺服器代理(已設定)' : '伺服器代理(未設定,6.5秒/次)')
         : (apiKey ? '已設定' : '未設定(6.5秒/次)');
@@ -1515,7 +1617,7 @@ scanBtn.addEventListener('click', async () => {
         };
 
         // ── CPE pre-lookup for portable items ─────────────────────────────────
-        if (!isManual && portableEntries.length > 0) {
+        if (portableEntries.length > 0) {
             logLine(`<span class="l-gray">── CPE 識別碼查找（${portableEntries.length} 個 Portable 軟體）…</span>`);
             let firstCpe = true;
             for (const pt of portableEntries) {
@@ -1558,10 +1660,9 @@ scanBtn.addEventListener('click', async () => {
                 body: JSON.stringify({
                     keywords: [...queryMap.keys()],
                     maxCves,
-                    // Portable 軟體的 CPE base 傳給 server，讓 server 改用 virtualMatchString 查詢
-                    cpeMap: Object.fromEntries(
-                        [...cpeBasesMap].map(([k, v]) => [k, `cpe:2.3:a:${v[0].vendor}:${v[0].product}:*`])
-                    ),
+                    // Portable 軟體已查到的所有 CPE base 傳給 server（陣列，OR 邏輯），
+                    // server 端逐一查詢並合併，避免只查第一個 CPE 漏掉其他 vendor 名稱下的 CVE
+                    cpeMap: Object.fromEntries([...cpeBasesMap]),
                     meta: {
                         minSeverity:      minSev,
                         minYear,
@@ -1642,12 +1743,26 @@ scanBtn.addEventListener('click', async () => {
                 if (signal.aborted) break;
 
                 try {
-                    const _cpeB = cpeBasesMap.get(searchName)?.[0];
-                    const resp = _cpeB
-                        ? await searchCVEsByCPE(_cpeB.vendor, _cpeB.product, apiKey, signal,
-                            msg => logLine(`  <span class="l-warn">  🔄 ${msg}</span>`))
-                        : await searchCVEs(searchName, apiKey, maxCves, minYear, signal,
+                    const bases = cpeBasesMap.get(searchName) || [];
+                    let resp;
+                    if (bases.length > 0) {
+                        // 找到多個 CPE base 時逐一查詢並依 CVE id 合併去重，
+                        // 避免只查第一個 CPE 漏掉其他 vendor 名稱下的 CVE
+                        const cveMap = new Map();
+                        for (let bi = 0; bi < bases.length; bi++) {
+                            if (bi > 0) await sleep(delay, signal);
+                            const base = bases[bi];
+                            logLine(`  <span class="l-gray">查詢 (${bi + 1}/${bases.length})CPE：cpe:2.3:a:${esc(base.vendor)}:${esc(base.product)}:*</span>`);
+                            const r = await searchCVEsByCPE(base.vendor, base.product, apiKey, signal,
+                                msg => logLine(`  <span class="l-warn">  🔄 ${msg}</span>`));
+                            for (const v of (r.vulnerabilities || [])) cveMap.set(v.cve.id, v);
+                        }
+                        const merged = [...cveMap.values()];
+                        resp = { vulnerabilities: merged, totalResults: merged.length, resultsPerPage: merged.length };
+                    } else {
+                        resp = await searchCVEs(searchName, apiKey, maxCves, minYear, signal,
                             msg => logLine(`  <span class="l-warn">  🔄 ${msg}</span>`));
+                    }
                     processOneResult(searchName, sw, resp);
                 } catch (apiErr) {
                     if (apiErr.name === 'AbortError') throw apiErr;
@@ -1693,15 +1808,15 @@ scanBtn.addEventListener('click', async () => {
     // ── Build report object (mirrors cve-checker.js structure) ────────────────
     const report = {
         generatedAt: new Date().toISOString(),
-        source: isManual ? 'Web (手動輸入)' : (scanData ? 'Web (scan.json)' : 'Web (Portable Only)'),
-        hostname: isManual ? '' : (scanData?.hostname || ''),
-        ip: isManual ? '' : (scanData?.ip || ''),
-        username: isManual ? '' : ((scanData?.username || '').toLowerCase()),
-        scanDate: isManual ? null : (scanData?.generatedAt || null),
+        source: scanData ? 'Web (scan.json)' : 'Web (Portable Only)',
+        hostname: scanData?.hostname || '',
+        ip: scanData?.ip || '',
+        username: (scanData?.username || '').toLowerCase(),
+        scanDate: scanData?.generatedAt || null,
         minSeverity: minSev,
         minYear,
         summary: {
-            totalSoftware: isManual ? queryMap.size : ((scanData?.softwares.length || 0) + portableEntries.length),
+            totalSoftware: (scanData?.softwares.length || 0) + portableEntries.length,
             queriedSoftware: idx,
             affectedSoftware: results.length,
             totalCVEs,
@@ -1731,12 +1846,10 @@ scanBtn.addEventListener('click', async () => {
         window.open(htmlUrl, '_blank');
         slog('📄 使用者開啟報表（新分頁）');
     };
-    if (!isManual) {
-        $id('file-dl-html').href = htmlUrl;
-        $id('file-dl-html').onclick = () => slog('⬇ 使用者下載報表 HTML (result.html)');
-        $id('file-dl-json').href = jsonUrl;
-        $id('file-dl-json').onclick = () => slog('⬇ 使用者下載 result.json');
-    }
+    $id('file-dl-html').href = htmlUrl;
+    $id('file-dl-html').onclick = () => slog('⬇ 使用者下載報表 HTML (result.html)');
+    $id('file-dl-json').href = jsonUrl;
+    $id('file-dl-json').onclick = () => slog('⬇ 使用者下載 result.json');
 
     const rc = $id(`${scanTab}-result-card`);
     rc.style.display = 'block';

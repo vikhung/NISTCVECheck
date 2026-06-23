@@ -2,7 +2,7 @@
   "cveCount": 12,
   "cacheKey": "cpe_docker_desktop",
   "coverageStart": "2021-01-01T00:00:00.000Z",
-  "lastFetchedAt": "2026-06-22T23:42:21.028Z",
+  "lastFetchedAt": "2026-06-23T00:54:52.648Z",
   "cves": [
     {
       "cve": {

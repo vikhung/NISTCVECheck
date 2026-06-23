@@ -185,9 +185,9 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid #e2e8f0;font-size:.
     <a href="#web-portable">免安裝軟體</a>
   </div>
 
-  <div class="nav-title">🌐 人工掃描</div>
+  <div class="nav-title">🌐 CVE 查詢</div>
   <div class="nav-group">
-    <a href="#web-manual">手動輸入軟體</a>
+    <a href="#web-cve-query">查詢本機已快取的 CVE</a>
   </div>
 
   <div class="nav-title">🌐 掃描過程</div>
@@ -496,9 +496,24 @@ node scripts/team-report.js C:\scans\team</code></pre>
       <td>NVD API Key。有 Key 時速率限制為每 0.7 秒一筆；無 Key 則 6.5 秒。免費申請：<a href="https://nvd.nist.gov/developers/request-an-api-key" target="_blank">nvd.nist.gov</a></td>
     </tr>
     <tr>
-      <td><code>MAX_CVES_PER_SOFTWARE</code></td>
-      <td>50</td>
-      <td>每個軟體最多取回的 CVE 筆數。NVD 回傳順序為發布日期由新至舊，設定過低可能遺漏較舊的 CVE。</td>
+      <td><code>LOG_LEVEL</code></td>
+      <td>INFO</td>
+      <td><code>DEBUG</code> = 顯示除錯用 log（目前為向 NVD 發出的完整 curl 查詢指令）；<code>INFO</code> = 不顯示。</td>
+    </tr>
+    <tr>
+      <td><code>HTTPS_PROXY</code> / <code>HTTP_PROXY</code></td>
+      <td>（空）</td>
+      <td>企業網路需透過 Proxy 連線時設定，支援 <code>http://user:pass@host:port</code>。留空 = 直接連線。</td>
+    </tr>
+    <tr>
+      <td><code>PROXY_SKIP_TLS_VERIFY</code></td>
+      <td>false</td>
+      <td><code>true</code> = 停用 TLS 憑證驗證（Proxy 做 SSL Inspection、自簽憑證的環境）。</td>
+    </tr>
+    <tr>
+      <td><code>PORTABLE_ENABLE</code></td>
+      <td>true</td>
+      <td><code>false</code> = 完全停用 Portable 功能（即使設定了 <code>PORTABLE_N</code> 也不會掃描）。</td>
     </tr>
     <tr>
       <td><code>PORTABLE_ONLY</code></td>
@@ -515,12 +530,22 @@ node scripts/team-report.js C:\scans\team</code></pre>
       <td>（空）</td>
       <td>免安裝軟體設定，詳見下節說明。</td>
     </tr>
+    <tr>
+      <td><code>CACHE_DISABLE</code></td>
+      <td>false</td>
+      <td><code>true</code> = 停用本機 CVE / CPE 快取（<code>data/</code> 目錄），每次都直接查 NVD API。</td>
+    </tr>
+    <tr>
+      <td><code>CACHE_ALIAS_N</code></td>
+      <td>（空）</td>
+      <td>格式：<code>canonical|alias1|alias2</code>。讓不同名稱的查詢（如 <code>maven</code> 與 <code>apache maven</code>）共用同一份本機快取。從 0 連續遞增，遇缺口停止。</td>
+    </tr>
   </tbody>
 </table>
 
 <h3>範例 .env.local</h3>
 <pre><code>NIST_API_KEY=your-api-key-here
-MAX_CVES_PER_SOFTWARE=50
+LOG_LEVEL=INFO
 PORTABLE_ONLY=false
 WHITELIST=Microsoft,Apple,Google
 
@@ -868,7 +893,10 @@ PORTABLE_3=Neo4j Community Edition|2025.05.0|Neo4j Inc</code></pre>
   <tbody>
     <tr><td><strong>Endpoint</strong></td><td><code>https://services.nvd.nist.gov/rest/json/cves/2.0</code></td></tr>
     <tr><td><strong>Method</strong></td><td>GET</td></tr>
-    <tr><td><strong>呼叫時機</strong></td><td>每個唯一軟體名稱查詢一次</td></tr>
+    <tr>
+      <td><strong>呼叫時機</strong></td>
+      <td>每個唯一軟體名稱、依日期分段查詢（每段最多 120 天）。查詢結果存於本機 <code>data/</code> 目錄做為快取：<strong>同一天內</strong>已查過同一軟體會直接使用快取，不會重複呼叫 API；跨天才會以 <code>lastModStartDate</code> 查詢增量更新。找到 CPE 識別碼時改用 <code>virtualMatchString</code> 精確查詢（找不到才 fallback 用 <code>keywordSearch</code>）。</td>
+    </tr>
   </tbody>
 </table>
 
@@ -876,11 +904,15 @@ PORTABLE_3=Neo4j Community Edition|2025.05.0|Neo4j Inc</code></pre>
 <table>
   <thead><tr><th>參數</th><th>值</th><th>說明</th></tr></thead>
   <tbody>
-    <tr><td><code>keywordSearch</code></td><td>軟體名稱（如 <code>Apache Maven</code>）</td><td>全文關鍵字搜尋，比對 CVE 描述與 CPE 資料</td></tr>
-    <tr><td><code>resultsPerPage</code></td><td><code>MAX_CVES_PER_SOFTWARE</code>（預設 50）</td><td>每次查詢最多回傳筆數；NVD 回傳順序為發布日期由新至舊</td></tr>
+    <tr><td><code>pubStartDate</code> / <code>pubEndDate</code></td><td>依 <code>MIN_YEAR</code> 起算，每段最多 120 天（NVD 限制）</td><td>首次查詢或補齊較舊資料時使用，由新到舊分段查詢</td></tr>
+    <tr><td><code>lastModStartDate</code> / <code>lastModEndDate</code></td><td>上次查詢時間 ~ 現在</td><td>快取已覆蓋目標年份時，只查詢「上次查詢後有異動」的 CVE，合併進現有快取</td></tr>
+    <tr><td><code>virtualMatchString</code></td><td><code>cpe:2.3:a:{vendor}:{product}:*</code></td><td>找到 CPE 識別碼時優先使用，比 <code>keywordSearch</code> 精確、較不易誤判</td></tr>
+    <tr><td><code>keywordSearch</code></td><td>軟體名稱（如 <code>Apache Maven</code>）</td><td>找不到對應 CPE 時的 fallback，全文關鍵字搜尋</td></tr>
+    <tr><td><code>resultsPerPage</code></td><td><code>2000</code>（固定值）</td><td>每段查詢最多回傳筆數；搭配日期分段，理論上可取得該時間範圍內的完整 CVE，不再受限於單次查詢上限</td></tr>
     <tr><td><code>noRejected</code></td><td>（空值）</td><td>排除已被拒絕或撤銷的 CVE</td></tr>
   </tbody>
 </table>
+<div class="note"><strong>本機快取</strong>每個軟體（或每個 CPE <code>vendor:product</code>）各自存一份快取檔於 <code>data/</code> 目錄，記錄已查詢到的 CVE 與覆蓋的日期範圍。<code>CACHE_DISABLE=true</code> 可停用快取，每次都直接查 NVD。</div>
 
 <h4>回傳資料結構（簡化）</h4>
 <pre><code>{
@@ -916,7 +948,7 @@ PORTABLE_3=Neo4j Community Edition|2025.05.0|Neo4j Inc</code></pre>
   <li><code>published</code>：用於年份過濾（<code>MIN_YEAR</code>）及 CVE 排列順序</li>
 </ul>
 
-<div class="note"><strong>totalResults 與 resultsPerPage 的關係</strong>若 <code>totalResults</code> 大於 <code>resultsPerPage</code>，代表還有更多 CVE 未被取回。可調高 <code>MAX_CVES_PER_SOFTWARE</code> 取得更完整的結果，但執行時間也會略增。NVD 回傳順序為最新發布在前，設定過低時較舊的 CVE 可能被截斷。</div>
+<div class="note"><strong>totalResults 與 resultsPerPage 的關係</strong>若單段查詢的 <code>totalResults</code> 大於 <code>resultsPerPage</code>（2000），代表該 120 天區段內的 CVE 超過單次查詢上限；目前程式未對此情況額外分頁，屬已知限制（單一軟體在 120 天內有超過 2000 筆 CVE 的情況極為罕見）。</div>
 
 <hr style="margin:28px 0;border:none;border-top:1px solid #e2e8f0">
 
@@ -926,7 +958,7 @@ PORTABLE_3=Neo4j Community Edition|2025.05.0|Neo4j Inc</code></pre>
   <tbody>
     <tr><td><strong>Endpoint</strong></td><td><code>https://services.nvd.nist.gov/rest/json/cpes/2.0</code></td></tr>
     <tr><td><strong>Method</strong></td><td>GET</td></tr>
-    <tr><td><strong>呼叫時機</strong></td><td>僅對 <code>PORTABLE_N</code> 設定的免安裝軟體呼叫，在 CVE 查詢之前</td></tr>
+    <tr><td><strong>呼叫時機</strong></td><td>所有軟體（Registry / JSON / Portable）都會先嘗試呼叫，在 CVE 查詢之前；找不到才 fallback 至關鍵字比對。查詢結果依軟體名稱快取於 <code>data/cpekw_*.json</code>，<strong>同一天內</strong>已查過會直接使用快取，不重複呼叫</td></tr>
   </tbody>
 </table>
 
@@ -963,9 +995,10 @@ PORTABLE_3=Neo4j Community Edition|2025.05.0|Neo4j Inc</code></pre>
 
 <h4>程式如何使用回傳資料</h4>
 <ol>
-  <li><code>findBestCPEBase()</code> 從 20 筆結果中找出最符合軟體名稱的 <code>{vendor, product}</code>（優先全詞比對，次選首詞比對）</li>
-  <li>找到後記錄為 <code>cpeBase</code>，後續對每筆 CVE 驗證其 CPE 條目是否包含 <code>:vendor:product:</code> 精確字串</li>
-  <li>若 CPE API 找不到對應識別碼，降級為一般關鍵字比對模式</li>
+  <li><code>findAllCPEBases()</code> 從最多 10000 筆結果中，依三輪規則找出<strong>所有</strong>符合軟體名稱的 <code>{vendor, product}</code> 組合（OR 邏輯）——同一軟體可能有不只一種 vendor 命名（例如 PuTTY 的 <code>putty:putty</code> 與 <code>simon_tatham:putty</code>）</li>
+  <li>找到的每個組合都會各自查詢 CVE，再依 CVE id 合併去重，確保不會只查到其中一種命名下的弱點</li>
+  <li>後續對每筆 CVE 驗證其 CPE 條目是否包含任一組合的 <code>:vendor:product:</code> 精確字串</li>
+  <li>若 CPE API 完全找不到對應識別碼，降級為一般關鍵字比對模式</li>
 </ol>
 
 <div class="tip"><strong>為何 Portable 軟體要多一步 CPE 查詢？</strong>Registry 軟體的名稱（如 <code>7-Zip 24.09 (x64)</code>）通常足以辨識，但 Portable 軟體的名稱可能較短或有歧義（如只填 <code>Maven</code>）。先查 CPE 識別碼可避免把 Jenkins 的 Maven 插件 CVE 誤算為 Apache Maven 的弱點。</div>
@@ -1009,12 +1042,12 @@ PORTABLE_3=Neo4j Community Edition|2025.05.0|Neo4j Inc</code></pre>
 <p>功能與 Node.js 命令列版（<code>cve-checker.js</code>）相同：</p>
 <ul>
   <li>載入 <code>scan.json</code>（由 <code>findSW.ps1</code> 或 <code>cve-checker.js</code> 在目標機器產生）</li>
-  <li>或直接手動輸入軟體名稱與版本號（人工掃描模式）</li>
   <li>查詢 NIST NVD CVE API，依嚴重度、年份過濾</li>
   <li>比對建議修復版本，判斷升級狀態</li>
   <li>產出與 CLI 版格式相同的 HTML 視覺化報表及 JSON 結果</li>
+  <li>查詢伺服器本機已快取的 CVE 資料（CVE 查詢頁籤，僅伺服器代理模式）</li>
 </ul>
-<div class="note"><strong>與命令列版的差異</strong>Web 版不支援直接讀取 Windows Registry（需先產生 scan.json）、不支援 Portable 軟體的 CPE 精確比對（人工掃描模式），以及不支援 <code>.env.local</code> 環境設定。這些功能請使用命令列版 <code>cve-checker.js</code>。</div>
+<div class="note"><strong>與命令列版的差異</strong>Web 版不支援直接讀取 Windows Registry（需先產生 scan.json），以及僅伺服器代理模式才支援 <code>.env.local</code> 環境設定。這些功能請使用命令列版 <code>cve-checker.js</code>。</div>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════════ -->
@@ -1032,8 +1065,8 @@ PORTABLE_3=Neo4j Community Edition|2025.05.0|Neo4j Inc</code></pre>
 
 <h3>模式二：伺服器代理模式（Proxy via web-server.js）</h3>
 <p>在安裝了 Node.js 的機器上啟動 <code>web-server.js</code>，由伺服器代理所有 NVD API 請求：</p>
-<pre><code>node web-server.js          <span class="comment"># 預設 Port 8093</span>
-node web-server.js 9000     <span class="comment"># 自訂 Port</span></code></pre>
+<pre><code>node scripts/web-server.js          <span class="comment"># 預設 Port 8093</span>
+node scripts/web-server.js 9000     <span class="comment"># 自訂 Port</span></code></pre>
 <p>啟動後以瀏覽器開啟顯示的網址即可（支援區域網路多人同時使用）：</p>
 <pre><code>本機：    http://localhost:8093
 區域網路：http://192.168.x.x:8093  ← 其他電腦可直接連線</code></pre>
@@ -1070,7 +1103,7 @@ WHITELIST=Microsoft,Apple,Google</code></pre>
   <li>
     <div>
       啟動 Web 伺服器：
-      <pre><code>node web-server.js
+      <pre><code>node scripts/web-server.js
 <span class="comment"># 或使用 npm run web</span></code></pre>
     </div>
   </li>
@@ -1082,7 +1115,7 @@ WHITELIST=Microsoft,Apple,Google</code></pre>
 <!-- ══════════════════════════════════════════════════════════════ -->
 <section id="web-settings">
 <h2>Web 掃描器 — 掃描設定說明</h2>
-<p>頁面頂端的「⚙ 掃描設定」區塊，兩個掃描模式共用：</p>
+<p>「📁 檔案掃描(JSON)」頁籤最上方的「⚙ 掃描設定」區塊：</p>
 
 <table>
   <thead><tr><th>欄位</th><th>說明</th><th>預設值</th></tr></thead>
@@ -1110,6 +1143,7 @@ WHITELIST=Microsoft,Apple,Google</code></pre>
   </tbody>
 </table>
 <p>所有設定均自動儲存於瀏覽器 <code>localStorage</code>，下次開啟時自動帶入。</p>
+<div class="note"><strong>「每項軟體最多 CVE 筆數」僅影響獨立模式</strong>伺服器代理模式下，伺服器會依日期分段查詢並快取「該時間範圍內的全部 CVE」，這個設定只會出現在進度說明文字中，並不會真的截斷查詢結果；只有獨立模式（瀏覽器直連 NVD，無快取）才會真的用這個數值限制單次查詢筆數。</div>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════════ -->
@@ -1171,7 +1205,6 @@ WHITELIST=Microsoft,Apple,Google</code></pre>
   <li>符合白名單的軟體完全跳過掃描，列於報表底部的「白名單略過」區塊</li>
 </ul>
 <div class="tip"><strong>建議白名單</strong><code>Microsoft,Apple,Google</code> 是常見起點。這些廠商的軟體數量多、更新機制完善，加入白名單可大幅縮短掃描時間。</div>
-<div class="note"><strong>注意</strong>白名單設定屬於「📁 檔案掃描(JSON)」頁籤，不適用於「✏ 人工掃描」模式。</div>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════════ -->
@@ -1204,32 +1237,24 @@ WHITELIST=Microsoft,Apple,Google</code></pre>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════════ -->
-<section id="web-manual">
-<h2>Web 掃描器 — 人工掃描模式</h2>
-<p>切換至「✏ 人工掃描」頁籤，直接輸入想查詢的軟體名稱與版本號，無需準備 scan.json 檔案。</p>
-
-<div class="ui-mock">
-  <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
-    <input class="ui-field" style="flex:3" value="WinRAR" readonly>
-    <input class="ui-field" style="flex:1.5" value="7.10" readonly>
-    <span style="color:#dc2626;font-weight:700;cursor:pointer">✕</span>
-  </div>
-  <div style="display:flex;gap:8px;align-items:center">
-    <input class="ui-field" style="flex:3" placeholder="軟體名稱（例：Eclipse IDE）" readonly>
-    <input class="ui-field" style="flex:1.5" placeholder="版本號（例：2025.06）" readonly>
-    <span style="color:#dc2626;font-weight:700;cursor:pointer">✕</span>
-  </div>
-  <div style="margin-top:10px"><span style="color:#2563eb;font-size:.85rem;cursor:pointer">＋ 新增軟體</span></div>
-</div>
+<section id="web-cve-query">
+<h2>Web 掃描器 — CVE 查詢頁籤</h2>
+<p>切換至「🔍 CVE 查詢」頁籤，可直接查詢伺服器本機已快取的 CVE 資料——任何一次掃描（不論是哪一台電腦、哪個使用者執行的）查過的軟體，都會留在 <code>data/</code> 目錄的本機快取中，不需要重新掃描即可查詢，也不會對 NVD 發出任何請求。</p>
 
 <ul>
-  <li>頁面開啟時預設已有一筆空白輸入列</li>
-  <li>點擊「＋ 新增軟體」可增加更多輸入列</li>
-  <li>版本號可留空（仍可查詢 CVE，但無法判斷是否需要升級）</li>
-  <li>至少須填入一筆軟體名稱，「▶ 開始掃描」按鈕才會啟用</li>
-  <li>此模式<strong>不套用白名單過濾</strong>，也<strong>不提供 result.json 下載</strong></li>
+  <li>輸入軟體名稱關鍵字（例：<code>putty</code>）或完整 CVE ID（例：<code>CVE-2024-12345</code>），至少 2 個字元</li>
+  <li>可加上最低嚴重度、最早年份篩選結果（與檔案掃描的篩選邏輯一致）</li>
+  <li>結果依快取項目分組顯示，每組標示對應的軟體/CPE 識別碼、CVE 筆數、快取最後更新時間</li>
 </ul>
-<div class="tip"><strong>適合用途</strong>想快速確認特定軟體是否有已知 CVE，而不需要完整掃描整台電腦。例如：臨時查詢某個剛安裝的工具、確認某軟體版本是否安全。</div>
+
+<div class="warn-box"><strong>僅伺服器代理模式可用</strong>瀏覽器無法直接讀取伺服器本機的 <code>data/</code> 目錄，因此此頁籤需先啟動 <code>web-server.js</code>（<code>npm run web</code>）才能使用。獨立模式（直接雙擊開啟 <code>web-client.html</code>）下會顯示提示訊息並停用查詢欄位。</div>
+<div class="note"><strong>資料來源的限制</strong>快取是以「曾經查詢過的軟體/CPE」為單位，不是以「已安裝版本」為單位，所以查詢結果不會顯示「目前安裝版本」或「是否需要升級」，僅顯示該軟體曾經查到的 CVE 清單本身。</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section id="web-help-tab">
+<h2>Web 掃描器 — 使用說明頁籤</h2>
+<p>切換至「📖 使用說明」頁籤，頁面內會直接顯示三個頁籤的簡要功能說明與操作步驟，方便不熟悉工具的使用者快速上手，不需要切換到這份操作手冊。內容是本手冊 Web 部分的精簡版，完整細節仍以本手冊為準。</p>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════════ -->
@@ -1294,26 +1319,22 @@ WHITELIST=Microsoft,Apple,Google</code></pre>
     <span class="ui-btn secondary">⬇ 下載報表 HTML</span>
     <span class="ui-btn secondary">⬇ result.json</span>
   </div>
-  <div style="font-size:.78rem;color:#94a3b8;margin-top:8px">（人工掃描模式僅提供「在新分頁開啟報表」按鈕）</div>
 </div>
 
 <table>
-  <thead><tr><th>按鈕</th><th>說明</th><th>適用模式</th></tr></thead>
+  <thead><tr><th>按鈕</th><th>說明</th></tr></thead>
   <tbody>
     <tr>
       <td><strong>📄 在新分頁開啟報表</strong></td>
       <td>在瀏覽器新分頁中開啟 HTML 視覺化報表，與 CLI 版報表格式完全相同</td>
-      <td>兩種模式</td>
     </tr>
     <tr>
       <td><strong>⬇ 下載報表 HTML</strong></td>
       <td>將報表下載為 <code>result.html</code> 儲存至本機（可離線查閱、轉寄給他人）</td>
-      <td>檔案掃描模式</td>
     </tr>
     <tr>
       <td><strong>⬇ result.json</strong></td>
       <td>下載掃描結果 JSON（與 CLI 版格式相容，可供 <code>team-report.js</code> 彙整多台機器報表）</td>
-      <td>檔案掃描模式</td>
     </tr>
   </tbody>
 </table>
@@ -1374,10 +1395,10 @@ WHITELIST=Microsoft,Apple,Google</code></pre>
 
 <h3>啟動 web-server.js</h3>
 <pre><code><span class="comment"># 預設 Port 8093</span>
-node web-server.js
+node scripts/web-server.js
 
 <span class="comment"># 指定 Port</span>
-node web-server.js 9000
+node scripts/web-server.js 9000
 
 <span class="comment"># 使用 npm 捷徑</span>
 npm run web</code></pre>
@@ -1388,13 +1409,13 @@ npm run web</code></pre>
 本機：    http://localhost:8093
 區域網路：http://192.168.1.100:8093
 ────────────────────────────────────────
-掃描端點：POST /api/scan (NDJSON stream)
+掃描端點：POST /api/scan (NDJSON stream), GET /api/cpe (CPE 查找)
 API Key：  已載入（0.7 秒/次）
-Log：      ...\NISTCVECheck\log
+Log：      ...\NISTCVECheck\logs
 ────────────────────────────────────────</code></pre>
 
 <h3>server.log 記錄格式</h3>
-<p>伺服器代理模式下，所有掃描活動均記錄至 <code>log/server_YYYYMMDD.log</code>：</p>
+<p>伺服器代理模式下，所有掃描活動均記錄至 <code>logs/server_YYYYMMDD.log</code>：</p>
 <div class="console">
 <div><span class="c-gray">#0001: 20260521 143022123 ▶ [192.168.1.50] 開始掃描 19 項軟體 (白名單:33 子元件:9 去重:1)</span></div>
 <div><span class="c-gray">#0001: 20260521 143023100   [1/19] Apache Maven v3.8.6 ✓ 2/3筆[CRITICAL]，目前版本已達修復版本</span></div>
@@ -1417,8 +1438,11 @@ Log：      ...\NISTCVECheck\log
   <thead><tr><th>參數</th><th>說明</th></tr></thead>
   <tbody>
     <tr><td><code>NIST_API_KEY</code></td><td>NVD API Key，由伺服器統一使用，瀏覽器端不需輸入</td></tr>
+    <tr><td><code>LOG_LEVEL</code></td><td><code>DEBUG</code> 時會在伺服器 log 中額外輸出向 NVD 發出的完整 curl 查詢指令</td></tr>
+    <tr><td><code>HTTPS_PROXY</code> / <code>HTTP_PROXY</code> / <code>PROXY_SKIP_TLS_VERIFY</code></td><td>伺服器對外連線需透過 Proxy 時設定，與 CLI 版共用同一套 Proxy 邏輯</td></tr>
     <tr><td><code>WHITELIST</code></td><td>預設白名單，自動帶入頁面</td></tr>
-    <tr><td><code>PORTABLE_N</code></td><td>預設免安裝軟體清單，自動帶入「免安裝軟體」欄位</td></tr>
+    <tr><td><code>PORTABLE_ENABLE</code> / <code>PORTABLE_N</code></td><td>預設免安裝軟體清單，自動帶入「免安裝軟體」欄位；<code>PORTABLE_ENABLE=false</code> 會隱藏該欄位區塊</td></tr>
+    <tr><td><code>CACHE_DISABLE</code> / <code>CACHE_ALIAS_N</code></td><td>控制 <code>data/</code> 本機快取（CVE 與 CPE 查找皆適用），所有連線使用者共用同一份快取</td></tr>
   </tbody>
 </table>
 </section>
@@ -1461,8 +1485,8 @@ Log：      ...\NISTCVECheck\log
 <h3>Q：如何將 Web 版結果納入 team-report.js 彙整？</h3>
 <p>在「📁 檔案掃描(JSON)」模式掃描完成後，點擊「⬇ result.json」下載 JSON 結果，再將其複製至 <code>team</code> 目錄，搭配其他機器的 JSON 一起執行 <code>node scripts/team-report.js</code> 即可。</p>
 
-<h3>Q：人工掃描模式的結果與檔案掃描模式一樣準確嗎？</h3>
-<p>查詢流程相同，但人工掃描模式沒有白名單過濾、也不進行 Registry 子元件去重。CVE 關聯性驗證採用關鍵字比對（非 CPE API 精確比對），與 Registry 軟體相同。搜尋名稱的精準度直接影響結果準確性，建議使用完整的英文軟體名稱。</p>
+<h3>Q：CVE 查詢頁籤搜尋不到任何結果？</h3>
+<p>CVE 查詢只會從本機 <code>data/</code> 目錄的快取中搜尋——也就是「以前曾經掃描過的軟體」才會有記錄。如果是第一次查詢某個軟體，請先到「📁 檔案掃描(JSON)」頁籤掃描過一次（或用 CLI 版掃過），之後才能在 CVE 查詢頁籤找到它。</p>
 </section>
 
 <footer>NIST CVE Scanner &nbsp;·&nbsp; 操作手冊（CLI &amp; Web）&nbsp;·&nbsp; 資料來源：<a href="https://nvd.nist.gov/" target="_blank" rel="noopener">NIST National Vulnerability Database</a></footer>
