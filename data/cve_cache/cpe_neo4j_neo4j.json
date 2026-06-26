@@ -1,0 +1,1112 @@
+{
+  "cveCount": 6,
+  "cacheKey": "cpe_neo4j_neo4j",
+  "coverageStart": "2021-01-01T00:00:00.000Z",
+  "lastFetchedAt": "2026-06-26T03:24:22.845Z",
+  "cves": [
+    {
+      "cve": {
+        "id": "CVE-2026-1497",
+        "sourceIdentifier": "3b236295-4ccd-4a1f-a1c1-a72eecc8d7b6",
+        "published": "2026-03-11T16:16:22.650",
+        "lastModified": "2026-06-17T10:15:55.507",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Incorrect resolving of namespaces in composite databases in Neo4j Enterprise edition prior to versions 2026.02 and 5.26.22 can lead to the following scenario: \nan admin that intends to give a user an access to a remote database constituent \"namespace.name\" will inadvertently grant access to any local database or remote alias called \"name\". If such database or alias doesn't exist when the command is run, the privileges will apply if it's created in the future."
+          },
+          {
+            "lang": "es",
+            "value": "La resolución incorrecta de espacios de nombres en bases de datos compuestas en Neo4j Enterprise edition anterior a las versiones 2026.02 y 5.26.22 puede llevar al siguiente escenario:\nun administrador que intenta dar a un usuario acceso a un constituyente de base de datos remoto 'namespace.name' concederá acceso inadvertidamente a cualquier base de datos local o alias remoto llamado 'name'. Si dicha base de datos o alias no existe cuando se ejecuta el comando, los privilegios se aplicarán si se crea en el futuro."
+          }
+        ],
+        "affected": [
+          {
+            "source": "3b236295-4ccd-4a1f-a1c1-a72eecc8d7b6",
+            "affectedData": [
+              {
+                "vendor": "neo4j",
+                "product": "Enterprise Edition",
+                "defaultStatus": "unaffected",
+                "versions": [
+                  {
+                    "version": "5.0",
+                    "lessThan": "5.26.22",
+                    "versionType": "semver",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "2025.01",
+                    "lessThan": "2026.02",
+                    "versionType": "date",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "3b236295-4ccd-4a1f-a1c1-a72eecc8d7b6",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:N/AC:L/AT:P/PR:L/UI:A/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:N/R:U/V:D/RE:M/U:Green",
+                "baseScore": 2,
+                "baseSeverity": "LOW",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "attackRequirements": "PRESENT",
+                "privilegesRequired": "LOW",
+                "userInteraction": "ACTIVE",
+                "vulnConfidentialityImpact": "LOW",
+                "vulnIntegrityImpact": "LOW",
+                "vulnAvailabilityImpact": "LOW",
+                "subConfidentialityImpact": "NONE",
+                "subIntegrityImpact": "NONE",
+                "subAvailabilityImpact": "NONE",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NO",
+                "Recovery": "USER",
+                "valueDensity": "DIFFUSE",
+                "vulnerabilityResponseEffort": "MODERATE",
+                "providerUrgency": "GREEN"
+              }
+            }
+          ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H",
+                "baseScore": 7.2,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "HIGH",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 1.2,
+              "impactScore": 5.9
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-03-12T16:13:44.666371Z",
+                "id": "CVE-2026-1497",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "yes"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "3b236295-4ccd-4a1f-a1c1-a72eecc8d7b6",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-863"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:neo4j:neo4j:*:*:*:*:enterprise:*:*:*",
+                    "versionEndExcluding": "5.26.22",
+                    "matchCriteriaId": "2F0CBF4C-6B09-4AF9-9A75-C079D06F8791"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:neo4j:neo4j:*:*:*:*:enterprise:*:*:*",
+                    "versionStartIncluding": "2025.01.0",
+                    "versionEndExcluding": "2026.02",
+                    "matchCriteriaId": "E519E44D-D563-4A86-B4DB-9CBC391A28CF"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://neo4j.com/security/CVE-2026-1497",
+            "source": "3b236295-4ccd-4a1f-a1c1-a72eecc8d7b6",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-1471",
+        "sourceIdentifier": "3b236295-4ccd-4a1f-a1c1-a72eecc8d7b6",
+        "published": "2026-03-11T17:16:54.160",
+        "lastModified": "2026-06-17T10:15:51.110",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Excessive caching of authentication context in Neo4j Enterprise edition versions prior to 2026.01.4 leads to authenticated users inheriting the context of the first user who authenticated after restart. The issue is limited to certain non-default configurations of SSO (UserInfo endpoint). \nWe recommend upgrading to versions 2026.01.4 (or 5.26.22) where the issue is fixed."
+          },
+          {
+            "lang": "es",
+            "value": "El almacenamiento en caché excesivo del contexto de autenticación en versiones de Neo4j Enterprise edition anteriores a 2026.01.4 lleva a que los usuarios autenticados hereden el contexto del primer usuario que se autenticó después del reinicio. El problema se limita a ciertas configuraciones no predeterminadas de SSO (punto final UserInfo). Recomendamos actualizar a las versiones 2026.01.4 (o 5.26.22) donde el problema está solucionado."
+          }
+        ],
+        "affected": [
+          {
+            "source": "3b236295-4ccd-4a1f-a1c1-a72eecc8d7b6",
+            "affectedData": [
+              {
+                "vendor": "Neo4j",
+                "product": "Enterprise edition",
+                "defaultStatus": "unaffected",
+                "versions": [
+                  {
+                    "version": "2025.01",
+                    "lessThan": "2026.01.4",
+                    "versionType": "date",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "4.4.0",
+                    "lessThan": "5.26.22",
+                    "versionType": "semver",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "3b236295-4ccd-4a1f-a1c1-a72eecc8d7b6",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:N/AC:L/AT:P/PR:L/UI:P/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:N/R:U/V:D/RE:L/U:Clear",
+                "baseScore": 2.1,
+                "baseSeverity": "LOW",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "attackRequirements": "PRESENT",
+                "privilegesRequired": "LOW",
+                "userInteraction": "PASSIVE",
+                "vulnConfidentialityImpact": "LOW",
+                "vulnIntegrityImpact": "LOW",
+                "vulnAvailabilityImpact": "LOW",
+                "subConfidentialityImpact": "NONE",
+                "subIntegrityImpact": "NONE",
+                "subAvailabilityImpact": "NONE",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NO",
+                "Recovery": "USER",
+                "valueDensity": "DIFFUSE",
+                "vulnerabilityResponseEffort": "LOW",
+                "providerUrgency": "CLEAR"
+              }
+            }
+          ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N",
+                "baseScore": 6.5,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 3.6
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-03-11T20:08:47.580869Z",
+                "id": "CVE-2026-1471",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "3b236295-4ccd-4a1f-a1c1-a72eecc8d7b6",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-863"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:neo4j:neo4j:*:*:*:*:enterprise:*:*:*",
+                    "versionEndExcluding": "5.26.22",
+                    "matchCriteriaId": "2F0CBF4C-6B09-4AF9-9A75-C079D06F8791"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:neo4j:neo4j:*:*:*:*:enterprise:*:*:*",
+                    "versionStartIncluding": "2025.01.0",
+                    "versionEndExcluding": "2026.01.4",
+                    "matchCriteriaId": "2777E666-109C-43B9-BCA5-0A09F86299C4"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://neo4j.com/security/CVE-2026-1471",
+            "source": "3b236295-4ccd-4a1f-a1c1-a72eecc8d7b6",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-1524",
+        "sourceIdentifier": "3b236295-4ccd-4a1f-a1c1-a72eecc8d7b6",
+        "published": "2026-03-11T17:16:54.477",
+        "lastModified": "2026-06-17T10:15:59.797",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "An edgecase in SSO implementation in Neo4j Enterprise edition versions prior to version 2026.02 can lead to unauthorised access under the following conditions:\n\n\nIf a neo4j admin configures two or more OIDC providers AND configures one or more of them to be an authorization provider AND configures one or more of them to be authentication-only, then those that are authentication-only will also provide authorization. This edgecase becomes a security problem only if the authentication-only provider contains groups which have higher privileges than provided by the intended (configured) authorization provider.  \n\nWhen using multiple plugins for authentication and authorisation, prior to the fix the issue could lead to a plugin configured to provide only authentication or authorisation capabilities erroneously providing both capabilities. \n\nWe recommend upgrading to versions 2026.02 (or 5.26.22) where the issue is fixed."
+          },
+          {
+            "lang": "es",
+            "value": "Un caso límite en la implementación de SSO en versiones de Neo4j Enterprise edition anteriores a la versión 2026.02 puede llevar a un acceso no autorizado bajo las siguientes condiciones:\n\nSi un administrador de Neo4j configura dos o más proveedores OIDC Y configura uno o más de ellos como proveedor de autorización Y configura uno o más de ellos para ser solo de autenticación, entonces aquellos que son solo de autenticación también proporcionarán autorización. Este caso límite se convierte en un problema de seguridad solo si el proveedor solo de autenticación contiene grupos que tienen privilegios más altos que los proporcionados por el proveedor de autorización previsto (configurado).\n\nAl usar múltiples plugins para autenticación y autorización, antes de la corrección, el problema podría llevar a que un plugin configurado para proporcionar solo capacidades de autenticación o autorización proporcionara erróneamente ambas capacidades.\n\nRecomendamos actualizar a las versiones 2026.02 (o 5.26.22) donde el problema está corregido."
+          }
+        ],
+        "affected": [
+          {
+            "source": "3b236295-4ccd-4a1f-a1c1-a72eecc8d7b6",
+            "affectedData": [
+              {
+                "vendor": "neo4j",
+                "product": "Enterprise Edition",
+                "defaultStatus": "unaffected",
+                "versions": [
+                  {
+                    "version": "4.4.0",
+                    "lessThan": "5.26.22",
+                    "versionType": "semver",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "2025.01",
+                    "lessThan": "2026.02",
+                    "versionType": "date",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "3b236295-4ccd-4a1f-a1c1-a72eecc8d7b6",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:N/AC:L/AT:P/PR:H/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:N/R:U/V:D/RE:M/U:Green",
+                "baseScore": 2.1,
+                "baseSeverity": "LOW",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "attackRequirements": "PRESENT",
+                "privilegesRequired": "HIGH",
+                "userInteraction": "NONE",
+                "vulnConfidentialityImpact": "LOW",
+                "vulnIntegrityImpact": "LOW",
+                "vulnAvailabilityImpact": "LOW",
+                "subConfidentialityImpact": "NONE",
+                "subIntegrityImpact": "NONE",
+                "subAvailabilityImpact": "NONE",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NO",
+                "Recovery": "USER",
+                "valueDensity": "DIFFUSE",
+                "vulnerabilityResponseEffort": "MODERATE",
+                "providerUrgency": "GREEN"
+              }
+            }
+          ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                "baseScore": 9.8,
+                "baseSeverity": "CRITICAL",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 5.9
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-03-12T15:43:20.625306Z",
+                "id": "CVE-2026-1524",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "3b236295-4ccd-4a1f-a1c1-a72eecc8d7b6",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-287"
+              },
+              {
+                "lang": "en",
+                "value": "CWE-863"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:neo4j:neo4j:*:*:*:*:enterprise:*:*:*",
+                    "versionEndExcluding": "5.26.22",
+                    "matchCriteriaId": "2F0CBF4C-6B09-4AF9-9A75-C079D06F8791"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:neo4j:neo4j:*:*:*:*:enterprise:*:*:*",
+                    "versionStartIncluding": "2025.01.0",
+                    "versionEndExcluding": "2026.02",
+                    "matchCriteriaId": "E519E44D-D563-4A86-B4DB-9CBC391A28CF"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://neo4j.com/security/CVE-2026-1524",
+            "source": "3b236295-4ccd-4a1f-a1c1-a72eecc8d7b6",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-1337",
+        "sourceIdentifier": "3b236295-4ccd-4a1f-a1c1-a72eecc8d7b6",
+        "published": "2026-02-06T14:16:38.120",
+        "lastModified": "2026-06-17T10:15:37.643",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Insufficient escaping of unicode characters in query log in Neo4j Enterprise and Community editions prior to 2026.01 can lead to XSS if the user opens the logs in a tool that treats them as HTML. There is no security impact on Neo4j products, but this advisory is released as a precaution to treat the logs as plain text if using versions prior to 2026.01.\n\nProof of concept exploit:  https://github.com/JoakimBulow/CVE-2026-1337"
+          },
+          {
+            "lang": "es",
+            "value": "El escape insuficiente de caracteres Unicode en el registro de consultas en las ediciones Neo4j Enterprise y Community anteriores a 2026.01 puede conducir a XSS si el usuario abre los registros en una herramienta que los trate como HTML. No hay impacto de seguridad en los productos Neo4j, pero este aviso se publica como precaución para tratar los registros como texto plano si se utilizan versiones anteriores a 2026.01.\n\nPrueba de concepto de exploit: https://github.com/JoakimBulow/CVE-2026-1337"
+          }
+        ],
+        "affected": [
+          {
+            "source": "3b236295-4ccd-4a1f-a1c1-a72eecc8d7b6",
+            "affectedData": [
+              {
+                "vendor": "neo4j",
+                "product": "Enterprise Edition",
+                "defaultStatus": "unaffected",
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "2026.01.0",
+                    "versionType": "date",
+                    "status": "affected"
+                  }
+                ]
+              },
+              {
+                "vendor": "neo4j",
+                "product": "Community Edition",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://mvnrepository.com/artifact/org.neo4j/neo4j",
+                "packageName": "pkg:maven/org.neo4j/neo4j",
+                "repo": "https://github.com/neo4j/neo4j",
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "2026.01.0",
+                    "versionType": "date",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "3b236295-4ccd-4a1f-a1c1-a72eecc8d7b6",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:N/AC:L/AT:P/PR:L/UI:A/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N/E:P/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 1.1,
+                "baseSeverity": "LOW",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "attackRequirements": "PRESENT",
+                "privilegesRequired": "LOW",
+                "userInteraction": "ACTIVE",
+                "vulnConfidentialityImpact": "NONE",
+                "vulnIntegrityImpact": "NONE",
+                "vulnAvailabilityImpact": "NONE",
+                "subConfidentialityImpact": "LOW",
+                "subIntegrityImpact": "LOW",
+                "subAvailabilityImpact": "NONE",
+                "exploitMaturity": "PROOF_OF_CONCEPT",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:L/I:L/A:N",
+                "baseScore": 5.4,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "LOW",
+                "userInteraction": "REQUIRED",
+                "scope": "CHANGED",
+                "confidentialityImpact": "LOW",
+                "integrityImpact": "LOW",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 2.3,
+              "impactScore": 2.7
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-02-06T14:29:47.736732Z",
+                "id": "CVE-2026-1337",
+                "options": [
+                  {
+                    "exploitation": "poc"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "3b236295-4ccd-4a1f-a1c1-a72eecc8d7b6",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-117"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:neo4j:neo4j:*:*:*:*:community:*:*:*",
+                    "versionEndExcluding": "2026.01",
+                    "matchCriteriaId": "45EA63FF-3AC6-43C7-A504-CB24BAC916F9"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:neo4j:neo4j:*:*:*:*:enterprise:*:*:*",
+                    "versionEndExcluding": "2026.01",
+                    "matchCriteriaId": "0E3788A7-7BDC-467B-A491-1D19A3FE5C80"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/JoakimBulow/CVE-2026-1337",
+            "source": "3b236295-4ccd-4a1f-a1c1-a72eecc8d7b6",
+            "tags": [
+              "Exploit",
+              "Third Party Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2024-34517",
+        "sourceIdentifier": "cve@mitre.org",
+        "published": "2024-05-07T18:15:08.467",
+        "lastModified": "2026-06-17T07:33:33.087",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "The Cypher component in Neo4j 5.0.0 through 5.18 mishandles IMMUTABLE privileges in some situations where an attacker already has admin access."
+          },
+          {
+            "lang": "es",
+            "value": "El componente Cypher en Neo4j anterior a 5.19.0 maneja mal los privilegios IMMUTABLES."
+          }
+        ],
+        "affected": [
+          {
+            "source": "cve@mitre.org",
+            "affectedData": [
+              {
+                "vendor": "Neo4j",
+                "product": "Neo4j",
+                "defaultStatus": "unaffected",
+                "versions": [
+                  {
+                    "version": "5.0.0",
+                    "lessThan": "5.19",
+                    "versionType": "custom",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "affectedData": [
+              {
+                "vendor": "neo4j",
+                "product": "neo4j",
+                "defaultStatus": "unknown",
+                "cpes": [
+                  "cpe:2.3:a:neo4j:neo4j:5.0.0:*:*:*:*:*:*:*"
+                ],
+                "versions": [
+                  {
+                    "version": "5.0.0",
+                    "lessThanOrEqual": "5.19.0",
+                    "versionType": "custom",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "cve@mitre.org",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:N",
+                "baseScore": 6.5,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "HIGH",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 1.2,
+              "impactScore": 5.2
+            },
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:N",
+                "baseScore": 6.5,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "HIGH",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 1.2,
+              "impactScore": 5.2
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2025-07-22T00:00:00+00:00",
+                "id": "CVE-2024-34517",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "cve@mitre.org",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-471"
+              }
+            ]
+          },
+          {
+            "source": "nvd@nist.gov",
+            "type": "Primary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "NVD-CWE-Other"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:neo4j:neo4j:*:*:*:*:*:community:*:*",
+                    "versionStartIncluding": "5.0.0",
+                    "versionEndExcluding": "5.19.0",
+                    "matchCriteriaId": "A1C892B1-0C3E-43BC-B402-5295C5FF13DB"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/advisories/GHSA-p343-9qwp-pqxv",
+            "source": "cve@mitre.org",
+            "tags": [
+              "Third Party Advisory"
+            ]
+          },
+          {
+            "url": "https://github.com/neo4j/neo4j/wiki/Neo4j-5-changelog#cypher",
+            "source": "cve@mitre.org",
+            "tags": [
+              "Release Notes"
+            ]
+          },
+          {
+            "url": "https://neo4j.com/security/cve-2024-34517/",
+            "source": "cve@mitre.org",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          },
+          {
+            "url": "https://trust.neo4j.com",
+            "source": "cve@mitre.org",
+            "tags": [
+              "Product"
+            ]
+          },
+          {
+            "url": "https://github.com/advisories/GHSA-p343-9qwp-pqxv",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Third Party Advisory"
+            ]
+          },
+          {
+            "url": "https://github.com/neo4j/neo4j/wiki/Neo4j-5-changelog#cypher",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Release Notes"
+            ]
+          },
+          {
+            "url": "https://neo4j.com/security/cve-2024-34517/",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          },
+          {
+            "url": "https://trust.neo4j.com",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Product"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2021-34371",
+        "sourceIdentifier": "cve@mitre.org",
+        "published": "2021-08-05T20:15:09.280",
+        "lastModified": "2026-06-17T03:55:44.087",
+        "vulnStatus": "Modified",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Neo4j through 3.4.18 (with the shell server enabled) exposes an RMI service that arbitrarily deserializes Java objects, e.g., through setSessionVariable. An attacker can abuse this for remote code execution because there are dependencies with exploitable gadget chains."
+          },
+          {
+            "lang": "es",
+            "value": "Neo4j versiones hasta 3.4.18 (con el servidor shell habilitado) expone un servicio RMI que deserializa arbitrariamente objetos Java, por ejemplo, mediante la función setSessionVariable. Un atacante puede abusar de esto para una ejecución de código remota porque se presenta dependencias con cadenas de gadgets explotables"
+          }
+        ],
+        "affected": [
+          {
+            "source": "cve@mitre.org",
+            "affectedData": [
+              {
+                "vendor": "n/a",
+                "product": "n/a",
+                "versions": [
+                  {
+                    "version": "n/a",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                "baseScore": 9.8,
+                "baseSeverity": "CRITICAL",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 5.9
+            }
+          ],
+          "cvssMetricV2": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:N/C:P/I:P/A:P",
+                "baseScore": 7.5,
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "NONE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL"
+              },
+              "baseSeverity": "HIGH",
+              "exploitabilityScore": 10,
+              "impactScore": 6.4,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "nvd@nist.gov",
+            "type": "Primary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-502"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:neo4j:neo4j:*:*:*:*:community:*:*:*",
+                    "versionEndIncluding": "3.4.18",
+                    "matchCriteriaId": "72E068B8-703E-4F65-8C1C-3EA194F19A11"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://www.exploit-db.com/exploits/50170",
+            "source": "cve@mitre.org",
+            "tags": [
+              "Exploit",
+              "Third Party Advisory",
+              "VDB Entry"
+            ]
+          },
+          {
+            "url": "https://www.exploit-db.com/exploits/50170",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Exploit",
+              "Third Party Advisory",
+              "VDB Entry"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

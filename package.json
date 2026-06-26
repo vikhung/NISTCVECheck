@@ -4,14 +4,18 @@
   "description": "Query NIST NVD CVE API for installed software vulnerabilities",
   "main": "scripts/cve-checker.js",
   "scripts": {
-    "start": "node scripts/cve-checker.js",
-    "check": "node scripts/cve-checker.js -1 HIGH 4",
+    "start": "node scripts/cve-checker.js -1 HIGH -1",
+    "check": "node scripts/cve-checker.js -1 HIGH 5",
+    "test": "node --test \"scripts/test/*.test.js\"",
     "bundle": "node scripts/build.js",
     "preweb": "node scripts/build.js",
-    "web": "node scripts/web-server.js"
+    "web": "node scripts/web-server.js",
+    "sync-mitre": "node scripts/mitre-sync.js"
   },
   "engines": {
     "node": ">=18.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "adm-zip": "^0.5.17"
+  }
 }

@@ -7,7 +7,8 @@ const path   = require('path');
 const os     = require('os');
 const crypto = require('crypto');
 const { createNvdClient } = require('../lib/nvd-client');
-const { findAllCPEBases } = require('../lib/cve-logic');
+const { createMitreClient } = require('../lib/mitre-client');
+const { findAllCPEBases, isPendingSupplementCVE } = require('../lib/cve-logic');
 
 // ─── Port resolution ─────────────────────────────────────────────────────────
 const cliPort = parseInt(process.argv[2] || '', 10);
@@ -149,6 +150,31 @@ function _loadAliases() {
     return aliases;
 }
 
+// 解析 CPE_BASE_N 環境變數（格式：名稱|vendor:product[|vendor:product...]）。
+// 通用知名軟體（Python/Git 等）預先指定標準 CPE base，跳過 CPE 字典查詢、直接精準查 CVE。
+// 與 cve-checker.js 的 loadCpeBases() 一致。回傳 { 名稱(小寫): [{vendor,product}, ...] }。
+function _loadCpeBases() {
+    const map = {};
+    let i = 0;
+    while (true) {
+        const entry = env[`CPE_BASE_${i}`];
+        if (!entry) break;
+        const parts = entry.split('|').map(s => s.trim()).filter(Boolean);
+        if (parts.length >= 2) {
+            const name = parts[0].toLowerCase();
+            const bases = [];
+            for (const vp of parts.slice(1)) {
+                const [vendor, product] = vp.split(':').map(s => s.trim().toLowerCase());
+                if (vendor && product) bases.push({ vendor, product });
+            }
+            if (bases.length) map[name] = bases;
+        }
+        i++;
+    }
+    return map;
+}
+const _cpeBaseMap = _loadCpeBases();
+
 // ─── Daily-rolling logger ─────────────────────────────────────────────────────
 fs.mkdirSync(LOG_DIR, { recursive: true });
 
@@ -188,9 +214,30 @@ function slog(sid, msg) {
     try { _getStream().write(line + '\n'); } catch (_) {}
 }
 
+// 每個軟體查詢結束後插入一行真正的空白行（無 sid/時間戳前綴），讓 console/日誌檔閱讀時較整齊
+function slogBlank() {
+    console.log('');
+    try { _getStream().write('\n'); } catch (_) {}
+}
+
 // ─── Session ID ───────────────────────────────────────────────────────────────
 let _sessionSeq = 0;
 const newSid = () => `#${String((_sessionSeq = _sessionSeq % 9999 + 1)).padStart(4, '0')}`;
+
+// ─── 前端判斷結果 ack（讓 log 檔順序與 CLI/WebUI 一致：CPE→CVE→判斷，逐一軟體完成）──
+// 問題根源：CPE/CVE 抓取進度由伺服器同步寫 log，但「是否相關／安全版本」判斷邏輯留在
+// 前端（瀏覽器）計算後才以 /api/log 回傳寫 log，兩者完全不同步——若伺服器不等前端，
+// 命中快取時伺服器會瞬間跑完所有軟體，前端判斷結果卻要等網路來回，導致 log 看起來像
+// 「CPE/CVE 全部抓完，最後才集中判斷」。解法：伺服器送出每筆軟體的資料後，等前端把該
+// 筆 keyword 的判斷結果 POST 回 /api/log（帶 keyword 欄位核對）才繼續下一筆；
+// timeoutMs 是保護機制，避免前端異常（如分頁關閉）時卡住整個掃描。
+const _pendingAcks = new Map(); // sid -> { keyword, resolve }
+function waitForAck(sid, keyword, timeoutMs = 10000) {
+    return new Promise(resolve => {
+        const timer = setTimeout(() => { _pendingAcks.delete(sid); resolve(); }, timeoutMs);
+        _pendingAcks.set(sid, { keyword, resolve: () => { clearTimeout(timer); _pendingAcks.delete(sid); resolve(); } });
+    });
+}
 
 // ─── Global NVD rate-limit queue ─────────────────────────────────────────────
 // All concurrent sessions share this queue so combined request rate never
@@ -207,22 +254,45 @@ function nvdSlot() {
     return p;
 }
 
-// ─── NVD Client（快取 + 120 天分段查詢）─────────────────────────────────────
-// slotFn 傳入全域 nvdSlot，確保所有 session 共用同一速率限制。
-// 快取存於 <project>/data/ 目錄；CACHE_DISABLE=true 可停用快取。
+// ─── CVE 來源（NIST 即時 API 或 MITRE 本機鏡像）──────────────────────────────
+// slotFn 傳入全域 nvdSlot，確保所有 session 共用同一速率限制（僅 NIST 模式需要）。
+// CVE_SOURCE=NIST（預設）：快取存於 <project>/data/ 目錄；CACHE_DISABLE=true 可停用快取。
+// CVE_SOURCE=MITRE：讀取 data/mitre_mirror/ 本機鏡像（須先 npm run sync-mitre），
+// 索引不存在時建構會立即 throw，下方 catch 會印出錯誤並中止伺服器啟動（fail-fast，不可帶壞狀態啟動）。
+const CVE_SOURCE = (env.CVE_SOURCE || 'NIST').toUpperCase();
+if (!['NIST', 'MITRE'].includes(CVE_SOURCE)) {
+    console.error(`無效的 CVE_SOURCE="${env.CVE_SOURCE}"，僅支援 NIST 或 MITRE`);
+    process.exit(1);
+}
+
 const _cacheDisable = (env.CACHE_DISABLE || '').toLowerCase() === 'true';
 const _cacheDir     = _cacheDisable ? null : path.join(__dirname, '..', 'data');
-const nvdClient     = createNvdClient({
-    fetchFn:  _fetch,
-    apiKey:   defaultApiKey,
-    delay:    REQUEST_DELAY,
-    cacheDir: _cacheDir,
-    aliases:  _loadAliases(),
-    slotFn:   nvdSlot,
-    logger: (level, _kw, msg) => {
-        if (level === 'warn') console.warn(`[nvd-client] ${msg}`);
-    },
-});
+const _nvdLogger = (level, _kw, msg) => {
+    if (level === 'warn') console.warn(`[nvd-client] ${msg}`);
+};
+
+let nvdClient;
+if (CVE_SOURCE === 'MITRE') {
+    try {
+        nvdClient = createMitreClient({
+            mirrorDir: path.join(__dirname, '..', 'data', 'mitre_mirror'),
+            logger: _nvdLogger,
+        });
+    } catch (e) {
+        console.error(`\n${e.message}`);
+        process.exit(1);
+    }
+} else {
+    nvdClient = createNvdClient({
+        fetchFn:  _fetch,
+        apiKey:   defaultApiKey,
+        delay:    REQUEST_DELAY,
+        cacheDir: _cacheDir,
+        aliases:  _loadAliases(),
+        slotFn:   nvdSlot,
+        logger: _nvdLogger,
+    });
+}
 
 // ─── Page injection ───────────────────────────────────────────────────────────
 // Injected before </body>: signals proxy mode and pre-fills settings.
@@ -232,6 +302,7 @@ const injectLines = [
     `window.__NVD_PROXY__       = '/api/scan';`,
     `window.__NVD_DELAY__       = ${REQUEST_DELAY};`,
     `window.__PORTABLE_ENABLE__ = ${portableEnable};`,
+    `window.__CPE_BASES__       = ${jsStr(_cpeBaseMap)};`,
 ];
 if (portableEnable) {
     for (const p of defaultPortables) {
@@ -288,8 +359,9 @@ async function cpeHandler(req, res) {
 }
 
 // ─── GET /api/cve-data ────────────────────────────────────────────────────────
-// CVE 查詢頁籤用：搜尋本機 data/ 目錄已快取的 CVE 資料（kw_*.json / cpe_*.json），
-// 不會對 NVD 發出任何請求。排除 cpekw_*.json（CPE 查找快取，schema 是 {products} 不是 {cves}）。
+// CVE 查詢頁籤用：搜尋本機 data/cve_cache/ 目錄已快取的 CVE 資料（kw_*.json / cpe_*.json），
+// 不會對 NVD 發出任何請求。CPE 字典查找快取（cpekw_*.json，schema 是 {products} 不是 {cves}）
+// 另存於 data/cpe_cache/，不在此目錄下，故不需額外排除。
 // Usage: GET /api/cve-data?q=putty 或 ?q=CVE-2024-12345
 async function cveDataHandler(req, res) {
     const reqUrl = new URL(req.url, 'http://localhost');
@@ -305,23 +377,24 @@ async function cveDataHandler(req, res) {
         res.end(JSON.stringify({ results: [] }));
         return;
     }
+    const cveCacheDir = path.join(_cacheDir, 'cve_cache');
     try {
         const qLower = q.toLowerCase();
         const qUpper = q.toUpperCase();
         let files;
         try {
-            files = await fs.promises.readdir(_cacheDir);
+            files = await fs.promises.readdir(cveCacheDir);
         } catch {
-            files = []; // data/ 目錄尚未建立（從未掃描過任何軟體）
+            files = []; // data/cve_cache/ 目錄尚未建立（從未掃描過任何軟體）
         }
         const results = [];
         for (const f of files) {
             if (!f.endsWith('.json')) continue;
             let parsed;
             try {
-                parsed = JSON.parse(await fs.promises.readFile(path.join(_cacheDir, f), 'utf-8'));
+                parsed = JSON.parse(await fs.promises.readFile(path.join(cveCacheDir, f), 'utf-8'));
             } catch { continue; }
-            if (!Array.isArray(parsed.cves)) continue; // 排除 cpekw_*.json
+            if (!Array.isArray(parsed.cves)) continue;
             const cacheKeyMatch = (parsed.cacheKey || '').toLowerCase().includes(qLower);
             const cveIdMatch = parsed.cves.some(v => (v.cve?.id || '').toUpperCase().includes(qUpper));
             if (cacheKeyMatch || cveIdMatch) {
@@ -343,20 +416,24 @@ async function cveDataHandler(req, res) {
 }
 
 // ─── POST /api/scan ───────────────────────────────────────────────────────────
-// Accepts { keywords: string[], maxCves: number, meta: object }.
+// Accepts { keywords: string[], maxCves: number, meta: object, names: object }.
 // Streams NDJSON: one {"keyword","data"} line per item, then {"done":true}.
 async function scanHandler(req, res) {
     const sid = newSid();
     const ip  = req.socket.remoteAddress || '?';
 
-    let keywords, maxCves, meta, cpeMap;
+    let keywords, maxCves, meta, names, portables;
     try {
         const body = await readBody(req);
         const parsed = JSON.parse(body);
         keywords = parsed.keywords;
         maxCves  = Math.max(1, parseInt(parsed.maxCves, 10) || 50);
         meta     = parsed.meta || {};
-        cpeMap   = (parsed.cpeMap && typeof parsed.cpeMap === 'object') ? parsed.cpeMap : {};
+        // searchName → { name, version }，僅供 log 顯示用（伺服器查詢一律以 keyword 為準）
+        names     = (parsed.names && typeof parsed.names === 'object') ? parsed.names : {};
+        // 哪些 searchName 是 Portable 軟體：CPE 偵測流程與一般軟體相同（皆由 server 自動偵測），
+        // 只是顯示用語不同——與 CLI 一致：Portable 找不到 CPE 顯示 ⚠ 警告，且不顯示「（自動偵測）」標籤
+        portables = new Set(Array.isArray(parsed.portables) ? parsed.portables : []);
         if (!Array.isArray(keywords) || keywords.length === 0)
             throw new Error('keywords must be a non-empty array');
     } catch (err) {
@@ -379,10 +456,13 @@ async function scanHandler(req, res) {
     const yearTag     = minYear ? String(minYear) : '不限';
 
     slog(sid, `▶ [${ip}] 開始掃描 ${total} 項軟體${portableTag} (白名單:${wl} 子元件:${skipped} 去重:${dedup})`);
-    slog(sid, `  設定：嚴重度≥${minSev}，年份≥${yearTag}，每項最多${maxCves}筆，API Key:${apiKeyTag}，預估${estSecs}秒`);
+    slog(sid, `  設定：嚴重度≥${minSev}，年份≥${yearTag}，API Key:${apiKeyTag}，預估${estSecs}秒`);
 
     let cancelled = false;
-    req.on('close', () => { cancelled = true; });
+    req.on('close', () => {
+        cancelled = true;
+        _pendingAcks.get(sid)?.resolve(); // 連線中斷時立即解除等待，不要卡滿 timeout
+    });
     res.on('error', () => {});
 
     res.writeHead(200, {
@@ -396,7 +476,7 @@ async function scanHandler(req, res) {
     // 解析 minYear（來自 meta.minYear），使用 UTC 避免時區偏移
     const coverageStart = minYear
         ? new Date(Date.UTC(minYear, 0, 1))
-        : new Date(Date.UTC(new Date().getUTCFullYear() - 5, 0, 1));
+        : new Date(Date.UTC(new Date().getUTCFullYear() - 1, 0, 1));
 
     let scanned = 0;
     for (let i = 0; i < keywords.length; i++) {
@@ -406,33 +486,55 @@ async function scanHandler(req, res) {
         const keyword = keywords[i];
         scanned++;
 
+        // 與 CLI 一致：先印標頭（軟體名稱/版本 + search 行），再印 CPE/快取等過程訊息，
+        // 不能等到最終結果回來才印——否則標頭會排在過程訊息之後，順序與 CLI 顛倒
+        const swName = names[keyword] || {};
+        slog(sid, `  [${scanned}/${total}] ${swName.name || keyword} v${swName.version || '?'}`);
+        slog(sid, `  [${scanned}/${total}]   search: "${keyword}"`);
+        if (!cancelled) {
+            res.write(JSON.stringify({ keyword, header: { name: swName.name || keyword, version: swName.version || '?' } }) + '\n');
+        }
+
         try {
             // 進度 log 回調：寫入 server log 並同時以 NDJSON log 行推送給前端
             // debug 等級（如 curl 網址）僅在 LOG_LEVEL=DEBUG 時才輸出，平時略過
             const itemLog = (level, msg) => {
                 if (level === 'debug' && !DEBUG_LOG) return;
-                slog(sid, `  [${scanned}/${total}] ${keyword} ${msg}`);
+                slog(sid, `  [${scanned}/${total}] ${msg}`);
                 if (!cancelled) res.write(JSON.stringify({ keyword, log: msg, level }) + '\n');
             };
 
-            // Portable 軟體使用前端傳來的 CPE 陣列（OR 邏輯，可能多個 vendor:product）；
-            // 一般軟體先自動偵測 CPE，找不到才 fallback 至 keywordSearch。
-            // CPE virtualMatchString 為索引查詢，比 keywordSearch 全文掃描更快且更穩定（降低 503）
-            let cpeBases = Array.isArray(cpeMap[keyword]) ? cpeMap[keyword] : []; // Portable 由前端傳入
-            if (cpeBases.length === 0) {
-                let cpeData = { products: [], fromCache: false };
-                try {
-                    cpeData = await nvdClient.fetchCPEs(keyword);
-                    const nameWords = keyword.toLowerCase().replace(/[^a-z0-9]/g, ' ').split(/\s+/).filter(w => w.length >= 2);
-                    cpeBases = findAllCPEBases(cpeData.products || [], nameWords);
-                } catch {}
-                if (cpeBases.length > 0) {
-                    const cacheTag = cpeData.fromCache
-                        ? `[CPE 快取] 命中（${cpeBases.length} 筆，今天已查詢過）`
-                        : `[CPE] 查詢完成（${cpeBases.length} 筆）`;
-                    itemLog('cache', cacheTag);
-                    itemLog('info', `自動偵測：${cpeBases.map(b => `${b.vendor}:${b.product}`).join(' | ')}`);
-                }
+            // 所有軟體（含 Portable）都先嘗試 CPE 查詢，與 CLI 一致：CPE virtualMatchString 為索引查詢，
+            // 比 keywordSearch 全文掃描更快、更準確。Portable 只是顯示用語不同（不顯示「自動偵測」標籤，
+            // 找不到 CPE 時顯示 ⚠ 警告），偵測流程本身完全相同。
+            const isPortable = portables.has(keyword);
+            let cpeData = { products: [], fromCache: false };
+            let cpeBases = [];
+            const knownBases = _cpeBaseMap[keyword.toLowerCase()];
+            if (knownBases) {
+                // .env.local 指定的標準 CPE base（通用知名軟體）→ 跳過字典查詢，直接精準查
+                cpeBases = knownBases;
+                itemLog('cache', `[CPE 指定] 使用 .env.local 設定的標準 CPE（${cpeBases.length} 筆，略過字典查詢）`);
+                itemLog('info', cpeBases.map(b => `cpe:2.3:a:${b.vendor}:${b.product}:*`).join(' | '));
+            } else {
+            try {
+                cpeData = await nvdClient.fetchCPEs(keyword);
+                const nameWords = keyword.toLowerCase().replace(/[^a-z0-9]/g, ' ').split(/\s+/).filter(w => w.length >= 2);
+                cpeBases = findAllCPEBases(cpeData.products || [], nameWords);
+            } catch {}
+            if (cpeBases.length > 0) {
+                const cacheTag = cpeData.fromCache
+                    ? `[CPE 快取] 命中（${cpeBases.length} 筆，今天已查詢過）`
+                    : `[CPE] 查詢完成（${cpeBases.length} 筆）`;
+                itemLog('cache', cacheTag);
+                itemLog('info', cpeBases.map(b => `cpe:2.3:a:${b.vendor}:${b.product}:*`).join(' | '));
+            } else if (cpeData && cpeData.tooGeneric) {
+                itemLog('info', `關鍵字過於通用（命中 ${cpeData.totalResults} 筆 CPE），改用關鍵字搜尋`);
+            } else if (isPortable) {
+                itemLog('warn', '⚠ 未找到對應 CPE，改用關鍵字比對');
+            } else {
+                itemLog('info', '未找到對應 CPE，使用關鍵字搜尋');
+            }
             }
 
             // 找到多個 CPE base 時逐一查詢並依 CVE id 合併去重，
@@ -444,7 +546,7 @@ async function scanHandler(req, res) {
                 newCount  = 0;
                 for (let bi = 0; bi < cpeBases.length; bi++) {
                     const base = cpeBases[bi];
-                    itemLog('info', `查詢 (${bi + 1}/${cpeBases.length})CPE：cpe:2.3:a:${base.vendor}:${base.product}:*`);
+                    itemLog('info', `查詢 (${bi + 1}/${cpeBases.length}) cpe:2.3:a:${base.vendor}:${base.product}:*`);
                     const r = await nvdClient.fetchCVEs({
                         queryType:  'cpe',
                         queryValue: base,
@@ -455,6 +557,26 @@ async function scanHandler(req, res) {
                     for (const v of r.cves) cveMap.set(v.cve.id, v);
                     fromCache = fromCache && r.fromCache;
                     newCount += r.newCount;
+                }
+                // 補撈：CPE 查詢漏掉 NVD 尚未分析（Awaiting Analysis、無 CPE 適用性）的新 CVE
+                // （例：FFmpeg CVE-2026-8461）。同範圍 keyword 查詢補回「無 CPE 且參考連結指向本
+                // 軟體」者，後續前端 relevance 會標 _pendingNvd（⚠ NVD 分析中）。與 CLI 一致。
+                const rkw = await nvdClient.fetchCVEs({
+                    queryType:  'keyword',
+                    queryValue: keyword,
+                    coverageStart,
+                    endDate:    new Date(),
+                    log:        itemLog,
+                });
+                fromCache = fromCache && rkw.fromCache;
+                newCount += rkw.newCount;
+                let suppCount = 0;
+                for (const v of rkw.cves) {
+                    if (cveMap.has(v.cve.id)) continue;
+                    if (isPendingSupplementCVE(v.cve, cpeBases)) { cveMap.set(v.cve.id, v); suppCount++; }
+                }
+                if (suppCount > 0) {
+                    itemLog('info', `關鍵字補撈：新增 ${suppCount} 筆 NVD 尚未分析（無 CPE 適用性）的 CVE，待人工確認`);
                 }
                 cves = [...cveMap.values()];
             } else {
@@ -471,16 +593,18 @@ async function scanHandler(req, res) {
 
             const data = { vulnerabilities: cves, totalResults: cves.length, resultsPerPage: cves.length };
             const cacheTag = fromCache ? '（快取）' : `（新增 ${newCount} 筆）`;
-            slog(sid, `  [${scanned}/${total}] ${keyword} — 共 ${cves.length} 筆 CVE${cacheTag}，（尚未過濾嚴重度/年份/關聯性）`);
+            slog(sid, `  [${scanned}/${total}] 共 ${cves.length} 筆 CVE${cacheTag}，（尚未過濾嚴重度/年份/關聯性）`);
             // cpeBases（無論來自前端或伺服器自動偵測）一併送回前端，讓前端改用 cveMatchesCPEBase 精確比對
             const ndjsonPayload = { keyword, data };
             if (cpeBases.length > 0) ndjsonPayload.cpeBases = cpeBases;
             res.write(JSON.stringify(ndjsonPayload) + '\n');
+            if (!cancelled) await waitForAck(sid, keyword);
 
         } catch (err) {
             if (err.name === 'AbortError') break;
-            slog(sid, `  [${scanned}/${total}] ${keyword} — 失敗：${err.message}`);
+            slog(sid, `  [${scanned}/${total}] 失敗：${err.message}`);
             res.write(JSON.stringify({ keyword, error: err.message }) + '\n');
+            if (!cancelled) await waitForAck(sid, keyword);
         }
     }
 
@@ -499,10 +623,19 @@ const server = http.createServer((req, res) => {
     if (req.url === '/api/log' && req.method === 'POST') {
         readBody(req).then(body => {
             try {
-                const { sid, msg } = JSON.parse(body);
+                const { sid, msg, keyword } = JSON.parse(body);
                 if (sid && msg) {
-                    for (const line of String(msg).split('\n'))
-                        slog(sid, `  ${line}`);
+                    // 空字串行代表前端標記「此軟體區塊結束」，印出真正空白行（無 sid/時間戳前綴）分隔
+                    for (const line of String(msg).split('\n')) {
+                        if (line === '') slogBlank();
+                        else slog(sid, `  ${line}`);
+                    }
+                }
+                // 帶 keyword 表示這是某筆軟體的判斷結果回傳，通知 scanHandler 解除等待、繼續下一筆
+                // （核對 keyword 避免「掃描完成」「使用者下載報表」等其他 /api/log 呼叫誤觸發 ack）
+                if (sid && keyword) {
+                    const pending = _pendingAcks.get(sid);
+                    if (pending && pending.keyword === keyword) pending.resolve();
                 }
             } catch (_) {}
             res.writeHead(204); res.end();
@@ -593,6 +726,7 @@ server.listen(PORT, '0.0.0.0', () => {
 
     console.log(`${c.gray}${'─'.repeat(40)}${c.reset}`);
     console.log(`${c.gray}掃描端點：${c.reset} POST /api/scan (NDJSON stream), GET /api/cpe (CPE 查找), GET /api/cve-data (CVE 查詢)`);
+    console.log(`${c.gray}CVE 來源：${c.reset} ${c.cyan}${CVE_SOURCE}${c.reset}`);
     if (defaultApiKey)    console.log(`${c.gray}API Key：${c.reset}  已載入（0.7 秒/次）`);
     else                  console.log(`${c.gray}API Key：${c.reset}  未設定（6.5 秒/次）`);
     if (defaultWhitelist) console.log(`${c.gray}白名單：${c.reset}   ${defaultWhitelist}`);

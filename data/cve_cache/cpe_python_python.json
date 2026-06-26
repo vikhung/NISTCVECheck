@@ -1,0 +1,3340 @@
+{
+  "cveCount": 12,
+  "cacheKey": "cpe_python_python",
+  "coverageStart": "2025-01-01T00:00:00.000Z",
+  "lastFetchedAt": "2026-06-26T11:06:02.403Z",
+  "cves": [
+    {
+      "cve": {
+        "id": "CVE-2025-13462",
+        "sourceIdentifier": "cna@python.org",
+        "published": "2026-03-12T18:16:21.397",
+        "lastModified": "2026-06-17T08:34:11.453",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "The \"tarfile\" module would still apply normalization of AREGTYPE (\\x00) blocks to DIRTYPE, even while processing a multi-block member such as GNUTYPE_LONGNAME or GNUTYPE_LONGLINK. This could result in a crafted tar archive being misinterpreted by the tarfile module compared to other implementations."
+          },
+          {
+            "lang": "es",
+            "value": "El módulo 'tarfile' seguiría aplicando la normalización de bloques AREGTYPE (\\x00) a DIRTYPE, incluso al procesar un miembro de múltiples bloques como GNUTYPE_LONGNAME o GNUTYPE_LONGLINK. Esto podría resultar en un archivo tar manipulado siendo malinterpretado por el módulo tarfile en comparación con otras implementaciones."
+          }
+        ],
+        "affected": [
+          {
+            "source": "cna@python.org",
+            "affectedData": [
+              {
+                "vendor": "Python Software Foundation",
+                "product": "CPython",
+                "defaultStatus": "unaffected",
+                "modules": [
+                  "tarfile"
+                ],
+                "repo": "https://github.com/python/cpython",
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "3.13.13",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.14.0",
+                    "lessThan": "3.14.4",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.15.0a1",
+                    "lessThan": "3.15.0a8",
+                    "versionType": "python",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "cna@python.org",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:L/AC:H/AT:P/PR:L/UI:N/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 2,
+                "baseSeverity": "LOW",
+                "attackVector": "LOCAL",
+                "attackComplexity": "HIGH",
+                "attackRequirements": "PRESENT",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "vulnConfidentialityImpact": "NONE",
+                "vulnIntegrityImpact": "LOW",
+                "vulnAvailabilityImpact": "NONE",
+                "subConfidentialityImpact": "NONE",
+                "subIntegrityImpact": "NONE",
+                "subAvailabilityImpact": "NONE",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:N",
+                "baseScore": 3.3,
+                "baseSeverity": "LOW",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "LOW",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 1.8,
+              "impactScore": 1.4
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-03-12T19:09:23.808172Z",
+                "id": "CVE-2025-13462",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-20"
+              },
+              {
+                "lang": "en",
+                "value": "CWE-74"
+              },
+              {
+                "lang": "en",
+                "value": "CWE-434"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "3.13.13",
+                    "matchCriteriaId": "74460139-CF2A-457B-82B4-7B655FB576B1"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "3.14.0",
+                    "versionEndExcluding": "3.14.4",
+                    "matchCriteriaId": "AA3B34C3-1E02-4674-8370-0DD4D24DBE58"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha1:*:*:*:*:*:*",
+                    "matchCriteriaId": "A3327507-0B1D-4F28-A983-D07A2C8A7696"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha2:*:*:*:*:*:*",
+                    "matchCriteriaId": "C8AF17F1-A27F-4C98-BA5A-B4319710E8D1"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha3:*:*:*:*:*:*",
+                    "matchCriteriaId": "24CF56B0-2F4E-42A2-B655-F493AA0A4815"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha4:*:*:*:*:*:*",
+                    "matchCriteriaId": "7184ABBA-B100-489E-B5C1-1C9EEC0546CA"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha5:*:*:*:*:*:*",
+                    "matchCriteriaId": "B6D4181B-3E1B-499B-AAB1-50868A6A6AD3"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha6:*:*:*:*:*:*",
+                    "matchCriteriaId": "A52F6DD2-717D-4E8C-8DB7-00890BC1ABAE"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha7:*:*:*:*:*:*",
+                    "matchCriteriaId": "8C46C55C-801E-4F86-B669-8E6A12B4AB6F"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/python/cpython/commit/42d754e34c06e57ad6b8e7f92f32af679912d8ab",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/72dde1016493c52abe857fc4a7bf6c40138b4114",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/7ad3093d76a748af55bdb1d2e8aad3638163b017",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/9a23b753552afa28e3a2f4d8863572fc66479406",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/ae99fe3a33b43e303a05f012815cef60b611a9c7",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/d10950739a78f54d0718d88fb5a868374603c084",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/issues/141707",
+            "source": "cna@python.org",
+            "tags": [
+              "Issue Tracking"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/pull/143934",
+            "source": "cna@python.org",
+            "tags": [
+              "Issue Tracking",
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://mail.python.org/archives/list/security-announce@python.org/thread/EOMI5I66ZMKQ2INNFT6T7IAIKUGPZYIE/",
+            "source": "cna@python.org",
+            "tags": [
+              "Mailing List",
+              "Vendor Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-3644",
+        "sourceIdentifier": "cna@python.org",
+        "published": "2026-03-16T18:16:09.907",
+        "lastModified": "2026-06-17T10:43:54.930",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "The fix for CVE-2026-0672, which rejected control characters in http.cookies.Morsel, was incomplete. The Morsel.update(), |= operator, and unpickling paths were not patched, allowing control characters to bypass input validation. Additionally, BaseCookie.js_output() lacked the output validation applied to BaseCookie.output()."
+          },
+          {
+            "lang": "es",
+            "value": "La solución para CVE-2026-0672, que rechazaba caracteres de control en http.cookies.Morsel, era incompleta. Los métodos Morsel.update(), el operador |= y las rutas de deserialización no fueron parcheados, permitiendo que los caracteres de control eludieran la validación de entrada. Además, BaseCookie.js_output() carecía de la validación de salida aplicada a BaseCookie.output()."
+          }
+        ],
+        "affected": [
+          {
+            "source": "cna@python.org",
+            "affectedData": [
+              {
+                "vendor": "Python Software Foundation",
+                "product": "CPython",
+                "defaultStatus": "unaffected",
+                "modules": [
+                  "http.cookies"
+                ],
+                "repo": "https://github.com/python/cpython",
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "3.13.13",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.14.0",
+                    "lessThan": "3.14.4",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.15.0a1",
+                    "lessThan": "3.15.0a8",
+                    "versionType": "python",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "cna@python.org",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:N/AC:L/AT:P/PR:L/UI:N/VC:L/VI:H/VA:N/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 6,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "attackRequirements": "PRESENT",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "vulnConfidentialityImpact": "LOW",
+                "vulnIntegrityImpact": "HIGH",
+                "vulnAvailabilityImpact": "NONE",
+                "subConfidentialityImpact": "NONE",
+                "subIntegrityImpact": "NONE",
+                "subAvailabilityImpact": "NONE",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+                "baseScore": 7.5,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 3.6
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-03-16T18:25:27.051552Z",
+                "id": "CVE-2026-3644",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-20"
+              },
+              {
+                "lang": "en",
+                "value": "CWE-116"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "3.13.13",
+                    "matchCriteriaId": "74460139-CF2A-457B-82B4-7B655FB576B1"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "3.14.0",
+                    "versionEndExcluding": "3.14.4",
+                    "matchCriteriaId": "AA3B34C3-1E02-4674-8370-0DD4D24DBE58"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha1:*:*:*:*:*:*",
+                    "matchCriteriaId": "A3327507-0B1D-4F28-A983-D07A2C8A7696"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha2:*:*:*:*:*:*",
+                    "matchCriteriaId": "C8AF17F1-A27F-4C98-BA5A-B4319710E8D1"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha3:*:*:*:*:*:*",
+                    "matchCriteriaId": "24CF56B0-2F4E-42A2-B655-F493AA0A4815"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha4:*:*:*:*:*:*",
+                    "matchCriteriaId": "7184ABBA-B100-489E-B5C1-1C9EEC0546CA"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha5:*:*:*:*:*:*",
+                    "matchCriteriaId": "B6D4181B-3E1B-499B-AAB1-50868A6A6AD3"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha6:*:*:*:*:*:*",
+                    "matchCriteriaId": "A52F6DD2-717D-4E8C-8DB7-00890BC1ABAE"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha7:*:*:*:*:*:*",
+                    "matchCriteriaId": "8C46C55C-801E-4F86-B669-8E6A12B4AB6F"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/python/cpython/commit/57e88c1cf95e1481b94ae57abe1010469d47a6b4",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/62ceb396fcbe69da1ded3702de586f4072b590dd",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/d16ecc6c3626f0e2cc8f08c309c83934e8a979dd",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/issues/145599",
+            "source": "cna@python.org",
+            "tags": [
+              "Issue Tracking"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/pull/145600",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://mail.python.org/archives/list/security-announce@python.org/thread/H6CADMBCDRFGWCMOXWUIHFJNV43GABJ7/",
+            "source": "cna@python.org",
+            "tags": [
+              "Third Party Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-4224",
+        "sourceIdentifier": "cna@python.org",
+        "published": "2026-03-16T18:16:10.070",
+        "lastModified": "2026-06-17T10:56:15.297",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "When an Expat parser with a registered ElementDeclHandler parses an inline\ndocument type definition containing a deeply nested content model a C stack\noverflow occurs."
+          },
+          {
+            "lang": "es",
+            "value": "Cuando un analizador Expat con un ElementDeclHandler registrado analiza una definición de tipo de documento en línea que contiene un modelo de contenido profundamente anidado, se produce un desbordamiento de pila C."
+          }
+        ],
+        "affected": [
+          {
+            "source": "cna@python.org",
+            "affectedData": [
+              {
+                "vendor": "Python Software Foundation",
+                "product": "CPython",
+                "defaultStatus": "unaffected",
+                "repo": "https://github.com/python/cpython",
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "3.13.13",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.14.0",
+                    "lessThan": "3.14.4",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.15.0a1",
+                    "lessThan": "3.15.0a8",
+                    "versionType": "python",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "cna@python.org",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:N/AC:L/AT:P/PR:L/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 6,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "attackRequirements": "PRESENT",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "vulnConfidentialityImpact": "NONE",
+                "vulnIntegrityImpact": "NONE",
+                "vulnAvailabilityImpact": "HIGH",
+                "subConfidentialityImpact": "NONE",
+                "subIntegrityImpact": "NONE",
+                "subAvailabilityImpact": "NONE",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "baseScore": 7.5,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 3.6
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-03-16T18:20:48.548008Z",
+                "id": "CVE-2026-4224",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-674"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "3.10.0",
+                    "matchCriteriaId": "B50E99CC-5784-49AD-B11D-6873DE2AC6D3"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "3.13.0",
+                    "versionEndExcluding": "3.13.13",
+                    "matchCriteriaId": "007095D5-A427-40FC-AA54-37477BCC0D06"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "3.14.0",
+                    "versionEndExcluding": "3.14.4",
+                    "matchCriteriaId": "AA3B34C3-1E02-4674-8370-0DD4D24DBE58"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha1:*:*:*:*:*:*",
+                    "matchCriteriaId": "A3327507-0B1D-4F28-A983-D07A2C8A7696"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha2:*:*:*:*:*:*",
+                    "matchCriteriaId": "C8AF17F1-A27F-4C98-BA5A-B4319710E8D1"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha3:*:*:*:*:*:*",
+                    "matchCriteriaId": "24CF56B0-2F4E-42A2-B655-F493AA0A4815"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha4:*:*:*:*:*:*",
+                    "matchCriteriaId": "7184ABBA-B100-489E-B5C1-1C9EEC0546CA"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha5:*:*:*:*:*:*",
+                    "matchCriteriaId": "B6D4181B-3E1B-499B-AAB1-50868A6A6AD3"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha6:*:*:*:*:*:*",
+                    "matchCriteriaId": "A52F6DD2-717D-4E8C-8DB7-00890BC1ABAE"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha7:*:*:*:*:*:*",
+                    "matchCriteriaId": "8C46C55C-801E-4F86-B669-8E6A12B4AB6F"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/python/cpython/commit/196edfb06a7458377d4d0f4b3cd41724c1f3bd4a",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/642865ddf4b232da1f3b1f7abcfa3254c4bfe785",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/af856a7177326ac25d9f66cc6dd28b554d914fee",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/e0a8a6da90597a924b300debe045cdb4628ee1f3",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/eb0e8be3a7e11b87d198a2c3af1ed0eccf532768",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/issues/145986",
+            "source": "cna@python.org",
+            "tags": [
+              "Issue Tracking"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/pull/145987",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://mail.python.org/archives/list/security-announce@python.org/thread/5M7CGUW3XBRY7II4DK43KF7NQQ3TPZ6R/",
+            "source": "cna@python.org",
+            "tags": [
+              "Third Party Advisory"
+            ]
+          },
+          {
+            "url": "http://www.openwall.com/lists/oss-security/2026/03/16/4",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Mailing List",
+              "Third Party Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-4519",
+        "sourceIdentifier": "cna@python.org",
+        "published": "2026-03-20T15:16:24.057",
+        "lastModified": "2026-06-17T10:56:44.693",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "The webbrowser.open() API would accept leading dashes in the URL which \ncould be handled as command line options for certain web browsers. New \nbehavior rejects leading dashes. Users are recommended to sanitize URLs \nprior to passing to webbrowser.open()."
+          },
+          {
+            "lang": "es",
+            "value": "La API webbrowser.open() aceptaba guiones iniciales en la URL que podrían ser interpretados como opciones de línea de comandos para ciertos navegadores web. El nuevo comportamiento rechaza los guiones iniciales. Se recomienda a los usuarios sanear las URL antes de pasarlas a webbrowser.open()."
+          }
+        ],
+        "affected": [
+          {
+            "source": "cna@python.org",
+            "affectedData": [
+              {
+                "vendor": "Python Software Foundation",
+                "product": "CPython",
+                "defaultStatus": "unaffected",
+                "modules": [
+                  "webbrowser"
+                ],
+                "repo": "https://github.com/python/cpython",
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "3.13.13",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.14.0",
+                    "lessThan": "3.14.4",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.15.0a1",
+                    "lessThan": "3.15.0a8",
+                    "versionType": "python",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "cna@python.org",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:L/AC:L/AT:P/PR:N/UI:A/VC:H/VI:H/VA:N/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 7,
+                "baseSeverity": "HIGH",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "attackRequirements": "PRESENT",
+                "privilegesRequired": "NONE",
+                "userInteraction": "ACTIVE",
+                "vulnConfidentialityImpact": "HIGH",
+                "vulnIntegrityImpact": "HIGH",
+                "vulnAvailabilityImpact": "NONE",
+                "subConfidentialityImpact": "NONE",
+                "subIntegrityImpact": "NONE",
+                "subAvailabilityImpact": "NONE",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N",
+                "baseScore": 3.3,
+                "baseSeverity": "LOW",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "LOW",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 1.8,
+              "impactScore": 1.4
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-03-25T14:30:47.809505Z",
+                "id": "CVE-2026-4519",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-20"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "3.13.13",
+                    "matchCriteriaId": "74460139-CF2A-457B-82B4-7B655FB576B1"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "3.14.0",
+                    "versionEndExcluding": "3.14.4",
+                    "matchCriteriaId": "AA3B34C3-1E02-4674-8370-0DD4D24DBE58"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha1:*:*:*:*:*:*",
+                    "matchCriteriaId": "A3327507-0B1D-4F28-A983-D07A2C8A7696"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha2:*:*:*:*:*:*",
+                    "matchCriteriaId": "C8AF17F1-A27F-4C98-BA5A-B4319710E8D1"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha3:*:*:*:*:*:*",
+                    "matchCriteriaId": "24CF56B0-2F4E-42A2-B655-F493AA0A4815"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha4:*:*:*:*:*:*",
+                    "matchCriteriaId": "7184ABBA-B100-489E-B5C1-1C9EEC0546CA"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha5:*:*:*:*:*:*",
+                    "matchCriteriaId": "B6D4181B-3E1B-499B-AAB1-50868A6A6AD3"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha6:*:*:*:*:*:*",
+                    "matchCriteriaId": "A52F6DD2-717D-4E8C-8DB7-00890BC1ABAE"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha7:*:*:*:*:*:*",
+                    "matchCriteriaId": "8C46C55C-801E-4F86-B669-8E6A12B4AB6F"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/python/cpython/commit/3681d47a440865aead912a054d4599087b4270dd",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/43fe06b96f6a6cf5cfd5bdab20b8649374956866",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/591ed890270c5697b013bf637029fb3e6cd2d73e",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/594b5a05dc9913880ac92eded440defbf32a28d1",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/82a24a4442312bdcfc4c799885e8b3e00990f02b",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/89bfb8e5ed3c7caa241028f1a4eac5f6275a46a4",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/9669a912a0e329c094e992204d6bdb8787024d76",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/96fc5048605863c7b6fd6289643feb0e97edd96c",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/ad4d5ba32af4d80b0dfa2ba9d8203bfb219e60a5",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/cbba6119391112aba9c5aebf7b94aea447922c48",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/cc023511238ad93ecc8796157c6f9139a2bb2932",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/ceac1efc66516ac387eef2c9a0ce671895b44f03",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/issues/143930",
+            "source": "cna@python.org",
+            "tags": [
+              "Issue Tracking",
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/pull/143931",
+            "source": "cna@python.org",
+            "tags": [
+              "Issue Tracking",
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://mail.python.org/archives/list/security-announce@python.org/thread/AY5NDSS433JK56Q7Q5IS7B37QFZVVOUS/",
+            "source": "cna@python.org",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          },
+          {
+            "url": "http://www.openwall.com/lists/oss-security/2026/03/20/1",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Mailing List",
+              "Third Party Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-6019",
+        "sourceIdentifier": "cna@python.org",
+        "published": "2026-04-22T20:16:42.617",
+        "lastModified": "2026-06-17T11:00:10.560",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "http.cookies.Morsel.js_output() returns an inline <script> snippet and only escapes \" for JavaScript string context. It does not neutralize the HTML parser-sensitive sequence </script> inside the generated script element. Mitigation base64-encodes the cookie value to disallow escaping using cookie value."
+          }
+        ],
+        "affected": [
+          {
+            "source": "cna@python.org",
+            "affectedData": [
+              {
+                "vendor": "Python Software Foundation",
+                "product": "CPython",
+                "defaultStatus": "unaffected",
+                "repo": "https://github.com/python/cpython",
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "3.13.14",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.14.0a1",
+                    "lessThan": "3.14.5rc1",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.15.0a1",
+                    "lessThan": "3.15.0b1",
+                    "versionType": "python",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "cna@python.org",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:N/AC:L/AT:P/PR:H/UI:N/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 2.1,
+                "baseSeverity": "LOW",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "attackRequirements": "PRESENT",
+                "privilegesRequired": "HIGH",
+                "userInteraction": "NONE",
+                "vulnConfidentialityImpact": "LOW",
+                "vulnIntegrityImpact": "LOW",
+                "vulnAvailabilityImpact": "NONE",
+                "subConfidentialityImpact": "NONE",
+                "subIntegrityImpact": "NONE",
+                "subAvailabilityImpact": "NONE",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+                "baseScore": 6.1,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "CHANGED",
+                "confidentialityImpact": "LOW",
+                "integrityImpact": "LOW",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 2.7
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-04-22T20:02:17.071906Z",
+                "id": "CVE-2026-6019",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "cna@python.org",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-150"
+              }
+            ]
+          },
+          {
+            "source": "nvd@nist.gov",
+            "type": "Primary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-116"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "3.15.0",
+                    "matchCriteriaId": "43B0671A-35BB-4EE4-8A68-E79B62A75547"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/python/cpython/commit/3c59b8b53fc75c7f9578d16fb8201ceb43e8f76c",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/76b3923d688c0efc580658476c5f525ec8735104",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/f795e042043dfe26c42e1971d4502c1cdc4c65b8",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/issues/90309",
+            "source": "cna@python.org",
+            "tags": [
+              "Exploit",
+              "Issue Tracking"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/pull/148848",
+            "source": "cna@python.org",
+            "tags": [
+              "Issue Tracking",
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://mail.python.org/archives/list/security-announce@python.org/thread/IVNWGV2BBNC3RHQAFS22UP4DY56SAXX3/",
+            "source": "cna@python.org",
+            "tags": [
+              "Mailing List",
+              "Vendor Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-3087",
+        "sourceIdentifier": "cna@python.org",
+        "published": "2026-04-27T21:16:42.480",
+        "lastModified": "2026-06-17T10:43:01.560",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "If `shutil.unpack_archive()` is given a ZIP archive with an absolute Windows path containing a drive (`C:\\\\...`) then the archive will be extracted outside the target directory which is different than other operating systems. Only Windows is affected by this vulnerability."
+          }
+        ],
+        "affected": [
+          {
+            "source": "cna@python.org",
+            "affectedData": [
+              {
+                "vendor": "Python Software Foundation",
+                "product": "CPython",
+                "defaultStatus": "unaffected",
+                "modules": [
+                  "shutil"
+                ],
+                "repo": "https://github.com/python/cpython",
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "3.13.14",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.14.0a1",
+                    "lessThan": "3.14.5rc1",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.15.0a1",
+                    "lessThan": "3.15.0b1",
+                    "versionType": "python",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "cna@python.org",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:N/AC:L/AT:P/PR:L/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 6,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "attackRequirements": "PRESENT",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "vulnConfidentialityImpact": "NONE",
+                "vulnIntegrityImpact": "HIGH",
+                "vulnAvailabilityImpact": "NONE",
+                "subConfidentialityImpact": "NONE",
+                "subIntegrityImpact": "NONE",
+                "subAvailabilityImpact": "NONE",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+                "baseScore": 7.5,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 3.6
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-04-28T13:38:08.747185Z",
+                "id": "CVE-2026-3087",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "cna@python.org",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-22"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "operator": "AND",
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:*:*:*:*:*:*:*:*",
+                    "versionEndIncluding": "3.14.4",
+                    "matchCriteriaId": "8DA90507-80E6-4412-BBC7-F4D17DF6BCD7"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha1:*:*:*:*:*:*",
+                    "matchCriteriaId": "A3327507-0B1D-4F28-A983-D07A2C8A7696"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha2:*:*:*:*:*:*",
+                    "matchCriteriaId": "C8AF17F1-A27F-4C98-BA5A-B4319710E8D1"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha3:*:*:*:*:*:*",
+                    "matchCriteriaId": "24CF56B0-2F4E-42A2-B655-F493AA0A4815"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha4:*:*:*:*:*:*",
+                    "matchCriteriaId": "7184ABBA-B100-489E-B5C1-1C9EEC0546CA"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha5:*:*:*:*:*:*",
+                    "matchCriteriaId": "B6D4181B-3E1B-499B-AAB1-50868A6A6AD3"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha6:*:*:*:*:*:*",
+                    "matchCriteriaId": "A52F6DD2-717D-4E8C-8DB7-00890BC1ABAE"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha7:*:*:*:*:*:*",
+                    "matchCriteriaId": "8C46C55C-801E-4F86-B669-8E6A12B4AB6F"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha8:*:*:*:*:*:*",
+                    "matchCriteriaId": "5A8DF8E5-61F9-4899-BF40-41A17E223441"
+                  }
+                ]
+              },
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": false,
+                    "criteria": "cpe:2.3:o:microsoft:windows:-:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "A2572D17-1DE6-457B-99CC-64AFD54487EA"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/python/cpython/commit/65b255416ae217bf0e22085be3c1976cea18bd8c",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/8e13025747e1ca72e86d1f35637123f9c306f0cb",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/8ee6aff14054b37b53e47194a2fa313e98163c94",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/ab5ef98af693bded74a738570e81ea70abef2840",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/b01e594fbe754a960212f908d047294e880b52fd",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/ba0aca3bffce431fe2fbd53ca4cd6a717a2e2c19",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/fc829e88753858c8ac669594bf0093f44948c0f4",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/issues/146581",
+            "source": "cna@python.org",
+            "tags": [
+              "Exploit",
+              "Issue Tracking",
+              "Patch",
+              "Vendor Advisory"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/pull/146591",
+            "source": "cna@python.org",
+            "tags": [
+              "Issue Tracking",
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://mail.python.org/archives/list/security-announce@python.org/thread/X6FXE5C6KDKOVNX3EC3DWD5RUPFWOZA4/",
+            "source": "cna@python.org",
+            "tags": [
+              "Mailing List",
+              "Vendor Advisory"
+            ]
+          },
+          {
+            "url": "http://www.openwall.com/lists/oss-security/2026/04/28/9",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Mailing List",
+              "Third Party Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-7210",
+        "sourceIdentifier": "cna@python.org",
+        "published": "2026-05-11T18:16:42.413",
+        "lastModified": "2026-06-17T11:02:00.563",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "`xml.parsers.expat` and `xml.etree.ElementTree` use insufficient entropy for Expat hash-flooding protection, which allows a crafted XML document to trigger hash flooding.\\r\\n\\r\\nFully mitigating this vulnerability requires both updating libexpat to 2.8.0 or later and applying this patch."
+          }
+        ],
+        "affected": [
+          {
+            "source": "cna@python.org",
+            "affectedData": [
+              {
+                "vendor": "Python Software Foundation",
+                "product": "CPython",
+                "defaultStatus": "unaffected",
+                "modules": [
+                  "xml",
+                  "expat"
+                ],
+                "repo": "https://github.com/python/cpython",
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "3.13.14",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.14.0",
+                    "lessThan": "3.14.6",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.15.0a1",
+                    "lessThan": "3.15.0b2",
+                    "versionType": "python",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "cna@python.org",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:N/AC:H/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 6.3,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "HIGH",
+                "attackRequirements": "NONE",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "vulnConfidentialityImpact": "NONE",
+                "vulnIntegrityImpact": "NONE",
+                "vulnAvailabilityImpact": "LOW",
+                "subConfidentialityImpact": "NONE",
+                "subIntegrityImpact": "NONE",
+                "subAvailabilityImpact": "NONE",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "baseScore": 7.5,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 3.6
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-05-11T18:53:57.884366Z",
+                "id": "CVE-2026-7210",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "cna@python.org",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-331"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "3.15.0",
+                    "matchCriteriaId": "43B0671A-35BB-4EE4-8A68-E79B62A75547"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/python/cpython/commit/24b8f12544468e4cedf5bfbe25442fcd495391e4",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/3573b3b1ecbd99030a0b18658e1bfece771b2566",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/eeea765cb9d8f1fc3d8918b272ac3c477983f27a",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/fc9b11ff49cbc82e6f917d07a61517a2b5f3145f",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/issues/149018",
+            "source": "cna@python.org",
+            "tags": [
+              "Issue Tracking"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/pull/149023",
+            "source": "cna@python.org",
+            "tags": [
+              "Issue Tracking",
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://mail.python.org/archives/list/security-announce@python.org/thread/PNY5OMBDPM2FRUZTWFFPJ6LISWKV627K/",
+            "source": "cna@python.org",
+            "tags": [
+              "Mailing List",
+              "Third Party Advisory"
+            ]
+          },
+          {
+            "url": "http://www.openwall.com/lists/oss-security/2026/05/11/13",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Mailing List",
+              "Third Party Advisory"
+            ]
+          },
+          {
+            "url": "http://www.openwall.com/lists/oss-security/2026/05/11/8",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Mailing List",
+              "Third Party Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2025-6075",
+        "sourceIdentifier": "cna@python.org",
+        "published": "2025-10-31T17:15:48.693",
+        "lastModified": "2026-06-17T10:01:06.110",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "If the value passed to os.path.expandvars() is user-controlled a \nperformance degradation is possible when expanding environment \nvariables."
+          }
+        ],
+        "affected": [
+          {
+            "source": "cna@python.org",
+            "affectedData": [
+              {
+                "vendor": "Python Software Foundation",
+                "product": "CPython",
+                "defaultStatus": "unaffected",
+                "repo": "https://github.com/python/cpython",
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "3.10.20",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.11.0",
+                    "lessThan": "3.11.15",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.12.0",
+                    "lessThan": "3.12.13",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.13.0",
+                    "lessThan": "3.13.10",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.14.0",
+                    "lessThan": "3.14.1",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.15.0a1",
+                    "lessThan": "3.15.0a2",
+                    "versionType": "python",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "cna@python.org",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:L/AC:L/AT:P/PR:H/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 1.8,
+                "baseSeverity": "LOW",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "attackRequirements": "PRESENT",
+                "privilegesRequired": "HIGH",
+                "userInteraction": "NONE",
+                "vulnConfidentialityImpact": "NONE",
+                "vulnIntegrityImpact": "NONE",
+                "vulnAvailabilityImpact": "LOW",
+                "subConfidentialityImpact": "NONE",
+                "subIntegrityImpact": "NONE",
+                "subAvailabilityImpact": "NONE",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+                "baseScore": 5.5,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 1.8,
+              "impactScore": 3.6
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2025-10-31T17:54:46.289107Z",
+                "id": "CVE-2025-6075",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-400"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "3.9.0",
+                    "matchCriteriaId": "6E6A50B5-4D36-483E-9326-8D824E197D27"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "3.13.1",
+                    "versionEndExcluding": "3.13.11",
+                    "matchCriteriaId": "16490D75-8319-4FF4-8DB1-94F1722DC561"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "3.14.0",
+                    "versionEndExcluding": "3.14.1",
+                    "matchCriteriaId": "6E66BA7A-987F-4E24-8B69-4F46D6FCD19E"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha1:*:*:*:*:*:*",
+                    "matchCriteriaId": "A3327507-0B1D-4F28-A983-D07A2C8A7696"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/python/cpython/commit/2e6150adccaaf5bd95d4c19dfd04a36e0b325d8c",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/5dceb93486176e6b4a6d9754491005113eb23427",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/631ba3407e3348ccd56ce5160c4fb2c5dc5f4d84",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/892747b4cf0f95ba8beb51c0d0658bfaa381ebca",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/9ab89c026aa9611c4b0b67c288b8303a480fe742",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/c8a5f3435c342964e0a432cc9fb448b7dbecd1ba",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/f029e8db626ddc6e3a3beea4eff511a71aaceb5c",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/issues/136065",
+            "source": "cna@python.org",
+            "tags": [
+              "Issue Tracking",
+              "Vendor Advisory"
+            ]
+          },
+          {
+            "url": "https://mail.python.org/archives/list/security-announce@python.org/thread/IUP5QJ6D4KK6ULHOMPC7DPNKRYQTQNLA/",
+            "source": "cna@python.org",
+            "tags": [
+              "Third Party Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2025-13836",
+        "sourceIdentifier": "cna@python.org",
+        "published": "2025-12-01T18:16:04.200",
+        "lastModified": "2026-06-17T08:34:50.760",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "When reading an HTTP response from a server, if no read amount is specified, the default behavior will be to use Content-Length. This allows a malicious server to cause the client to read large amounts of data into memory, potentially causing OOM or other DoS."
+          },
+          {
+            "lang": "es",
+            "value": "Al leer una respuesta HTTP de un servidor, si no se especifica una cantidad de lectura, el comportamiento predeterminado será usar Content-Length. Esto permite a un servidor malicioso hacer que el cliente lea grandes cantidades de datos en la memoria, lo que podría causar OOM u otro DoS."
+          }
+        ],
+        "affected": [
+          {
+            "source": "cna@python.org",
+            "affectedData": [
+              {
+                "vendor": "Python Software Foundation",
+                "product": "CPython",
+                "defaultStatus": "unaffected",
+                "modules": [
+                  "http.client"
+                ],
+                "repo": "https://github.com/python/cpython",
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "3.10.20",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.11.0",
+                    "lessThan": "3.11.15",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.12.0",
+                    "lessThan": "3.12.13",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.13.0",
+                    "lessThan": "3.13.11",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.14.0",
+                    "lessThan": "3.14.1",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.15.0a1",
+                    "lessThan": "3.15.0a3",
+                    "versionType": "python",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "cna@python.org",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:L/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 6.3,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "attackRequirements": "PRESENT",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "vulnConfidentialityImpact": "NONE",
+                "vulnIntegrityImpact": "NONE",
+                "vulnAvailabilityImpact": "LOW",
+                "subConfidentialityImpact": "NONE",
+                "subIntegrityImpact": "NONE",
+                "subAvailabilityImpact": "LOW",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "baseScore": 7.5,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 3.6
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2025-12-01T18:32:37.506031Z",
+                "id": "CVE-2025-13836",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-400"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "3.10.20",
+                    "matchCriteriaId": "1F853468-5391-4279-B369-E480A2B91D6C"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "3.11.0",
+                    "versionEndExcluding": "3.11.15",
+                    "matchCriteriaId": "7B38F8DA-DD8F-4887-AC85-CE843E21AD74"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "3.12.0",
+                    "versionEndExcluding": "3.12.13",
+                    "matchCriteriaId": "963DB620-5766-4093-A80B-03F7975F712B"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "3.13.0",
+                    "versionEndExcluding": "3.13.11",
+                    "matchCriteriaId": "7FE4D2F0-2F91-4444-87E4-F9231694D429"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.14.0:-:*:*:*:*:*:*",
+                    "matchCriteriaId": "D9A884CF-F98D-490D-A3B6-74F0DBFC3BD3"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha1:*:*:*:*:*:*",
+                    "matchCriteriaId": "A3327507-0B1D-4F28-A983-D07A2C8A7696"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha2:*:*:*:*:*:*",
+                    "matchCriteriaId": "C8AF17F1-A27F-4C98-BA5A-B4319710E8D1"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/python/cpython/commit/14b1fdb0a94b96f86fc7b86671ea9582b8676628",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/289f29b0fe38baf2d7cb5854f4bb573cc34a6a15",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/4ce27904b597c77d74dd93f2c912676021a99155",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/5a4c4a033a4a54481be6870aa1896fad732555b5",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/5dc101675fd22918facbbe0fecdc821502beaaf0",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/afc40bdd3dd71f343fd9016f6d8eebbacbd6587c",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/issues/119451",
+            "source": "cna@python.org",
+            "tags": [
+              "Issue Tracking",
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/pull/119454",
+            "source": "cna@python.org",
+            "tags": [
+              "Issue Tracking",
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://mail.python.org/archives/list/security-announce@python.org/thread/OQ6G7MKRQIS3OAREC3HNG3D2DPOU34XO/",
+            "source": "cna@python.org",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2025-13837",
+        "sourceIdentifier": "cna@python.org",
+        "published": "2025-12-01T18:16:04.380",
+        "lastModified": "2026-06-17T08:34:50.890",
+        "vulnStatus": "Modified",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "When loading a plist file, the plistlib module reads data in size specified by the file itself, meaning a malicious file can cause OOM and DoS issues"
+          },
+          {
+            "lang": "es",
+            "value": "Al cargar un archivo plist, el módulo plistlib lee datos en un tamaño especificado por el propio archivo, lo que significa que un archivo malicioso puede causar problemas de OOM y DoS."
+          }
+        ],
+        "affected": [
+          {
+            "source": "cna@python.org",
+            "affectedData": [
+              {
+                "vendor": "Python Software Foundation",
+                "product": "CPython",
+                "defaultStatus": "unaffected",
+                "modules": [
+                  "plistlib"
+                ],
+                "repo": "https://github.com/python/cpython",
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "3.10.20",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.11.0",
+                    "lessThan": "3.11.15",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.12.0",
+                    "lessThan": "3.12.13",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.13.0",
+                    "lessThan": "3.13.10",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.14.0",
+                    "lessThan": "3.14.1",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.15.0a1",
+                    "lessThan": "3.15.0a3",
+                    "versionType": "python",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "cna@python.org",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:L/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:L/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 2.1,
+                "baseSeverity": "LOW",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "attackRequirements": "PRESENT",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "vulnConfidentialityImpact": "NONE",
+                "vulnIntegrityImpact": "NONE",
+                "vulnAvailabilityImpact": "LOW",
+                "subConfidentialityImpact": "NONE",
+                "subIntegrityImpact": "LOW",
+                "subAvailabilityImpact": "NONE",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+                "baseScore": 5.5,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 1.8,
+              "impactScore": 3.6
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2025-12-01T18:23:28.615317Z",
+                "id": "CVE-2025-13837",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-400"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "3.13.10",
+                    "matchCriteriaId": "B02C195C-8271-4207-9FE9-E46C7A4978AE"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "3.14.0",
+                    "versionEndExcluding": "3.14.1",
+                    "matchCriteriaId": "6E66BA7A-987F-4E24-8B69-4F46D6FCD19E"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha1:*:*:*:*:*:*",
+                    "matchCriteriaId": "A3327507-0B1D-4F28-A983-D07A2C8A7696"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha2:*:*:*:*:*:*",
+                    "matchCriteriaId": "C8AF17F1-A27F-4C98-BA5A-B4319710E8D1"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/python/cpython/commit/568342cfc8f002d9a15f30238f26b9d2e0e79036",
+            "source": "cna@python.org"
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/5a8b19677d818fb41ee55f310233772e15aa1a2b",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/694922cf40aa3a28f898b5f5ee08b71b4922df70",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/71fa8eb8233b37f16c88b6e3e583b461b205d1ba",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/b64441e4852383645af5b435411a6f849dd1b4cb",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/cefee7d118a26ef6cd43db59bb9d98ca9a331111",
+            "source": "cna@python.org"
+          },
+          {
+            "url": "https://github.com/python/cpython/issues/119342",
+            "source": "cna@python.org",
+            "tags": [
+              "Issue Tracking",
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/pull/119343",
+            "source": "cna@python.org",
+            "tags": [
+              "Issue Tracking",
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://mail.python.org/archives/list/security-announce@python.org/thread/2X5IBCJXRQAZ5PSERLHMSJFBHFR3QM2C/",
+            "source": "cna@python.org",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2025-12084",
+        "sourceIdentifier": "cna@python.org",
+        "published": "2025-12-03T19:15:55.050",
+        "lastModified": "2026-06-17T08:31:41.583",
+        "vulnStatus": "Modified",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "When building nested elements using xml.dom.minidom methods such as appendChild() that have a dependency on _clear_id_cache() the algorithm is quadratic. Availability can be impacted when building excessively nested documents."
+          },
+          {
+            "lang": "es",
+            "value": "Al construir elementos anidados utilizando métodos de xml.dom.minidom como appendChild() que tienen una dependencia de _clear_id_cache(), el algoritmo es cuadrático. La disponibilidad puede verse afectada al construir documentos excesivamente anidados."
+          }
+        ],
+        "affected": [
+          {
+            "source": "cna@python.org",
+            "affectedData": [
+              {
+                "vendor": "Python Software Foundation",
+                "product": "CPython",
+                "defaultStatus": "unaffected",
+                "repo": "https://github.com/python/cpython",
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "3.10.20",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.11.0",
+                    "lessThan": "3.11.15",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.12.0",
+                    "lessThan": "3.12.13",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.13.0",
+                    "lessThan": "3.13.11",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.14.0",
+                    "lessThan": "3.14.2",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.15.0a1",
+                    "lessThan": "3.15.0a3",
+                    "versionType": "python",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "cna@python.org",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 6.3,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "attackRequirements": "PRESENT",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "vulnConfidentialityImpact": "NONE",
+                "vulnIntegrityImpact": "NONE",
+                "vulnAvailabilityImpact": "LOW",
+                "subConfidentialityImpact": "NONE",
+                "subIntegrityImpact": "NONE",
+                "subAvailabilityImpact": "NONE",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+                "baseScore": 5.3,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "LOW"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 1.4
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2025-12-03T19:13:23.548683Z",
+                "id": "CVE-2025-12084",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "yes"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-407"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "3.13.11",
+                    "matchCriteriaId": "701E94DB-563E-44FF-AABF-0F49A9FF664A"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "3.14.0",
+                    "versionEndExcluding": "3.14.2",
+                    "matchCriteriaId": "2DC54087-753D-4990-AD62-F7D6DCD125D4"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha1:*:*:*:*:*:*",
+                    "matchCriteriaId": "A3327507-0B1D-4F28-A983-D07A2C8A7696"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha2:*:*:*:*:*:*",
+                    "matchCriteriaId": "C8AF17F1-A27F-4C98-BA5A-B4319710E8D1"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/python/cpython/commit/027f21e417b26eed4505ac2db101a4352b7c51a0",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/08d8e18ad81cd45bc4a27d6da478b51ea49486e4",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/27648a1818749ef44c420afe6173af6868715437",
+            "source": "cna@python.org"
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/41f468786762348960486c166833a218a0a436af",
+            "source": "cna@python.org"
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/57937a8e5e293f0dcba5115f7b7a11b1e0c9a273",
+            "source": "cna@python.org"
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/8d2d7bb2e754f8649a68ce4116271a4932f76907",
+            "source": "cna@python.org"
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/9c9dda6625a2a90d2a06c657eee021d6be19842d",
+            "source": "cna@python.org"
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/a46c10ec9d4050ab67b8a932e0859a2ea60c3cb8",
+            "source": "cna@python.org"
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/a696ba8b4d42fd632afc9bc88ad830a2e4cceed8",
+            "source": "cna@python.org"
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/c97e87593063d84a2bd9fe7068b30eb44de23dc0",
+            "source": "cna@python.org"
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/ddcd2acd85d891a53e281c773b3093f9db953964",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/e91c11449cad34bac3ea55ee09ca557691d92b53",
+            "source": "cna@python.org"
+          },
+          {
+            "url": "https://github.com/python/cpython/issues/142145",
+            "source": "cna@python.org",
+            "tags": [
+              "Issue Tracking",
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/pull/142146",
+            "source": "cna@python.org",
+            "tags": [
+              "Issue Tracking",
+              "Patch"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2025-12781",
+        "sourceIdentifier": "cna@python.org",
+        "published": "2026-01-21T20:16:04.423",
+        "lastModified": "2026-06-17T08:32:56.797",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "When passing data to the b64decode(), standard_b64decode(), and urlsafe_b64decode() functions in the \"base64\" module the characters \"+/\" will always be accepted, regardless of the value of \"altchars\" parameter, typically used to establish an \"alternative base64 alphabet\" such as the URL safe alphabet. This behavior matches what is recommended in earlier base64 RFCs, but newer RFCs now recommend either dropping characters outside the specified base64 alphabet or raising an error. The old behavior has the possibility of causing data integrity issues.\n\n\n\n\nThis behavior can only be insecure if your application uses an alternate base64 alphabet (without \"+/\"). If your application does not use the \"altchars\" parameter or the urlsafe_b64decode() function, then your application does not use an alternative base64 alphabet.\n\n\n\n\nThe attached patches DOES NOT make the base64-decode behavior raise an error, as this would be a change in behavior and break existing programs. Instead, the patch deprecates the behavior which will be replaced with the newly recommended behavior in a future version of Python. Users are recommended to mitigate by verifying user-controlled inputs match the base64 \nalphabet they are expecting or verify that their application would not be \naffected if the b64decode() functions accepted \"+\" or \"/\" outside of altchars."
+          },
+          {
+            "lang": "es",
+            "value": "Al pasar datos a las funciones b64decode(), standard_b64decode() y urlsafe_b64decode() en el módulo \"base64\", los caracteres \"+/\" siempre serán aceptados, independientemente del valor del parámetro \"altchars\", típicamente usado para establecer un 'alfabeto base64 alternativo' como el alfabeto seguro para URL. Este comportamiento coincide con lo recomendado en RFCs de base64 anteriores, pero los RFCs más recientes ahora recomiendan o bien descartar caracteres fuera del alfabeto base64 especificado o generar un error. El comportamiento antiguo tiene la posibilidad de causar problemas de integridad de datos.\n\nEste comportamiento solo puede ser inseguro si su aplicación usa un alfabeto base64 alternativo (sin \"+/\"). Si su aplicación no usa el parámetro \"altchars\" o la función urlsafe_b64decode(), entonces su aplicación no usa un alfabeto base64 alternativo.\n\nLos parches adjuntos NO hacen que el comportamiento de decodificación base64 genere un error, ya que esto sería un cambio de comportamiento y rompería programas existentes. En su lugar, el parche desaprueba el comportamiento que será reemplazado por el comportamiento recién recomendado en una futura versión de Python. Se recomienda a los usuarios mitigar verificando que las entradas controladas por el usuario coincidan con el alfabeto base64 que esperan o verificar que su aplicación no se vería afectada si las funciones b64decode() aceptaran \"+\" o \"/\" fuera de altchars."
+          }
+        ],
+        "affected": [
+          {
+            "source": "cna@python.org",
+            "affectedData": [
+              {
+                "vendor": "Python Software Foundation",
+                "product": "CPython",
+                "defaultStatus": "unaffected",
+                "modules": [
+                  "base64"
+                ],
+                "repo": "https://github.com/python/cpython",
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "3.13.10",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.14.0",
+                    "lessThan": "3.14.1",
+                    "versionType": "python",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "3.15.0a1",
+                    "lessThan": "3.15.0a2",
+                    "versionType": "python",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "cna@python.org",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:N/AC:H/AT:P/PR:N/UI:N/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 6.3,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "HIGH",
+                "attackRequirements": "PRESENT",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "vulnConfidentialityImpact": "NONE",
+                "vulnIntegrityImpact": "LOW",
+                "vulnAvailabilityImpact": "NONE",
+                "subConfidentialityImpact": "NONE",
+                "subIntegrityImpact": "NONE",
+                "subAvailabilityImpact": "NONE",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+                "baseScore": 5.3,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "LOW",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 1.4
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-01-22T14:53:47.177224Z",
+                "id": "CVE-2025-12781",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-704"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "3.13.10",
+                    "matchCriteriaId": "B02C195C-8271-4207-9FE9-E46C7A4978AE"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "3.14.0",
+                    "versionEndExcluding": "3.14.1",
+                    "matchCriteriaId": "6E66BA7A-987F-4E24-8B69-4F46D6FCD19E"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:python:python:3.15.0:alpha1:*:*:*:*:*:*",
+                    "matchCriteriaId": "A3327507-0B1D-4F28-A983-D07A2C8A7696"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/python/cpython/commit/13360efd385d1a7d0659beba03787ea3d063ef9b",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/1be80bec7960f5ccd059e75f3dfbd45fca302947",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/9060b4abbe475591b6230b23c2afefeff26fcca5",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/e95e783dff443b68e8179fdb57737025bf02ba76",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/commit/fd17ee026fa9b67f6288cbafe374a3e479fe03a5",
+            "source": "cna@python.org",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/issues/125346",
+            "source": "cna@python.org",
+            "tags": [
+              "Exploit",
+              "Issue Tracking"
+            ]
+          },
+          {
+            "url": "https://github.com/python/cpython/pull/141128",
+            "source": "cna@python.org",
+            "tags": [
+              "Issue Tracking",
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://mail.python.org/archives/list/security-announce@python.org/thread/KRI7GC6S27YV5NJ4FPDALS2WI5ENAFJ6/",
+            "source": "cna@python.org",
+            "tags": [
+              "Mailing List",
+              "Vendor Advisory"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

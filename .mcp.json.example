@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    // "playwright": {
+    //   "command": "npx",
+    //   "args": [
+    //     "-y",
+    //     "@playwright/mcp@latest",
+    //     "--browser",
+    //     "msedge"
+    //   ]
+    // },
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp",
+      "args": [
+        "--header",
+        "CONTEXT7_API_KEY: ctx7sk-33307083-8060-4c88-b6f0-656794557670"
+      ]
+    }
+  }
+}

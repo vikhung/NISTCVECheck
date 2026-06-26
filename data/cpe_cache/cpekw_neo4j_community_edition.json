@@ -1,0 +1,57 @@
+{
+  "productCount": 2,
+  "cacheKey": "cpekw_neo4j_community_edition",
+  "fetchedAt": "2026-06-26T03:24:22.843Z",
+  "products": [
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:neo4j:neo4j:3.4.18:*:*:*:community:*:*:*",
+        "cpeNameId": "2B733D81-A3A9-4C77-BA35-DE6C2090D2F8",
+        "lastModified": "2021-08-23T11:52:44.443",
+        "created": "2021-08-12T15:28:20.727",
+        "titles": [
+          {
+            "title": "Neo4j 3.4.18 Community Edition",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.exploit-db.com/exploits/50170",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/neo4j/neo4j/releases",
+            "type": "Version"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:neo4j:neo4j:-:*:*:*:community:*:*:*",
+        "cpeNameId": "4943FB1E-39C4-4AAC-957A-C0D3A5120D43",
+        "lastModified": "2021-08-23T11:52:44.443",
+        "created": "2021-08-12T15:28:20.727",
+        "titles": [
+          {
+            "title": "Neo4j Community Edition",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.exploit-db.com/exploits/50170",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/neo4j/neo4j/releases",
+            "type": "Version"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -6,7 +6,7 @@
 
 - Node.js 18 以上
 - Windows（即時 Registry 掃描需要；使用 JSON 檔案輸入則不限平台）
-- 無需執行 `npm install`，僅使用 Node.js 內建模組
+- 首次使用前執行一次 `npm install`（僅 `adm-zip` 一個套件，供 `CVE_SOURCE=MITRE` 的本機鏡像同步腳本解壓縮用；`CVE_SOURCE=NIST`（預設）仍 100% 使用 Node.js 內建模組，不需要這個套件也能運作）
 
 ## 初始設定
 
@@ -35,6 +35,11 @@ node scripts/team-report.js                        # 讀取 .\team\ 目錄產生
 npm run web                                # 啟動 Web 伺服器（預設 Port 8093，先自動執行 build.js）
 npm run bundle                             # 單獨重新打包 web-client.html + .env.local
 
+# MITRE 本機鏡像（CVE_SOURCE=MITRE 之前必須先執行一次；之後可排程定期重跑保持更新）
+npm run sync-mitre                                 # 失敗重跑會自動從中斷處繼續，不會重新下載已完成的部分
+node scripts/mitre-sync.js --full                  # 忽略既有進度，強制重新下載/處理 baseline
+node scripts/mitre-sync.js --step=download-delta   # 手動單獨執行某一階段（除錯用，可用值見下）
+
 # 遠端機器產生 scan.json
 powershell -ExecutionPolicy Bypass -File findSW.ps1
 ```
@@ -44,11 +49,11 @@ powershell -ExecutionPolicy Bypass -File findSW.ps1
 | `FILE` | 檔案路徑 \| `-1` \| 省略 | 本機 Registry |
 | `MIN_SEVERITY` | `LOW` / `MEDIUM` / `HIGH` / `CRITICAL` \| `-1` | `HIGH` |
 | `LIMIT` | N \| `-1` | 不限 |
-| `MIN_YEAR` | YYYY \| `-1` | 當年 − 5 |
+| `MIN_YEAR` | YYYY \| `-1` | 當年 − 1 |
 
 **注意**：`args[0]` 是 `FILE` 而非 severity；直接傳入 severity 字串程式會報錯提示。
 
-**已知問題（MIN_YEAR）**：`-1` 實際對應「當年 − 5」（與省略相同），並非「不限年份」，與 `--help` 說明矛盾。
+**已知問題（MIN_YEAR）**：`-1` 實際對應「當年 − 1」（與省略相同），並非「不限年份」，與 `--help` 說明矛盾。
 
 報表輸出至 `report/vik_result_YYYYMMDD.html`（視覺化）與 `report/vik_result_YYYYMMDD.json`（供 `scripts/team-report.js` 讀取），目錄自動建立。
 
@@ -62,6 +67,7 @@ powershell -ExecutionPolicy Bypass -File findSW.ps1
 
 | 變數 | 說明 | 預設 |
 |------|------|------|
+| `CVE_SOURCE` | `NIST` / `MITRE`。`MITRE` 模式需先執行 `npm run sync-mitre` 建立本機索引，否則啟動立即報錯（不會自動改用 NIST） | NIST |
 | `NIST_API_KEY` | NVD API Key（有 Key：0.7s/req；無：6.5s/req） | — |
 | `LOG_LEVEL` | `DEBUG` = 顯示除錯 log（目前為向 NVD 發出的完整 curl 查詢指令）；`INFO` = 不顯示 | INFO |
 | `HTTPS_PROXY` / `HTTP_PROXY` | Proxy URL，支援 `http://user:pass@host:port` | — |
@@ -71,13 +77,16 @@ powershell -ExecutionPolicy Bypass -File findSW.ps1
 | `WHITELIST` | 逗號分隔廠牌關鍵字，比對 `publisher` 欄位。可與 `whitelist.txt` 並存（合併去重） | — |
 | `PORTABLE_N` | 格式：`名稱\|版本\|發行商`（版本、發行商可省略）。從 0 連續遞增，遇缺口停止。略過白名單/SKIP_PATTERNS，走 CPE 精確查詢 | — |
 | `CACHE_DISABLE` | `true` = 停用本機 CVE 快取（每次都直接查 NVD API） | false |
-| `CACHE_ALIAS_N` | 格式：`canonical\|alias1\|alias2`。第一個為 canonical 名稱，其餘別名查詢時共用同一個快取檔案（`data/kw_<canonical>.json`）。從 0 連續遞增，遇缺口停止 | — |
+| `CACHE_ALIAS_N` | 格式：`canonical\|alias1\|alias2`。第一個為 canonical 名稱，其餘別名查詢時共用同一個快取檔案（`data/cve_cache/kw_<canonical>.json`）。從 0 連續遞增，遇缺口停止 | — |
+| `CPE_BASE_N` | 格式：`名稱\|vendor:product[\|vendor:product...]`。為「過於通用」的知名軟體（Python/Git 等）指定標準 CPE base，**跳過 CPE 字典查詢、直接以 `virtualMatchString` 精準查 CVE**（避免退化成關鍵字搜尋而漏報/誤報）。名稱不分大小寫，可列多個 base（OR）。從 0 連續遞增，遇缺口停止 | — |
 
 範例：
 ```
 PORTABLE_0=Eclipse IDE|202506|Eclipse Foundation
 PORTABLE_1=Node.js|24.15.0|OpenJS Foundation
 CACHE_ALIAS_0=maven|apache maven|apache-maven|mvn
+CPE_BASE_0=python|python:python
+CPE_BASE_1=git|git-scm:git|git:git
 ```
 
 ## CVE 過濾原則
@@ -91,6 +100,96 @@ CACHE_ALIAS_0=maven|apache maven|apache-maven|mvn
 > NVD 的關鍵字搜尋會比對 CVE 描述全文，可能命中無關結果（例如搜尋 `bruno` 時匹配到作者名「Bruno Cavalcante」的 WordPress 主題弱點）。無 CPE 資料時無法驗證相關性，因此一律過濾。
 
 過濾掉的項目仍保存於 JSON 報表的 `mismatchedCVEs` 欄位，供進階使用者自行查閱。
+
+## 資料格式
+
+### 輸入 JSON（`scan.json`）
+
+```json
+{
+  "generatedAt": "2026-05-14T12:49:39.741Z",
+  "hostname": "MACHINE-NAME", "username": "user", "ip": "192.168.1.100",
+  "softwares": [{ "name": "App Name", "version": "1.0.0", "publisher": "Vendor", "installDate": null, "installPath": null }]
+}
+```
+
+### 輸出報表（JSON 報表根結構）
+
+```text
+report.{generatedAt, source, hostname, ip, username, scanDate, minSeverity, minYear}
+report.summary.{totalSoftware, queriedSoftware, affectedSoftware, totalCVEs}
+report.results[]      — 有 CVE（含 recommendedVersion、cpeBase、cveCount、cves[]、mismatchedCVEs[]）
+report.cleanResults[] — 已掃描無 CVE（含 cpeBase、mismatchedCVEs[]）
+report.errors[]       — API 失敗（含 name、error）
+report.whitelisted[]  — 白名單略過（含 matchedRule）
+report.skippedByPattern[] / skippedByDedup[] — 過濾/去重略過
+```
+
+`cves[]` 每筆：`id、published、lastModified、severity、cvssScore、cvssVersion、description、fixedVersion、alreadyFixed、affectedRanges、cpeRelevant、pendingNvdAnalysis、url`
+
+### 本機快取（`data/`）
+
+分兩個子目錄，避免兩種性質不同的快取混在同一層：
+
+- `data/cve_cache/` — CVE 查詢快取：`kw_<sanitized>.json`（關鍵字查詢）或 `cpe_<vendor>_<product>.json`（CPE 精確查詢）
+- `data/cpe_cache/` — CPE 字典查找快取：`cpekw_<sanitized>.json`
+
+```json
+// data/cve_cache/kw_nodejs.json
+{ "cveCount": 42, "cacheKey": "kw_nodejs", "coverageStart": "2021-01-01T00:00:00.000Z", "lastFetchedAt": "2026-06-22T10:30:00.000Z", "cves": [ /* NVD vulnerabilities[] 原始物件陣列 */ ] }
+```
+
+```json
+// data/cpe_cache/cpekw_putty.json
+{ "productCount": 12, "cacheKey": "cpekw_putty", "fetchedAt": "2026-06-22T10:30:00.000Z", "products": [ /* NVD CPE products[] 原始物件陣列 */ ] }
+```
+
+`cveCount`/`productCount` 為描述性欄位，方便人工檢視檔案時不必數陣列長度。快取以「同一天」為單位：當天內已查過直接用快取；CVE 快取跨天會做增量更新（`lastModStartDate`），CPE 字典快取跨天則整批覆寫。`CACHE_DISABLE=true` 可停用所有本機快取。
+
+### MITRE 本機鏡像（`data/mitre_mirror/`，`CVE_SOURCE=MITRE` 專用）
+
+MITRE 的 CVE Services API 只能「已知 CVE ID 查單筆」，沒有關鍵字/日期區段查詢能力，因此改用官方的 `CVEProject/cvelistV5` GitHub 每日 baseline + delta 壓縮檔，定期同步到本機並建立索引（執行 `npm run sync-mitre`）。鏡像保留近 5 年資料（掃描預設只看「當年 − 1」，但鏡像多留幾年以便手動調大 `MIN_YEAR` 往前查詢），不納入版控（見 `.gitignore`）。
+
+```
+data/mitre_mirror/
+  raw/<year>/CVE-<year>-<nnnn>.json   ← 解壓後保留，供索引重建用
+  index/<year>.ndjson                  ← 實際被查詢的索引，每行一筆 PUBLISHED CVE
+  index/meta.json                      ← 同步狀態（最後同步時間、已索引年份、CVE 總數）
+```
+
+索引每行範例（`data/mitre_mirror/index/2024.ndjson`）：
+```json
+{"id":"CVE-2024-12345","state":"PUBLISHED","published":"2024-01-15T10:00:00.000Z","lastModified":"2024-02-01T00:00:00.000Z","vendors":["apache"],"products":["maven"],"descLower":"apache maven before 3.9.0 allows ...","cpes":["cpe:2.3:a:apache:maven:*:*:*:*:*:*:*:*"],"affected":[{"vendor":"Apache","product":"Maven","versions":[{"version":"3.0.0","status":"affected","lessThan":"3.9.0"}],"cpes":[]}],"metrics":[{"version":"3.1","vectorString":"CVSS:3.1/...","baseScore":7.5,"baseSeverity":"HIGH"}]}
+```
+
+`lib/mitre-client.js` 讀取這份索引、`lib/mitre-adapter.js` 將每筆記錄轉成與 NVD API 相容的格式，讓既有的關聯性/版本比對邏輯（`lib/cve-logic.js`）完全不需修改即可運作於兩種來源。詳見 CLAUDE.md「第二資料來源：MITRE cvelistV5」章節。
+
+**`npm run sync-mitre` 失敗重跑**：同步流程具備 checkpoint／resume，過程中會在 `data/mitre_mirror/_tmp/progress.json` 記錄目前完成到哪個階段（下載/解壓/攤平 baseline、下載/解壓/攤平 delta、重建索引）。直接重新執行 `npm run sync-mitre` 即可，已完成的階段會自動略過（含比對暫存 zip 檔案大小，不會重新下載）；只有全部階段成功才會清除進度檔。`--step=<phase>` 可手動單獨跑某一階段，可用值：`download-baseline`、`extract-baseline`、`flatten-baseline`、`download-delta`、`extract-delta`、`flatten-delta`、`finalize`。`--full` 會忽略既有進度，強制重新判定/下載 baseline。
+
+## 專案結構
+
+```
+lib/cve-logic.js          — CVE 業務邏輯（唯一來源）
+lib/report-html.js        — HTML 報表產生（唯一來源）
+lib/nvd-client.js         — NVD API 客戶端（快取 + 日期分段 + 增量更新，唯一來源）
+lib/mitre-client.js       — MITRE 本機鏡像客戶端（介面與 nvd-client.js 相容）
+lib/mitre-adapter.js      — MITRE → NVD synthetic 格式轉換（純函式）
+data/
+  cve_cache/              — 本機 CVE 快取，自動建立
+  cpe_cache/              — CPE 字典查找快取，自動建立
+  mitre_mirror/           — MITRE 本機鏡像（不納入版控，npm run sync-mitre 建立）
+scripts/
+  cve-checker.js          — CLI 主程式
+  team-report.js          — 團隊彙整報表
+  web-server.js           — HTTP 伺服器
+  mitre-sync.js           — MITRE cvelistV5 同步腳本（npm run sync-mitre）
+  web-client.src.html     — Web 掃描器模板（含 @@CVE_LOGIC@@ / @@REPORT_HTML@@ 注入點）
+  web-client.html         — build artifact（勿直接編輯）
+  build.js                — 打包工具：模板 + lib/ → web-client.html + _bundle.js
+  _bundle.js              — build artifact，供 web-server.js require()
+findSW.ps1                — 遠端機器產生 scan.json
+docs/operator.html        — 完整操作手冊
+```
 
 ## 完整操作說明
 

@@ -264,7 +264,7 @@ WHITELIST=Microsoft,Apple,Google</code></pre>
     <div>
       <strong>執行掃描（使用所有預設值）</strong>
       <pre><code>node scripts/cve-checker.js</code></pre>
-      程式將掃描 PC Registry，查詢 HIGH 以上嚴重等級、近 5 年的 CVE。
+      程式將掃描 PC Registry，查詢 HIGH 以上嚴重等級、當年 − 1 年起的 CVE。
     </div>
   </li>
   <li>
@@ -462,8 +462,8 @@ node scripts/team-report.js C:\scans\team</code></pre>
     <tr>
       <td><code>args[3]</code></td>
       <td>MIN_YEAR</td>
-      <td>只顯示該年份（含）之後發布的 CVE；<code>-1</code> = 當年 −5</td>
-      <td>當前年份 −5</td>
+      <td>只顯示該年份（含）之後發布的 CVE；<code>-1</code> = 當年 −1</td>
+      <td>當前年份 −1</td>
     </tr>
   </tbody>
 </table>
@@ -472,11 +472,11 @@ node scripts/team-report.js C:\scans\team</code></pre>
 <table>
   <thead><tr><th>指令</th><th>說明</th></tr></thead>
   <tbody>
-    <tr><td><code>node scripts/cve-checker.js</code></td><td>掃描 PC，HIGH 以上，近 5 年</td></tr>
+    <tr><td><code>node scripts/cve-checker.js</code></td><td>掃描 PC，HIGH 以上，當年 − 1 年起</td></tr>
     <tr><td><code>node scripts/cve-checker.js scan.json</code></td><td>讀 scan.json，其餘預設</td></tr>
     <tr><td><code>node scripts/cve-checker.js scan.json HIGH</code></td><td>讀 scan.json，HIGH 以上</td></tr>
     <tr><td><code>node scripts/cve-checker.js -1 HIGH 5</code></td><td>PC，HIGH，只掃前 5 筆</td></tr>
-    <tr><td><code>node scripts/cve-checker.js -1 CRITICAL -1 -1</code></td><td>PC，CRITICAL，不限數量，近 5 年（預設）</td></tr>
+    <tr><td><code>node scripts/cve-checker.js -1 CRITICAL -1 -1</code></td><td>PC，CRITICAL，不限數量，當年 − 1（預設）</td></tr>
     <tr><td><code>node scripts/cve-checker.js scan.json -1 -1 2020</code></td><td>讀 scan.json，HIGH，不限，2020 年後</td></tr>
   </tbody>
 </table>
@@ -958,7 +958,7 @@ PORTABLE_3=Neo4j Community Edition|2025.05.0|Neo4j Inc</code></pre>
   <tbody>
     <tr><td><strong>Endpoint</strong></td><td><code>https://services.nvd.nist.gov/rest/json/cpes/2.0</code></td></tr>
     <tr><td><strong>Method</strong></td><td>GET</td></tr>
-    <tr><td><strong>呼叫時機</strong></td><td>所有軟體（Registry / JSON / Portable）都會先嘗試呼叫，在 CVE 查詢之前；找不到才 fallback 至關鍵字比對。查詢結果依軟體名稱快取於 <code>data/cpekw_*.json</code>，<strong>同一天內</strong>已查過會直接使用快取，不重複呼叫</td></tr>
+    <tr><td><strong>呼叫時機</strong></td><td>所有軟體（Registry / JSON / Portable）都會先嘗試呼叫，在 CVE 查詢之前；找不到才 fallback 至關鍵字比對。查詢結果依軟體名稱快取於 <code>data/cpe_cache/cpekw_*.json</code>，<strong>同一天內</strong>已查過會直接使用快取，不重複呼叫</td></tr>
   </tbody>
 </table>
 
@@ -1132,8 +1132,8 @@ WHITELIST=Microsoft,Apple,Google</code></pre>
     </tr>
     <tr>
       <td><strong>CVE 最早年份</strong></td>
-      <td>只顯示此年份（含）之後發布的 CVE。留空代表「當年 −5」</td>
-      <td>當年 −5</td>
+      <td>只顯示此年份（含）之後發布的 CVE。留空代表「當年 −1」</td>
+      <td>當年 −1</td>
     </tr>
     <tr>
       <td><strong>每項軟體最多 CVE 筆數</strong></td>

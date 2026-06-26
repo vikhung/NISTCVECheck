@@ -1,0 +1,3505 @@
+{
+  "cveCount": 17,
+  "cacheKey": "kw_webex",
+  "coverageStart": "2025-01-01T00:00:00.000Z",
+  "lastFetchedAt": "2026-06-26T09:22:09.715Z",
+  "cves": [
+    {
+      "cve": {
+        "id": "CVE-2026-20149",
+        "sourceIdentifier": "psirt@cisco.com",
+        "published": "2026-03-04T18:16:27.427",
+        "lastModified": "2026-06-17T10:17:13.120",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "A vulnerability in Cisco Webex could have allowed an unauthenticated, remote attacker to conduct a cross-site scripting (XSS) attack. Cisco has addressed this vulnerability, and no customer action is needed.\r\n\r This vulnerability was due to improper filtering of user-supplied input. Prior to this vulnerability being addressed, an attacker could have exploited this vulnerability by persuading a user to follow a malicious link. A successful exploit could have allowed the attacker to conduct an XSS attack against the targeted user."
+          },
+          {
+            "lang": "es",
+            "value": "Una vulnerabilidad en Cisco Webex podría haber permitido a un atacante remoto no autenticado realizar un ataque de cross-site scripting (XSS). Cisco ha abordado esta vulnerabilidad y no se requiere ninguna acción por parte del cliente.\nEsta vulnerabilidad se debía a un filtrado inadecuado de la entrada proporcionada por el usuario. Antes de que esta vulnerabilidad fuera abordada, un atacante podría haber explotado esta vulnerabilidad persuadiendo a un usuario para que siguiera un enlace malicioso. Un exploit exitoso podría haber permitido al atacante realizar un ataque XSS contra el usuario objetivo."
+          }
+        ],
+        "affected": [
+          {
+            "source": "psirt@cisco.com",
+            "affectedData": [
+              {
+                "vendor": "Cisco",
+                "product": "Cisco Webex Meetings",
+                "versions": [
+                  {
+                    "version": "N/A",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "psirt@cisco.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+                "baseScore": 6.1,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "CHANGED",
+                "confidentialityImpact": "LOW",
+                "integrityImpact": "LOW",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 2.7
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-03-04T20:52:17.689659Z",
+                "id": "CVE-2026-20149",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "psirt@cisco.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-79"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex:-:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "F1FBBF37-C988-48FC-934B-0F615DEED6EF"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-webex-xss-TZFTbbwN",
+            "source": "psirt@cisco.com",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-20170",
+        "sourceIdentifier": "psirt@cisco.com",
+        "published": "2026-04-15T17:17:03.297",
+        "lastModified": "2026-06-17T10:17:15.487",
+        "vulnStatus": "Awaiting Analysis",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "A vulnerability in the Desktop Agent functionality of Cisco Webex Contact Center could have allowed an unauthenticated, remote attacker to conduct cross-site scripting attacks. Cisco has addressed this vulnerability in the Cisco Webex Contact Center service, and no customer action is needed.\r\n\r This vulnerability existed because HTML and script content was not properly handled. Prior to this vulnerability being addressed, an attacker could have exploited this vulnerability by persuading a user to follow a malicious link. A successful exploit could have allowed the attacker to steal sensitive information from the browser, including authentication and session information."
+          }
+        ],
+        "affected": [
+          {
+            "source": "psirt@cisco.com",
+            "affectedData": [
+              {
+                "vendor": "Cisco",
+                "product": "Cisco Webex Contact Center",
+                "versions": [
+                  {
+                    "version": "N/A",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "psirt@cisco.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+                "baseScore": 6.1,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "CHANGED",
+                "confidentialityImpact": "LOW",
+                "integrityImpact": "LOW",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 2.7
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-04-15T16:42:50.336172Z",
+                "id": "CVE-2026-20170",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "psirt@cisco.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-80"
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-webexcc-xss-WEX5nUnA",
+            "source": "psirt@cisco.com"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-20184",
+        "sourceIdentifier": "psirt@cisco.com",
+        "published": "2026-04-15T17:17:03.677",
+        "lastModified": "2026-06-17T10:17:16.380",
+        "vulnStatus": "Awaiting Analysis",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "A vulnerability in the integration of single sign-on (SSO) with Control Hub in Cisco Webex Services could have allowed an unauthenticated, remote attacker to impersonate any user within the service.\r\n\r\nThis vulnerability existed because of improper certificate validation. Prior to this vulnerability being addressed, an attacker could have exploited this vulnerability by connecting to a service endpoint and supplying a crafted token. A successful exploit could have allowed the attacker to gain unauthorized access to legitimate Cisco Webex services."
+          }
+        ],
+        "affected": [
+          {
+            "source": "psirt@cisco.com",
+            "affectedData": [
+              {
+                "vendor": "Cisco",
+                "product": "Cisco Webex Meetings",
+                "defaultStatus": "unknown",
+                "versions": [
+                  {
+                    "version": "39.7.7",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "39.9",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "40.4.10",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "39.6",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "40.6.2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "39.8.2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "39.8.4",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "40.1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "39.11",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "39.7.4",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "39.9.1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "40.4",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "40.6",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "39.7",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "39.8",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "39.8.3",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "40.2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "39.10",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "42.6",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "42.7",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "42.8",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "42.9",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "42.10",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "42.11",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "42.12",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.3",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.4",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.4.1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.4.2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.5.0",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.6.0",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.6.1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.7",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.8",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.9",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.10",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.11",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.12",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.3",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.4",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.5",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.6",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.7",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.8",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.9",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.10",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.11",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.12",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "45.1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "45.2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "45.3",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "45.4",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "psirt@cisco.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                "baseScore": 9.8,
+                "baseSeverity": "CRITICAL",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 5.9
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-04-15T00:00:00+00:00",
+                "id": "CVE-2026-20184",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "yes"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "psirt@cisco.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-295"
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-webex-cui-cert-8jSZYhWL",
+            "source": "psirt@cisco.com"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-8960",
+        "sourceIdentifier": "security@mozilla.org",
+        "published": "2026-05-19T14:16:52.383",
+        "lastModified": "2026-06-17T11:04:40.770",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Spoofing issue in WebExtensions. This vulnerability was fixed in Firefox 151 and Thunderbird 151."
+          }
+        ],
+        "affected": [
+          {
+            "source": "security@mozilla.org",
+            "affectedData": [
+              {
+                "vendor": "Mozilla",
+                "product": "Firefox",
+                "versions": [
+                  {
+                    "version": "151",
+                    "lessThanOrEqual": "*",
+                    "versionType": "rpm",
+                    "status": "unaffected"
+                  }
+                ]
+              },
+              {
+                "vendor": "Mozilla",
+                "product": "Thunderbird",
+                "versions": [
+                  {
+                    "version": "151",
+                    "lessThanOrEqual": "*",
+                    "versionType": "rpm",
+                    "status": "unaffected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+                "baseScore": 7.5,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 3.6
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-05-19T15:35:14.095602Z",
+                "id": "CVE-2026-8960",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "yes"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-290"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:mozilla:firefox:*:*:*:*:-:*:*:*",
+                    "versionEndExcluding": "151.0.0",
+                    "matchCriteriaId": "7C197B6D-C48E-4D7E-A1C0-52E081E97DF0"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:mozilla:thunderbird:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "151.0.0",
+                    "matchCriteriaId": "84A85BEB-6467-4CDB-A533-FA3AA67B1CAE"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://bugzilla.mozilla.org/show_bug.cgi?id=1940116",
+            "source": "security@mozilla.org",
+            "tags": [
+              "Permissions Required"
+            ]
+          },
+          {
+            "url": "https://www.mozilla.org/security/advisories/mfsa2026-46/",
+            "source": "security@mozilla.org",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          },
+          {
+            "url": "https://www.mozilla.org/security/advisories/mfsa2026-50/",
+            "source": "security@mozilla.org",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-20233",
+        "sourceIdentifier": "psirt@cisco.com",
+        "published": "2026-06-03T18:16:20.320",
+        "lastModified": "2026-06-17T10:17:18.893",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "A vulnerability in the web-based user interface of Cisco Webex Meetings could have allowed an unauthenticated, remote attacker to conduct a cross-site scripting (XSS) attack. Cisco has addressed this vulnerability in the Webex Meetings service, and no customer action is needed.\r\n\r\nThis vulnerability existed because of insufficient validation of user input. Prior to this vulnerability being addressed, an attacker could have exploited this vulnerability by persuading a user to follow a malicious link. A successful exploit could have allowed the attacker to execute arbitrary script code in the browser of the targeted user or access sensitive, browser-based information."
+          }
+        ],
+        "affected": [
+          {
+            "source": "psirt@cisco.com",
+            "affectedData": [
+              {
+                "vendor": "Cisco",
+                "product": "Cisco Webex Meetings",
+                "defaultStatus": "unknown",
+                "versions": [
+                  {
+                    "version": "39.7.7",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "39.9",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "40.4.10",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "39.6",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "40.6.2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "39.8.2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "39.8.4",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "40.1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "39.11",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "39.7.4",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "39.9.1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "40.4",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "40.6",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "39.7",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "39.8",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "39.8.3",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "40.2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "39.10",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "42.6",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "42.7",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "42.8",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "42.9",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "42.10",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "42.11",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "42.12",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.3",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.4",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.4.1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.4.2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.5.0",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.6.0",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.6.1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.7",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.8",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.9",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.10",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.11",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "43.12",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.3",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.4",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.5",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.6",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.7",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.8",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.9",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.10",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.11",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.12",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "45.1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "45.2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "45.3",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "45.4",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "psirt@cisco.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+                "baseScore": 6.1,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "CHANGED",
+                "confidentialityImpact": "LOW",
+                "integrityImpact": "LOW",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 2.7
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-06-03T17:46:57.004996Z",
+                "id": "CVE-2026-20233",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "psirt@cisco.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-79"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:39.6.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "3C10CCD2-17FB-4BBA-86E3-64228A2661E8"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:39.7.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "20608889-3684-4479-B028-C5E70F661591"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:39.7.4:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "8A9F521F-5D30-4DE7-A308-D1EC7F17C5FB"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:39.7.7:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "DA6A48E8-0B18-49F7-9869-A493F356778E"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:39.8.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "2F86C0BC-0853-4935-B264-C6715AA3846C"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:39.8.2:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "3875C388-7B83-451C-8F37-609A414B847E"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:39.8.3:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "17D2A6BB-43D5-4907-BA8E-0EFC5C45A8E4"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:39.8.4:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "43E36526-AD0B-4020-86B5-0681D6D4A845"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:39.9.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "C5D6E81A-5CD3-4984-B9AA-31573DFA0CA9"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:39.9.1:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "D1752401-15DE-42A1-B7A1-F6C82DAEE1A4"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:39.10.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "C33925F4-3921-4FDD-AA6B-81061ED9A1BD"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:39.11.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "F9730F01-1612-46E6-9AA1-80B2D1D61BAF"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:40.1.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "F5EB0ACC-4FFA-443B-AE45-757DBBE47579"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:40.2.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "ED5315D1-865A-47C9-9DFC-4F6A071C8D46"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:40.4.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "2C43E965-3DD8-4904-B4B4-2CE504A1473D"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:40.4.10:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "F82C6242-BCD3-43C1-8B1D-4044C4263050"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:40.6.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "6578FEFD-CC4A-401A-B769-A3BB8998CBF1"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:40.6.2:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "11176259-0359-416D-A22D-DEBEBE755FE9"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:42.6.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "1FEC5E67-DFEA-4654-ACDA-D3CF7B53B20B"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:42.7.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "64BEDE4E-B77D-4015-BB2A-B306322A33A1"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:42.8.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "FEFBF53E-8537-4F7F-BB98-1B4FE4006251"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:42.9.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "20A92B49-3D95-4147-A854-CE1938A3C517"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:42.10.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "9E56AB27-1D90-45A8-BF88-FEBC400B7607"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:42.11.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "978E3F35-1B46-4192-BF7B-DD262C060435"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:42.12.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "EFFE4AF5-2AE9-4637-B0DB-AEF4208BC0F6"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:43.1.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "448FB82E-A686-494A-A258-9D1067D6EB6B"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:43.2.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "2BB30686-198C-4C37-B54F-4B2A4C64BDBE"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:43.3.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "D466BF87-5DA1-46C6-A218-765957C19E63"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:43.4.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "4184DA56-1ABA-41EC-A4BB-897D3988E098"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:43.4.1:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "68570B19-32BB-441C-9C00-C1A839CBD985"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:43.4.2:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "55BD3A1F-9453-40EE-B155-8182BA49C1CB"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:43.5.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "D0FE1DED-33FB-4118-80E7-86D4641C7E61"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:43.6.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "237B4813-72B7-4154-BAB7-4056CED952CB"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:43.6.1:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "D60F5271-1496-490F-A7BF-CDEE5EFF2FE0"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:43.7.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "19F40E62-7E53-4BCA-85E8-598D9924BA67"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:43.8.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "49FA7256-0B5C-44D4-9CF8-D2F9363E5206"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:43.9.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "E1B4085A-EBFF-4031-99F5-7B8ABD4E2695"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:43.10.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "8D89BAFF-753C-422E-9683-179720FE07A0"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:43.11.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "D447ABA0-F9DA-4C64-9AA4-0BCCABE05C51"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:43.12.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "6C511595-CF24-4623-9617-6898FA057189"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:44.1.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "59879F82-813A-4261-9DCF-DB7A846027B5"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:44.2.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "A6E52164-17F0-4C92-A15A-B66BAB393FF1"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:44.3.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "ECC5FD0A-898A-439F-8412-5E88408693E3"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:44.4.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "A6235DB7-30E6-479E-A5D5-F31B8D73576F"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:44.5.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "AE54AB58-B082-4FCA-866E-C5D5B551C737"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:44.6.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "BFDF52C8-259F-4948-8877-40EB9609EFC8"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:44.7.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "F01D51EF-E327-49C4-94D8-2BC2845AA5B9"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:44.8.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "9A657542-06BF-4120-917B-790AED9CE7BB"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:44.9.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "0CA6BC77-778C-4BD8-86A1-22F09DF063EE"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:44.10.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "AFDB8336-B110-4452-A9C7-40C4859B58DB"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:44.11.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "9DDFB0AF-89E6-4A26-B7FF-3BFD91F01006"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:44.12.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "A903890E-A6C2-4562-AE80-C91BFDA2717A"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:45.1.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "9AA76D54-CA52-44FF-ADE6-003C8FC82351"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:45.2.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "9B2B43CC-095D-4FD2-9E1F-DE289A2357E6"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:45.3.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "D9E83AE6-412F-4B18-9A17-E72B18F5115B"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:45.4.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "14DE9D4D-F620-4084-8165-8A38C02785E3"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-webex-xss-jw3NeQzS",
+            "source": "psirt@cisco.com",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-20178",
+        "sourceIdentifier": "psirt@cisco.com",
+        "published": "2026-06-17T18:17:35.587",
+        "lastModified": "2026-06-22T14:17:11.023",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "A vulnerability in the browser-based version of Cisco Webex App could have allowed an unauthenticated, remote attacker to redirect users to a malicious webpage. Cisco has addressed this vulnerability in the Cisco Webex App, and no customer action is needed.\r\n\r This vulnerability existed due to improper input validation of URL parameters in an HTTP request. Prior to this vulnerability being addressed, an attacker could have exploited this vulnerability by persuading a user to click a crafted URL. A successful exploit could have allowed the attacker to redirect a user to a malicious website."
+          }
+        ],
+        "affected": [
+          {
+            "source": "psirt@cisco.com",
+            "affectedData": [
+              {
+                "vendor": "Cisco",
+                "product": "Cisco Webex App",
+                "versions": [
+                  {
+                    "version": "N/A",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "psirt@cisco.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N",
+                "baseScore": 4.3,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "LOW",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 1.4
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-06-17T18:13:20.277003Z",
+                "id": "CVE-2026-20178",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "psirt@cisco.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-601"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_web_app:-:*:*:*:*:-:*:*",
+                    "matchCriteriaId": "B387B804-3EE7-4A0B-8ED5-7FD5E51C2319"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-webex-app-redirect-KOyxhffH",
+            "source": "psirt@cisco.com",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-20045",
+        "sourceIdentifier": "psirt@cisco.com",
+        "published": "2026-01-21T17:16:08.077",
+        "lastModified": "2026-06-17T10:16:58.097",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "A vulnerability in Cisco Unified Communications Manager (Unified CM), Cisco Unified Communications Manager Session Management Edition (Unified CM SME), Cisco Unified Communications Manager IM &amp; Presence Service (Unified CM IM&amp;P), Cisco Unity Connection, and Cisco Webex Calling Dedicated Instance could allow an unauthenticated, remote attacker to execute arbitrary commands on the underlying operating system of an affected device.&nbsp;\r\n\r\nThis vulnerability is due to improper validation of user-supplied input in HTTP requests. An attacker could exploit this vulnerability by sending a sequence of crafted HTTP requests to the web-based management interface of an affected device. A successful exploit could allow the attacker to obtain user-level access to the underlying operating system and then elevate privileges to root.&nbsp;\r\nNote: Cisco has assigned this security advisory a Security Impact Rating (SIR) of Critical rather than High as the score indicates. The reason is that exploitation of this vulnerability could result in an attacker elevating privileges to root."
+          },
+          {
+            "lang": "es",
+            "value": "Una vulnerabilidad en Cisco Unified Communications Manager (Unified CM), Cisco Unified Communications Manager Session Management Edition (Unified CM SME), Cisco Unified Communications Manager IM y Presence Service (Unified CM IM&amp;P), Cisco Unity Connection y Cisco Webex Calling Dedicated Instance podría permitir a un atacante remoto no autenticado ejecutar comandos arbitrarios en el sistema operativo subyacente de un dispositivo afectado.\n\nEsta vulnerabilidad se debe a una validación incorrecta de la entrada proporcionada por el usuario en las solicitudes HTTP. Un atacante podría explotar esta vulnerabilidad enviando una secuencia de solicitudes HTTP manipuladas a la interfaz de gestión basada en web de un dispositivo afectado. Un exploit exitoso podría permitir al atacante obtener acceso a nivel de usuario al sistema operativo subyacente y luego elevar privilegios a root.\nNota: Cisco ha asignado a este aviso de seguridad una Calificación de Impacto de Seguridad (SIR) de Crítico en lugar de Alto como indica la puntuación. La razón es que la explotación de esta vulnerabilidad podría resultar en que un atacante eleve privilegios a root."
+          }
+        ],
+        "affected": [
+          {
+            "source": "psirt@cisco.com",
+            "affectedData": [
+              {
+                "vendor": "Cisco",
+                "product": "Cisco Unified Communications Manager",
+                "defaultStatus": "unknown",
+                "versions": [
+                  {
+                    "version": "12.5(1)SU2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU3",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU4",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "14",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU5",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "14SU1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU6",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "14SU2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU7",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU7a",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "14SU3",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU8",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU8a",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "15",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "15SU1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "14SU4",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "14SU4a",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "15SU1a",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU9",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "15SU2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "15.0.1.13010-1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "15.0.1.13011-1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "15.0.1.13012-1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "15.0.1.13013-1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "15.0.1.13014-1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "15.0.1.13015-1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "15.0.1.13016-1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "15.0.1.13017-1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "15SU3a",
+                    "status": "affected"
+                  }
+                ]
+              },
+              {
+                "vendor": "Cisco",
+                "product": "Cisco Unified Communications Manager IM and Presence Service",
+                "defaultStatus": "unknown",
+                "versions": [
+                  {
+                    "version": "12.5(1)",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU3",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU4",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "14",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU5",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "14SU1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU6",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "14SU2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "14SU2a",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU7",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "14SU3",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU8",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "15",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "15SU1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "14SU4",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU9",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "15SU2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "15SU3",
+                    "status": "affected"
+                  }
+                ]
+              },
+              {
+                "vendor": "Cisco",
+                "product": "Cisco Unity Connection",
+                "defaultStatus": "unknown",
+                "versions": [
+                  {
+                    "version": "12.5(1)",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU3",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU4",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "14",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU5",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "14SU1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU6",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "14SU2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU7",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "14SU3",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU8",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "14SU3a",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU8a",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "15",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "15SU1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "14SU4",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "12.5(1)SU9",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "15SU2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "15SU3",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "psirt@cisco.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:L/A:N",
+                "baseScore": 8.2,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "LOW",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 4.2
+            },
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                "baseScore": 9.8,
+                "baseSeverity": "CRITICAL",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 5.9
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-01-22T04:55:44.107919Z",
+                "id": "CVE-2026-20045",
+                "options": [
+                  {
+                    "exploitation": "active"
+                  },
+                  {
+                    "automatable": "yes"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "cisaExploitAdd": "2026-01-21",
+        "cisaActionDue": "2026-02-11",
+        "cisaRequiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
+        "cisaVulnerabilityName": "Cisco Unified Communications Products Code Injection Vulnerability",
+        "weaknesses": [
+          {
+            "source": "psirt@cisco.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-94"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:unified_communications_manager:*:*:*:*:-:*:*:*",
+                    "versionStartIncluding": "12.5",
+                    "versionEndExcluding": "14su5",
+                    "matchCriteriaId": "9A84A37B-553F-48B5-8F92-678A478EE896"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:unified_communications_manager:*:*:*:*:session_management:*:*:*",
+                    "versionStartIncluding": "12.5",
+                    "versionEndExcluding": "14su5",
+                    "matchCriteriaId": "27BC4E6E-8C4D-4EEA-A8DB-8CBC11349336"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:unified_communications_manager:*:*:*:*:-:*:*:*",
+                    "versionStartIncluding": "15.0",
+                    "versionEndIncluding": "15su3a",
+                    "matchCriteriaId": "E8EE2A11-29DC-45EF-A9B0-E053C004EF82"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:unified_communications_manager:*:*:*:*:session_management:*:*:*",
+                    "versionStartIncluding": "15.0",
+                    "versionEndIncluding": "15su3a",
+                    "matchCriteriaId": "99E5929A-E9DE-4370-A363-66BDA1D46BDE"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:unified_communications_manager_im_and_presence_service:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "12.5",
+                    "versionEndExcluding": "14su5",
+                    "matchCriteriaId": "1235D0E6-5703-4DAB-8D50-0DBEF7A9A1EB"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:unified_communications_manager_im_and_presence_service:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "15.0",
+                    "versionEndIncluding": "15su3a",
+                    "matchCriteriaId": "EF732C27-6F22-4987-BCED-B7303E8F9789"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:unity_connection:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "12.5",
+                    "versionEndExcluding": "14su5",
+                    "matchCriteriaId": "8CD37F03-3690-4C47-9768-06EB00F693AB"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:unity_connection:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "15.0",
+                    "versionEndIncluding": "15su3",
+                    "matchCriteriaId": "FD7BF042-4261-4F93-913D-D7B756F975CD"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-voice-rce-mORhqY4b",
+            "source": "psirt@cisco.com",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          },
+          {
+            "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2026-20045",
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "tags": [
+              "US Government Resource"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2025-20215",
+        "sourceIdentifier": "psirt@cisco.com",
+        "published": "2025-08-06T17:15:37.033",
+        "lastModified": "2026-06-17T08:41:05.950",
+        "vulnStatus": "Deferred",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "A vulnerability in the meeting-join functionality of Cisco Webex Meetings could have allowed an unauthenticated, network-proximate attacker to complete a meeting-join process in place of an intended targeted user, provided the requisite conditions were satisfied. Cisco has addressed this vulnerability in the Cisco Webex Meetings service, and no customer action is needed.\r\n\r\nThis vulnerability existed due to client certificate validation issues. Prior to this vulnerability being addressed, an attacker could have exploited this vulnerability by monitoring local wireless or adjacent networks for client-join requests and attempting to interrupt and complete the meeting-join flow as another user who was currently joining a meeting. To successfully exploit the vulnerability, an attacker would need the capability to position themselves in a local wireless or adjacent network, to monitor and intercept the targeted network traffic flows, and to satisfy timing requirements in order to interrupt the meeting-join flow and exploit the vulnerability. A successful exploit could have allowed the attacker to join the meeting as another user. However, the Cisco Product Security Incident Response Team (PSIRT) is not aware of any malicious use of the vulnerability that is described in this advisory."
+          },
+          {
+            "lang": "es",
+            "value": "Una vulnerabilidad en la función \"meeting-join\" de Cisco Webex Meetings podría haber permitido que un atacante no autenticado, cercano a la red, completara el \"meeting-join\"  en lugar del usuario objetivo, siempre que se cumplieran las condiciones requeridas. Cisco ha solucionado esta vulnerabilidad en el servicio Cisco Webex Meetings y no se requiere ninguna acción por parte del cliente. Esta vulnerabilidad existía debido a problemas de validación del certificado del cliente. Antes de que se solucionara, un atacante podría haberla explotado monitorizando redes inalámbricas locales o adyacentes en busca de solicitudes de unión de clientes e intentando interrumpir y completar el flujo de entrada a la reunión como otro usuario que se estaba uniendo a una reunión. Para explotar la vulnerabilidad con éxito, un atacante necesitaría la capacidad de posicionarse en una red inalámbrica local o adyacente, monitorizar e interceptar los flujos de tráfico de la red objetivo y cumplir con los requisitos de tiempo para interrumpir el flujo de entrada a la reunión y explotar la vulnerabilidad. Una explotación exitosa podría haber permitido al atacante unirse a la reunión como otro usuario. Sin embargo, el Equipo de Respuesta a Incidentes de Seguridad de Productos de Cisco (PSIRT) no tiene conocimiento de ningún uso malicioso de la vulnerabilidad descrita en este aviso."
+          }
+        ],
+        "affected": [
+          {
+            "source": "psirt@cisco.com",
+            "affectedData": [
+              {
+                "vendor": "Cisco",
+                "product": "Cisco Webex Meetings",
+                "versions": [
+                  {
+                    "version": "N/A",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "psirt@cisco.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:A/AC:H/PR:N/UI:R/S:U/C:H/I:L/A:N",
+                "baseScore": 5.4,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "ADJACENT_NETWORK",
+                "attackComplexity": "HIGH",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "LOW",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 1.2,
+              "impactScore": 4.2
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2025-08-06T17:33:56.830297Z",
+                "id": "CVE-2025-20215",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "psirt@cisco.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-295"
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-webex-join-yNXfqHk4",
+            "source": "psirt@cisco.com"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2025-20291",
+        "sourceIdentifier": "psirt@cisco.com",
+        "published": "2025-09-03T18:15:33.570",
+        "lastModified": "2026-06-17T08:41:21.827",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "A vulnerability in Cisco Webex Meetings could have allowed an unauthenticated, remote attacker to redirect a targeted Webex Meetings user to an untrusted website. Cisco has addressed this vulnerability in the Cisco Webex Meetings service, and no customer action is needed.\r\n\r This vulnerability existed because of insufficient validation of URLs that were included in a meeting-join URL. Prior to this vulnerability being addressed, an attacker could have exploited this vulnerability by including a URL to a website of their choosing in a specific value of a Cisco Webex Meetings join URL. A successful exploit could have allowed the attacker to redirect a targeted user to a website that was controlled by the attacker, possibly making the user more likely to believe the website was trusted by Webex and perform additional actions as part of phishing attacks."
+          }
+        ],
+        "affected": [
+          {
+            "source": "psirt@cisco.com",
+            "affectedData": [
+              {
+                "vendor": "Cisco",
+                "product": "Cisco Webex Meetings",
+                "versions": [
+                  {
+                    "version": "N/A",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "psirt@cisco.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N",
+                "baseScore": 4.3,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "LOW",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 1.4
+            },
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+                "baseScore": 6.1,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "CHANGED",
+                "confidentialityImpact": "LOW",
+                "integrityImpact": "LOW",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 2.7
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2025-09-03T17:56:00.787659Z",
+                "id": "CVE-2025-20291",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "psirt@cisco.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-601"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:*:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "0274B4FE-AB78-412C-A837-DB9C9E7F51A1"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-webex-urlredirect-uK8dDJSZ",
+            "source": "psirt@cisco.com",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2025-20328",
+        "sourceIdentifier": "psirt@cisco.com",
+        "published": "2025-09-03T18:15:33.973",
+        "lastModified": "2026-06-17T08:41:28.283",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "A vulnerability in the user profile component of Cisco Webex Meetings could have allowed an authenticated, remote attacker with low privileges to conduct a cross-site scripting (XSS) attack against a user of the web-based interface. Cisco has addressed this vulnerability in the Cisco Webex Meetings service, and no customer action is needed.\r\n\r This vulnerability existed because of insufficient validation of user-supplied input to the user profile component of Cisco Webex Meetings. Prior to this vulnerability being addressed, an attacker could have exploited this vulnerability by persuading a user of the interface to click a crafted link. A successful exploit could have allowed the attacker to conduct an XSS attack against the targeted user."
+          }
+        ],
+        "affected": [
+          {
+            "source": "psirt@cisco.com",
+            "affectedData": [
+              {
+                "vendor": "Cisco",
+                "product": "Cisco Webex Meetings",
+                "versions": [
+                  {
+                    "version": "N/A",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "psirt@cisco.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:L/I:L/A:N",
+                "baseScore": 5.4,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "LOW",
+                "userInteraction": "REQUIRED",
+                "scope": "CHANGED",
+                "confidentialityImpact": "LOW",
+                "integrityImpact": "LOW",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 2.3,
+              "impactScore": 2.7
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2025-09-03T17:57:54.208951Z",
+                "id": "CVE-2025-20328",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "psirt@cisco.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-79"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:-:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "81774C03-0884-44C6-80EF-DC882BF44C84"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-webex-xss-55bv8hhm",
+            "source": "psirt@cisco.com",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2025-20329",
+        "sourceIdentifier": "psirt@cisco.com",
+        "published": "2025-10-15T17:15:48.697",
+        "lastModified": "2026-06-17T08:41:28.390",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "A vulnerability in the logging component of Cisco TelePresence Collaboration Endpoint (CE) and Cisco RoomOS Software could allow an authenticated, remote attacker to view sensitive information in clear text on an affected system. To exploit this vulnerability, the attacker must have valid administrative&nbsp;credentials.\r\n\r\nThis vulnerability exists because certain unencrypted credentials are stored when SIP media component logging is enabled. An attacker could exploit this vulnerability by accessing the audit logs on an affected system and obtaining credentials to which they may not normally have access. A successful exploit could allow the attacker to use those credentials to access confidential information, some of which may contain personally identifiable information (PII).\r\nNote: To access the logs that are stored in the Webex Cloud or stored on the device itself, an attacker must have valid administrative credentials."
+          }
+        ],
+        "affected": [
+          {
+            "source": "psirt@cisco.com",
+            "affectedData": [
+              {
+                "vendor": "Cisco",
+                "product": "Cisco RoomOS Software",
+                "defaultStatus": "unknown",
+                "versions": [
+                  {
+                    "version": "RoomOS 10.11.2.2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 10.15.2.2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 11.5.4.6",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 11.5.2.4",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 10.8.2.5",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 10.11.5.2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 10.11.3.0",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 10.15.5.3",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 10.19.2.2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 11.1.3.1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 10.11.6.0",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 10.19.3.0",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 10.19.4.2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 10.3.2.4",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 10.3.4.0",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 10.15.3.0",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 11.1.4.1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 11.14.2.3",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 11.1.2.4",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 10.8.3.1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 11.14.2.1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 10.3.3.0",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 10.8.4.0",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 10.15.4.1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 10.19.5.6",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 10.11.4.1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 11.9.3.1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 11.5.3.3",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 10.3.2.0",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 11.9.2.4",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 11.14.3.0",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 11.17.2.2",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 11.14.4.0",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 10.19 StepUpg",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 11.17.3.0",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 11.20.2.3",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 11.14.5.0",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 11.17.4.0",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 11.20.3.0",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 11.23.1.6",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 11.23.1.8",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 11.24.1.5",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 11.24.2.4",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 11.24.3.0",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 11.24.4.1",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 11.27.2.0",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 11.28.1.3",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "RoomOS 11.27.3.0",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "psirt@cisco.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:N/A:N",
+                "baseScore": 4.9,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "HIGH",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 1.2,
+              "impactScore": 3.6
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2025-10-15T17:42:38.688864Z",
+                "id": "CVE-2025-20329",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "psirt@cisco.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-532"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:telepresence_collaboration_endpoint:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "9.0.0.0",
+                    "versionEndIncluding": "9.15.18.5",
+                    "matchCriteriaId": "61A07A6D-5679-470C-A18E-4A812E38AA22"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:cisco:roomos:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "10.0.0.0",
+                    "versionEndExcluding": "11.32.2.1",
+                    "matchCriteriaId": "7A8C28FB-9D5B-4696-A5FF-9778ED75A018"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-roomos-inf-disc-qGgsbxAm",
+            "source": "psirt@cisco.com",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2025-20236",
+        "sourceIdentifier": "psirt@cisco.com",
+        "published": "2025-04-16T17:15:49.573",
+        "lastModified": "2026-06-17T08:41:09.140",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "A vulnerability in the custom URL parser of Cisco Webex App could allow an unauthenticated, remote attacker to persuade a user to download arbitrary files, which could allow the attacker to execute arbitrary commands on the host of the targeted user.\r\n\r\nThis vulnerability is due to insufficient input validation when Cisco Webex App processes a meeting invite link. An attacker could exploit this vulnerability by persuading a user to click a crafted meeting invite link and download arbitrary files. A successful exploit could allow the attacker to execute arbitrary commands with the privileges of the targeted user."
+          },
+          {
+            "lang": "es",
+            "value": "Una vulnerabilidad en el analizador de URL personalizado de Cisco Webex App podría permitir que un atacante remoto no autenticado persuada a un usuario para que descargue archivos arbitrarios, lo que podría permitirle ejecutar comandos arbitrarios en el host del usuario objetivo. Esta vulnerabilidad se debe a una validación de entrada insuficiente cuando Cisco Webex App procesa un enlace de invitación a una reunión. Un atacante podría explotar esta vulnerabilidad persuadiendo a un usuario para que haga clic en un enlace de invitación a una reunión manipulado y descargue archivos arbitrarios. Una explotación exitosa podría permitirle ejecutar comandos arbitrarios con los privilegios del usuario objetivo."
+          }
+        ],
+        "affected": [
+          {
+            "source": "psirt@cisco.com",
+            "affectedData": [
+              {
+                "vendor": "Cisco",
+                "product": "Cisco Webex Teams",
+                "defaultStatus": "unknown",
+                "versions": [
+                  {
+                    "version": "44.6",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.6.0.29928",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.6.0.30148",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.7",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.7.0.30141",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "44.7.0.30285",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "psirt@cisco.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+                "baseScore": 8.8,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 5.9
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2025-04-17T03:55:23.959624Z",
+                "id": "CVE-2025-20236",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "psirt@cisco.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-829"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_teams:44.6:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "0C9E10AD-114B-411E-A182-F39A1D5184B2"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_teams:44.6.0.29928:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "6F50C1B2-3CFD-4E1D-90B7-DCF7A7964BFE"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_teams:44.6.0.30148:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "8C400944-89FD-4CB6-8144-BA38B70AC600"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_teams:44.7:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "82A95726-827F-47AC-B361-CCFFCAA6C6DB"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_teams:44.7.0.30141:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "B36E21E9-26E6-4C93-93A9-3FEB913660CA"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_teams:44.7.0.30285:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "4B2C0570-6468-4907-A9A8-0E16D13AE7EE"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-webex-app-client-rce-ufyMMYLC",
+            "source": "psirt@cisco.com",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2025-20246",
+        "sourceIdentifier": "psirt@cisco.com",
+        "published": "2025-05-21T17:15:56.363",
+        "lastModified": "2026-06-17T08:41:11.103",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "A vulnerability in Cisco Webex could allow an unauthenticated, remote attacker to conduct a cross-site scripting (XSS) attack.\r\n\r A vulnerability is due to improper filtering of user-supplied input. An attacker could exploit this vulnerability by persuading a user to follow a malicious link. A successful exploit could allow the attacker to conduct a cross-site scripting attack against the targeted user."
+          },
+          {
+            "lang": "es",
+            "value": "Una vulnerabilidad en Cisco Webex podría permitir que un atacante remoto no autenticado realice un ataque de Cross-Site Scripting (XSS). Esta vulnerabilidad se debe a un filtrado inadecuado de la información proporcionada por el usuario. Un atacante podría explotar esta vulnerabilidad persuadiendo al usuario a seguir un enlace malicioso. Una explotación exitosa podría permitirle realizar un ataque de Cross-Site Scripting contra el usuario objetivo."
+          }
+        ],
+        "affected": [
+          {
+            "source": "psirt@cisco.com",
+            "affectedData": [
+              {
+                "vendor": "Cisco",
+                "product": "Cisco Webex Meetings",
+                "versions": [
+                  {
+                    "version": "N/A",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "psirt@cisco.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+                "baseScore": 6.1,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "CHANGED",
+                "confidentialityImpact": "LOW",
+                "integrityImpact": "LOW",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 2.7
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2025-05-21T18:03:42.995814Z",
+                "id": "CVE-2025-20246",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "psirt@cisco.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-79"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:-:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "81774C03-0884-44C6-80EF-DC882BF44C84"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-webex-xss-7teQtFn8",
+            "source": "psirt@cisco.com",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2025-20247",
+        "sourceIdentifier": "psirt@cisco.com",
+        "published": "2025-05-21T17:15:56.540",
+        "lastModified": "2026-06-17T08:41:11.213",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "A vulnerability in Cisco Webex could allow an unauthenticated, remote attacker to conduct a cross-site scripting (XSS) attack.\r\n\r A vulnerability is due to improper filtering of user-supplied input. An attacker could exploit this vulnerability by persuading a user to follow a malicious link. A successful exploit could allow the attacker to conduct a cross-site scripting attack against the targeted user."
+          },
+          {
+            "lang": "es",
+            "value": "Una vulnerabilidad en Cisco Webex podría permitir que un atacante remoto no autenticado realice un ataque de Cross-Site Scripting (XSS). Esta vulnerabilidad se debe a un filtrado inadecuado de la información proporcionada por el usuario. Un atacante podría explotar esta vulnerabilidad persuadiendo al usuario a seguir un enlace malicioso. Una explotación exitosa podría permitirle realizar un ataque de Cross-Site Scripting contra el usuario objetivo."
+          }
+        ],
+        "affected": [
+          {
+            "source": "psirt@cisco.com",
+            "affectedData": [
+              {
+                "vendor": "Cisco",
+                "product": "Cisco Webex Meetings",
+                "versions": [
+                  {
+                    "version": "N/A",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "psirt@cisco.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+                "baseScore": 6.1,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "CHANGED",
+                "confidentialityImpact": "LOW",
+                "integrityImpact": "LOW",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 2.7
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2025-05-21T17:47:18.834313Z",
+                "id": "CVE-2025-20247",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "psirt@cisco.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-79"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:-:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "81774C03-0884-44C6-80EF-DC882BF44C84"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-webex-xss-7teQtFn8",
+            "source": "psirt@cisco.com",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2025-20250",
+        "sourceIdentifier": "psirt@cisco.com",
+        "published": "2025-05-21T17:15:56.713",
+        "lastModified": "2026-06-17T08:41:11.443",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "A vulnerability in Cisco Webex could allow an unauthenticated, remote attacker to conduct a cross-site scripting (XSS) attack.\r\n\r A vulnerability is due to improper filtering of user-supplied input. An attacker could exploit this vulnerability by persuading a user to follow a malicious link. A successful exploit could allow the attacker to conduct a cross-site scripting attack against the targeted user."
+          },
+          {
+            "lang": "es",
+            "value": "Una vulnerabilidad en Cisco Webex podría permitir que un atacante remoto no autenticado realice un ataque de Cross-Site Scripting (XSS). Esta vulnerabilidad se debe a un filtrado inadecuado de la información proporcionada por el usuario. Un atacante podría explotar esta vulnerabilidad persuadiendo al usuario a seguir un enlace malicioso. Una explotación exitosa podría permitirle realizar un ataque de Cross-Site Scripting contra el usuario objetivo."
+          }
+        ],
+        "affected": [
+          {
+            "source": "psirt@cisco.com",
+            "affectedData": [
+              {
+                "vendor": "Cisco",
+                "product": "Cisco Webex Meetings",
+                "versions": [
+                  {
+                    "version": "N/A",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "psirt@cisco.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+                "baseScore": 6.1,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "CHANGED",
+                "confidentialityImpact": "LOW",
+                "integrityImpact": "LOW",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 2.7
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2025-05-21T17:31:57.503746Z",
+                "id": "CVE-2025-20250",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "psirt@cisco.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-79"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:-:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "81774C03-0884-44C6-80EF-DC882BF44C84"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-webex-xss-7teQtFn8",
+            "source": "psirt@cisco.com",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2025-20255",
+        "sourceIdentifier": "psirt@cisco.com",
+        "published": "2025-05-21T17:15:56.890",
+        "lastModified": "2026-06-17T08:41:12.430",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "A vulnerability in client join services of Cisco Webex Meetings could allow an unauthenticated, remote attacker to manipulate cached HTTP responses within the meeting join service.\r\n\r This vulnerability is due to improper handling of malicious HTTP requests to the affected service. An attacker could exploit this vulnerability by manipulating stored HTTP responses within the service, also known as HTTP cache poisoning. A successful exploit could allow the attacker to cause the Webex Meetings service to return incorrect HTTP responses to clients."
+          },
+          {
+            "lang": "es",
+            "value": "Una vulnerabilidad en los servicios de acceso de clientes de Cisco Webex Meetings podría permitir que un atacante remoto no autenticado manipule las respuestas HTTP almacenadas en caché dentro del servicio. Esta vulnerabilidad se debe a la gestión incorrecta de solicitudes HTTP maliciosas al servicio afectado. Un atacante podría explotar esta vulnerabilidad manipulando las respuestas HTTP almacenadas dentro del servicio, lo que se conoce como envenenamiento de caché HTTP. Una explotación exitosa podría permitir al atacante provocar que el servicio Webex Meetings devuelva respuestas HTTP incorrectas a los clientes."
+          }
+        ],
+        "affected": [
+          {
+            "source": "psirt@cisco.com",
+            "affectedData": [
+              {
+                "vendor": "Cisco",
+                "product": "Cisco Webex Meetings",
+                "versions": [
+                  {
+                    "version": "N/A",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "psirt@cisco.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N",
+                "baseScore": 4.3,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "LOW",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 1.4
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2025-05-21T18:49:10.129538Z",
+                "id": "CVE-2025-20255",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "psirt@cisco.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-349"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:cisco:webex_meetings:-:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "81774C03-0884-44C6-80EF-DC882BF44C84"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-webex-cache-Q4xbkQBG",
+            "source": "psirt@cisco.com",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2025-5080",
+        "sourceIdentifier": "cna@vuldb.com",
+        "published": "2025-05-22T15:16:06.670",
+        "lastModified": "2026-06-17T09:47:09.703",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "A vulnerability classified as critical has been found in Tenda FH451 1.0.0.9. Affected is the function webExcptypemanFilter of the file /goform/webExcptypemanFilter. The manipulation of the argument page leads to stack-based buffer overflow. It is possible to launch the attack remotely. The exploit has been disclosed to the public and may be used."
+          },
+          {
+            "lang": "es",
+            "value": "Se ha detectado una vulnerabilidad crítica en Tenda FH451 1.0.0.9. La función webExcptypemanFilter del archivo /goform/webExcptypemanFilter está afectada. La manipulación de la página de argumentos provoca un desbordamiento del búfer basado en la pila. El ataque puede ejecutarse en remoto. Se ha hecho público el exploit y puede que sea utilizado."
+          }
+        ],
+        "affected": [
+          {
+            "source": "cna@vuldb.com",
+            "affectedData": [
+              {
+                "vendor": "Tenda",
+                "product": "FH451",
+                "versions": [
+                  {
+                    "version": "1.0.0.9",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "cna@vuldb.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 8.7,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "attackRequirements": "NONE",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "vulnConfidentialityImpact": "HIGH",
+                "vulnIntegrityImpact": "HIGH",
+                "vulnAvailabilityImpact": "HIGH",
+                "subConfidentialityImpact": "NONE",
+                "subIntegrityImpact": "NONE",
+                "subAvailabilityImpact": "NONE",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "cvssMetricV31": [
+            {
+              "source": "cna@vuldb.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+                "baseScore": 8.8,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 5.9
+            }
+          ],
+          "cvssMetricV2": [
+            {
+              "source": "cna@vuldb.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:L/Au:S/C:C/I:C/A:C",
+                "baseScore": 9,
+                "accessVector": "NETWORK",
+                "accessComplexity": "LOW",
+                "authentication": "SINGLE",
+                "confidentialityImpact": "COMPLETE",
+                "integrityImpact": "COMPLETE",
+                "availabilityImpact": "COMPLETE"
+              },
+              "baseSeverity": "HIGH",
+              "exploitabilityScore": 8,
+              "impactScore": 10,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2025-05-22T18:05:31.116651Z",
+                "id": "CVE-2025-5080",
+                "options": [
+                  {
+                    "exploitation": "poc"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "cna@vuldb.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-119"
+              },
+              {
+                "lang": "en",
+                "value": "CWE-121"
+              }
+            ]
+          },
+          {
+            "source": "nvd@nist.gov",
+            "type": "Primary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-787"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "operator": "AND",
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:tenda:fh451_firmware:1.0.0.9:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "A7521568-7BCD-43F8-9F20-440DF3919D5D"
+                  }
+                ]
+              },
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": false,
+                    "criteria": "cpe:2.3:h:tenda:fh451:-:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "97A8BF83-E42A-4D6B-A52D-146FE1AEE2B0"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/xubeining/Cve_report/blob/main/Shenzhen%20Jixiang%20Tengda%20Technology%20Co.%2C%20Ltd.%20FH451%20has%20a%20Remote%20Code%20Execution%20vulnerability.md",
+            "source": "cna@vuldb.com",
+            "tags": [
+              "Exploit",
+              "Third Party Advisory"
+            ]
+          },
+          {
+            "url": "https://vuldb.com/?ctiid.309960",
+            "source": "cna@vuldb.com",
+            "tags": [
+              "Permissions Required",
+              "VDB Entry"
+            ]
+          },
+          {
+            "url": "https://vuldb.com/?id.309960",
+            "source": "cna@vuldb.com",
+            "tags": [
+              "Third Party Advisory",
+              "VDB Entry"
+            ]
+          },
+          {
+            "url": "https://vuldb.com/?submit.582059",
+            "source": "cna@vuldb.com",
+            "tags": [
+              "Third Party Advisory",
+              "VDB Entry"
+            ]
+          },
+          {
+            "url": "https://www.tenda.com.cn/",
+            "source": "cna@vuldb.com",
+            "tags": [
+              "Product"
+            ]
+          },
+          {
+            "url": "https://github.com/xubeining/Cve_report/blob/main/Shenzhen%20Jixiang%20Tengda%20Technology%20Co.%2C%20Ltd.%20FH451%20has%20a%20Remote%20Code%20Execution%20vulnerability.md",
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "tags": [
+              "Exploit",
+              "Third Party Advisory"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

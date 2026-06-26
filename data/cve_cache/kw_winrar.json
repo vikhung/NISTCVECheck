@@ -1,0 +1,1316 @@
+{
+  "cveCount": 7,
+  "cacheKey": "kw_winrar",
+  "coverageStart": "2025-01-01T00:00:00.000Z",
+  "lastFetchedAt": "2026-06-26T09:22:22.478Z",
+  "cves": [
+    {
+      "cve": {
+        "id": "CVE-2019-25677",
+        "sourceIdentifier": "disclosure@vulncheck.com",
+        "published": "2026-04-05T21:16:45.800",
+        "lastModified": "2026-06-17T02:32:56.760",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "WinRAR 5.61 contains a denial of service vulnerability that allows local attackers to crash the application by placing a malformed winrar.lng language file in the installation directory. Attackers can trigger the crash by opening an archive and pressing the test button, causing an access violation at memory address 004F1DB8 when the application attempts to read invalid data."
+          }
+        ],
+        "affected": [
+          {
+            "source": "disclosure@vulncheck.com",
+            "affectedData": [
+              {
+                "vendor": "Win-Rar",
+                "product": "WinRAR",
+                "versions": [
+                  {
+                    "version": "5.61 32 Bit",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "disclosure@vulncheck.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 6.9,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "attackRequirements": "NONE",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "vulnConfidentialityImpact": "NONE",
+                "vulnIntegrityImpact": "NONE",
+                "vulnAvailabilityImpact": "HIGH",
+                "subConfidentialityImpact": "NONE",
+                "subIntegrityImpact": "NONE",
+                "subAvailabilityImpact": "NONE",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "cvssMetricV31": [
+            {
+              "source": "disclosure@vulncheck.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "baseScore": 6.2,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 2.5,
+              "impactScore": 3.6
+            },
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+                "baseScore": 5.5,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 1.8,
+              "impactScore": 3.6
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-04-06T18:07:34.630516Z",
+                "id": "CVE-2019-25677",
+                "options": [
+                  {
+                    "exploitation": "poc"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "disclosure@vulncheck.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-379"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:rarlab:winrar:*:*:*:*:*:*:x86:*",
+                    "versionEndIncluding": "5.61",
+                    "matchCriteriaId": "78DAF5E5-409C-413B-AB25-78575617A5B6"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://win-rar.com/predownload.html?spV=true&subD=true&f=wrar561tr.exe",
+            "source": "disclosure@vulncheck.com",
+            "tags": [
+              "Product"
+            ]
+          },
+          {
+            "url": "https://www.exploit-db.com/exploits/46432",
+            "source": "disclosure@vulncheck.com",
+            "tags": [
+              "Exploit",
+              "VDB Entry"
+            ]
+          },
+          {
+            "url": "https://www.vulncheck.com/advisories/winrar-denial-of-service-via-malformed-language-file",
+            "source": "disclosure@vulncheck.com",
+            "tags": [
+              "Third Party Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2025-52331",
+        "sourceIdentifier": "cve@mitre.org",
+        "published": "2025-11-12T17:15:37.733",
+        "lastModified": "2026-06-17T09:36:23.350",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Cross-site scripting (XSS) vulnerability in the generate report functionality in Rarlab WinRAR 7.11, allows attackers to disclose user information such as the computer username, generated report directory, and IP address. The generate report command includes archived file names without validation in the HTML report, which allows potentially malicious HTML tags to be injected into the report. User interaction is required. User must use the \"generate report\" functionality and open the report."
+          }
+        ],
+        "affected": [
+          {
+            "source": "cve@mitre.org",
+            "affectedData": [
+              {
+                "vendor": "n/a",
+                "product": "n/a",
+                "versions": [
+                  {
+                    "version": "n/a",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+                "baseScore": 6.1,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "CHANGED",
+                "confidentialityImpact": "LOW",
+                "integrityImpact": "LOW",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 2.7
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2025-11-12T21:34:11.648587Z",
+                "id": "CVE-2025-52331",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-79"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:rarlab:winrar:7.11:-:*:*:*:*:*:*",
+                    "matchCriteriaId": "7495FB0B-8BAF-453A-BC8A-9056BF2E98FF"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://gist.github.com/MarcinB44/2150484497c4b34aedf682c9091b14fa",
+            "source": "cve@mitre.org",
+            "tags": [
+              "Third Party Advisory"
+            ]
+          },
+          {
+            "url": "https://www.rarlab.com/rarnew.htm",
+            "source": "cve@mitre.org",
+            "tags": [
+              "Release Notes"
+            ]
+          },
+          {
+            "url": "https://www.win-rar.com/whatsnew.html",
+            "source": "cve@mitre.org",
+            "tags": [
+              "Release Notes"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2025-14111",
+        "sourceIdentifier": "cna@vuldb.com",
+        "published": "2025-12-05T23:15:46.643",
+        "lastModified": "2026-06-17T08:35:20.737",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "A security vulnerability has been detected in Rarlab RAR App up to 7.11 Build 127 on Android. This affects an unknown part of the component com.rarlab.rar. Such manipulation leads to path traversal. It is possible to launch the attack remotely. Attacks of this nature are highly complex. It is indicated that the exploitability is difficult. The exploit has been disclosed publicly and may be used. Upgrading to version 7.20 build 128 is able to mitigate this issue. You should upgrade the affected component. The vendor responded very professional: \"This is the real vulnerability affecting RAR for Android only. WinRAR and Unix RAR versions are not affected. We already fixed it in RAR for Android 7.20 build 128 and we publicly mentioned it in that version changelog. (...) To avoid confusion among users, it would be useful if such disclosure emphasizes that it is RAR for Android only issue and WinRAR isn't affected.\""
+          },
+          {
+            "lang": "es",
+            "value": "Una vulnerabilidad de seguridad ha sido detectada en la aplicación Rarlab RAR hasta la versión 7.11 Build 127 en Android. Esto afecta una parte desconocida del componente com.rarlab.rar. Dicha manipulación conduce a un salto de ruta. Es posible lanzar el ataque de forma remota. Los ataques de esta naturaleza son altamente complejos. Se indica que la explotabilidad es difícil. El exploit ha sido divulgado públicamente y puede ser utilizado. La actualización a la versión 7.20 build 128 puede mitigar este problema. Debería actualizar el componente afectado. El proveedor respondió de forma muy profesional: 'Esta es la vulnerabilidad real que afecta solo a RAR para Android. Las versiones de WinRAR y Unix RAR no están afectadas. Ya lo solucionamos en RAR para Android 7.20 build 128 y lo mencionamos públicamente en el registro de cambios de esa versión. (...) Para evitar confusiones entre los usuarios, sería útil que dicha divulgación enfatice que es un problema exclusivo de RAR para Android y que WinRAR no está afectado.'"
+          }
+        ],
+        "affected": [
+          {
+            "source": "cna@vuldb.com",
+            "affectedData": [
+              {
+                "vendor": "Rarlab",
+                "product": "RAR App",
+                "modules": [
+                  "com.rarlab.rar"
+                ],
+                "versions": [
+                  {
+                    "version": "7.11 Build 127",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "7.20 build 128",
+                    "status": "unaffected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "cna@vuldb.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:N/AC:H/AT:N/PR:N/UI:P/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N/E:P/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 1.3,
+                "baseSeverity": "LOW",
+                "attackVector": "NETWORK",
+                "attackComplexity": "HIGH",
+                "attackRequirements": "NONE",
+                "privilegesRequired": "NONE",
+                "userInteraction": "PASSIVE",
+                "vulnConfidentialityImpact": "LOW",
+                "vulnIntegrityImpact": "LOW",
+                "vulnAvailabilityImpact": "LOW",
+                "subConfidentialityImpact": "NONE",
+                "subIntegrityImpact": "NONE",
+                "subAvailabilityImpact": "NONE",
+                "exploitMaturity": "PROOF_OF_CONCEPT",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "cvssMetricV31": [
+            {
+              "source": "cna@vuldb.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:L/I:L/A:L",
+                "baseScore": 5,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "HIGH",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "LOW",
+                "integrityImpact": "LOW",
+                "availabilityImpact": "LOW"
+              },
+              "exploitabilityScore": 1.6,
+              "impactScore": 3.4
+            },
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                "baseScore": 8.1,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "HIGH",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 2.2,
+              "impactScore": 5.9
+            }
+          ],
+          "cvssMetricV2": [
+            {
+              "source": "cna@vuldb.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "2.0",
+                "vectorString": "AV:N/AC:H/Au:N/C:P/I:P/A:P",
+                "baseScore": 5.1,
+                "accessVector": "NETWORK",
+                "accessComplexity": "HIGH",
+                "authentication": "NONE",
+                "confidentialityImpact": "PARTIAL",
+                "integrityImpact": "PARTIAL",
+                "availabilityImpact": "PARTIAL"
+              },
+              "baseSeverity": "MEDIUM",
+              "exploitabilityScore": 4.9,
+              "impactScore": 6.4,
+              "acInsufInfo": false,
+              "obtainAllPrivilege": false,
+              "obtainUserPrivilege": false,
+              "obtainOtherPrivilege": false,
+              "userInteractionRequired": false
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2025-12-08T17:07:56.878702Z",
+                "id": "CVE-2025-14111",
+                "options": [
+                  {
+                    "exploitation": "poc"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "cna@vuldb.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-22"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "operator": "AND",
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:rarlab:rar:*:*:*:*:*:*:*:*",
+                    "versionEndIncluding": "7.11",
+                    "matchCriteriaId": "0E3C8BE7-C837-4C14-B756-1E9A79F4EBA8"
+                  }
+                ]
+              },
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": false,
+                    "criteria": "cpe:2.3:o:google:android:-:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "F8B9FEC8-73B6-43B8-B24E-1F7C20D91D26"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/Secsys-FDU/AF_CVEs/blob/main/com.rarlab.rar/RAR%20APP%20Arbitrary%20File%20Write%20and%20Read%20Vulnerability.md",
+            "source": "cna@vuldb.com",
+            "tags": [
+              "Exploit",
+              "Third Party Advisory"
+            ]
+          },
+          {
+            "url": "https://vuldb.com/?ctiid.334491",
+            "source": "cna@vuldb.com",
+            "tags": [
+              "Permissions Required",
+              "VDB Entry"
+            ]
+          },
+          {
+            "url": "https://vuldb.com/?id.334491",
+            "source": "cna@vuldb.com",
+            "tags": [
+              "Third Party Advisory",
+              "VDB Entry"
+            ]
+          },
+          {
+            "url": "https://vuldb.com/?submit.697375",
+            "source": "cna@vuldb.com",
+            "tags": [
+              "Third Party Advisory",
+              "VDB Entry"
+            ]
+          },
+          {
+            "url": "https://github.com/Secsys-FDU/AF_CVEs/blob/main/com.rarlab.rar/RAR%20APP%20Arbitrary%20File%20Write%20and%20Read%20Vulnerability.md",
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "tags": [
+              "Exploit",
+              "Third Party Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2014-125119",
+        "sourceIdentifier": "disclosure@vulncheck.com",
+        "published": "2025-07-25T16:15:26.507",
+        "lastModified": "2026-06-17T00:04:30.057",
+        "vulnStatus": "Deferred",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "A filename spoofing vulnerability exists in WinRAR when opening specially crafted ZIP archives. The issue arises due to inconsistencies between the Central Directory and Local File Header entries in ZIP files. When viewed in WinRAR, the file name from the Central Directory is displayed to the user, while the file from the Local File Header is extracted and executed. An attacker can leverage this flaw to spoof filenames and trick users into executing malicious payloads under the guise of harmless files, potentially leading to remote code execution."
+          },
+          {
+            "lang": "es",
+            "value": "Existe una vulnerabilidad de suplantación de nombre de archivo en WinRAR al abrir archivos ZIP especialmente manipulados. El problema surge debido a inconsistencias entre las entradas del Directorio Central y la Encabezado de Archivo Local en los archivos ZIP. Al visualizarse en WinRAR, se muestra al usuario el nombre del archivo del Directorio Central, mientras que el archivo de la Encabezado de Archivo Local se extrae y se ejecuta. Un atacante puede aprovechar esta vulnerabilidad para suplantar nombres de archivo y engañar a los usuarios para que ejecuten payloads bajo la apariencia de archivos inofensivos, lo que podría provocar la ejecución remota de código."
+          }
+        ],
+        "affected": [
+          {
+            "source": "disclosure@vulncheck.com",
+            "affectedData": [
+              {
+                "vendor": "RARLab",
+                "product": "WinRAR",
+                "defaultStatus": "unaffected",
+                "modules": [
+                  "Parsing Logic"
+                ],
+                "versions": [
+                  {
+                    "version": "3.80",
+                    "lessThan": "3.91",
+                    "versionType": "custom",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "4.11",
+                    "lessThan": "5.00",
+                    "versionType": "custom",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "disclosure@vulncheck.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:A/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 8.4,
+                "baseSeverity": "HIGH",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "attackRequirements": "NONE",
+                "privilegesRequired": "NONE",
+                "userInteraction": "ACTIVE",
+                "vulnConfidentialityImpact": "HIGH",
+                "vulnIntegrityImpact": "HIGH",
+                "vulnAvailabilityImpact": "HIGH",
+                "subConfidentialityImpact": "NONE",
+                "subIntegrityImpact": "NONE",
+                "subAvailabilityImpact": "NONE",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2025-07-25T17:40:43.475752Z",
+                "id": "CVE-2014-125119",
+                "options": [
+                  {
+                    "exploitation": "poc"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "disclosure@vulncheck.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-20"
+              },
+              {
+                "lang": "en",
+                "value": "CWE-434"
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://an7isec.blogspot.com/2014/03/winrar-file-extension-spoofing-0day.html",
+            "source": "disclosure@vulncheck.com"
+          },
+          {
+            "url": "https://raw.githubusercontent.com/rapid7/metasploit-framework/master/modules/exploits/windows/fileformat/winrar_name_spoofing.rb",
+            "source": "disclosure@vulncheck.com"
+          },
+          {
+            "url": "https://web.archive.org/web/20140625054244/http://intelcrawler.com/news-15",
+            "source": "disclosure@vulncheck.com"
+          },
+          {
+            "url": "https://web.archive.org/web/20141111142204/https://www.intelcrawler.com/report_2603.pdf",
+            "source": "disclosure@vulncheck.com"
+          },
+          {
+            "url": "https://www.rarlab.com/vuln_zip_spoofing_4.20.html",
+            "source": "disclosure@vulncheck.com"
+          },
+          {
+            "url": "https://www.vulncheck.com/advisories/winrar-filename-spoofing-rce",
+            "source": "disclosure@vulncheck.com"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2025-8088",
+        "sourceIdentifier": "security@eset.com",
+        "published": "2025-08-08T12:15:29.343",
+        "lastModified": "2026-06-17T10:06:17.243",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "A path traversal vulnerability affecting the Windows version of WinRAR allows the attackers to execute arbitrary code by crafting malicious archive files. This vulnerability was exploited in the wild and was discovered by Anton Cherepanov, Peter Košinár, and Peter Strýček\n     from ESET."
+          },
+          {
+            "lang": "es",
+            "value": "Una vulnerabilidad de path traversal que afecta a la versión de WinRAR para Windows permite a los atacantes ejecutar código arbitrario mediante la manipulación de archivos maliciosos. Esta vulnerabilidad fue explotada indiscriminadamente y descubierta por Anton Cherepanov, Peter Košinár y Peter Strý?ek de ESET."
+          }
+        ],
+        "affected": [
+          {
+            "source": "security@eset.com",
+            "affectedData": [
+              {
+                "vendor": "win.rar GmbH",
+                "product": "WinRAR",
+                "defaultStatus": "unknown",
+                "platforms": [
+                  "Windows"
+                ],
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThanOrEqual": "7.12",
+                    "versionType": "custom",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "security@eset.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:A/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 8.4,
+                "baseSeverity": "HIGH",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "attackRequirements": "NONE",
+                "privilegesRequired": "NONE",
+                "userInteraction": "ACTIVE",
+                "vulnConfidentialityImpact": "HIGH",
+                "vulnIntegrityImpact": "HIGH",
+                "vulnAvailabilityImpact": "HIGH",
+                "subConfidentialityImpact": "NONE",
+                "subIntegrityImpact": "NONE",
+                "subAvailabilityImpact": "NONE",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+                "baseScore": 8.8,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 5.9
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2025-08-12T03:55:17.302460Z",
+                "id": "CVE-2025-8088",
+                "options": [
+                  {
+                    "exploitation": "active"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "cisaExploitAdd": "2025-08-12",
+        "cisaActionDue": "2025-09-02",
+        "cisaRequiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
+        "cisaVulnerabilityName": "RARLAB WinRAR Path Traversal Vulnerability",
+        "weaknesses": [
+          {
+            "source": "security@eset.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-35"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "operator": "AND",
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:rarlab:winrar:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "7.13",
+                    "matchCriteriaId": "F8DD81E1-8FF3-4597-A2EA-C71D3856103E"
+                  }
+                ]
+              },
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": false,
+                    "criteria": "cpe:2.3:o:microsoft:windows:-:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "A2572D17-1DE6-457B-99CC-64AFD54487EA"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "operator": "AND",
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:dtsearch:dtsearch:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "2023.01",
+                    "matchCriteriaId": "3658938E-7249-4ADE-8DCF-7B69A80D9221"
+                  }
+                ]
+              },
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": false,
+                    "criteria": "cpe:2.3:o:microsoft:windows:-:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "A2572D17-1DE6-457B-99CC-64AFD54487EA"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://www.win-rar.com/singlenewsview.html?&L=0&tx_ttnews%5Btt_news%5D=283&cHash=a64b4a8f662d3639dec8d65f47bc93c5",
+            "source": "security@eset.com",
+            "tags": [
+              "Release Notes"
+            ]
+          },
+          {
+            "url": "https://arstechnica.com/security/2025/08/high-severity-winrar-0-day-exploited-for-weeks-by-2-groups/",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Press/Media Coverage"
+            ]
+          },
+          {
+            "url": "https://support.dtsearch.com/faq/dts0245.htm",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Third Party Advisory"
+            ]
+          },
+          {
+            "url": "https://www.vicarius.io/vsociety/posts/cve-2025-8088-detect-winrar-zero-day",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Third Party Advisory"
+            ]
+          },
+          {
+            "url": "https://www.vicarius.io/vsociety/posts/cve-2025-8088-mitigate-winrar-zero-day-using-srp-and-ifeo",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Mitigation",
+              "Third Party Advisory"
+            ]
+          },
+          {
+            "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2025-8088",
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "tags": [
+              "US Government Resource"
+            ]
+          },
+          {
+            "url": "https://www.welivesecurity.com/en/eset-research/update-winrar-tools-now-romcom-and-others-exploiting-zero-day-vulnerability/#the-discovery-of-cve-2025-8088",
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "tags": [
+              "Press/Media Coverage"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2025-31334",
+        "sourceIdentifier": "vultures@jpcert.or.jp",
+        "published": "2025-04-03T06:15:42.903",
+        "lastModified": "2026-06-17T09:10:15.343",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Issue that bypasses the \"Mark of the Web\" security warning function for files when opening a symbolic link that points to an executable file exists in WinRAR versions prior to 7.11. If a symbolic link specially crafted by an attacker is opened on the affected product, arbitrary code may be executed."
+          },
+          {
+            "lang": "es",
+            "value": "En versiones de WinRAR anteriores a la 7.11, existe un problema que omite la función de advertencia de seguridad \"Mark of the Web\" al abrir un enlace simbólico que apunta a un archivo ejecutable. Si se abre un enlace simbólico manipulado específicamente por un atacante en el producto afectado, se podría ejecutar código arbitrario."
+          }
+        ],
+        "affected": [
+          {
+            "source": "vultures@jpcert.or.jp",
+            "affectedData": [
+              {
+                "vendor": "RARLAB",
+                "product": "WinRAR",
+                "versions": [
+                  {
+                    "version": "prior to 7.11",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV30": [
+            {
+              "source": "vultures@jpcert.or.jp",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.0",
+                "vectorString": "CVSS:3.0/AV:N/AC:L/PR:H/UI:R/S:U/C:H/I:H/A:H",
+                "baseScore": 6.8,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "HIGH",
+                "userInteraction": "REQUIRED",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 0.9,
+              "impactScore": 5.9
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2025-04-03T13:51:57.341675Z",
+                "id": "CVE-2025-31334",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "vultures@jpcert.or.jp",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-356"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:rarlab:winrar:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "7.11",
+                    "matchCriteriaId": "BE115B9C-816C-4D0F-979E-E46F02B34136"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://jvn.jp/en/jp/JVN59547048/",
+            "source": "vultures@jpcert.or.jp",
+            "tags": [
+              "Third Party Advisory"
+            ]
+          },
+          {
+            "url": "https://www.win-rar.com/start.html?&L=0",
+            "source": "vultures@jpcert.or.jp",
+            "tags": [
+              "Release Notes"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2025-6218",
+        "sourceIdentifier": "zdi-disclosures@trendmicro.com",
+        "published": "2025-06-21T01:15:29.123",
+        "lastModified": "2026-06-17T10:01:24.380",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "RARLAB WinRAR Directory Traversal Remote Code Execution Vulnerability. This vulnerability allows remote attackers to execute arbitrary code on affected installations of RARLAB WinRAR. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file.\n\nThe specific flaw exists within the handling of file paths within archive files. A crafted file path can cause the process to traverse to unintended directories. An attacker can leverage this vulnerability to execute code in the context of the current user. Was ZDI-CAN-27198."
+          },
+          {
+            "lang": "es",
+            "value": "Vulnerabilidad de ejecución remota de código por Directory Traversal en RARLAB WinRAR. Esta vulnerabilidad permite a atacantes remotos ejecutar código arbitrario en las instalaciones afectadas de RARLAB WinRAR. Para explotar esta vulnerabilidad, se requiere la interacción del usuario, ya que el objetivo debe visitar una página maliciosa o abrir un archivo malicioso. La falla específica se encuentra en la gestión de rutas de archivo dentro de los archivos comprimidos. Una ruta de archivo manipulada puede provocar que el proceso acceda a directorios no deseados. Un atacante puede aprovechar esta vulnerabilidad para ejecutar código en el contexto del usuario actual. Era ZDI-CAN-27198.\n"
+          }
+        ],
+        "affected": [
+          {
+            "source": "zdi-disclosures@trendmicro.com",
+            "affectedData": [
+              {
+                "vendor": "RARLAB",
+                "product": "WinRAR",
+                "defaultStatus": "unknown",
+                "versions": [
+                  {
+                    "version": "7.11 (64-bit)",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV30": [
+            {
+              "source": "zdi-disclosures@trendmicro.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.0",
+                "vectorString": "CVSS:3.0/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+                "baseScore": 7.8,
+                "baseSeverity": "HIGH",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 1.8,
+              "impactScore": 5.9
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2025-12-10T04:57:14.706848Z",
+                "id": "CVE-2025-6218",
+                "options": [
+                  {
+                    "exploitation": "active"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "cisaExploitAdd": "2025-12-09",
+        "cisaActionDue": "2025-12-30",
+        "cisaRequiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
+        "cisaVulnerabilityName": "RARLAB WinRAR Path Traversal Vulnerability",
+        "weaknesses": [
+          {
+            "source": "zdi-disclosures@trendmicro.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-22"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "operator": "AND",
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:rarlab:winrar:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "7.12",
+                    "matchCriteriaId": "E5B3E0ED-B444-468E-804E-7664C75CE9EA"
+                  }
+                ]
+              },
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": false,
+                    "criteria": "cpe:2.3:o:microsoft:windows:-:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "A2572D17-1DE6-457B-99CC-64AFD54487EA"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://www.win-rar.com/singlenewsview.html?&tx_ttnews%5Btt_news%5D=276&cHash=388885bd3908a40726f535c026f94eb6",
+            "source": "zdi-disclosures@trendmicro.com",
+            "tags": [
+              "Release Notes"
+            ]
+          },
+          {
+            "url": "https://www.zerodayinitiative.com/advisories/ZDI-25-409/",
+            "source": "zdi-disclosures@trendmicro.com",
+            "tags": [
+              "Third Party Advisory",
+              "VDB Entry"
+            ]
+          },
+          {
+            "url": "https://foresiet.com/blog/apt-c-08-winrar-directory-traversal-exploit/",
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "tags": [
+              "Exploit",
+              "Third Party Advisory"
+            ]
+          },
+          {
+            "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2025-6218",
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "tags": [
+              "US Government Resource"
+            ]
+          },
+          {
+            "url": "https://www.secpod.com/blog/archive-terror-dissecting-the-winrar-cve-2025-6218-exploit-apt-c-08s-stealth-move/",
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "tags": [
+              "Exploit",
+              "Third Party Advisory"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

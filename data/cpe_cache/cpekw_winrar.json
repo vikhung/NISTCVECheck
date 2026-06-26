@@ -1,0 +1,1165 @@
+{
+  "productCount": 50,
+  "cacheKey": "cpekw_winrar",
+  "fetchedAt": "2026-06-26T03:21:54.034Z",
+  "products": [
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:-:*:*:*:*:*:*:*",
+        "cpeNameId": "A92377FD-D647-4797-8245-770334F90E18",
+        "lastModified": "2011-03-04T17:47:06.627",
+        "created": "2007-08-23T21:05:57.937",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR",
+            "lang": "en"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:4.1.0:*:*:*:*:*:*:*",
+        "cpeNameId": "6D9BA813-B330-41EA-9845-C41C8AE6CAE8",
+        "lastModified": "2012-07-10T03:18:14.997",
+        "created": "2012-07-10T03:18:14.997",
+        "titles": [
+          {
+            "title": "Rarlab Winrar 4.1.0",
+            "lang": "en"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:4.1.0:*:*:*:*:*:x64:*",
+        "cpeNameId": "92207339-A864-4D7B-BA33-116B3199C3CB",
+        "lastModified": "2012-07-10T03:18:15.307",
+        "created": "2012-07-10T03:18:15.307",
+        "titles": [
+          {
+            "title": "Rarlab Winrar 4.1.0 (x64) 64-bit",
+            "lang": "en"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:4.10.2:*:*:*:*:*:*:*",
+        "cpeNameId": "24F5B467-5B55-4281-B625-6EDF4F41574E",
+        "lastModified": "2012-07-10T03:18:15.527",
+        "created": "2012-07-10T03:18:15.527",
+        "titles": [
+          {
+            "title": "Rarlab Winrar 4.10.2",
+            "lang": "en"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:5.30:beta_4:*:*:*:*:x86:*",
+        "cpeNameId": "E4452DB7-C351-4A8C-8C04-7B1689715C60",
+        "lastModified": "2015-12-30T17:29:41.487",
+        "created": "2015-12-30T17:29:41.487",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 5.30 Beta 4 32 bit",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "http://jvndb.jvn.jp/en/contents/2015/JVNDB-2015-000199.html",
+            "type": "Advisory"
+          },
+          {
+            "ref": "http://www.rarlab.com/",
+            "type": "Vendor"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:5.30:beta_4:*:*:*:*:x64:*",
+        "cpeNameId": "8AB68753-79F0-40E1-BAE5-D1A53E7EC5CC",
+        "lastModified": "2015-12-30T17:29:41.517",
+        "created": "2015-12-30T17:29:41.517",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 5.30 Beta 4 64 bit",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "http://jvndb.jvn.jp/en/contents/2015/JVNDB-2015-000199.html",
+            "type": "Advisory"
+          },
+          {
+            "ref": "http://www.rarlab.com/",
+            "type": "Vendor"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:4.00:*:*:*:*:*:*:*",
+        "cpeNameId": "F7693856-0543-4F0F-92C5-631D5EE42764",
+        "lastModified": "2019-02-14T15:00:39.507",
+        "created": "2019-02-14T15:00:39.507",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 4.00",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:4.01:*:*:*:*:*:*:*",
+        "cpeNameId": "CB386D3A-CC2E-488B-91D6-CDEB2A7CFBF3",
+        "lastModified": "2019-02-14T15:00:39.757",
+        "created": "2019-02-14T15:00:39.757",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 4.01",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:4.10:*:*:*:*:*:*:*",
+        "cpeNameId": "5F8B5770-5137-441C-B03D-9CF1DF44BD59",
+        "lastModified": "2019-02-14T15:00:39.850",
+        "created": "2019-02-14T15:00:39.850",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 4.10",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:4.11:*:*:*:*:*:*:*",
+        "cpeNameId": "79E5F907-45F6-4FA6-8071-09F7547351FE",
+        "lastModified": "2019-02-14T15:00:39.927",
+        "created": "2019-02-14T15:00:39.927",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 4.11",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:4.20:*:*:*:*:*:*:*",
+        "cpeNameId": "13B4C0BC-CB57-461B-9A1E-7A9E767F4059",
+        "lastModified": "2019-02-14T15:00:40.007",
+        "created": "2019-02-14T15:00:40.007",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 4.20",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:5.00:*:*:*:*:*:*:*",
+        "cpeNameId": "C625643C-D7E7-4D0D-A5C1-B1F2F41C5732",
+        "lastModified": "2019-02-14T15:00:40.087",
+        "created": "2019-02-14T15:00:40.087",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 5.00",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:5.01:*:*:*:*:*:*:*",
+        "cpeNameId": "AD6A40F5-192A-490A-9BD0-BABEBB428177",
+        "lastModified": "2019-02-14T15:00:40.177",
+        "created": "2019-02-14T15:00:40.177",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 5.01",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:5.10:*:*:*:*:*:*:*",
+        "cpeNameId": "81872A6A-A43C-4675-ABF3-10AE1790D8E2",
+        "lastModified": "2019-02-14T15:00:40.273",
+        "created": "2019-02-14T15:00:40.273",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 5.10",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:5.11:*:*:*:*:*:*:*",
+        "cpeNameId": "FC7F9F24-300B-4185-A3DF-385CE2E1C6AE",
+        "lastModified": "2019-02-14T15:00:40.350",
+        "created": "2019-02-14T15:00:40.350",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 5.11",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:5.20:*:*:*:*:*:*:*",
+        "cpeNameId": "93E7DC1E-C1A6-4537-BD76-B746A73319E9",
+        "lastModified": "2019-02-14T15:00:40.443",
+        "created": "2019-02-14T15:00:40.443",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 5.20",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:5.21:*:*:*:*:*:*:*",
+        "cpeNameId": "F350171D-B665-498C-ABE3-D28645DEAE92",
+        "lastModified": "2019-02-14T15:00:40.523",
+        "created": "2019-02-14T15:00:40.523",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 5.21",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:5.30:*:*:*:*:*:*:*",
+        "cpeNameId": "4163129D-3C41-4265-9620-51CA44C44F5A",
+        "lastModified": "2019-02-14T15:00:40.617",
+        "created": "2019-02-14T15:00:40.617",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 5.30",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:5.31:*:*:*:*:*:*:*",
+        "cpeNameId": "9AB4732B-AE40-420B-8F69-CDA5DC3FC583",
+        "lastModified": "2019-02-14T15:00:40.693",
+        "created": "2019-02-14T15:00:40.693",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 5.31",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:5.40:*:*:*:*:*:*:*",
+        "cpeNameId": "DDC365F3-5CFB-4A5D-ADE6-8F4FAA97F099",
+        "lastModified": "2019-02-14T15:00:40.787",
+        "created": "2019-02-14T15:00:40.787",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 5.40",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:5.50:*:*:*:*:*:*:*",
+        "cpeNameId": "DE33C46D-DC0C-48C0-AE4F-0CC37DD2C7FB",
+        "lastModified": "2019-02-14T15:00:40.883",
+        "created": "2019-02-14T15:00:40.883",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 5.50",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:5.70:beta1:*:*:*:*:*:*",
+        "cpeNameId": "BC9F315B-AE82-4FEC-8A27-9A57CEFDBFE8",
+        "lastModified": "2019-02-14T15:00:40.960",
+        "created": "2019-02-14T15:00:40.960",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 5.70 Beta1",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:6.11:*:*:*:*:*:*:*",
+        "cpeNameId": "BE6804C5-0A22-4DBC-A8E1-6A2481120D33",
+        "lastModified": "2023-04-07T14:24:00.873",
+        "created": "2023-04-05T14:42:54.253",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 6.11",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/latestnews.html?&L=0&cHash=77e9978773cdd529379a3594a192b060",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:6.20:-:*:*:*:*:*:*",
+        "cpeNameId": "7580E0FC-1371-47CA-B029-D485DD8EC718",
+        "lastModified": "2023-04-07T14:24:00.873",
+        "created": "2023-04-05T14:43:23.513",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 6.20",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/latestnews.html?&L=0&cHash=77e9978773cdd529379a3594a192b060",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:6.20:beta1:*:*:*:*:*:*",
+        "cpeNameId": "01698F30-F5E7-4C64-83C8-7CE5387CA62E",
+        "lastModified": "2023-04-07T14:24:00.873",
+        "created": "2023-04-05T14:43:23.513",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 6.20 Beta 1",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/latestnews.html?&L=0&cHash=77e9978773cdd529379a3594a192b060",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:6.20:beta2:*:*:*:*:*:*",
+        "cpeNameId": "D9B3401F-0E12-4666-8B24-6E0212F85E20",
+        "lastModified": "2023-04-07T14:24:00.873",
+        "created": "2023-04-05T14:43:23.513",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 6.20 Beta 2",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/latestnews.html?&L=0&cHash=77e9978773cdd529379a3594a192b060",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:6.20:beta3:*:*:*:*:*:*",
+        "cpeNameId": "9C35424D-3453-4A76-973C-050846B8DF17",
+        "lastModified": "2023-04-07T14:24:00.873",
+        "created": "2023-04-05T14:43:23.513",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 6.20 Beta 3",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/latestnews.html?&L=0&cHash=77e9978773cdd529379a3594a192b060",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:6.21:-:*:*:*:*:*:*",
+        "cpeNameId": "11E10C15-ACB0-4582-B3F7-154F3E93C841",
+        "lastModified": "2023-04-07T14:24:00.873",
+        "created": "2023-04-05T14:43:32.360",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 6.21",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/latestnews.html?&L=0&cHash=77e9978773cdd529379a3594a192b060",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:6.21:beta1:*:*:*:*:*:*",
+        "cpeNameId": "2F3D8D40-2213-440E-BC48-0BE671DE88B3",
+        "lastModified": "2023-04-07T14:24:00.873",
+        "created": "2023-04-05T14:43:32.360",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 6.21 Beta 1",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/latestnews.html?&L=0&cHash=77e9978773cdd529379a3594a192b060",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:6.23:*:*:*:*:*:*:*",
+        "cpeNameId": "929E354B-2A77-4573-BFC4-5AC280045F8E",
+        "lastModified": "2025-06-23T13:23:40.947",
+        "created": "2025-06-23T13:23:40.947",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 6.23",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.bleepingcomputer.com/news/security/winrar-zero-day-exploited-since-april-to-hack-trading-accounts/",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:5.61:*:*:*:*:*:*:*",
+        "cpeNameId": "157D4C4B-A7EA-47E0-8E12-B047993050F9",
+        "lastModified": "2025-09-16T13:57:01.647",
+        "created": "2025-09-16T13:57:01.647",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 5.61",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.rapid7.com/db/modules/exploit/windows/fileformat/winrar_ace/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://www.win-rar.com/latestnews.html?&L=0&cHash=77e9978773cdd529379a3594a192b060",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:6.24:-:*:*:*:*:*:*",
+        "cpeNameId": "489BBD58-12E0-4938-A4CE-0EE3428803B0",
+        "lastModified": "2025-06-23T13:23:40.947",
+        "created": "2025-06-23T13:23:40.947",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 6.24 ",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.win-rar.com/latestnews.html?&L=0&cHash=77e9978773cdd529379a3594a192b060",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:7.00:-:*:*:*:*:*:*",
+        "cpeNameId": "1985FA92-6D5D-4345-9DCA-3CF80F070E3F",
+        "lastModified": "2025-06-23T13:23:40.947",
+        "created": "2025-06-23T13:23:40.947",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 7.00 ",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.win-rar.com/latestnews.html?&L=0&cHash=77e9978773cdd529379a3594a192b060",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:7.01:-:*:*:*:*:*:*",
+        "cpeNameId": "A0858AA4-497E-45A4-AE6B-7307B1824678",
+        "lastModified": "2025-06-23T13:23:40.947",
+        "created": "2025-06-23T13:23:40.947",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 7.01 ",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.win-rar.com/latestnews.html?&L=0&cHash=77e9978773cdd529379a3594a192b060",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:7.10:-:*:*:*:*:*:*",
+        "cpeNameId": "BC23B9C7-BDA4-4699-A6EB-D4E15249A20B",
+        "lastModified": "2025-06-23T13:23:40.947",
+        "created": "2025-06-23T13:23:40.947",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 7.10 ",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.win-rar.com/latestnews.html?&L=0&cHash=77e9978773cdd529379a3594a192b060",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:7.11:-:*:*:*:*:*:*",
+        "cpeNameId": "AA1B3EC4-383D-4AFB-A462-918BBEAE13FB",
+        "lastModified": "2025-06-23T13:23:40.947",
+        "created": "2025-06-23T13:23:40.947",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 7.11 ",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.win-rar.com/latestnews.html?&L=0&cHash=77e9978773cdd529379a3594a192b060",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:7.12:beta1:*:*:*:*:*:*",
+        "cpeNameId": "64F331C0-020B-4273-9861-364FF07250FC",
+        "lastModified": "2025-06-23T13:23:40.947",
+        "created": "2025-06-23T13:23:40.947",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 7.12 Beta 1",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.win-rar.com/latestnews.html?&L=0&cHash=77e9978773cdd529379a3594a192b060",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:7.11:beta1:*:*:*:*:*:*",
+        "cpeNameId": "7EF84A66-2741-4EC4-973A-F3BDE0C3C4FE",
+        "lastModified": "2025-06-23T13:23:40.947",
+        "created": "2025-06-23T13:23:40.947",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 7.11 Beta 1",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.win-rar.com/latestnews.html?&L=0&cHash=77e9978773cdd529379a3594a192b060",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:7.10:beta1:*:*:*:*:*:*",
+        "cpeNameId": "757E76D5-57D3-4213-863E-FDADFC9FD5BD",
+        "lastModified": "2025-06-23T13:23:40.947",
+        "created": "2025-06-23T13:23:40.947",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 7.10 Beta 1",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.win-rar.com/latestnews.html?&L=0&cHash=77e9978773cdd529379a3594a192b060",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:7.10:beta2:*:*:*:*:*:*",
+        "cpeNameId": "5974F276-DB4B-4B5A-B81C-2B700FC87C9C",
+        "lastModified": "2025-06-23T13:23:40.947",
+        "created": "2025-06-23T13:23:40.947",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 7.10 Beta 2",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.win-rar.com/latestnews.html?&L=0&cHash=77e9978773cdd529379a3594a192b060",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:7.10:beta3:*:*:*:*:*:*",
+        "cpeNameId": "D900DB8B-C028-45CD-93BB-4027A2109AB4",
+        "lastModified": "2025-06-23T13:23:40.947",
+        "created": "2025-06-23T13:23:40.947",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 7.10 Beta 3",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.win-rar.com/latestnews.html?&L=0&cHash=77e9978773cdd529379a3594a192b060",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:6.24:beta1:*:*:*:*:*:*",
+        "cpeNameId": "8B880F94-31F1-460C-98D4-DCB065F90D14",
+        "lastModified": "2025-06-23T13:23:40.947",
+        "created": "2025-06-23T13:23:40.947",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 6.24 Beta 1",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.win-rar.com/latestnews.html?&L=0&cHash=77e9978773cdd529379a3594a192b060",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.win-rar.com/singlenewsview.html?&L=0&tx_ttnews%5Btt_news%5D=239&cHash=1f5486a370eccd363f8feb55ea837f56",
+            "type": "Version"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:7.00:beta1:*:*:*:*:*:*",
+        "cpeNameId": "57882C81-75D8-4D38-8865-05DBE1D9FF8E",
+        "lastModified": "2025-06-23T13:23:40.947",
+        "created": "2025-06-23T13:23:40.947",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 7.00 Beta 1",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.win-rar.com/latestnews.html?&L=0&cHash=77e9978773cdd529379a3594a192b060",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.win-rar.com/singlenewsview.html?&L=0&tx_ttnews%5Btt_news%5D=242&cHash=e7fd12f8dc08d61bfb794569799fd847",
+            "type": "Version"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:7.00:beta2:*:*:*:*:*:*",
+        "cpeNameId": "6426650B-A5AB-4357-8A69-9DD480048280",
+        "lastModified": "2025-06-23T13:23:40.947",
+        "created": "2025-06-23T13:23:40.947",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 7.00 Beta 2",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.win-rar.com/latestnews.html?&L=0&cHash=77e9978773cdd529379a3594a192b060",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.win-rar.com/singlenewsview.html?&L=0&tx_ttnews%5Btt_news%5D=244&cHash=a657e654b4dd64569f6458d85a611372",
+            "type": "Version"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:7.00:beta3:*:*:*:*:*:*",
+        "cpeNameId": "1C4565F3-1163-4981-9F5C-E0929BFA07D1",
+        "lastModified": "2025-06-23T13:23:40.947",
+        "created": "2025-06-23T13:23:40.947",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 7.00 Beta 3",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.win-rar.com/latestnews.html?&L=0&cHash=77e9978773cdd529379a3594a192b060",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.win-rar.com/singlenewsview.html?&L=0&tx_ttnews%5Btt_news%5D=247&cHash=214702b029f3f1a32c07c9aa9d13f3ac",
+            "type": "Version"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:7.00:beta4:*:*:*:*:*:*",
+        "cpeNameId": "A1D0BFD5-0757-42D8-9D80-6220E38FB6F9",
+        "lastModified": "2025-06-23T13:23:40.947",
+        "created": "2025-06-23T13:23:40.947",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 7.00 Beta 4",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.win-rar.com/latestnews.html?&L=0&cHash=77e9978773cdd529379a3594a192b060",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.win-rar.com/singlenewsview.html?&L=0&tx_ttnews%5Btt_news%5D=249&cHash=677d4090f5bae8b9aa91243326fbd629",
+            "type": "Version"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:7.01:beta1:*:*:*:*:*:*",
+        "cpeNameId": "EA240596-8A72-4DB4-88A1-55C5AFBF86F1",
+        "lastModified": "2025-06-23T13:23:40.947",
+        "created": "2025-06-23T13:23:40.947",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 7.01 Beta 1",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.win-rar.com/latestnews.html?&L=0&cHash=77e9978773cdd529379a3594a192b060",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.win-rar.com/singlenewsview.html?&L=0&tx_ttnews%5Btt_news%5D=255&cHash=a77c6274b4df9dea0a686ed8e79871da",
+            "type": "Version"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:7.12:-:*:*:*:*:*:*",
+        "cpeNameId": "699C06DF-CC92-4CDC-97BE-8FCFC75A7209",
+        "lastModified": "2025-09-16T13:57:01.647",
+        "created": "2025-09-16T13:57:01.647",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 7.12 ",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/latestnews.html?&L=0&cHash=77e9978773cdd529379a3594a192b060",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.rapid7.com/db/modules/exploit/windows/fileformat/winrar_ace/",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:7.13:-:*:*:*:*:*:*",
+        "cpeNameId": "49EA0863-202A-43B0-8506-510B30B80C6F",
+        "lastModified": "2025-09-16T13:57:01.647",
+        "created": "2025-09-16T13:57:01.647",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 7.13 ",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.rapid7.com/db/modules/exploit/windows/fileformat/winrar_ace/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.win-rar.com/latestnews.html?&L=0&cHash=77e9978773cdd529379a3594a192b060",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:rarlab:winrar:7.13:beta1:*:*:*:*:*:*",
+        "cpeNameId": "D8652626-A0AD-4EDF-B0D7-86246152C70C",
+        "lastModified": "2025-09-16T13:57:01.647",
+        "created": "2025-09-16T13:57:01.647",
+        "titles": [
+          {
+            "title": "RARLAB WinRAR 7.13 Beta 1",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.win-rar.com/whatsnew.html?&L=0",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.win-rar.com/latestnews.html?&L=0&cHash=77e9978773cdd529379a3594a192b060",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.rapid7.com/db/modules/exploit/windows/fileformat/winrar_ace/",
+            "type": "Advisory"
+          }
+        ]
+      }
+    }
+  ]
+}
