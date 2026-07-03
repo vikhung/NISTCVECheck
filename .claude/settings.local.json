@@ -72,7 +72,8 @@
       "Bash(python make_ppt.py)",
       "Read(//c/Program Files/LibreOffice/program/**)",
       "Read(//c/Program Files/Microsoft Office/root/Office16/**)",
-      "PowerShell($src=\"C:\\\\Users\\\\Vik\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\D--VikGitHub-VikClaudeCode-NISTCVECheck\\\\fba7919d-9a11-479a-b6e6-20454acac97a\\\\scratchpad\\\\out.pptx\"; $png=\"C:\\\\Users\\\\Vik\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\D--VikGitHub-VikClaudeCode-NISTCVECheck\\\\fba7919d-9a11-479a-b6e6-20454acac97a\\\\scratchpad\\\\slide1.png\"; $pp=New-Object -ComObject PowerPoint.Application; $pres=$pp.Presentations.Open\\($src,$true,$false,$false\\); $pres.Slides.Item\\(1\\).Export\\($png,\"PNG\",1600,900\\); $pres.Close\\(\\); $pp.Quit\\(\\); Write-Output \"exported\")"
+      "PowerShell($src=\"C:\\\\Users\\\\Vik\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\D--VikGitHub-VikClaudeCode-NISTCVECheck\\\\fba7919d-9a11-479a-b6e6-20454acac97a\\\\scratchpad\\\\out.pptx\"; $png=\"C:\\\\Users\\\\Vik\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\D--VikGitHub-VikClaudeCode-NISTCVECheck\\\\fba7919d-9a11-479a-b6e6-20454acac97a\\\\scratchpad\\\\slide1.png\"; $pp=New-Object -ComObject PowerPoint.Application; $pres=$pp.Presentations.Open\\($src,$true,$false,$false\\); $pres.Slides.Item\\(1\\).Export\\($png,\"PNG\",1600,900\\); $pres.Close\\(\\); $pp.Quit\\(\\); Write-Output \"exported\")",
+      "Bash(grep -n \"esc\\\\s*=\\\\|replace\\(/&\\\\|replace\\(/</\\\\|replace\\(/>/\\\\|replace\\(/\\\\\"\\\\|amp;\\\\|#39\\\\|quot\" lib/report-html.js)"
     ]
   },
   "enabledMcpjsonServers": [
