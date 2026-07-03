@@ -35,6 +35,11 @@ node scripts/team-report.js                        # 讀取 .\team\ 目錄產生
 npm run web                                # 啟動 Web 伺服器（預設 Port 8093，先自動執行 build.js）
 npm run bundle                             # 單獨重新打包 web-client.html + .env.local
 
+# 部署打包（壓成 zip 帶到公司環境；預設含 CVE 快取、排除機密/大型/建置產物）
+npm run package                                    # → dist/NISTCVECheck_deploy_<date>.zip
+node scripts/package-deploy.js --no-cache          # 乾淨部署（不含 CVE 快取，約 0.5 MB）
+node scripts/package-deploy.js --with-node-modules # 連 node_modules 一起打包（離線環境免 npm install）
+
 # MITRE 本機鏡像（CVE_SOURCE=MITRE 之前必須先執行一次；之後可排程定期重跑保持更新）
 npm run sync-mitre                                 # 失敗重跑會自動從中斷處繼續，不會重新下載已完成的部分
 node scripts/mitre-sync.js --full                  # 忽略既有進度，強制重新下載/處理 baseline

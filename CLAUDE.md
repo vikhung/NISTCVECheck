@@ -15,17 +15,26 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | 指令 | 說明 |
 |------|------|
 | `npm start` | CLI 掃描（讀取本機 Registry 或 `.env.local` 的 `PORTABLE_N`） |
-| `npm test` | 執行 `lib/cve-logic.js` 回歸測試（Node 原生 `node --test "scripts/test/*.test.js"`，無外部套件） |
+| `npm test` | 執行 `lib/cve-logic.js` 回歸測試（Node 原生 `node --test "scripts/test/*.test.js"`，無外部套件；全部集中在單一檔 `scripts/test/cve-logic.test.js`）。單獨執行一個測試：`node --test --test-name-pattern="<測試名稱關鍵字>" "scripts/test/cve-logic.test.js"` |
 | `npm run check` | 快速掃描：HIGH 以上、限掃前 5 筆軟體（年份用預設「當年 − 1」） |
 | `npm run web` | 啟動 Web 伺服器（自動先執行 `node scripts/build.js`，port 預設 8093） |
 | `npm run bundle` | 單獨執行 `node scripts/build.js`（修改 `lib/cve-logic.js` 或 `lib/report-html.js` 後須執行） |
 | `npm run sync-mitre` | 同步 MITRE cvelistV5 本機鏡像（首次使用 `CVE_SOURCE=MITRE` 前須執行） |
+| `npm run package` | 部署打包：把必要檔案壓成 `dist/NISTCVECheck_deploy_<date>.zip`（`scripts/package-deploy.js`）。預設含 CVE 快取、排除機密/大型/建置產物；旗標：`--no-cache`（乾淨部署）、`--with-node-modules`（離線）、`--out=<路徑>` |
 | `node scripts/team-report.js <目錄>` | 讀取目錄下所有 JSON 個人報表，產生跨機器彙整 HTML 報告 |
 | `powershell -ExecutionPolicy Bypass -File findSW.ps1` | 掃描本機安裝軟體，輸出 `scan.json`（可作為 CLI 輸入） |
 
 設定檔：複製 `.env.local.example` 為 `.env.local` 並填入 `NIST_API_KEY`（可選，無 Key 速率限制較嚴）與 `PORTABLE_N` 清單。
 
 ## 架構說明
+
+### 進入點速查
+
+- **CLI 掃描**：`scripts/cve-checker.js`（`npm start`）。
+- **Web 伺服器**：`scripts/web-server.js`（`npm run web`）→ 服務 `scripts/web-client.html`（由 `build.js` 產生）。
+- **掃描輸入**：Windows Registry（`getInstalledSoftware()`）／`scan.json`（`findSW.ps1` 或遠端機器產生）／`.env.local` 的 `PORTABLE_N`。
+- **業務邏輯唯一來源**：`lib/cve-logic.js`（CLI 直接 require、Web 由 `build.js` 注入，行為必然一致）。
+- **完整資料流程圖**（含三種快取、精確/模糊 CPE 比對、補撈邏輯）：`docs/cve-flow.md`。
 
 ### 核心模組（唯一來源原則）
 
