@@ -1,8 +1,8 @@
 {
-  "cveCount": 685,
+  "cveCount": 692,
   "cacheKey": "kw_python",
   "coverageStart": "2025-01-01T00:00:00.000Z",
-  "lastFetchedAt": "2026-06-26T02:41:05.841Z",
+  "lastFetchedAt": "2026-06-30T03:14:20.608Z",
   "cves": [
     {
       "cve": {
@@ -34767,8 +34767,8 @@
         "id": "CVE-2026-44431",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-05-13T16:16:57.150",
-        "lastModified": "2026-06-17T10:50:38.253",
-        "vulnStatus": "Analyzed",
+        "lastModified": "2026-06-26T12:16:32.423",
+        "vulnStatus": "Modified",
         "cveTags": [],
         "descriptions": [
           {
@@ -34932,6 +34932,10 @@
               "Mitigation",
               "Vendor Advisory"
             ]
+          },
+          {
+            "url": "https://lists.debian.org/debian-lts-announce/2026/06/msg00040.html",
+            "source": "af854a3a-2127-422b-91ae-364da2661108"
           }
         ]
       }
@@ -36459,7 +36463,7 @@
         "id": "CVE-2021-47952",
         "sourceIdentifier": "disclosure@vulncheck.com",
         "published": "2026-05-16T16:16:21.520",
-        "lastModified": "2026-06-17T04:18:49.187",
+        "lastModified": "2026-06-27T05:16:40.617",
         "vulnStatus": "Deferred",
         "cveTags": [],
         "descriptions": [
@@ -36480,6 +36484,19 @@
                     "version": "2.0.0",
                     "status": "affected"
                   }
+                ]
+              }
+            ]
+          },
+          {
+            "source": "0b0ca135-0b70-47e7-9f44-1890c2a1c46c",
+            "affectedData": [
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat Ansible Automation Platform 2",
+                "defaultStatus": "unaffected",
+                "cpes": [
+                  "cpe:/a:redhat:ansible_automation_platform:2"
                 ]
               }
             ]
@@ -36550,6 +36567,26 @@
               },
               "exploitabilityScore": 3.9,
               "impactScore": 5.9
+            },
+            {
+              "source": "0b0ca135-0b70-47e7-9f44-1890c2a1c46c",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                "baseScore": 9.8,
+                "baseSeverity": "CRITICAL",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 5.9
             }
           ],
           "ssvcV203": [
@@ -36578,11 +36615,21 @@
         "weaknesses": [
           {
             "source": "disclosure@vulncheck.com",
-            "type": "Secondary",
+            "type": "Primary",
             "description": [
               {
                 "lang": "en",
                 "value": "CWE-94"
+              }
+            ]
+          },
+          {
+            "source": "0b0ca135-0b70-47e7-9f44-1890c2a1c46c",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-502"
               }
             ]
           }
@@ -36603,6 +36650,18 @@
           {
             "url": "https://www.vulncheck.com/advisories/python-jsonpickle-remote-code-execution-via-py-repr",
             "source": "disclosure@vulncheck.com"
+          },
+          {
+            "url": "https://access.redhat.com/security/cve/CVE-2021-47952",
+            "source": "0b0ca135-0b70-47e7-9f44-1890c2a1c46c"
+          },
+          {
+            "url": "https://bugzilla.redhat.com/show_bug.cgi?id=2478170",
+            "source": "0b0ca135-0b70-47e7-9f44-1890c2a1c46c"
+          },
+          {
+            "url": "https://security.access.redhat.com/data/csaf/v2/vex/2021/cve-2021-47952.json",
+            "source": "0b0ca135-0b70-47e7-9f44-1890c2a1c46c"
           }
         ]
       }
@@ -36736,7 +36795,7 @@
         "id": "CVE-2026-45829",
         "sourceIdentifier": "6f8de1f0-f67e-45a6-b68f-98777fdb759c",
         "published": "2026-05-18T17:16:34.040",
-        "lastModified": "2026-06-17T10:52:34.017",
+        "lastModified": "2026-06-27T05:16:46.127",
         "vulnStatus": "Awaiting Analysis",
         "cveTags": [],
         "descriptions": [
@@ -36762,6 +36821,19 @@
                     "versionType": "semver",
                     "status": "affected"
                   }
+                ]
+              }
+            ]
+          },
+          {
+            "source": "0b0ca135-0b70-47e7-9f44-1890c2a1c46c",
+            "affectedData": [
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat Enterprise Linux AI (RHEL AI) 3",
+                "defaultStatus": "unaffected",
+                "cpes": [
+                  "cpe:/a:redhat:enterprise_linux_ai:3"
                 ]
               }
             ]
@@ -36812,6 +36884,28 @@
               }
             }
           ],
+          "cvssMetricV31": [
+            {
+              "source": "0b0ca135-0b70-47e7-9f44-1890c2a1c46c",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+                "baseScore": 10,
+                "baseSeverity": "CRITICAL",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "CHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 6
+            }
+          ],
           "ssvcV203": [
             {
               "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
@@ -36845,6 +36939,16 @@
                 "value": "CWE-94"
               }
             ]
+          },
+          {
+            "source": "0b0ca135-0b70-47e7-9f44-1890c2a1c46c",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-502"
+              }
+            ]
           }
         ],
         "references": [
@@ -36855,6 +36959,18 @@
           {
             "url": "https://www.hiddenlayer.com/research/chromatoast-served-pre-auth",
             "source": "6f8de1f0-f67e-45a6-b68f-98777fdb759c"
+          },
+          {
+            "url": "https://access.redhat.com/security/cve/CVE-2026-45829",
+            "source": "0b0ca135-0b70-47e7-9f44-1890c2a1c46c"
+          },
+          {
+            "url": "https://bugzilla.redhat.com/show_bug.cgi?id=2479623",
+            "source": "0b0ca135-0b70-47e7-9f44-1890c2a1c46c"
+          },
+          {
+            "url": "https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-45829.json",
+            "source": "0b0ca135-0b70-47e7-9f44-1890c2a1c46c"
           },
           {
             "url": "https://www.hiddenlayer.com/research/chromatoast-served-pre-auth",
@@ -46472,8 +46588,8 @@
         "id": "CVE-2026-48776",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-06-17T10:55:15.113",
-        "lastModified": "2026-06-17T16:30:36.937",
-        "vulnStatus": "Undergoing Analysis",
+        "lastModified": "2026-06-26T15:26:53.307",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -46529,6 +46645,26 @@
               },
               "exploitabilityScore": 1.6,
               "impactScore": 2.5
+            },
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+                "baseScore": 9.1,
+                "baseSeverity": "CRITICAL",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 5.2
             }
           ],
           "ssvcV203": [
@@ -46568,16 +46704,50 @@
                 "value": "CWE-863"
               }
             ]
+          },
+          {
+            "source": "nvd@nist.gov",
+            "type": "Primary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-22"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:langchain:langgraph-sdk:*:*:*:*:*:python:*:*",
+                    "versionEndExcluding": "0.3.15",
+                    "matchCriteriaId": "FF96A006-91D6-4FB7-ACAA-F6E8A3D7AAA0"
+                  }
+                ]
+              }
+            ]
           }
         ],
         "references": [
           {
             "url": "https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.3.15",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Release Notes"
+            ]
           },
           {
             "url": "https://github.com/langchain-ai/langgraph/security/advisories/GHSA-w39p-vh2g-g8g5",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Vendor Advisory"
+            ]
           }
         ]
       }
@@ -48265,8 +48435,8 @@
         "id": "CVE-2026-10561",
         "sourceIdentifier": "psirt@us.ibm.com",
         "published": "2026-06-22T14:16:25.023",
-        "lastModified": "2026-06-23T19:17:06.377",
-        "vulnStatus": "Undergoing Analysis",
+        "lastModified": "2026-06-26T20:19:05.520",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -48355,10 +48525,32 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:langflow:langflow:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "1.0.0",
+                    "versionEndIncluding": "1.9.3",
+                    "matchCriteriaId": "C66FB82E-7574-434A-92AF-C36A8E16584C"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://www.ibm.com/support/pages/node/7277242",
-            "source": "psirt@us.ibm.com"
+            "source": "psirt@us.ibm.com",
+            "tags": [
+              "Vendor Advisory"
+            ]
           }
         ]
       }
@@ -48368,8 +48560,8 @@
         "id": "CVE-2026-53655",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-06-22T16:16:38.593",
-        "lastModified": "2026-06-23T15:50:26.920",
-        "vulnStatus": "Undergoing Analysis",
+        "lastModified": "2026-06-26T20:03:47.010",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -48439,6 +48631,28 @@
               }
             }
           ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N",
+                "baseScore": 5.5,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 1.8,
+              "impactScore": 3.6
+            }
+          ],
           "ssvcV203": [
             {
               "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
@@ -48474,14 +48688,42 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:isaacs:tar:*:*:*:*:*:node.js:*:*",
+                    "versionEndExcluding": "7.5.16",
+                    "matchCriteriaId": "ED10D25A-3224-4162-8176-25896AB77D3E"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://github.com/isaacs/node-tar/security/advisories/GHSA-vmf3-w455-68vh",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Exploit",
+              "Mitigation",
+              "Vendor Advisory"
+            ]
           },
           {
             "url": "https://github.com/isaacs/node-tar/security/advisories/GHSA-vmf3-w455-68vh",
-            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0"
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "tags": [
+              "Exploit",
+              "Mitigation",
+              "Vendor Advisory"
+            ]
           }
         ]
       }
@@ -48491,8 +48733,8 @@
         "id": "CVE-2026-50269",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-06-22T18:16:42.920",
-        "lastModified": "2026-06-22T19:17:06.103",
-        "vulnStatus": "Undergoing Analysis",
+        "lastModified": "2026-06-26T19:39:57.660",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -48562,6 +48804,28 @@
               }
             }
           ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "baseScore": 7.5,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 3.6
+            }
+          ],
           "ssvcV203": [
             {
               "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
@@ -48601,14 +48865,38 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:aiohttp:aiohttp:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "3.14.0",
+                    "matchCriteriaId": "CB79CC3D-A03D-42FA-B124-4E63FC9F0A5B"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://github.com/aio-libs/aiohttp/commit/bf88077ebb14f4c29924b8e8904cba20c55c28b8",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Patch"
+            ]
           },
           {
             "url": "https://github.com/aio-libs/aiohttp/security/advisories/GHSA-m6qw-4cw2-hm4m",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Third Party Advisory"
+            ]
           }
         ]
       }
@@ -48618,8 +48906,8 @@
         "id": "CVE-2026-53537",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-06-22T18:16:44.077",
-        "lastModified": "2026-06-23T17:17:03.740",
-        "vulnStatus": "Undergoing Analysis",
+        "lastModified": "2026-06-26T19:54:37.680",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -48665,6 +48953,26 @@
               },
               "exploitabilityScore": 2.2,
               "impactScore": 1.4
+            },
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+                "baseScore": 5.3,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "LOW",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 1.4
             }
           ],
           "ssvcV203": [
@@ -48706,10 +49014,31 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:fastapiexpert:python-multipart:*:*:*:*:*:python:*:*",
+                    "versionEndExcluding": "0.0.30",
+                    "matchCriteriaId": "381A8F1D-278D-409F-974A-898BE65DB20C"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://github.com/Kludex/python-multipart/security/advisories/GHSA-vffw-93wf-4j4q",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Vendor Advisory"
+            ]
           }
         ]
       }
@@ -48719,8 +49048,8 @@
         "id": "CVE-2026-53538",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-06-22T18:16:44.223",
-        "lastModified": "2026-06-23T16:17:00.863",
-        "vulnStatus": "Undergoing Analysis",
+        "lastModified": "2026-06-26T19:52:35.633",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -48807,10 +49136,31 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:fastapiexpert:python-multipart:*:*:*:*:*:python:*:*",
+                    "versionEndExcluding": "0.0.30",
+                    "matchCriteriaId": "381A8F1D-278D-409F-974A-898BE65DB20C"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://github.com/Kludex/python-multipart/security/advisories/GHSA-6jv3-5f52-599m",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Vendor Advisory"
+            ]
           }
         ]
       }
@@ -48820,8 +49170,8 @@
         "id": "CVE-2026-53539",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-06-22T18:16:44.360",
-        "lastModified": "2026-06-23T15:50:26.920",
-        "vulnStatus": "Undergoing Analysis",
+        "lastModified": "2026-06-26T19:50:56.510",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -48908,10 +49258,31 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:fastapiexpert:python-multipart:*:*:*:*:*:python:*:*",
+                    "versionEndExcluding": "0.0.30",
+                    "matchCriteriaId": "381A8F1D-278D-409F-974A-898BE65DB20C"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://github.com/Kludex/python-multipart/security/advisories/GHSA-5rvq-cxj2-64vf",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Vendor Advisory"
+            ]
           }
         ]
       }
@@ -48921,8 +49292,8 @@
         "id": "CVE-2026-53540",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-06-22T18:16:44.497",
-        "lastModified": "2026-06-23T15:56:11.243",
-        "vulnStatus": "Undergoing Analysis",
+        "lastModified": "2026-06-26T19:50:18.340",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -49005,10 +49376,31 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:fastapiexpert:python-multipart:*:*:*:*:*:python:*:*",
+                    "versionEndExcluding": "0.0.31",
+                    "matchCriteriaId": "B35A0C05-3D3C-4063-8A25-62EEE68E480B"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://github.com/Kludex/python-multipart/security/advisories/GHSA-v9pg-7xvm-68hf",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Vendor Advisory"
+            ]
           }
         ]
       }
@@ -49018,8 +49410,8 @@
         "id": "CVE-2026-54273",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-06-22T18:16:45.743",
-        "lastModified": "2026-06-22T19:17:15.060",
-        "vulnStatus": "Undergoing Analysis",
+        "lastModified": "2026-06-26T19:37:48.260",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -49089,6 +49481,28 @@
               }
             }
           ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "baseScore": 7.5,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 3.6
+            }
+          ],
           "ssvcV203": [
             {
               "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
@@ -49124,14 +49538,38 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:aiohttp:aiohttp:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "3.14.1",
+                    "matchCriteriaId": "620FC726-40A0-4025-A5C6-7B738EC5DE53"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://github.com/aio-libs/aiohttp/commit/dfdfa9d5aad5d21f91c79fb2ceeba0f8046cb6cf",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Patch"
+            ]
           },
           {
             "url": "https://github.com/aio-libs/aiohttp/security/advisories/GHSA-4fvr-rgm6-gqmc",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Third Party Advisory"
+            ]
           }
         ]
       }
@@ -49141,8 +49579,8 @@
         "id": "CVE-2026-54274",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-06-22T18:16:45.877",
-        "lastModified": "2026-06-22T19:17:15.693",
-        "vulnStatus": "Undergoing Analysis",
+        "lastModified": "2026-06-26T19:37:06.147",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -49212,6 +49650,28 @@
               }
             }
           ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "baseScore": 7.5,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 3.6
+            }
+          ],
           "ssvcV203": [
             {
               "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
@@ -49247,14 +49707,38 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:aiohttp:aiohttp:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "3.14.1",
+                    "matchCriteriaId": "620FC726-40A0-4025-A5C6-7B738EC5DE53"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://github.com/aio-libs/aiohttp/commit/14b6ee851fb16ec199acb950de0c82d476799e7d",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Patch"
+            ]
           },
           {
             "url": "https://github.com/aio-libs/aiohttp/security/advisories/GHSA-xcgm-r5h9-7989",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Third Party Advisory"
+            ]
           }
         ]
       }
@@ -49264,8 +49748,8 @@
         "id": "CVE-2026-54275",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-06-22T18:16:46.010",
-        "lastModified": "2026-06-22T19:17:16.330",
-        "vulnStatus": "Undergoing Analysis",
+        "lastModified": "2026-06-26T19:36:20.053",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -49335,6 +49819,28 @@
               }
             }
           ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "baseScore": 7.5,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 3.6
+            }
+          ],
           "ssvcV203": [
             {
               "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
@@ -49370,10 +49876,31 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:aiohttp:aiohttp:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "3.14.1",
+                    "matchCriteriaId": "620FC726-40A0-4025-A5C6-7B738EC5DE53"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://github.com/aio-libs/aiohttp/security/advisories/GHSA-4m7w-qmgq-4wj5",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Third Party Advisory"
+            ]
           }
         ]
       }
@@ -49633,8 +50160,8 @@
         "id": "CVE-2026-54278",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-06-22T18:16:46.393",
-        "lastModified": "2026-06-23T15:16:37.103",
-        "vulnStatus": "Undergoing Analysis",
+        "lastModified": "2026-06-26T19:27:51.590",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -49704,6 +50231,28 @@
               }
             }
           ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "baseScore": 7.5,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 3.6
+            }
+          ],
           "ssvcV203": [
             {
               "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
@@ -49739,14 +50288,38 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:aiohttp:aiohttp:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "3.14.1",
+                    "matchCriteriaId": "620FC726-40A0-4025-A5C6-7B738EC5DE53"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://github.com/aio-libs/aiohttp/commit/4f7480e474cccc6a8cc2c92ad3f17a31dedf8232",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Patch"
+            ]
           },
           {
             "url": "https://github.com/aio-libs/aiohttp/security/advisories/GHSA-g3cq-j2xw-wf74",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Third Party Advisory"
+            ]
           }
         ]
       }
@@ -49756,8 +50329,8 @@
         "id": "CVE-2026-54279",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-06-22T18:16:46.527",
-        "lastModified": "2026-06-22T19:17:16.980",
-        "vulnStatus": "Undergoing Analysis",
+        "lastModified": "2026-06-26T19:36:03.377",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -49827,6 +50400,28 @@
               }
             }
           ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "baseScore": 7.5,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 3.6
+            }
+          ],
           "ssvcV203": [
             {
               "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
@@ -49862,14 +50457,38 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:aiohttp:aiohttp:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "3.14.1",
+                    "matchCriteriaId": "620FC726-40A0-4025-A5C6-7B738EC5DE53"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://github.com/aio-libs/aiohttp/commit/a329a7aacad5284f087af36103aff778746da0f2",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Patch"
+            ]
           },
           {
             "url": "https://github.com/aio-libs/aiohttp/security/advisories/GHSA-2fqr-mr3j-6wp8",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Third Party Advisory"
+            ]
           }
         ]
       }
@@ -49879,8 +50498,8 @@
         "id": "CVE-2026-54280",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-06-22T18:16:46.670",
-        "lastModified": "2026-06-22T19:17:17.703",
-        "vulnStatus": "Undergoing Analysis",
+        "lastModified": "2026-06-26T19:35:51.760",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -49950,6 +50569,28 @@
               }
             }
           ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "baseScore": 7.5,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 3.6
+            }
+          ],
           "ssvcV203": [
             {
               "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
@@ -49985,14 +50626,38 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:aiohttp:aiohttp:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "3.14.1",
+                    "matchCriteriaId": "620FC726-40A0-4025-A5C6-7B738EC5DE53"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://github.com/aio-libs/aiohttp/commit/a762eda5242f6490d6ba667533193f8b473ad587",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Patch"
+            ]
           },
           {
             "url": "https://github.com/aio-libs/aiohttp/security/advisories/GHSA-9x8q-7h8h-wcw9",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Third Party Advisory"
+            ]
           }
         ]
       }
@@ -50002,8 +50667,8 @@
         "id": "CVE-2026-54293",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-06-22T19:17:20.983",
-        "lastModified": "2026-06-23T15:50:26.920",
-        "vulnStatus": "Undergoing Analysis",
+        "lastModified": "2026-06-26T20:06:05.580",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -50086,18 +50751,48 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:nltk:nltk:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "3.10.0",
+                    "matchCriteriaId": "653A48E1-BCC5-4342-B5DF-E8D71A83BCB9"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://github.com/nltk/nltk/pull/3575",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Issue Tracking",
+              "Patch"
+            ]
           },
           {
             "url": "https://github.com/nltk/nltk/security/advisories/GHSA-p4gq-832x-fm9v",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Exploit",
+              "Vendor Advisory"
+            ]
           },
           {
             "url": "https://github.com/nltk/nltk/security/advisories/GHSA-p4gq-832x-fm9v",
-            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0"
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "tags": [
+              "Exploit",
+              "Vendor Advisory"
+            ]
           }
         ]
       }
@@ -50107,8 +50802,8 @@
         "id": "CVE-2026-41479",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-06-22T21:16:24.017",
-        "lastModified": "2026-06-23T15:50:26.920",
-        "vulnStatus": "Undergoing Analysis",
+        "lastModified": "2026-06-26T20:10:38.003",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -50195,14 +50890,44 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:authlib:authlib:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "1.6.10",
+                    "matchCriteriaId": "AD545CB1-0B23-4525-9346-4CCCD801CDE0"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:authlib:authlib:1.7.0:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "23EF713E-4717-41F6-A5C2-26365D1A763A"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://github.com/authlib/authlib/commit/3be08468201a7766a93012ce149ea12822cab096",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Patch"
+            ]
           },
           {
             "url": "https://github.com/authlib/authlib/security/advisories/GHSA-w8p2-r796-3vmq",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Exploit",
+              "Vendor Advisory"
+            ]
           }
         ]
       }
@@ -50370,8 +51095,8 @@
         "id": "CVE-2026-44889",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-06-22T22:16:46.350",
-        "lastModified": "2026-06-23T16:16:59.567",
-        "vulnStatus": "Undergoing Analysis",
+        "lastModified": "2026-06-26T20:08:22.867",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -50454,10 +51179,32 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:pylonsproject:webob:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "1.8.10",
+                    "matchCriteriaId": "651738A5-12CA-4A99-A8D4-91AFDA2EE7E3"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://github.com/Pylons/webob/security/advisories/GHSA-fh3h-vg37-cc95",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Mitigation",
+              "Vendor Advisory"
+            ]
           }
         ]
       }
@@ -50467,8 +51214,8 @@
         "id": "CVE-2026-54911",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-06-22T22:16:50.397",
-        "lastModified": "2026-06-23T15:50:26.920",
-        "vulnStatus": "Undergoing Analysis",
+        "lastModified": "2026-06-26T20:10:54.850",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -50551,18 +51298,48 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:ultrajson_project:ultrajson:*:*:*:*:*:python:*:*",
+                    "versionEndExcluding": "5.13.0",
+                    "matchCriteriaId": "A5802005-78C3-4A11-B9DE-1CCD143A155B"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://github.com/ultrajson/ultrajson/commit/169eaf36b1116fece5034ee79a7a0ef3f6deedcf",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Patch"
+            ]
           },
           {
             "url": "https://github.com/ultrajson/ultrajson/releases/tag/5.13.0",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Product",
+              "Release Notes"
+            ]
           },
           {
             "url": "https://github.com/ultrajson/ultrajson/security/advisories/GHSA-3j69-69wj-xqx2",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Mitigation",
+              "Patch",
+              "Vendor Advisory"
+            ]
           }
         ]
       }
@@ -51044,8 +51821,8 @@
         "id": "CVE-2026-48519",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-06-23T17:17:01.240",
-        "lastModified": "2026-06-24T05:17:29.010",
-        "vulnStatus": "Undergoing Analysis",
+        "lastModified": "2026-06-26T17:07:36.970",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -51128,14 +51905,40 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:langflow:langflow:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "1.9.2",
+                    "matchCriteriaId": "F5488C0C-98DB-4686-808B-99CB766D514C"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://github.com/langflow-ai/langflow/security/advisories/GHSA-v5ff-9q35-q26f",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Exploit",
+              "Vendor Advisory"
+            ]
           },
           {
             "url": "https://github.com/langflow-ai/langflow/security/advisories/GHSA-v5ff-9q35-q26f",
-            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0"
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "tags": [
+              "Exploit",
+              "Vendor Advisory"
+            ]
           }
         ]
       }
@@ -51330,8 +52133,8 @@
         "id": "CVE-2026-53753",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-06-23T19:17:07.107",
-        "lastModified": "2026-06-23T20:16:48.907",
-        "vulnStatus": "Undergoing Analysis",
+        "lastModified": "2026-06-29T16:57:39.320",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -51377,6 +52180,26 @@
               },
               "exploitabilityScore": 3.9,
               "impactScore": 5.9
+            },
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+                "baseScore": 10,
+                "baseSeverity": "CRITICAL",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "CHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 6
             }
           ],
           "ssvcV203": [
@@ -51418,14 +52241,40 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:kidocode:crawl4ai:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "0.8.7",
+                    "matchCriteriaId": "5C153B68-AA3F-4755-BA13-E98AAB321695"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://github.com/unclecode/crawl4ai/security/advisories/GHSA-qxjp-w3pj-48m7",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Third Party Advisory",
+              "Mitigation"
+            ]
           },
           {
             "url": "https://github.com/unclecode/crawl4ai/security/advisories/GHSA-qxjp-w3pj-48m7",
-            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0"
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "tags": [
+              "Third Party Advisory",
+              "Mitigation"
+            ]
           }
         ]
       }
@@ -51558,7 +52407,7 @@
         "id": "CVE-2026-56121",
         "sourceIdentifier": "disclosure@vulncheck.com",
         "published": "2026-06-24T16:16:33.193",
-        "lastModified": "2026-06-25T19:25:34.880",
+        "lastModified": "2026-06-26T05:16:31.240",
         "vulnStatus": "Deferred",
         "cveTags": [],
         "descriptions": [
@@ -51659,7 +52508,7 @@
             {
               "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
               "ssvcData": {
-                "timestamp": "2026-06-24T16:03:02.945728Z",
+                "timestamp": "2026-06-25T00:00:00+00:00",
                 "id": "CVE-2026-56121",
                 "options": [
                   {
@@ -51715,8 +52564,8 @@
         "id": "CVE-2026-44017",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-06-24T18:17:17.337",
-        "lastModified": "2026-06-25T20:17:12.323",
-        "vulnStatus": "Undergoing Analysis",
+        "lastModified": "2026-06-26T19:58:41.237",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -51799,14 +52648,41 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:docling:docling:*:*:*:*:*:python:*:*",
+                    "versionEndExcluding": "2.91.0",
+                    "matchCriteriaId": "E1D51CB2-AC97-4385-9B51-0CEB21E0F697"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://github.com/docling-project/docling/releases/tag/v2.91.0",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Product",
+              "Release Notes"
+            ]
           },
           {
             "url": "https://github.com/docling-project/docling/security/advisories/GHSA-cjqg-rq2h-2fvj",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Mitigation",
+              "Patch",
+              "Vendor Advisory"
+            ]
           }
         ]
       }
@@ -52157,7 +53033,7 @@
         "id": "CVE-2026-53194",
         "sourceIdentifier": "416baaa9-dc9f-4396-8d5f-8c081fb06d67",
         "published": "2026-06-25T09:16:36.850",
-        "lastModified": "2026-06-25T09:16:36.850",
+        "lastModified": "2026-06-28T08:16:37.830",
         "vulnStatus": "Received",
         "cveTags": [],
         "descriptions": [
@@ -52301,7 +53177,30 @@
             ]
           }
         ],
-        "metrics": {},
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "416baaa9-dc9f-4396-8d5f-8c081fb06d67",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+                "baseScore": 7.8,
+                "baseSeverity": "HIGH",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 1.8,
+              "impactScore": 5.9
+            }
+          ]
+        },
         "references": [
           {
             "url": "https://git.kernel.org/stable/c/0a57320f71941d4e0b1307453c9a1f0939afe666",
@@ -52343,8 +53242,8 @@
         "id": "CVE-2026-57456",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-06-25T16:16:42.900",
-        "lastModified": "2026-06-25T19:16:45.803",
-        "vulnStatus": "Undergoing Analysis",
+        "lastModified": "2026-06-26T05:16:31.510",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -52414,11 +53313,33 @@
               }
             }
           ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+                "baseScore": 7.8,
+                "baseSeverity": "HIGH",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 1.8,
+              "impactScore": 5.9
+            }
+          ],
           "ssvcV203": [
             {
               "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
               "ssvcData": {
-                "timestamp": "2026-06-25T17:41:38.275531Z",
+                "timestamp": "2026-06-25T00:00:00+00:00",
                 "id": "CVE-2026-57456",
                 "options": [
                   {
@@ -52449,18 +53370,45 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:vim:vim:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "9.2.0699",
+                    "matchCriteriaId": "77198FAE-83D6-4416-8D34-98B3C3FC4040"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://github.com/vim/vim/commit/cce141c42740f122dd8486ae04e21c2a81016ba8",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Patch"
+            ]
           },
           {
             "url": "https://github.com/vim/vim/releases/tag/v9.2.0699",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Product"
+            ]
           },
           {
             "url": "https://github.com/vim/vim/security/advisories/GHSA-ppj8-wqjf-6fp3",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Vendor Advisory"
+            ]
           }
         ]
       }
@@ -52470,8 +53418,8 @@
         "id": "CVE-2025-71340",
         "sourceIdentifier": "disclosure@vulncheck.com",
         "published": "2026-06-25T22:16:59.647",
-        "lastModified": "2026-06-25T22:16:59.647",
-        "vulnStatus": "Received",
+        "lastModified": "2026-06-26T16:17:26.200",
+        "vulnStatus": "Deferred",
         "cveTags": [],
         "descriptions": [
           {
@@ -52553,7 +53501,7 @@
           "cvssMetricV31": [
             {
               "source": "disclosure@vulncheck.com",
-              "type": "Primary",
+              "type": "Secondary",
               "cvssData": {
                 "version": "3.1",
                 "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:N",
@@ -52571,12 +53519,34 @@
               "exploitabilityScore": 2.8,
               "impactScore": 5.2
             }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-06-26T13:40:42.281053Z",
+                "id": "CVE-2025-71340",
+                "options": [
+                  {
+                    "exploitation": "poc"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
           ]
         },
         "weaknesses": [
           {
             "source": "disclosure@vulncheck.com",
-            "type": "Primary",
+            "type": "Secondary",
             "description": [
               {
                 "lang": "en",
@@ -52593,6 +53563,10 @@
           {
             "url": "https://www.vulncheck.com/advisories/picklescan-remote-code-execution-via-idlelib-pyshell-modifiedinterpreter-runcode",
             "source": "disclosure@vulncheck.com"
+          },
+          {
+            "url": "https://github.com/mmaitre314/picklescan/security/advisories/GHSA-3gf5-cxq9-w223",
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0"
           }
         ]
       }
@@ -103681,6 +104655,744 @@
             "tags": [
               "Patch"
             ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-33646",
+        "sourceIdentifier": "security-advisories@github.com",
+        "published": "2026-06-26T18:16:58.420",
+        "lastModified": "2026-06-29T14:16:49.923",
+        "vulnStatus": "Deferred",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "mise manages dev tools like node, python, cmake, and terraform. Prior to 2026.3.10, mise processes .tool-versions files through the Tera template engine during parsing, with the exec() function registered, enabling arbitrary command execution. Unlike .mise.toml files, .tool-versions files are not subject to trust verification in non-paranoid mode. This means an attacker can place a malicious .tool-versions file in a git repository, and when a victim with mise activated cds into the directory, arbitrary commands execute without any trust prompt. This vulnerability is fixed in 2026.3.10."
+          }
+        ],
+        "affected": [
+          {
+            "source": "security-advisories@github.com",
+            "affectedData": [
+              {
+                "vendor": "jdx",
+                "product": "mise",
+                "versions": [
+                  {
+                    "version": "< 2026.3.10",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "security-advisories@github.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:H",
+                "baseScore": 9.6,
+                "baseSeverity": "CRITICAL",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "CHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 6
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-06-29T13:28:13.981681Z",
+                "id": "CVE-2026-33646",
+                "options": [
+                  {
+                    "exploitation": "poc"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "security-advisories@github.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-94"
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/jdx/mise/security/advisories/GHSA-fjj5-v948-whjj",
+            "source": "security-advisories@github.com"
+          },
+          {
+            "url": "https://github.com/jdx/mise/security/advisories/GHSA-fjj5-v948-whjj",
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-54557",
+        "sourceIdentifier": "security-advisories@github.com",
+        "published": "2026-06-26T18:17:00.553",
+        "lastModified": "2026-06-26T20:20:22.420",
+        "vulnStatus": "Deferred",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "mise manages dev tools like node, python, cmake, and terraform. Prior to 2026.6.1, the mise HTTP backend builds its install symlink destination from the raw resolved version string for non-latest versions. Normal tool install paths use the sanitized version pathname, but the HTTP backend's symlink path uses the raw value. On Unix-like systems, if that version is an absolute path, PathBuf::join discards the intended mise installs root. A repository-controlled .tool-versions file can therefore make mise install create a symlink outside the mise install tree. With bin_path, the same issue can place an executable symlink under an attacker-selected absolute prefix, such as a developer-tool prefix that is later added to PATH. This vulnerability is fixed in 2026.6.1."
+          }
+        ],
+        "affected": [
+          {
+            "source": "security-advisories@github.com",
+            "affectedData": [
+              {
+                "vendor": "jdx",
+                "product": "mise",
+                "versions": [
+                  {
+                    "version": "< 2026.6.1",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "security-advisories@github.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N",
+                "baseScore": 5.5,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 1.8,
+              "impactScore": 3.6
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-06-26T17:57:43.960724Z",
+                "id": "CVE-2026-54557",
+                "options": [
+                  {
+                    "exploitation": "poc"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "security-advisories@github.com",
+            "type": "Primary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-22"
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/jdx/mise/security/advisories/GHSA-f94h-j2qg-fxw3",
+            "source": "security-advisories@github.com"
+          },
+          {
+            "url": "https://github.com/jdx/mise/security/advisories/GHSA-f94h-j2qg-fxw3",
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-55441",
+        "sourceIdentifier": "security-advisories@github.com",
+        "published": "2026-06-26T18:17:01.190",
+        "lastModified": "2026-06-26T20:20:22.420",
+        "vulnStatus": "Deferred",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "mise manages dev tools like node, python, cmake, and terraform. Prior to 2026.6.4, mise's trust feature gates config files (mise.toml, .tool-versions) through trust_check, but task-include files are loaded on a path that never reaches it. When a directory has a task-include dir (mise-tasks/, .mise/tasks/, …) but no config file, mise falls back to the default includes and renders each task's tera fields — and that tera environment has exec() registered. A {{ exec(command='…') }} in any rendered field runs arbitrary commands the moment the tasks are merely listed. There's no config file to gate on, so no trust prompt ever appears. Read-only commands trigger it: mise tasks, mise task ls, mise run, mise tasks --usage (the query shell completion runs on Tab). The victim only has to cd into a cloned repo and list or tab-complete a task. This vulnerability is fixed in 2026.6.4."
+          }
+        ],
+        "affected": [
+          {
+            "source": "security-advisories@github.com",
+            "affectedData": [
+              {
+                "vendor": "jdx",
+                "product": "mise",
+                "versions": [
+                  {
+                    "version": "< 2026.6.4",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "security-advisories@github.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:H",
+                "baseScore": 8.6,
+                "baseSeverity": "HIGH",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "CHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 1.8,
+              "impactScore": 6
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-06-26T18:14:26.577413Z",
+                "id": "CVE-2026-55441",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "security-advisories@github.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-78"
+              },
+              {
+                "lang": "en",
+                "value": "CWE-94"
+              },
+              {
+                "lang": "en",
+                "value": "CWE-732"
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/jdx/mise/security/advisories/GHSA-77g9-363w-rccq",
+            "source": "security-advisories@github.com"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-55448",
+        "sourceIdentifier": "security-advisories@github.com",
+        "published": "2026-06-26T18:17:01.323",
+        "lastModified": "2026-06-27T04:17:51.803",
+        "vulnStatus": "Deferred",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "mise manages dev tools like node, python, cmake, and terraform. From 2026.3.15 until 2026.6.4, mise loads github.credential_command from local project config before any trust decision, then executes that value with sh -c when resolving a GitHub token. An attacker who can place a .mise.toml in a repository can execute arbitrary shell commands when the victim runs a GitHub-related mise command and no higher-priority GitHub token environment variable is set. This vulnerability is fixed in 2026.6.4."
+          }
+        ],
+        "affected": [
+          {
+            "source": "security-advisories@github.com",
+            "affectedData": [
+              {
+                "vendor": "jdx",
+                "product": "mise",
+                "versions": [
+                  {
+                    "version": "< 2026.6.4",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "security-advisories@github.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:N",
+                "baseScore": 6.3,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "LOCAL",
+                "attackComplexity": "HIGH",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 1,
+              "impactScore": 5.2
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-06-27T02:44:12.911314Z",
+                "id": "CVE-2026-55448",
+                "options": [
+                  {
+                    "exploitation": "poc"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "security-advisories@github.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-78"
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/jdx/mise/security/advisories/GHSA-29hf-rm4x-xxph",
+            "source": "security-advisories@github.com"
+          },
+          {
+            "url": "https://github.com/jdx/mise/security/advisories/GHSA-29hf-rm4x-xxph",
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-29509",
+        "sourceIdentifier": "disclosure@vulncheck.com",
+        "published": "2026-06-26T20:16:54.093",
+        "lastModified": "2026-06-27T04:17:41.690",
+        "vulnStatus": "Deferred",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Patool before 4.0.5 contains a path traversal vulnerability in the safe_extract() function in patoolib/programs/py_tarfile.py when running on Python before 3.12, where the is_within_directory() helper uses os.path.commonprefix() for character-level string comparison instead of path-level comparison, allowing a crafted archive member path to bypass the containment check. Attackers can supply a malicious archive with specially crafted member paths to write arbitrary files."
+          }
+        ],
+        "affected": [
+          {
+            "source": "disclosure@vulncheck.com",
+            "affectedData": [
+              {
+                "vendor": "wummel",
+                "product": "patool",
+                "defaultStatus": "affected",
+                "repo": "https://github.com/wummel/patool",
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "4.0.5",
+                    "versionType": "semver",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "disclosure@vulncheck.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 5.3,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "attackRequirements": "NONE",
+                "privilegesRequired": "NONE",
+                "userInteraction": "PASSIVE",
+                "vulnConfidentialityImpact": "LOW",
+                "vulnIntegrityImpact": "LOW",
+                "vulnAvailabilityImpact": "NONE",
+                "subConfidentialityImpact": "NONE",
+                "subIntegrityImpact": "NONE",
+                "subAvailabilityImpact": "NONE",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "cvssMetricV31": [
+            {
+              "source": "disclosure@vulncheck.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:N",
+                "baseScore": 5.4,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "LOW",
+                "integrityImpact": "LOW",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 2.5
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-06-27T03:03:15.517374Z",
+                "id": "CVE-2026-29509",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "disclosure@vulncheck.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-22"
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/wummel/patool/blob/main/doc/changelog.txt",
+            "source": "disclosure@vulncheck.com"
+          },
+          {
+            "url": "https://github.com/wummel/patool/releases/tag/4.0.5",
+            "source": "disclosure@vulncheck.com"
+          },
+          {
+            "url": "https://www.vulncheck.com/advisories/patool-path-traversal-via-safe-extract-function",
+            "source": "disclosure@vulncheck.com"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-13749",
+        "sourceIdentifier": "412d305a-227d-44f9-a262-a31ba44f2aea",
+        "published": "2026-06-29T16:16:39.640",
+        "lastModified": "2026-06-29T19:04:25.260",
+        "vulnStatus": "Undergoing Analysis",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Improper neutralization in the Snowpark annotation processor callback template in Snowflake CLI versions prior to 3.19 allowed arbitrary code execution during application bundling or deployment. An attacker could exploit this by supplying crafted project content that is interpolated into generated Python code, causing Snowflake CLI to execute attacker-controlled code in the local context of the user running the CLI. Successful exploitation requires the victim to run the relevant bundling or deployment workflow against attacker-controlled project content, and any resulting code runs with the privileges of that local execution context. The fix is available in Snowflake CLI version 3.19, and users must manually upgrade."
+          }
+        ],
+        "affected": [
+          {
+            "source": "412d305a-227d-44f9-a262-a31ba44f2aea",
+            "affectedData": [
+              {
+                "vendor": "Snowflake",
+                "product": "Snowflake CLI",
+                "defaultStatus": "unaffected",
+                "versions": [
+                  {
+                    "version": "2.4.0",
+                    "lessThan": "3.19.0",
+                    "versionType": "semver",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "412d305a-227d-44f9-a262-a31ba44f2aea",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+                "baseScore": 8.8,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 5.9
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-06-29T16:18:51.984206Z",
+                "id": "CVE-2026-13749",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "412d305a-227d-44f9-a262-a31ba44f2aea",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-94"
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://community.snowflake.com/s/article/Snowflake-CLI-Vulnerability-Advisory",
+            "source": "412d305a-227d-44f9-a262-a31ba44f2aea"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-12243",
+        "sourceIdentifier": "security@huntr.dev",
+        "published": "2026-06-30T01:16:29.063",
+        "lastModified": "2026-06-30T01:16:29.063",
+        "vulnStatus": "Received",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "NLTK version 3.9.4 is vulnerable to a path traversal attack due to an incomplete fix for GitHub Issue #3504. The `_UNSAFE_NO_PROTOCOL_RE` regex in `nltk/data.py` checks for literal `../` sequences but fails to account for percent-encoded traversal sequences such as `..%2f`. The `url2pathname()` function decodes these sequences after the validation step, allowing an attacker to bypass the protection. This vulnerability enables an attacker to read arbitrary files accessible to the Python process by controlling the resource name parameter passed to `nltk.data.load()` or `nltk.data.find()`. The issue affects applications that rely on NLTK for resource loading, including NLP web applications, Jupyter notebooks, and CLI tools. The default `pathsec.ENFORCE=False` setting exacerbates the impact by not blocking the file read at the `open()` stage."
+          }
+        ],
+        "affected": [
+          {
+            "source": "security@huntr.dev",
+            "affectedData": [
+              {
+                "vendor": "nltk",
+                "product": "nltk/nltk",
+                "versions": [
+                  {
+                    "version": "unspecified",
+                    "lessThanOrEqual": "latest",
+                    "versionType": "custom",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV30": [
+            {
+              "source": "security@huntr.dev",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.0",
+                "vectorString": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+                "baseScore": 7.5,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 3.6
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "security@huntr.dev",
+            "type": "Primary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-22"
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://huntr.com/bounties/39aa9354-54ca-4e77-96da-580eb1fe6ed1",
+            "source": "security@huntr.dev"
           }
         ]
       }

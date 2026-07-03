@@ -2,7 +2,7 @@
   "cveCount": 1,
   "cacheKey": "cpe_apache_maven_archetype",
   "coverageStart": "2021-01-01T00:00:00.000Z",
-  "lastFetchedAt": "2026-06-26T03:22:54.735Z",
+  "lastFetchedAt": "2026-06-30T03:14:51.294Z",
   "cves": [
     {
       "cve": {

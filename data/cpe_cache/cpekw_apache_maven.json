@@ -1,7 +1,9 @@
 {
   "productCount": 31,
+  "totalResults": 31,
+  "tooGeneric": false,
   "cacheKey": "cpekw_apache_maven",
-  "fetchedAt": "2026-06-26T03:22:53.700Z",
+  "fetchedAt": "2026-06-30T03:14:49.594Z",
   "products": [
     {
       "cpe": {

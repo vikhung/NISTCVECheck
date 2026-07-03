@@ -520,7 +520,9 @@ async function scanHandler(req, res) {
             try {
                 cpeData = await nvdClient.fetchCPEs(keyword);
                 const nameWords = keyword.toLowerCase().replace(/[^a-z0-9]/g, ' ').split(/\s+/).filter(w => w.length >= 2);
-                cpeBases = findAllCPEBases(cpeData.products || [], nameWords);
+                // 非 Portable（scan.json／Registry）→ 精確比對軟體名，避免多產品 vendor 爆量；
+                // Portable 維持既有模糊比對（與 CLI 一致）。
+                cpeBases = findAllCPEBases(cpeData.products || [], nameWords, !isPortable);
             } catch {}
             if (cpeBases.length > 0) {
                 const cacheTag = cpeData.fromCache
@@ -575,9 +577,10 @@ async function scanHandler(req, res) {
                     if (cveMap.has(v.cve.id)) continue;
                     if (isPendingSupplementCVE(v.cve, cpeBases)) { cveMap.set(v.cve.id, v); suppCount++; }
                 }
-                if (suppCount > 0) {
-                    itemLog('info', `關鍵字補撈：新增 ${suppCount} 筆 NVD 尚未分析（無 CPE 適用性）的 CVE，待人工確認`);
-                }
+                // 補撈一律印一行（含 0 筆），避免誤會「沒補查」——0 筆代表查過但無待分析 CVE
+                itemLog('info', suppCount > 0
+                    ? `關鍵字補撈：新增 ${suppCount} 筆 NVD 尚未分析（無 CPE 適用性）的 CVE，待人工確認`
+                    : `關鍵字補撈：無 NVD 尚未分析的 CVE（已補查 ${rkw.cves.length} 筆關鍵字結果）`);
                 cves = [...cveMap.values()];
             } else {
                 ({ cves, fromCache, newCount } = await nvdClient.fetchCVEs({

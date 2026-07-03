@@ -2,7 +2,7 @@
   "cveCount": 2,
   "cacheKey": "cpe_postgresql_postgresql_jdbc_driver",
   "coverageStart": "2025-01-01T00:00:00.000Z",
-  "lastFetchedAt": "2026-06-26T02:37:30.223Z",
+  "lastFetchedAt": "2026-06-29T01:36:18.585Z",
   "cves": [
     {
       "cve": {

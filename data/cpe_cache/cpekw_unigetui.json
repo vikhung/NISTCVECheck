@@ -1,7 +1,9 @@
 {
   "productCount": 14,
+  "totalResults": 14,
+  "tooGeneric": false,
   "cacheKey": "cpekw_unigetui",
-  "fetchedAt": "2026-06-26T02:42:55.695Z",
+  "fetchedAt": "2026-06-30T03:14:23.711Z",
   "products": [
     {
       "cpe": {

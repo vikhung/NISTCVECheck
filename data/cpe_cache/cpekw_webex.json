@@ -1,7 +1,9 @@
 {
   "productCount": 1000,
+  "totalResults": 1000,
+  "tooGeneric": false,
   "cacheKey": "cpekw_webex",
-  "fetchedAt": "2026-06-26T02:44:50.600Z",
+  "fetchedAt": "2026-06-30T03:14:39.767Z",
   "products": [
     {
       "cpe": {

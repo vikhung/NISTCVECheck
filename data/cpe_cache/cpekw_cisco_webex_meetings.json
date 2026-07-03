@@ -1,7 +1,9 @@
 {
   "productCount": 507,
+  "totalResults": 507,
+  "tooGeneric": false,
   "cacheKey": "cpekw_cisco_webex_meetings",
-  "fetchedAt": "2026-06-26T01:35:44.067Z",
+  "fetchedAt": "2026-06-30T03:11:27.845Z",
   "products": [
     {
       "cpe": {

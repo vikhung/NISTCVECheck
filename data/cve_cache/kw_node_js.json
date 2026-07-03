@@ -2,7 +2,7 @@
   "cveCount": 693,
   "cacheKey": "kw_node_js",
   "coverageStart": "2021-01-01T00:00:00.000Z",
-  "lastFetchedAt": "2026-06-26T03:24:09.202Z",
+  "lastFetchedAt": "2026-06-30T03:15:03.022Z",
   "cves": [
     {
       "cve": {
@@ -49947,8 +49947,8 @@
         "id": "CVE-2026-49241",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-06-22T16:16:36.310",
-        "lastModified": "2026-06-23T14:17:23.410",
-        "vulnStatus": "Awaiting Analysis",
+        "lastModified": "2026-06-26T03:47:27.227",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -50018,6 +50018,28 @@
               }
             }
           ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+                "baseScore": 8.8,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 5.9
+            }
+          ],
           "ssvcV203": [
             {
               "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
@@ -50065,18 +50087,45 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:angular:angular_language_service:*:*:*:*:*:visual_studio_code:*:*",
+                    "versionEndExcluding": "21.2.4",
+                    "matchCriteriaId": "1181F8E6-DA41-4995-BC95-2260526195FD"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://github.com/angular/angular/pull/68857",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Issue Tracking"
+            ]
           },
           {
             "url": "https://github.com/angular/angular/pull/68886",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Issue Tracking"
+            ]
           },
           {
             "url": "https://github.com/angular/angular/security/advisories/GHSA-ccq4-xmxr-8hcq",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Vendor Advisory"
+            ]
           }
         ]
       }
@@ -50086,13 +50135,13 @@
         "id": "CVE-2026-53550",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-06-22T16:16:38.447",
-        "lastModified": "2026-06-23T17:17:03.980",
-        "vulnStatus": "Undergoing Analysis",
+        "lastModified": "2026-06-29T16:16:40.970",
+        "vulnStatus": "Modified",
         "cveTags": [],
         "descriptions": [
           {
             "lang": "en",
-            "value": "js-yaml is a JavaScript YAML parser and dumper. Prior to 4.2.0, a crafted YAML document can trigger algorithmic CPU exhaustion in js-yaml merge-key processing (<<) by repeating the same alias many times in a merge sequence. This causes quadratic parse-time behavior relative to input size and can block a Node.js worker/event loop for seconds with a relatively small payload (tens of KB), resulting in denial of service. The issue is in merge handling inside lib/loader.js. This vulnerability is fixed in 4.2.0."
+            "value": "js-yaml is a JavaScript YAML parser and dumper. Prior to 4.2.0 and 3.15.0, a crafted YAML document can trigger algorithmic CPU exhaustion in js-yaml merge-key processing (<<) by repeating the same alias many times in a merge sequence. This causes quadratic parse-time behavior relative to input size and can block a Node.js worker/event loop for seconds with a relatively small payload (tens of KB), resulting in denial of service. The issue is in merge handling inside lib/loader.js. This vulnerability is fixed in 4.2.0 and 3.15.0."
           }
         ],
         "affected": [
@@ -50104,7 +50153,11 @@
                 "product": "js-yaml",
                 "versions": [
                   {
-                    "version": "< 4.2.0",
+                    "version": ">= 4.0.0, < 4.2.0",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "< 3.15.0",
                     "status": "affected"
                   }
                 ]
@@ -50170,10 +50223,33 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:nodeca:js-yaml:*:*:*:*:*:node.js:*:*",
+                    "versionEndExcluding": "4.2.0",
+                    "matchCriteriaId": "A804E115-B9AB-4FC0-AB98-DAEAEDF59EA8"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://github.com/nodeca/js-yaml/security/advisories/GHSA-h67p-54hq-rp68",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Exploit",
+              "Mitigation",
+              "Vendor Advisory"
+            ]
           }
         ]
       }
@@ -50183,8 +50259,8 @@
         "id": "CVE-2026-53655",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-06-22T16:16:38.593",
-        "lastModified": "2026-06-23T15:50:26.920",
-        "vulnStatus": "Undergoing Analysis",
+        "lastModified": "2026-06-26T20:03:47.010",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -50254,6 +50330,28 @@
               }
             }
           ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N",
+                "baseScore": 5.5,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 1.8,
+              "impactScore": 3.6
+            }
+          ],
           "ssvcV203": [
             {
               "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
@@ -50289,14 +50387,42 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:isaacs:tar:*:*:*:*:*:node.js:*:*",
+                    "versionEndExcluding": "7.5.16",
+                    "matchCriteriaId": "ED10D25A-3224-4162-8176-25896AB77D3E"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://github.com/isaacs/node-tar/security/advisories/GHSA-vmf3-w455-68vh",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Exploit",
+              "Mitigation",
+              "Vendor Advisory"
+            ]
           },
           {
             "url": "https://github.com/isaacs/node-tar/security/advisories/GHSA-vmf3-w455-68vh",
-            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0"
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "tags": [
+              "Exploit",
+              "Mitigation",
+              "Vendor Advisory"
+            ]
           }
         ]
       }
@@ -50574,8 +50700,8 @@
         "id": "CVE-2026-55602",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-06-22T18:16:48.073",
-        "lastModified": "2026-06-23T15:50:26.920",
-        "vulnStatus": "Undergoing Analysis",
+        "lastModified": "2026-06-26T20:06:26.573",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -50653,6 +50779,28 @@
               }
             }
           ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:N/I:H/A:N",
+                "baseScore": 8.6,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "CHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 4
+            }
+          ],
           "ssvcV203": [
             {
               "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
@@ -50692,14 +50840,55 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:chimurai:http-proxy-middleware:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "0.16.0",
+                    "versionEndExcluding": "2.0.10",
+                    "matchCriteriaId": "D3DAE327-1562-441D-B830-469D446A94D7"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:chimurai:http-proxy-middleware:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "3.0.0",
+                    "versionEndExcluding": "3.0.6",
+                    "matchCriteriaId": "14022245-63AB-44F8-89C2-06AC2432A8A2"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:chimurai:http-proxy-middleware:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "4.0.0",
+                    "versionEndExcluding": "4.1.0",
+                    "matchCriteriaId": "474C2CF5-4DCF-455B-A550-EEFDDB585FD4"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://github.com/chimurai/http-proxy-middleware/security/advisories/GHSA-64mm-vxmg-q3vj",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Exploit",
+              "Vendor Advisory"
+            ]
           },
           {
             "url": "https://github.com/chimurai/http-proxy-middleware/security/advisories/GHSA-64mm-vxmg-q3vj",
-            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0"
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "tags": [
+              "Exploit",
+              "Vendor Advisory"
+            ]
           }
         ]
       }
@@ -51243,8 +51432,8 @@
         "id": "CVE-2026-44726",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-06-23T18:17:48.623",
-        "lastModified": "2026-06-25T15:16:35.450",
-        "vulnStatus": "Undergoing Analysis",
+        "lastModified": "2026-06-26T18:11:01.950",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -51290,6 +51479,26 @@
               },
               "exploitabilityScore": 2.2,
               "impactScore": 5.2
+            },
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+                "baseScore": 9.1,
+                "baseSeverity": "CRITICAL",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 5.2
             }
           ],
           "ssvcV203": [
@@ -51327,10 +51536,33 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:deno:deno:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "2.0.0",
+                    "versionEndExcluding": "2.7.8",
+                    "matchCriteriaId": "CA8392FC-2247-4255-A9DA-3DC08146AF63"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://github.com/denoland/deno/security/advisories/GHSA-chqv-56wv-7564",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Exploit",
+              "Vendor Advisory"
+            ]
           }
         ]
       }
@@ -51340,8 +51572,8 @@
         "id": "CVE-2026-49411",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-06-23T18:18:03.440",
-        "lastModified": "2026-06-23T19:34:58.770",
-        "vulnStatus": "Undergoing Analysis",
+        "lastModified": "2026-06-26T20:17:17.713",
+        "vulnStatus": "Modified",
         "cveTags": [],
         "descriptions": [
           {
@@ -51388,16 +51620,67 @@
               "exploitabilityScore": 2,
               "impactScore": 4
             }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-06-26T18:55:45.500229Z",
+                "id": "CVE-2026-49411",
+                "options": [
+                  {
+                    "exploitation": "poc"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
           ]
         },
         "weaknesses": [
           {
             "source": "security-advisories@github.com",
-            "type": "Primary",
+            "type": "Secondary",
             "description": [
               {
                 "lang": "en",
                 "value": "CWE-284"
+              }
+            ]
+          },
+          {
+            "source": "nvd@nist.gov",
+            "type": "Primary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "NVD-CWE-noinfo"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:deno:deno:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "2.7.14",
+                    "versionEndExcluding": "2.8.0",
+                    "matchCriteriaId": "CCC58C9A-9D40-4DEA-B856-50BBDEB3A701"
+                  }
+                ]
               }
             ]
           }
@@ -51405,7 +51688,21 @@
         "references": [
           {
             "url": "https://github.com/denoland/deno/security/advisories/GHSA-v8fw-85r8-5m23",
-            "source": "security-advisories@github.com"
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Exploit",
+              "Mitigation",
+              "Third Party Advisory"
+            ]
+          },
+          {
+            "url": "https://github.com/denoland/deno/security/advisories/GHSA-v8fw-85r8-5m23",
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "tags": [
+              "Exploit",
+              "Mitigation",
+              "Third Party Advisory"
+            ]
           }
         ]
       }
@@ -131243,8 +131540,8 @@
         "id": "CVE-2026-13311",
         "sourceIdentifier": "7ffcee3d-2c14-4c3e-b844-86c6a321a158",
         "published": "2026-06-25T05:16:52.763",
-        "lastModified": "2026-06-25T16:01:47.080",
-        "vulnStatus": "Undergoing Analysis",
+        "lastModified": "2026-06-26T19:03:34.507",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -131376,18 +131673,45 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:shell-quote_project:shell-quote:*:*:*:*:*:node.js:*:*",
+                    "versionEndExcluding": "1.9.0",
+                    "matchCriteriaId": "857C16CB-E752-4E3D-A096-79E73102BEB8"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://github.com/ljharb/shell-quote/security/advisories/GHSA-395f-4hp3-45gv",
-            "source": "7ffcee3d-2c14-4c3e-b844-86c6a321a158"
+            "source": "7ffcee3d-2c14-4c3e-b844-86c6a321a158",
+            "tags": [
+              "Vendor Advisory"
+            ]
           },
           {
             "url": "https://www.npmjs.com/package/shell-quote",
-            "source": "7ffcee3d-2c14-4c3e-b844-86c6a321a158"
+            "source": "7ffcee3d-2c14-4c3e-b844-86c6a321a158",
+            "tags": [
+              "Product"
+            ]
           },
           {
             "url": "https://github.com/ljharb/shell-quote/security/advisories/GHSA-395f-4hp3-45gv",
-            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0"
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "tags": [
+              "Vendor Advisory"
+            ]
           }
         ]
       }
@@ -131520,8 +131844,8 @@
         "id": "CVE-2026-48615",
         "sourceIdentifier": "support@hackerone.com",
         "published": "2026-06-26T02:16:52.273",
-        "lastModified": "2026-06-26T02:16:52.273",
-        "vulnStatus": "Received",
+        "lastModified": "2026-06-26T20:18:50.810",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -131562,6 +131886,28 @@
           }
         ],
         "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+                "baseScore": 7.5,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 3.6
+            }
+          ],
           "cvssMetricV30": [
             {
               "source": "support@hackerone.com",
@@ -131583,6 +131929,28 @@
               "exploitabilityScore": 2.2,
               "impactScore": 3.6
             }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-06-26T13:34:45.532887Z",
+                "id": "CVE-2026-48615",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
           ]
         },
         "weaknesses": [
@@ -131597,10 +131965,41 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:nodejs:node.js:22.22.3:*:*:*:-:*:*:*",
+                    "matchCriteriaId": "3C0C5080-5F99-4651-9855-2DE03C9070C5"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:nodejs:node.js:24.16.0:*:*:*:-:*:*:*",
+                    "matchCriteriaId": "3B912C84-1AA5-4D74-AB1A-64162C80A33B"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:nodejs:node.js:26.3.0:*:*:*:-:*:*:*",
+                    "matchCriteriaId": "8152ACE6-3CAF-4CA0-8B19-D4753811EB44"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://nodejs.org/en/blog/vulnerability/june-2026-security-releases",
-            "source": "support@hackerone.com"
+            "source": "support@hackerone.com",
+            "tags": [
+              "Patch",
+              "Vendor Advisory"
+            ]
           }
         ]
       }
@@ -131610,8 +132009,8 @@
         "id": "CVE-2026-48618",
         "sourceIdentifier": "support@hackerone.com",
         "published": "2026-06-26T02:16:52.397",
-        "lastModified": "2026-06-26T02:16:52.397",
-        "vulnStatus": "Received",
+        "lastModified": "2026-06-26T20:18:43.557",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -131652,6 +132051,28 @@
           }
         ],
         "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N",
+                "baseScore": 6.5,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 3.6
+            }
+          ],
           "cvssMetricV30": [
             {
               "source": "support@hackerone.com",
@@ -131673,6 +132094,28 @@
               "exploitabilityScore": 3.1,
               "impactScore": 4
             }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-06-26T15:10:27.583362Z",
+                "id": "CVE-2026-48618",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
           ]
         },
         "weaknesses": [
@@ -131687,10 +132130,41 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:nodejs:node.js:22.22.3:*:*:*:-:*:*:*",
+                    "matchCriteriaId": "3C0C5080-5F99-4651-9855-2DE03C9070C5"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:nodejs:node.js:24.16.0:*:*:*:-:*:*:*",
+                    "matchCriteriaId": "3B912C84-1AA5-4D74-AB1A-64162C80A33B"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:nodejs:node.js:26.3.0:*:*:*:-:*:*:*",
+                    "matchCriteriaId": "8152ACE6-3CAF-4CA0-8B19-D4753811EB44"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://nodejs.org/en/blog/vulnerability/june-2026-security-releases",
-            "source": "support@hackerone.com"
+            "source": "support@hackerone.com",
+            "tags": [
+              "Patch",
+              "Vendor Advisory"
+            ]
           }
         ]
       }
@@ -131700,8 +132174,8 @@
         "id": "CVE-2026-48619",
         "sourceIdentifier": "support@hackerone.com",
         "published": "2026-06-26T02:16:52.507",
-        "lastModified": "2026-06-26T02:16:52.507",
-        "vulnStatus": "Received",
+        "lastModified": "2026-06-26T20:18:56.810",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -131742,6 +132216,28 @@
           }
         ],
         "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "baseScore": 7.5,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 3.6
+            }
+          ],
           "cvssMetricV30": [
             {
               "source": "support@hackerone.com",
@@ -131763,6 +132259,28 @@
               "exploitabilityScore": 3.9,
               "impactScore": 1.4
             }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-06-26T15:01:30.143238Z",
+                "id": "CVE-2026-48619",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "yes"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
           ]
         },
         "weaknesses": [
@@ -131777,10 +132295,41 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:nodejs:node.js:22.22.3:*:*:*:-:*:*:*",
+                    "matchCriteriaId": "3C0C5080-5F99-4651-9855-2DE03C9070C5"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:nodejs:node.js:24.16.0:*:*:*:-:*:*:*",
+                    "matchCriteriaId": "3B912C84-1AA5-4D74-AB1A-64162C80A33B"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:nodejs:node.js:26.3.0:*:*:*:-:*:*:*",
+                    "matchCriteriaId": "8152ACE6-3CAF-4CA0-8B19-D4753811EB44"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://nodejs.org/en/blog/vulnerability/june-2026-security-releases",
-            "source": "support@hackerone.com"
+            "source": "support@hackerone.com",
+            "tags": [
+              "Patch",
+              "Vendor Advisory"
+            ]
           }
         ]
       }
@@ -131790,8 +132339,8 @@
         "id": "CVE-2026-48928",
         "sourceIdentifier": "support@hackerone.com",
         "published": "2026-06-26T02:16:52.610",
-        "lastModified": "2026-06-26T02:16:52.610",
-        "vulnStatus": "Received",
+        "lastModified": "2026-06-26T20:19:06.090",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -131832,6 +132381,28 @@
           }
         ],
         "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:N",
+                "baseScore": 5.4,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "LOW",
+                "integrityImpact": "LOW",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 2.5
+            }
+          ],
           "cvssMetricV30": [
             {
               "source": "support@hackerone.com",
@@ -131853,6 +132424,28 @@
               "exploitabilityScore": 1.6,
               "impactScore": 2.5
             }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-06-26T13:36:17.302009Z",
+                "id": "CVE-2026-48928",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
           ]
         },
         "weaknesses": [
@@ -131867,10 +132460,41 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:nodejs:node.js:22.22.3:*:*:*:-:*:*:*",
+                    "matchCriteriaId": "3C0C5080-5F99-4651-9855-2DE03C9070C5"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:nodejs:node.js:24.16.0:*:*:*:-:*:*:*",
+                    "matchCriteriaId": "3B912C84-1AA5-4D74-AB1A-64162C80A33B"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:nodejs:node.js:26.3.0:*:*:*:-:*:*:*",
+                    "matchCriteriaId": "8152ACE6-3CAF-4CA0-8B19-D4753811EB44"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://nodejs.org/en/blog/vulnerability/june-2026-security-releases",
-            "source": "support@hackerone.com"
+            "source": "support@hackerone.com",
+            "tags": [
+              "Patch",
+              "Vendor Advisory"
+            ]
           }
         ]
       }
@@ -131880,8 +132504,8 @@
         "id": "CVE-2026-48930",
         "sourceIdentifier": "support@hackerone.com",
         "published": "2026-06-26T02:16:52.723",
-        "lastModified": "2026-06-26T02:16:52.723",
-        "vulnStatus": "Received",
+        "lastModified": "2026-06-26T20:19:14.610",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -131922,6 +132546,28 @@
           }
         ],
         "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                "baseScore": 9.8,
+                "baseSeverity": "CRITICAL",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 5.9
+            }
+          ],
           "cvssMetricV30": [
             {
               "source": "support@hackerone.com",
@@ -131943,6 +132589,28 @@
               "exploitabilityScore": 2.2,
               "impactScore": 3.4
             }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-06-26T13:37:29.781800Z",
+                "id": "CVE-2026-48930",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
           ]
         },
         "weaknesses": [
@@ -131957,10 +132625,41 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:nodejs:node.js:22.22.3:*:*:*:-:*:*:*",
+                    "matchCriteriaId": "3C0C5080-5F99-4651-9855-2DE03C9070C5"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:nodejs:node.js:24.16.0:*:*:*:-:*:*:*",
+                    "matchCriteriaId": "3B912C84-1AA5-4D74-AB1A-64162C80A33B"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:nodejs:node.js:26.3.0:*:*:*:-:*:*:*",
+                    "matchCriteriaId": "8152ACE6-3CAF-4CA0-8B19-D4753811EB44"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://nodejs.org/en/blog/vulnerability/june-2026-security-releases",
-            "source": "support@hackerone.com"
+            "source": "support@hackerone.com",
+            "tags": [
+              "Patch",
+              "Vendor Advisory"
+            ]
           }
         ]
       }
@@ -131970,8 +132669,8 @@
         "id": "CVE-2026-48933",
         "sourceIdentifier": "support@hackerone.com",
         "published": "2026-06-26T02:16:52.833",
-        "lastModified": "2026-06-26T02:16:52.833",
-        "vulnStatus": "Received",
+        "lastModified": "2026-06-26T20:19:23.707",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -132033,6 +132732,28 @@
               "exploitabilityScore": 3.9,
               "impactScore": 3.6
             }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-06-26T15:05:58.547904Z",
+                "id": "CVE-2026-48933",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "yes"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
           ]
         },
         "weaknesses": [
@@ -132047,10 +132768,41 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:nodejs:node.js:22.22.3:*:*:*:-:*:*:*",
+                    "matchCriteriaId": "3C0C5080-5F99-4651-9855-2DE03C9070C5"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:nodejs:node.js:24.16.0:*:*:*:-:*:*:*",
+                    "matchCriteriaId": "3B912C84-1AA5-4D74-AB1A-64162C80A33B"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:nodejs:node.js:26.3.0:*:*:*:-:*:*:*",
+                    "matchCriteriaId": "8152ACE6-3CAF-4CA0-8B19-D4753811EB44"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://nodejs.org/en/blog/vulnerability/june-2026-security-releases",
-            "source": "support@hackerone.com"
+            "source": "support@hackerone.com",
+            "tags": [
+              "Patch",
+              "Vendor Advisory"
+            ]
           }
         ]
       }
@@ -132060,8 +132812,8 @@
         "id": "CVE-2026-48934",
         "sourceIdentifier": "support@hackerone.com",
         "published": "2026-06-26T02:16:52.950",
-        "lastModified": "2026-06-26T02:16:52.950",
-        "vulnStatus": "Received",
+        "lastModified": "2026-06-29T14:16:54.390",
+        "vulnStatus": "Modified",
         "cveTags": [],
         "descriptions": [
           {
@@ -132123,12 +132875,87 @@
               "exploitabilityScore": 2.8,
               "impactScore": 1.4
             }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-06-26T13:35:45.737892Z",
+                "id": "CVE-2026-48934",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
           ]
         },
+        "weaknesses": [
+          {
+            "source": "nvd@nist.gov",
+            "type": "Primary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "NVD-CWE-noinfo"
+              }
+            ]
+          },
+          {
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-295"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:nodejs:node.js:22.22.3:*:*:*:-:*:*:*",
+                    "matchCriteriaId": "3C0C5080-5F99-4651-9855-2DE03C9070C5"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:nodejs:node.js:24.16.0:*:*:*:-:*:*:*",
+                    "matchCriteriaId": "3B912C84-1AA5-4D74-AB1A-64162C80A33B"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:nodejs:node.js:26.3.0:*:*:*:-:*:*:*",
+                    "matchCriteriaId": "8152ACE6-3CAF-4CA0-8B19-D4753811EB44"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://nodejs.org/en/blog/vulnerability/june-2026-security-releases",
-            "source": "support@hackerone.com"
+            "source": "support@hackerone.com",
+            "tags": [
+              "Patch",
+              "Vendor Advisory"
+            ]
           }
         ]
       }
@@ -132138,8 +132965,8 @@
         "id": "CVE-2026-48935",
         "sourceIdentifier": "support@hackerone.com",
         "published": "2026-06-26T02:16:53.050",
-        "lastModified": "2026-06-26T02:16:53.050",
-        "vulnStatus": "Received",
+        "lastModified": "2026-06-26T20:14:33.573",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -132201,6 +133028,28 @@
               "exploitabilityScore": 1.8,
               "impactScore": 1.4
             }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-06-26T15:04:33.702023Z",
+                "id": "CVE-2026-48935",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
           ]
         },
         "weaknesses": [
@@ -132215,10 +133064,41 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:nodejs:node.js:22.22.3:*:*:*:-:*:*:*",
+                    "matchCriteriaId": "3C0C5080-5F99-4651-9855-2DE03C9070C5"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:nodejs:node.js:24.16.0:*:*:*:-:*:*:*",
+                    "matchCriteriaId": "3B912C84-1AA5-4D74-AB1A-64162C80A33B"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:nodejs:node.js:26.3.0:*:*:*:-:*:*:*",
+                    "matchCriteriaId": "8152ACE6-3CAF-4CA0-8B19-D4753811EB44"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://nodejs.org/en/blog/vulnerability/june-2026-security-releases",
-            "source": "support@hackerone.com"
+            "source": "support@hackerone.com",
+            "tags": [
+              "Patch",
+              "Vendor Advisory"
+            ]
           }
         ]
       }
@@ -132228,8 +133108,8 @@
         "id": "CVE-2026-48936",
         "sourceIdentifier": "support@hackerone.com",
         "published": "2026-06-26T02:16:53.157",
-        "lastModified": "2026-06-26T02:16:53.157",
-        "vulnStatus": "Received",
+        "lastModified": "2026-06-26T19:55:59.280",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -132279,6 +133159,28 @@
               "exploitabilityScore": 1.8,
               "impactScore": 1.4
             }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-06-26T13:35:18.745870Z",
+                "id": "CVE-2026-48936",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
           ]
         },
         "weaknesses": [
@@ -132293,10 +133195,31 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:nodejs:node.js:26.3.0:*:*:*:-:*:*:*",
+                    "matchCriteriaId": "8152ACE6-3CAF-4CA0-8B19-D4753811EB44"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://nodejs.org/en/blog/vulnerability/june-2026-security-releases",
-            "source": "support@hackerone.com"
+            "source": "support@hackerone.com",
+            "tags": [
+              "Patch",
+              "Vendor Advisory"
+            ]
           }
         ]
       }

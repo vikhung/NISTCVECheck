@@ -2,7 +2,7 @@
   "cveCount": 9,
   "cacheKey": "cpe_cisco_webex_meetings_server",
   "coverageStart": "2021-01-01T00:00:00.000Z",
-  "lastFetchedAt": "2026-06-26T01:35:44.072Z",
+  "lastFetchedAt": "2026-06-29T01:30:23.220Z",
   "cves": [
     {
       "cve": {

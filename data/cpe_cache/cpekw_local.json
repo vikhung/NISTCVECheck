@@ -1,7 +1,9 @@
 {
   "productCount": 1305,
+  "totalResults": 1305,
+  "tooGeneric": false,
   "cacheKey": "cpekw_local",
-  "fetchedAt": "2026-06-26T02:04:30.319Z",
+  "fetchedAt": "2026-06-30T03:12:25.741Z",
   "products": [
     {
       "cpe": {

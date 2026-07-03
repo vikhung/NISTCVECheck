@@ -1077,7 +1077,10 @@ scanBtn.addEventListener('click', async () => {
                             if (cveMap.has(v.cve.id)) continue;
                             if (isPendingSupplementCVE(v.cve, bases)) { cveMap.set(v.cve.id, v); suppCount++; }
                         }
-                        if (suppCount > 0) logLine(`  <span class="l-gray">關鍵字補撈：新增 ${suppCount} 筆 NVD 尚未分析（無 CPE 適用性）的 CVE，待人工確認</span>`);
+                        // 補撈一律印一行（含 0 筆），避免誤會「沒補查」——0 筆代表查過但無待分析 CVE
+                        logLine(suppCount > 0
+                            ? `  <span class="l-gray">關鍵字補撈：新增 ${suppCount} 筆 NVD 尚未分析（無 CPE 適用性）的 CVE，待人工確認</span>`
+                            : `  <span class="l-gray">關鍵字補撈：無 NVD 尚未分析的 CVE（已補查 ${(rkw.vulnerabilities || []).length} 筆關鍵字結果）</span>`);
                         const merged = [...cveMap.values()];
                         resp = { vulnerabilities: merged, totalResults: merged.length, resultsPerPage: merged.length };
                     } else {

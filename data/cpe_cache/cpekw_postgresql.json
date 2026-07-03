@@ -1,7 +1,9 @@
 {
   "productCount": 1781,
+  "totalResults": 1781,
+  "tooGeneric": false,
   "cacheKey": "cpekw_postgresql",
-  "fetchedAt": "2026-06-26T02:36:41.615Z",
+  "fetchedAt": "2026-06-30T03:14:18.039Z",
   "products": [
     {
       "cpe": {

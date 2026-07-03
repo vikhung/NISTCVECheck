@@ -2,7 +2,7 @@
   "cveCount": 1,
   "cacheKey": "cpe_cisco_webex_teams",
   "coverageStart": "2025-01-01T00:00:00.000Z",
-  "lastFetchedAt": "2026-06-26T03:17:44.459Z",
+  "lastFetchedAt": "2026-06-29T01:48:26.744Z",
   "cves": [
     {
       "cve": {

@@ -1,7 +1,9 @@
 {
   "productCount": 159,
+  "totalResults": 159,
+  "tooGeneric": false,
   "cacheKey": "cpekw_vlc_media_player",
-  "fetchedAt": "2026-06-26T02:43:47.633Z",
+  "fetchedAt": "2026-06-30T03:14:26.456Z",
   "products": [
     {
       "cpe": {

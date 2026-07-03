@@ -1,7 +1,9 @@
 {
   "productCount": 200,
+  "totalResults": 200,
+  "tooGeneric": false,
   "cacheKey": "cpekw_bruno",
-  "fetchedAt": "2026-06-26T01:35:26.260Z",
+  "fetchedAt": "2026-06-30T03:11:20.881Z",
   "products": [
     {
       "cpe": {

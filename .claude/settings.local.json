@@ -64,7 +64,15 @@
       "Bash(ls -la scan*.json data/scan*.json docs/*.json)",
       "Bash(grep -rnE \"getFullYear\\\\\\(\\\\\\) ?- ?5|getUTCFullYear\\\\\\(\\\\\\) ?- ?5\" scripts/ lib/)",
       "Bash(grep -rnE \"當年 ?[−-] ?5|當前年份 ?[−-] ?5|−5（預設\" docs/ README.md CLAUDE.md)",
-      "Bash(grep -oE 'CVE-2025-4517|CVE-2026-3298' __TRACKED_VAR__/python_run.log)"
+      "Bash(grep -oE 'CVE-2025-4517|CVE-2026-3298' __TRACKED_VAR__/python_run.log)",
+      "Bash(python -c \"import pptx; print\\('python-pptx', pptx.__version__\\)\")",
+      "Bash(py --version)",
+      "Bash(pip install *)",
+      "Bash(python -c \"import pptx; print\\('OK', pptx.__version__\\)\")",
+      "Bash(python make_ppt.py)",
+      "Read(//c/Program Files/LibreOffice/program/**)",
+      "Read(//c/Program Files/Microsoft Office/root/Office16/**)",
+      "PowerShell($src=\"C:\\\\Users\\\\Vik\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\D--VikGitHub-VikClaudeCode-NISTCVECheck\\\\fba7919d-9a11-479a-b6e6-20454acac97a\\\\scratchpad\\\\out.pptx\"; $png=\"C:\\\\Users\\\\Vik\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\D--VikGitHub-VikClaudeCode-NISTCVECheck\\\\fba7919d-9a11-479a-b6e6-20454acac97a\\\\scratchpad\\\\slide1.png\"; $pp=New-Object -ComObject PowerPoint.Application; $pres=$pp.Presentations.Open\\($src,$true,$false,$false\\); $pres.Slides.Item\\(1\\).Export\\($png,\"PNG\",1600,900\\); $pres.Close\\(\\); $pp.Quit\\(\\); Write-Output \"exported\")"
     ]
   },
   "enabledMcpjsonServers": [

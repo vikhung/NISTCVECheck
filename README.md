@@ -89,6 +89,16 @@ CPE_BASE_0=python|python:python
 CPE_BASE_1=git|git-scm:git|git:git
 ```
 
+## 運作流程（概觀）
+
+每個軟體大致經過三個步驟（完整流程圖見 [`docs/cve-flow.md`](docs/cve-flow.md)）：
+
+1. **找 CPE**：用軟體名查 NVD CPE 字典，鎖定 `vendor:product`。一般軟體（scan.json／Registry）用「軟體名精確比對」避免多產品 vendor 爆量（例如 Webex 只鎖定 `cisco:webex`，不會一次查到 37 個 `webex_*`）；若在 `.env.local` 的 `CPE_BASE_N` 指定過，則直接使用該定義。
+2. **查 CVE**：用上一步的 CPE 精準查弱點；找不到 CPE 或軟體名過於通用（如 Git/Python）時，改用關鍵字搜尋描述全文。
+3. **補撈新弱點**：NVD 對剛公布的弱點常「尚在分析中」（還沒建立 CPE），這類會被 CPE 查詢漏掉，因此再補查一次關鍵字，把「確實指向本軟體」的新弱點併入，並標記 ⚠ NVD 分析中 供人工確認。
+
+查詢結果會快取於 `data/`，**同一天內重複掃描不會重打 NVD**；隔天再掃只增量補抓異動部分（詳見流程圖文末說明）。
+
 ## CVE 過濾原則
 
 掃描結果只保留「CPE 確認相關」的 CVE，以下情況會靜默過濾（不顯示於報表）：
@@ -188,7 +198,10 @@ scripts/
   build.js                — 打包工具：模板 + lib/ → web-client.html + _bundle.js
   _bundle.js              — build artifact，供 web-server.js require()
 findSW.ps1                — 遠端機器產生 scan.json
-docs/operator.html        — 完整操作手冊
+docs/
+  operator.html                       — 完整操作手冊
+  cve-flow.md                         — CVE 查找流程圖（Mermaid）+ 快取說明
+  NISTCVECheck_CVE掃描流程圖.pptx      — CVE 掃描流程圖簡報
 ```
 
 ## 完整操作說明

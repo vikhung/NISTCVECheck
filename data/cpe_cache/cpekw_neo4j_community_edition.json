@@ -1,7 +1,9 @@
 {
   "productCount": 2,
+  "totalResults": 2,
+  "tooGeneric": false,
   "cacheKey": "cpekw_neo4j_community_edition",
-  "fetchedAt": "2026-06-26T03:24:22.843Z",
+  "fetchedAt": "2026-06-30T03:15:04.159Z",
   "products": [
     {
       "cpe": {

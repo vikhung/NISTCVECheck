@@ -1,8 +1,8 @@
 {
-  "cveCount": 135,
+  "cveCount": 136,
   "cacheKey": "kw_postgresql",
   "coverageStart": "2025-01-01T00:00:00.000Z",
-  "lastFetchedAt": "2026-06-26T09:21:20.664Z",
+  "lastFetchedAt": "2026-06-30T03:14:19.415Z",
   "cves": [
     {
       "cve": {
@@ -11705,8 +11705,8 @@
         "id": "CVE-2026-12048",
         "sourceIdentifier": "f86ef6dc-4d3a-42ad-8f28-e6d5547a5007",
         "published": "2026-06-19T00:16:47.200",
-        "lastModified": "2026-06-22T20:23:26.770",
-        "vulnStatus": "Awaiting Analysis",
+        "lastModified": "2026-06-29T15:17:13.730",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -11813,6 +11813,26 @@
               },
               "exploitabilityScore": 2.8,
               "impactScore": 5.8
+            },
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:L/I:L/A:N",
+                "baseScore": 5.4,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "LOW",
+                "userInteraction": "REQUIRED",
+                "scope": "CHANGED",
+                "confidentialityImpact": "LOW",
+                "integrityImpact": "LOW",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 2.3,
+              "impactScore": 2.7
             }
           ],
           "ssvcV203": [
@@ -11852,16 +11872,52 @@
                 "value": "CWE-116"
               }
             ]
+          },
+          {
+            "source": "nvd@nist.gov",
+            "type": "Primary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-79"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:pgadmin:pgadmin_4:*:*:*:*:*:postgresql:*:*",
+                    "versionStartIncluding": "6.0",
+                    "versionEndExcluding": "9.16",
+                    "matchCriteriaId": "E0595842-CDC3-4CF7-B5EA-DF325B7E784A"
+                  }
+                ]
+              }
+            ]
           }
         ],
         "references": [
           {
             "url": "https://github.com/pgadmin-org/pgadmin4/commit/9e370d3cb67b83b3945f82969c959fad3f926517",
-            "source": "f86ef6dc-4d3a-42ad-8f28-e6d5547a5007"
+            "source": "f86ef6dc-4d3a-42ad-8f28-e6d5547a5007",
+            "tags": [
+              "Patch"
+            ]
           },
           {
             "url": "https://github.com/pgadmin-org/pgadmin4/issues/10068",
-            "source": "f86ef6dc-4d3a-42ad-8f28-e6d5547a5007"
+            "source": "f86ef6dc-4d3a-42ad-8f28-e6d5547a5007",
+            "tags": [
+              "Issue Tracking",
+              "Patch"
+            ]
           }
         ]
       }
@@ -11871,8 +11927,8 @@
         "id": "CVE-2026-12050",
         "sourceIdentifier": "f86ef6dc-4d3a-42ad-8f28-e6d5547a5007",
         "published": "2026-06-19T00:16:47.517",
-        "lastModified": "2026-06-22T20:23:26.770",
-        "vulnStatus": "Awaiting Analysis",
+        "lastModified": "2026-06-29T15:15:52.040",
+        "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
@@ -11973,6 +12029,26 @@
               },
               "exploitabilityScore": 2.8,
               "impactScore": 1.4
+            },
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+                "baseScore": 8.8,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 5.9
             }
           ],
           "ssvcV203": [
@@ -12010,14 +12086,40 @@
             ]
           }
         ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:pgadmin:pgadmin_4:*:*:*:*:*:postgresql:*:*",
+                    "versionStartIncluding": "1.0",
+                    "versionEndExcluding": "9.16",
+                    "matchCriteriaId": "6C00C802-CCFB-4A7B-835E-FBE61FFC87FD"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "references": [
           {
             "url": "https://github.com/pgadmin-org/pgadmin4/commit/3379c39865d3ab6f52afce97361fb16bcdd77cd2",
-            "source": "f86ef6dc-4d3a-42ad-8f28-e6d5547a5007"
+            "source": "f86ef6dc-4d3a-42ad-8f28-e6d5547a5007",
+            "tags": [
+              "Patch"
+            ]
           },
           {
             "url": "https://github.com/pgadmin-org/pgadmin4/issues/10026",
-            "source": "f86ef6dc-4d3a-42ad-8f28-e6d5547a5007"
+            "source": "f86ef6dc-4d3a-42ad-8f28-e6d5547a5007",
+            "tags": [
+              "Issue Tracking",
+              "Patch"
+            ]
           }
         ]
       }
@@ -25593,6 +25695,107 @@
               "Exploit",
               "Vendor Advisory"
             ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-55069",
+        "sourceIdentifier": "security-advisories@github.com",
+        "published": "2026-06-26T22:16:33.093",
+        "lastModified": "2026-06-29T18:51:46.540",
+        "vulnStatus": "Undergoing Analysis",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Kestra is an open-source, event-driven orchestration platform. Prior to 1.3.24, this vulnerability exists in the BasicAuth authentication component of the Kestra OSS workflow orchestration platform. An attacker who gains read access to the PostgreSQL database can exploit SHA-512's high computation speed to recover the administrator password offline. In Kubernetes deployments, a successful crack further enables reading of the cluster ServiceAccount Token and all K8s Secrets, achieving vertical privilege escalation. This vulnerability is fixed in 1.3.24."
+          }
+        ],
+        "affected": [
+          {
+            "source": "security-advisories@github.com",
+            "affectedData": [
+              {
+                "vendor": "kestra-io",
+                "product": "kestra",
+                "versions": [
+                  {
+                    "version": "< 1.3.24",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "security-advisories@github.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:N",
+                "baseScore": 8.7,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "HIGH",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "CHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 2.2,
+              "impactScore": 5.8
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-06-29T13:16:35.099360Z",
+                "id": "CVE-2026-55069",
+                "options": [
+                  {
+                    "exploitation": "poc"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "security-advisories@github.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-916"
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/kestra-io/kestra/security/advisories/GHSA-m727-pcjm-j28h",
+            "source": "security-advisories@github.com"
+          },
+          {
+            "url": "https://github.com/kestra-io/kestra/security/advisories/GHSA-m727-pcjm-j28h",
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0"
           }
         ]
       }

@@ -1,7 +1,9 @@
 {
   "productCount": 529,
+  "totalResults": 529,
+  "tooGeneric": false,
   "cacheKey": "cpekw_ffmpeg",
-  "fetchedAt": "2026-06-26T01:36:44.135Z",
+  "fetchedAt": "2026-06-30T03:11:42.767Z",
   "products": [
     {
       "cpe": {

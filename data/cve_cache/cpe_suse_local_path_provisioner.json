@@ -2,7 +2,7 @@
   "cveCount": 1,
   "cacheKey": "cpe_suse_local_path_provisioner",
   "coverageStart": "2025-01-01T00:00:00.000Z",
-  "lastFetchedAt": "2026-06-26T02:23:24.683Z",
+  "lastFetchedAt": "2026-06-30T03:13:01.807Z",
   "cves": [
     {
       "cve": {

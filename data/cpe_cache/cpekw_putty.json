@@ -1,7 +1,9 @@
 {
   "productCount": 70,
+  "totalResults": 70,
+  "tooGeneric": false,
   "cacheKey": "cpekw_putty",
-  "fetchedAt": "2026-06-26T03:22:22.860Z",
+  "fetchedAt": "2026-06-30T03:14:45.166Z",
   "products": [
     {
       "cpe": {

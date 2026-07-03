@@ -2,7 +2,7 @@
   "cveCount": 6,
   "cacheKey": "cpe_neo4j_neo4j",
   "coverageStart": "2021-01-01T00:00:00.000Z",
-  "lastFetchedAt": "2026-06-26T03:24:22.845Z",
+  "lastFetchedAt": "2026-06-30T03:15:04.161Z",
   "cves": [
     {
       "cve": {

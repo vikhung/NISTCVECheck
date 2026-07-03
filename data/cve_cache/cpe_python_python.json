@@ -2,7 +2,7 @@
   "cveCount": 12,
   "cacheKey": "cpe_python_python",
   "coverageStart": "2025-01-01T00:00:00.000Z",
-  "lastFetchedAt": "2026-06-26T11:06:02.403Z",
+  "lastFetchedAt": "2026-06-30T03:14:20.028Z",
   "cves": [
     {
       "cve": {

@@ -1,7 +1,9 @@
 {
   "productCount": 4,
+  "totalResults": 4,
+  "tooGeneric": false,
   "cacheKey": "cpekw_intel_wireless_bluetooth",
-  "fetchedAt": "2026-06-26T01:40:23.824Z",
+  "fetchedAt": "2026-06-30T03:11:50.188Z",
   "products": [
     {
       "cpe": {

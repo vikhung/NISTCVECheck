@@ -1,7 +1,9 @@
 {
   "productCount": 50,
+  "totalResults": 50,
+  "tooGeneric": false,
   "cacheKey": "cpekw_winrar",
-  "fetchedAt": "2026-06-26T03:21:54.034Z",
+  "fetchedAt": "2026-06-30T03:14:42.150Z",
   "products": [
     {
       "cpe": {

@@ -91,7 +91,11 @@ PORTABLE_N       ─────────────────────
 
 ### 主要處理邏輯
 
-**Portable 軟體 CPE 查找**（`findAllCPEBases`）：三個 Pass 依序比對，Pass 0 優先（vendor 單獨含關鍵字），Pass 1（vendor+product 合併含關鍵字），Pass 2 fallback（product 含第一個字）。回傳**所有符合**的 `{vendor, product}` 陣列（OR 邏輯），確保同一軟體不同 vendor 名稱（如 PuTTY 的 `putty:putty` 與 `simon_tatham:putty`，或 Bruno 的 `usebruno:bruno` 與 `yaxim:bruno`）均能命中。
+**CPE 查找分兩種模式（`findAllCPEBases(products, nameWords, exact)`）**：依軟體來源切換精準度／recall。
+
+- **精確模式（`exact=true`，scan.json／Windows Registry 找到的軟體）**：直接以「軟體名＝CPE 的 `product`（或 `vendor+product` 合併）詞集合**完全相等**」比對，**跳過下方模糊邏輯**。理由——多產品 vendor 用模糊比對會一次撈出數十個無關 product，每個都要逐一查 CVE（再乘日期分段），效能極差：實證 Cisco 旗下 37 個 `webex_*` 產品，掃「Webex」一個軟體卻得查 37 次。精確比對讓「Webex」只命中 `cisco:webex`、「PostgreSQL」只命中 `*:postgresql`（37→1、7→2），效能與精準度同時提升。**刻意不採「vendor 詞集合相等」**：vendor 名與軟體同名時（vendor 就叫 `postgresql`）會把該 vendor 底下全部 product（`psqlodbc`/`pgjdbc`/`pgadmin_4`…）撈回而退化回爆量。同名異 vendor（PuTTY 的 `putty`/`simon_tatham`/`greenend`、Bruno 的 `usebruno`/`yaxim`）因 product 皆等於軟體名，仍以 OR 全數保留。**精確命中 0 筆時 fall back 到下方模糊邏輯**（保留 recall），避免「neo4j community edition」「7-zip」等軟體名與 CPE product 對不齊時整批漏查。三端一致：CLI（`cve-checker.js`，`!sw._portable`）、Web Server（`web-server.js`，`!isPortable`）；Web 直連模式只處理 Portable，維持模糊。
+
+- **模糊模式（`exact=false`，Portable 軟體 / 精確 fall back）**：三個 Pass 依序比對，Pass 0 優先（vendor 單獨含關鍵字），Pass 1（vendor+product 合併含關鍵字），Pass 2 fallback（product 含第一個字）。回傳**所有符合**的 `{vendor, product}` 陣列（OR 邏輯），確保同一軟體不同 vendor 名稱均能命中。
 
 **收斂兩步驟：(1) 詞邊界比對 → (2) vendor 錨定**。`findAllCPEBases` 在三個 Pass 跑完後依序套用：
 

@@ -2,7 +2,7 @@
   "cveCount": 11,
   "cacheKey": "cpe_ibm_planning_analytics_local",
   "coverageStart": "2025-01-01T00:00:00.000Z",
-  "lastFetchedAt": "2026-06-26T02:16:31.512Z",
+  "lastFetchedAt": "2026-06-30T03:12:51.033Z",
   "cves": [
     {
       "cve": {
