@@ -7,7 +7,6 @@ const path   = require('path');
 const os     = require('os');
 const crypto = require('crypto');
 const { createNvdClient } = require('../lib/nvd-client');
-const { createMitreClient } = require('../lib/mitre-client');
 const { findAllCPEBases, isPendingSupplementCVE } = require('../lib/cve-logic');
 
 // ─── Port resolution ─────────────────────────────────────────────────────────
@@ -254,45 +253,24 @@ function nvdSlot() {
     return p;
 }
 
-// ─── CVE 來源（NIST 即時 API 或 MITRE 本機鏡像）──────────────────────────────
-// slotFn 傳入全域 nvdSlot，確保所有 session 共用同一速率限制（僅 NIST 模式需要）。
-// CVE_SOURCE=NIST（預設）：快取存於 <project>/data/ 目錄；CACHE_DISABLE=true 可停用快取。
-// CVE_SOURCE=MITRE：讀取 data/mitre_mirror/ 本機鏡像（須先 npm run sync-mitre），
-// 索引不存在時建構會立即 throw，下方 catch 會印出錯誤並中止伺服器啟動（fail-fast，不可帶壞狀態啟動）。
-const CVE_SOURCE = (env.CVE_SOURCE || 'NIST').toUpperCase();
-if (!['NIST', 'MITRE'].includes(CVE_SOURCE)) {
-    console.error(`無效的 CVE_SOURCE="${env.CVE_SOURCE}"，僅支援 NIST 或 MITRE`);
-    process.exit(1);
-}
-
+// ─── CVE 來源（NIST NVD API）──────────────────────────────────────────────────
+// slotFn 傳入全域 nvdSlot，確保所有 session 共用同一速率限制。
+// 快取存於 <project>/data/ 目錄；CACHE_DISABLE=true 可停用快取。
 const _cacheDisable = (env.CACHE_DISABLE || '').toLowerCase() === 'true';
 const _cacheDir     = _cacheDisable ? null : path.join(__dirname, '..', 'data');
 const _nvdLogger = (level, _kw, msg) => {
     if (level === 'warn') console.warn(`[nvd-client] ${msg}`);
 };
 
-let nvdClient;
-if (CVE_SOURCE === 'MITRE') {
-    try {
-        nvdClient = createMitreClient({
-            mirrorDir: path.join(__dirname, '..', 'data', 'mitre_mirror'),
-            logger: _nvdLogger,
-        });
-    } catch (e) {
-        console.error(`\n${e.message}`);
-        process.exit(1);
-    }
-} else {
-    nvdClient = createNvdClient({
-        fetchFn:  _fetch,
-        apiKey:   defaultApiKey,
-        delay:    REQUEST_DELAY,
-        cacheDir: _cacheDir,
-        aliases:  _loadAliases(),
-        slotFn:   nvdSlot,
-        logger: _nvdLogger,
-    });
-}
+const nvdClient = createNvdClient({
+    fetchFn:  _fetch,
+    apiKey:   defaultApiKey,
+    delay:    REQUEST_DELAY,
+    cacheDir: _cacheDir,
+    aliases:  _loadAliases(),
+    slotFn:   nvdSlot,
+    logger: _nvdLogger,
+});
 
 // ─── Page injection ───────────────────────────────────────────────────────────
 // Injected before </body>: signals proxy mode and pre-fills settings.
@@ -729,7 +707,6 @@ server.listen(PORT, '0.0.0.0', () => {
 
     console.log(`${c.gray}${'─'.repeat(40)}${c.reset}`);
     console.log(`${c.gray}掃描端點：${c.reset} POST /api/scan (NDJSON stream), GET /api/cpe (CPE 查找), GET /api/cve-data (CVE 查詢)`);
-    console.log(`${c.gray}CVE 來源：${c.reset} ${c.cyan}${CVE_SOURCE}${c.reset}`);
     if (defaultApiKey)    console.log(`${c.gray}API Key：${c.reset}  已載入（0.7 秒/次）`);
     else                  console.log(`${c.gray}API Key：${c.reset}  未設定（6.5 秒/次）`);
     if (defaultWhitelist) console.log(`${c.gray}白名單：${c.reset}   ${defaultWhitelist}`);

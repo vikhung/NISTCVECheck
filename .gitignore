@@ -11,9 +11,6 @@ team/
 # Logs
 logs/
 
-# MITRE cvelistV5 本機鏡像（多 GB 規模，僅本機快取用，由 npm run sync-mitre 建立，不納入版控）
-data/mitre_mirror/
-
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 

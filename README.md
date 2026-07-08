@@ -6,7 +6,7 @@
 
 - Node.js 18 以上
 - Windows（即時 Registry 掃描需要；使用 JSON 檔案輸入則不限平台）
-- 首次使用前執行一次 `npm install`（僅 `adm-zip` 一個套件，供 `CVE_SOURCE=MITRE` 的本機鏡像同步腳本解壓縮用；`CVE_SOURCE=NIST`（預設）仍 100% 使用 Node.js 內建模組，不需要這個套件也能運作）
+- 首次使用前執行一次 `npm install`（僅 `adm-zip` 一個套件，供 `npm run package` 產生部署 zip 用；一般掃描/Web 功能 100% 使用 Node.js 內建模組，不需要這個套件也能運作）
 
 ## 初始設定
 
@@ -40,11 +40,6 @@ npm run package                                    # → dist/NISTCVECheck_deplo
 node scripts/package-deploy.js --no-cache          # 乾淨部署（不含 CVE 快取，約 0.5 MB）
 node scripts/package-deploy.js --with-node-modules # 連 node_modules 一起打包（離線環境免 npm install）
 
-# MITRE 本機鏡像（CVE_SOURCE=MITRE 之前必須先執行一次；之後可排程定期重跑保持更新）
-npm run sync-mitre                                 # 失敗重跑會自動從中斷處繼續，不會重新下載已完成的部分
-node scripts/mitre-sync.js --full                  # 忽略既有進度，強制重新下載/處理 baseline
-node scripts/mitre-sync.js --step=download-delta   # 手動單獨執行某一階段（除錯用，可用值見下）
-
 # 遠端機器產生 scan.json
 powershell -ExecutionPolicy Bypass -File findSW.ps1
 ```
@@ -72,7 +67,6 @@ powershell -ExecutionPolicy Bypass -File findSW.ps1
 
 | 變數 | 說明 | 預設 |
 |------|------|------|
-| `CVE_SOURCE` | `NIST` / `MITRE`。`MITRE` 模式需先執行 `npm run sync-mitre` 建立本機索引，否則啟動立即報錯（不會自動改用 NIST） | NIST |
 | `NIST_API_KEY` | NVD API Key（有 Key：0.7s/req；無：6.5s/req） | — |
 | `LOG_LEVEL` | `DEBUG` = 顯示除錯 log（目前為向 NVD 發出的完整 curl 查詢指令）；`INFO` = 不顯示 | INFO |
 | `HTTPS_PROXY` / `HTTP_PROXY` | Proxy URL，支援 `http://user:pass@host:port` | — |
@@ -161,43 +155,19 @@ report.skippedByPattern[] / skippedByDedup[] — 過濾/去重略過
 
 `cveCount`/`productCount` 為描述性欄位，方便人工檢視檔案時不必數陣列長度。快取以「同一天」為單位：當天內已查過直接用快取；CVE 快取跨天會做增量更新（`lastModStartDate`），CPE 字典快取跨天則整批覆寫。`CACHE_DISABLE=true` 可停用所有本機快取。
 
-### MITRE 本機鏡像（`data/mitre_mirror/`，`CVE_SOURCE=MITRE` 專用）
-
-MITRE 的 CVE Services API 只能「已知 CVE ID 查單筆」，沒有關鍵字/日期區段查詢能力，因此改用官方的 `CVEProject/cvelistV5` GitHub 每日 baseline + delta 壓縮檔，定期同步到本機並建立索引（執行 `npm run sync-mitre`）。鏡像保留近 5 年資料（掃描預設只看「當年 − 1」，但鏡像多留幾年以便手動調大 `MIN_YEAR` 往前查詢），不納入版控（見 `.gitignore`）。
-
-```
-data/mitre_mirror/
-  raw/<year>/CVE-<year>-<nnnn>.json   ← 解壓後保留，供索引重建用
-  index/<year>.ndjson                  ← 實際被查詢的索引，每行一筆 PUBLISHED CVE
-  index/meta.json                      ← 同步狀態（最後同步時間、已索引年份、CVE 總數）
-```
-
-索引每行範例（`data/mitre_mirror/index/2024.ndjson`）：
-```json
-{"id":"CVE-2024-12345","state":"PUBLISHED","published":"2024-01-15T10:00:00.000Z","lastModified":"2024-02-01T00:00:00.000Z","vendors":["apache"],"products":["maven"],"descLower":"apache maven before 3.9.0 allows ...","cpes":["cpe:2.3:a:apache:maven:*:*:*:*:*:*:*:*"],"affected":[{"vendor":"Apache","product":"Maven","versions":[{"version":"3.0.0","status":"affected","lessThan":"3.9.0"}],"cpes":[]}],"metrics":[{"version":"3.1","vectorString":"CVSS:3.1/...","baseScore":7.5,"baseSeverity":"HIGH"}]}
-```
-
-`lib/mitre-client.js` 讀取這份索引、`lib/mitre-adapter.js` 將每筆記錄轉成與 NVD API 相容的格式，讓既有的關聯性/版本比對邏輯（`lib/cve-logic.js`）完全不需修改即可運作於兩種來源。詳見 CLAUDE.md「第二資料來源：MITRE cvelistV5」章節。
-
-**`npm run sync-mitre` 失敗重跑**：同步流程具備 checkpoint／resume，過程中會在 `data/mitre_mirror/_tmp/progress.json` 記錄目前完成到哪個階段（下載/解壓/攤平 baseline、下載/解壓/攤平 delta、重建索引）。直接重新執行 `npm run sync-mitre` 即可，已完成的階段會自動略過（含比對暫存 zip 檔案大小，不會重新下載）；只有全部階段成功才會清除進度檔。`--step=<phase>` 可手動單獨跑某一階段，可用值：`download-baseline`、`extract-baseline`、`flatten-baseline`、`download-delta`、`extract-delta`、`flatten-delta`、`finalize`。`--full` 會忽略既有進度，強制重新判定/下載 baseline。
-
 ## 專案結構
 
 ```
 lib/cve-logic.js          — CVE 業務邏輯（唯一來源）
 lib/report-html.js        — HTML 報表產生（唯一來源）
 lib/nvd-client.js         — NVD API 客戶端（快取 + 日期分段 + 增量更新，唯一來源）
-lib/mitre-client.js       — MITRE 本機鏡像客戶端（介面與 nvd-client.js 相容）
-lib/mitre-adapter.js      — MITRE → NVD synthetic 格式轉換（純函式）
 data/
   cve_cache/              — 本機 CVE 快取，自動建立
   cpe_cache/              — CPE 字典查找快取，自動建立
-  mitre_mirror/           — MITRE 本機鏡像（不納入版控，npm run sync-mitre 建立）
 scripts/
   cve-checker.js          — CLI 主程式
   team-report.js          — 團隊彙整報表
   web-server.js           — HTTP 伺服器
-  mitre-sync.js           — MITRE cvelistV5 同步腳本（npm run sync-mitre）
   web-client.src.html     — Web 掃描器模板（含 @@CVE_LOGIC@@ / @@REPORT_HTML@@ 注入點）
   web-client.html         — build artifact（勿直接編輯）
   build.js                — 打包工具：模板 + lib/ → web-client.html + _bundle.js

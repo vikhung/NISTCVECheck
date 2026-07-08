@@ -8,7 +8,7 @@
 // 預設納入：程式碼（lib/、scripts/）、findSW.ps1、文件、以及本機 CVE 查詢快取
 //   （data/cve_cache、data/cpe_cache）→ 公司端首次掃描可暖啟動、少打 NVD。
 // 預設排除（大型 / 機密 / 本機專屬 / 建置產物）：
-//   .env.local（含 NIST_API_KEY！）、logs/、data/mitre_mirror/、report/、team/、
+//   .env.local（含 NIST_API_KEY！）、logs/、report/、team/、
 //   node_modules/、.git/、scan.json、docs/*.pptx、
 //   scripts/_bundle.js 與 scripts/web-client.html（建置產物，會內嵌本機 PORTABLE_N/whitelist，
 //   公司端 `npm run web` 會用他們自己的 .env.local 重新產生）。
@@ -55,7 +55,7 @@ function isExcluded(rel) {
     // 系統雜檔
     if (base === '.DS_Store' || base === 'Thumbs.db') return true;
     // 防禦性：即使被誤列入納入清單也擋掉這些大型/本機專屬目錄
-    const banned = ['logs/', 'data/mitre_mirror/', 'report/', 'team/', '.git/'];
+    const banned = ['logs/', 'report/', 'team/', '.git/'];
     if (!withNodeMods) banned.push('node_modules/');
     if (banned.some(b => rel === b.slice(0, -1) || rel.startsWith(b))) return true;
     return false;

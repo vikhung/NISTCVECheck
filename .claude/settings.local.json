@@ -79,5 +79,8 @@
   "enabledMcpjsonServers": [
     "playwright",
     "context7"
+  ],
+  "disabledMcpjsonServers": [
+    "context7"
   ]
 }

@@ -2,7 +2,7 @@
   "cveCount": 157,
   "cacheKey": "cpe_ffmpeg_ffmpeg",
   "coverageStart": "2021-01-01T00:00:00.000Z",
-  "lastFetchedAt": "2026-06-30T03:11:42.772Z",
+  "lastFetchedAt": "2026-07-08T08:36:23.978Z",
   "cves": [
     {
       "cve": {

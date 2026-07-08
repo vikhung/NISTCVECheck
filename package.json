@@ -5,12 +5,11 @@
   "main": "scripts/cve-checker.js",
   "scripts": {
     "start": "node scripts/cve-checker.js -1 HIGH -1",
-    "check": "node scripts/cve-checker.js -1 HIGH 5",
+    "check": "node scripts/cve-checker.js -1 HIGH 6",
     "test": "node --test \"scripts/test/*.test.js\"",
     "bundle": "node scripts/build.js",
     "preweb": "node scripts/build.js",
     "web": "node scripts/web-server.js",
-    "sync-mitre": "node scripts/mitre-sync.js",
     "package": "node scripts/package-deploy.js"
   },
   "engines": {

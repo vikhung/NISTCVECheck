@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 1. 所有的交談都以繁體中文為主。
 2. 每當討論出架構決策或注意事項，立即更新本文件的對應章節，不要等到對話結束才整理。
 3. 程式碼、函式庫應用繁體中文記錄註解，讓使用者知道這段程式碼用途。
-4. Node.js 請使用原生功能，不要使用任何需額外下載之套件。**唯一例外**：`adm-zip`（`scripts/mitre-sync.js` 解壓 MITRE cvelistV5 ZIP 用，Node 原生 zlib 只能處理 deflate/gzip，無法解析 ZIP 容器格式），使用者已明確核准此例外。
+4. Node.js 請使用原生功能，不要使用任何需額外下載之套件。**唯一例外**：`adm-zip`（`scripts/package-deploy.js` 產生部署 zip 用，Node 原生 zlib 只能處理 deflate/gzip，無法產生 ZIP 容器格式），使用者已明確核准此例外。
 5. 操作方式（指令、參數、設定檔）與資料格式範例（輸入/輸出 JSON、快取檔案結構、目錄總覽）寫在 `README.md`；本文件只放系統處理原則與架構決策。
 
 ## 常用指令
@@ -19,7 +19,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | `npm run check` | 快速掃描：HIGH 以上、限掃前 5 筆軟體（年份用預設「當年 − 1」） |
 | `npm run web` | 啟動 Web 伺服器（自動先執行 `node scripts/build.js`，port 預設 8093） |
 | `npm run bundle` | 單獨執行 `node scripts/build.js`（修改 `lib/cve-logic.js` 或 `lib/report-html.js` 後須執行） |
-| `npm run sync-mitre` | 同步 MITRE cvelistV5 本機鏡像（首次使用 `CVE_SOURCE=MITRE` 前須執行） |
 | `npm run package` | 部署打包：把必要檔案壓成 `dist/NISTCVECheck_deploy_<date>.zip`（`scripts/package-deploy.js`）。預設含 CVE 快取、排除機密/大型/建置產物；旗標：`--no-cache`（乾淨部署）、`--with-node-modules`（離線）、`--out=<路徑>` |
 | `node scripts/team-report.js <目錄>` | 讀取目錄下所有 JSON 個人報表，產生跨機器彙整 HTML 報告 |
 | `powershell -ExecutionPolicy Bypass -File findSW.ps1` | 掃描本機安裝軟體，輸出 `scan.json`（可作為 CLI 輸入） |
@@ -45,8 +44,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | `lib/cve-logic.js` | 所有 CVE 業務邏輯（版本比對、CPE 比對、關聯性檢查、修復版本推算等） | `node scripts/build.js` |
 | `lib/report-html.js` | 匯出 `buildHTMLReport(report)`：純函式，CLI 與 Web 版報表共用 | `node scripts/build.js` |
 | `lib/nvd-client.js` | NVD API 客戶端（**純 server-side，不注入 web**）：本機快取、日期分段查詢、增量更新、alias 對應。匯出 `createNvdClient({ fetchFn, apiKey, delay, cacheDir, aliases, slotFn, logger })`。CLI 與 Web Server 均 require 此模組，確保快取與速率限制共用同一套邏輯。 | — |
-| `lib/mitre-client.js` | MITRE 本機鏡像客戶端（**純 server-side**）：讀取 `data/mitre_mirror/index/` 的 NDJSON 索引。匯出 `createMitreClient({ mirrorDir, logger })`，介面（`{fetchCVEs, fetchCPEs}`）與 `createNvdClient()` 完全相容。 | — |
-| `lib/mitre-adapter.js` | 純函式：把 MITRE 索引記錄轉成 synthetic NVD 格式（`{cve:{...,configurations:[...]}}`），讓 `lib/cve-logic.js` 不需修改即可運作於 MITRE 資料。 | — |
 | `scripts/team-report.js` | 讀取一個目錄下所有個人 JSON 報表（`cve-checker.js` 輸出），產生跨機器彙整 HTML，統計各機器受影響軟體數與需升級項目。 | — |
 
 `lib/report-html.js` 在瀏覽器中依賴 `isSafeVersion`，`build.js` 注入時必須先注入 `cve-logic.js`（`@@CVE_LOGIC@@`）再注入 `report-html.js`（`@@REPORT_HTML@@`）。
@@ -75,28 +72,6 @@ PORTABLE_N       ─────────────────────
 **`fetchCPEs()` 先探測 `totalResults` 再決定是否列舉（避免通用關鍵字逾時）**：CPE 字典查詢用 `keywordSearch` 是**子字串**比對，單字通用名稱會命中上萬筆（實測 Git 12546、Python 20067、Node.js 116997；一般軟體僅數十筆，如 Apache Maven 31、PuTTY 70、7-Zip 295）。過往一次要求 `resultsPerPage=10000`，NVD 光組裝 Git 的 1 萬筆回應就約 **113 秒**，遠超 60 秒逾時 → 每次查 Git 都白等逾時與重試才 fallback。現改為先抓一頁（`CPE_PAGE=500`）取得 `totalResults`，再三分流：(1) `total ≤ 500` 一頁即全部（一般軟體 1 次請求，與過往同樣快）；(2) `500 < total ≤ MAX_CPE_DICT(2000)` 分頁補齊；(3) `total > 2000` 視為**過於通用**（`tooGeneric=true`，回空陣列），逐一列舉同名異 vendor 既慢又不精準，直接讓呼叫端 fallback 到關鍵字 CVE 搜尋（搭配前述詞邊界關聯性比對，Git/Python 仍能得到精準結果）。呼叫端（CLI／Web Server／直連模式）以 `cpeData.tooGeneric` 印「關鍵字過於通用（命中 N 筆 CPE），改用關鍵字搜尋」。
 
 **通用知名軟體可用 `.env.local` 的 `CPE_BASE_N` 指定標準 CPE base，跳過字典查詢直接精準查**：Python/Git 等過於通用（>2000）→ 退化成關鍵字搜尋，而 `keywordSearch` 只比對描述全文——描述沒提到產品名就漏（實證 Python `CVE-2026-3298` 描述只寫 `asyncio.ProactorEventLoop`、無「Python」字，keyword 查不到）、提到別產品就誤報。解法：`.env.local` 設 `CPE_BASE_N=名稱|vendor:product[|vendor:product...]`（例 `CPE_BASE_0=python|python:python`），程式在「決定 cpeBases」處**先查此對照表**（鍵為清理後的軟體名、不分大小寫）：命中就直接用該 CPE base、**完全略過 `fetchCPEs()` 字典查詢**，走精準的 `virtualMatchString` CVE 查詢（不受描述用字影響，且無同名異 vendor 誤報）。其餘流程（多 base OR 合併、keyword 補撈）不變。三端一致：CLI（`loadCpeBases()`）、Web Server（`_loadCpeBases()`）皆讀 `CPE_BASE_N`；Web 直連模式由 server 注入 `window.__CPE_BASES__`，於 portable 預查與主迴圈 `bases` 解析時套用。**仍救不到的唯一例外**：CVE 同時「無 CPE（Awaiting Analysis）且描述無產品名」（如 `CVE-2026-3298`）——CPE 查（無 CPE）與 keyword 補撈（描述無關鍵字）都搆不著，須等 NVD 完成 enrichment 補上 CPE。
-
-### 第二資料來源：MITRE cvelistV5（`CVE_SOURCE=NIST|MITRE`）
-
-**為何不能直接打 MITRE 的 live API**：MITRE 的 CVE Services API（`cveawg.mitre.org`）只有「已知 CVE ID 查單筆」是公開、不需驗證的；關鍵字搜尋與日期區段查詢端點（`/cve`、`/cve_cursor`）都鎖在僅有 CVE Program 內部 Secretariat 角色才能存取，外部使用者（包括一般 CNA）完全拿不到。因此無法像 NVD 一樣做「即時查詢 + 快取」，唯一可行的替代做法是**定期把官方 `CVEProject/cvelistV5` GitHub 的每日 baseline + 當次 delta 壓縮檔同步到本機，建立自己的搜尋索引**（`cve-search` 等知名工具也是用同樣策略繞開公開 CVE 資料庫的限制）。
-
-**同步策略（`scripts/mitre-sync.js`，`npm run sync-mitre`）**：每個 GitHub Release 都把 baseline 與當次 delta 打包在一起、內容互相一致，所以**不需要自己串接多個小時的 delta**——每次同步只需抓最新一個 release。Baseline 解壓後只保留近 5 年資料（掃描預設只看「當年−1」，但鏡像多留幾年以便手動調大 `MIN_YEAR` 往前查詢），其餘立即捨棄以控制磁碟用量。需防禦處理已知的「雙重 `.zip.zip`」bug（[CVEProject/cvelistV5#67](https://github.com/CVEProject/cvelistV5/issues/67)/[#68](https://github.com/CVEProject/cvelistV5/issues/68)，長期未修復）：解壓後找不到預期的頂層目錄、但頂層只有一個 `.zip` 檔時，視為內層還包一層，再解一次。
-
-**baseline 與 delta 的 zip 內部結構不同，不可共用同一套攤平邏輯**：baseline 解壓後頂層是 `cves/<year>/<bucket>/CVE-*.json`（有年份/bucket 兩層子目錄）；delta 解壓後頂層是 `deltaCves/CVE-*.json`（**扁平結構，沒有年份子目錄**，曾因此誤判為雙重 zip bug 而同步失敗）。因此 `_extractZipDefensive()` 改為接受預期的頂層目錄名稱參數（baseline 傳 `'cves'`，delta 傳 `'deltaCves'`），且 delta 另外用 `_flattenDeltaInto()` 依檔名 `CVE-<year>-<seq>.json` 解析年份分流，不能沿用 baseline 的 `_flattenYearsInto()`。
-
-**同步流程具備 checkpoint／resume 機制，失敗重跑不會重新下載已完成的部分**：整個同步拆成 7 個階段（下載/解壓/攤平 baseline、下載/解壓/攤平 delta、重建索引+寫入 `meta.json`），每完成一個階段就把進度寫入 `data/mitre_mirror/_tmp/progress.json`（含當次鎖定的 release 資產資訊，避免重跑時抓到更新的 release 導致已下載內容報廢）。理由：原本 `meta.json` 只在整個流程最後才寫一次，若 delta 處理中途失敗（例如上述結構誤判），baseline 雖已下載解壓完成，但因為例外中斷導致 `meta.json` 沒更新，下次重跑會誤判「今天 baseline 還沒同步」而把 517MB 整個重新下載——這是必須避免的浪費。下載階段另外比對暫存 zip 檔案大小是否與 GitHub 資產一致，相符就略過重新下載。**只有全部 7 個階段都成功，才會清除 `_tmp`（含 `progress.json`）**；任何一個階段失敗，下次執行 `npm run sync-mitre` 會自動偵測進度檔並從中斷處繼續，不需要任何手動清理。可用 `--step=<download-baseline|extract-baseline|flatten-baseline|download-delta|extract-delta|flatten-delta|finalize>` 手動單獨執行某一階段（除錯用）；`--full` 會忽略既有進度與 `meta.lastBaselineDate`，強制重新判定需要 baseline。
-
-**索引設計**：`data/mitre_mirror/index/<year>.ndjson`，一行一筆 `state==='PUBLISHED'` 的 CVE（`REJECTED` 等狀態不進索引），延續 `data/cve_cache` 既有的「純 `fs`+`JSON.parse`，不引入 DB」慣例，不因為資料量變大就破例用 SQLite 等其他機制。欄位設計直接對應 NVD 的三種查詢維度：`vendors[]`/`products[]` 對應 CPE 查詢、`descLower` 對應 `keywordSearch`、`published`/`lastModified` 對應 `pubStartDate`/`lastModStartDate`。`cna` 容器缺資料（`affected`/`metrics`）時，於索引建構階段（非查詢階段）fallback 到第一個非空的 `adp[]` 項目（CISA Vulnrichment 補完）。
-
-**synthetic NVD 格式轉換與精確度取捨（`lib/mitre-adapter.js`）**：已驗證 `lib/cve-logic.js` 所有比對函式只讀 `cve.configurations[].nodes[].cpeMatch[]`（`criteria`/`vulnerable`/`versionStart/EndIncluding/Excluding`）與 `cve.metrics.cvssMetricV40/V31/V30/V2`，MITRE 的 `affected[].versions[]`（`version`/`status`/`lessThan`/`lessThanOrEqual`）資訊內容對等，只是欄位命名與巢狀方式不同——寫成 synthetic 轉換層後，`lib/cve-logic.js` **完全不需修改**：
-- 有真實 `cpes[]`（約 58% 案例）：直接當 `criteria`。
-- 無 `cpes[]` 但有 vendor/product 文字（約 42% 案例）：合成 `cpe:2.3:a:<vendor>:<product>:*` 當 `criteria`——精確度低於真正 CPE 字典比對（沒有 vendor 名稱消歧義），但能重用既有比對邏輯而不必另開一套判斷路徑。
-- 連 vendor/product 文字都沒有：輸出 `configurations: []`（不亂湊），讓 `cveRelevanceCheck`/`cveMatchesCPEBase` 自然回 `null`，套用既有「無 CPE 資料→過濾」政策（與 NVD 未完成 enrichment 時一致）。
-- `versions[]` 條目沒有 `lessThan`/`lessThanOrEqual` 時是「單一精確版本」，不是「此版本之後全部」——寫入 `criteria` 第 5 欄（精確版本 CPE 慣例），不設 `versionStart/End`，否則會被誤判為無上界的開放範圍。
-
-**已知範圍限制**：`GET /api/cve-data`（CVE 查詢頁籤後端）目前固定讀 `data/cve_cache/*.json`，是 NVD 專屬 schema，尚未接上 MITRE 索引——`CVE_SOURCE=MITRE` 時這個頁籤會回傳空結果，這是已知限制，非缺陷。
-
-**Fail-fast 契約**：`CVE_SOURCE=MITRE` 但 `data/mitre_mirror/index/meta.json` 不存在時，`createMitreClient()` 在**建構時**（不是等第一次查詢）就立即 throw，CLI/Web Server 都會印出繁體中文錯誤訊息後 `process.exit(1)`——絕不能靜默 fallback 回 NIST 或卡在第一次查詢才失敗。
 
 ### 主要處理邏輯
 
