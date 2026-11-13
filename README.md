@@ -6,7 +6,7 @@
 
 - Node.js 18 以上
 - Windows（即時 Registry 掃描需要；使用 JSON 檔案輸入則不限平台）
-- 首次使用前執行一次 `npm install`（僅 `adm-zip` 一個套件，供 `npm run package` 產生部署 zip 用；一般掃描/Web 功能 100% 使用 Node.js 內建模組，不需要這個套件也能運作）
+- 首次使用前執行一次 `npm install`（僅 `adm-zip` 一個套件，供 `npm run deploy` 產生部署 zip 用；一般掃描/Web 功能 100% 使用 Node.js 內建模組，不需要這個套件也能運作）
 
 ## 初始設定
 
@@ -36,7 +36,7 @@ npm run web                                # 啟動 Web 伺服器（預設 Port 
 npm run bundle                             # 單獨重新打包 web-client.html + .env.local
 
 # 部署打包（壓成 zip 帶到公司環境；預設含 CVE 快取、排除機密/大型/建置產物）
-npm run package                                    # → dist/NISTCVECheck_deploy_<date>.zip
+npm run deploy                                     # → dist/NISTCVECheck_deploy_<date>.zip
 node scripts/package-deploy.js --no-cache          # 乾淨部署（不含 CVE 快取，約 0.5 MB）
 node scripts/package-deploy.js --with-node-modules # 連 node_modules 一起打包（離線環境免 npm install）
 
@@ -74,10 +74,12 @@ powershell -ExecutionPolicy Bypass -File findSW.ps1
 | `PORTABLE_ENABLE` | `false` = 完全停用 Portable 功能 | true |
 | `PORTABLE_ONLY` | `true` = 只掃描 `PORTABLE_N`，略過 Registry/JSON 項目 | false |
 | `WHITELIST` | 逗號分隔廠牌關鍵字，比對 `publisher` 欄位。可與 `whitelist.txt` 並存（合併去重） | — |
+| `BLACKLIST` | 逗號分隔的**軟體名稱**規則，符合者略過掃描（報表另列「黑名單跳過」）。給「只有名稱、CPE 字典命中過多又無法指定完整 CPE」的軟體用。與白名單（比對 publisher）不同。規則以「詞」比對、不分大小寫：`Maven` 含該詞即略過（Apache Maven 3.8.6 符合）；`=Local` 為完全等於（Local Storage Tool 不受影響）。Portable 不受黑名單影響 | — |
 | `PORTABLE_N` | 格式：`名稱\|版本\|發行商`（版本、發行商可省略）。從 0 連續遞增，遇缺口停止。略過白名單/SKIP_PATTERNS，走 CPE 精確查詢 | — |
 | `CACHE_DISABLE` | `true` = 停用本機 CVE 快取（每次都直接查 NVD API） | false |
 | `CACHE_ALIAS_N` | 格式：`canonical\|alias1\|alias2`。第一個為 canonical 名稱，其餘別名查詢時共用同一個快取檔案（`data/cve_cache/kw_<canonical>.json`）。從 0 連續遞增，遇缺口停止 | — |
 | `CPE_BASE_N` | 格式：`名稱\|vendor:product[\|vendor:product...]`。為「過於通用」的知名軟體（Python/Git 等）指定標準 CPE base，**跳過 CPE 字典查詢、直接以 `virtualMatchString` 精準查 CVE**（避免退化成關鍵字搜尋而漏報/誤報）。名稱不分大小寫，可列多個 base（OR）。從 0 連續遞增，遇缺口停止 | — |
+| `NO_COLOR` / `FORCE_COLOR`（環境變數，非 .env.local） | CLI 輸出導向檔案或管線時預設自動關閉色碼；`NO_COLOR=1` 強制關閉、`FORCE_COLOR=1` 強制開啟 | 自動 |
 
 範例：
 ```
@@ -161,6 +163,7 @@ report.skippedByPattern[] / skippedByDedup[] — 過濾/去重略過
 lib/cve-logic.js          — CVE 業務邏輯（唯一來源）
 lib/report-html.js        — HTML 報表產生（唯一來源）
 lib/nvd-client.js         — NVD API 客戶端（快取 + 日期分段 + 增量更新，唯一來源）
+lib/scan-software.js      — 單一軟體查詢流程（CPE 偵測 → CVE 查詢 → keyword 補撈；CLI 與 Web Server 共用）
 data/
   cve_cache/              — 本機 CVE 快取，自動建立
   cpe_cache/              — CPE 字典查找快取，自動建立
@@ -169,7 +172,7 @@ scripts/
   team-report.js          — 團隊彙整報表
   web-server.js           — HTTP 伺服器
   web-client.src.html     — Web 掃描器模板（含 @@CVE_LOGIC@@ / @@REPORT_HTML@@ 注入點）
-  web-client.html         — build artifact（勿直接編輯）
+  web-client.html         — build artifact（勿直接編輯；不可雙擊開啟，須由 npm run web 提供）
   build.js                — 打包工具：模板 + lib/ → web-client.html + _bundle.js
   _bundle.js              — build artifact，供 web-server.js require()
 findSW.ps1                — 遠端機器產生 scan.json

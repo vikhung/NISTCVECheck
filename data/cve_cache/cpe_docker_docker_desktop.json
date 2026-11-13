@@ -2,20 +2,24 @@
   "cveCount": 16,
   "cacheKey": "cpe_docker_docker_desktop",
   "coverageStart": "2021-01-01T00:00:00.000Z",
-  "lastFetchedAt": "2026-07-08T08:36:18.016Z",
+  "lastFetchedAt": "2026-11-13T04:07:01.382Z",
   "cves": [
     {
       "cve": {
         "id": "CVE-2026-6406",
         "sourceIdentifier": "security@docker.com",
         "published": "2026-05-22T19:17:04.827",
-        "lastModified": "2026-06-17T11:00:47.503",
+        "lastModified": "2026-07-23T16:10:00.137",
         "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
             "lang": "en",
             "value": "The Docker CLI --use-api-socket flag bypasses Enhanced Container Isolation (ECI) restrictions in Docker Desktop. When ECI is enabled, Docker socket mounts from containers are denied unless explicitly allowed via the admin-settings configuration. However, the --use-api-socket flag adds the Docker socket mount via the HostConfig.Mounts field rather than the HostConfig.Binds field. The ECI enforcement in the Docker Desktop API proxy only inspected Binds, allowing the mount to pass unchecked. This grants a container full access to the Docker Engine socket and, if the host user has logged in to container registries, their authentication credentials.\n\nA local attacker with the ability to run Docker CLI commands can exploit this to escape ECI restrictions, access the Docker Engine, and potentially escalate privileges."
+          },
+          {
+            "lang": "es",
+            "value": "La bandera '--use-api-socket' de Docker CLI elude las restricciones de Aislamiento Mejorado de Contenedores (ECI) en Docker Desktop. Cuando ECI está habilitado, los montajes de sockets de Docker desde los contenedores son denegados a menos que se permitan explícitamente a través de la configuración de  admin-settings . Sin embargo, la bandera '--use-api-socket' añade el montaje del socket de Docker a través del campo 'HostConfig.Mounts' en lugar del campo 'HostConfig.Binds'. La aplicación de ECI en el proxy de la API de Docker Desktop solo inspeccionaba  Binds , permitiendo que el montaje pasara sin ser verificado. Esto otorga a un contenedor acceso completo al socket del Docker Engine y, si el usuario del host ha iniciado sesión en registros de contenedores, sus credenciales de autenticación.\n\nUn atacante local con la capacidad de ejecutar comandos de Docker CLI puede explotar esto para evadir las restricciones de ECI, acceder al Docker Engine y potencialmente escalar privilegios."
           }
         ],
         "affected": [
@@ -209,13 +213,17 @@
         "id": "CVE-2026-5817",
         "sourceIdentifier": "security@docker.com",
         "published": "2026-05-22T20:16:35.120",
-        "lastModified": "2026-06-17T10:59:41.770",
+        "lastModified": "2026-07-23T11:10:00.120",
         "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
             "lang": "en",
             "value": "The vllm-metal inference backend in Docker Model Runner on macOS unconditionally sets trust_remote_code=True when loading model tokenizers, and runs without sandboxing. This causes transformers.AutoTokenizer.from_pretrained() to import and execute arbitrary Python files included in any model pulled from an OCI registry, resulting in arbitrary code execution on the Docker host as the Docker Desktop user when inference is triggered.\n\nAny container on the Docker network can trigger this by calling the model-runner.docker.internal API to pull a malicious model and request inference."
+          },
+          {
+            "lang": "es",
+            "value": "El backend de inferencia vllm-metal en Docker Model Runner en macOS establece incondicionalmente trust_remote_code=True al cargar tokenizadores de modelos, y se ejecuta sin sandboxing. Esto provoca que transformers.AutoTokenizer.from_pretrained() importe y ejecute archivos Python arbitrarios incluidos en cualquier modelo extraído de un registro OCI, lo que resulta en ejecución de código arbitrario en el host de Docker como el usuario de Docker Desktop cuando se activa la inferencia.\n\nCualquier contenedor en la red de Docker puede activar esto llamando a la API model-runner.docker.internal para extraer un modelo malicioso y solicitar inferencia."
           }
         ],
         "affected": [
@@ -410,13 +418,17 @@
         "id": "CVE-2026-5843",
         "sourceIdentifier": "security@docker.com",
         "published": "2026-05-22T20:16:35.253",
-        "lastModified": "2026-06-17T10:59:44.580",
+        "lastModified": "2026-07-23T11:10:00.120",
         "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
             "lang": "en",
             "value": "The MLX inference backend in Docker Model Runner on macOS uses the MLX-LM library, which unconditionally imports and executes arbitrary Python files from model directories via the model_file configuration field in config.json. When a model's config.json specifies a model_file pointing to a Python file, MLX-LM uses importlib to load and execute it with no trust_remote_code gate or equivalent safety check. The MLX backend runs without sandboxing, resulting in arbitrary code execution on the Docker host as the Docker Desktop user.\n\nAny container on the Docker network can trigger this by calling the model-runner.docker.internal API to pull a malicious model from an attacker-controlled OCI registry and request inference."
+          },
+          {
+            "lang": "es",
+            "value": "El backend de inferencia MLX en Docker Model Runner en macOS utiliza la biblioteca MLX-LM, que importa y ejecuta incondicionalmente archivos Python arbitrarios de directorios de modelos a través del campo de configuración model_file en config.json. Cuando el config.json de un modelo especifica un model_file que apunta a un archivo Python, MLX-LM utiliza importlib para cargarlo y ejecutarlo sin una puerta trust_remote_code o una comprobación de seguridad equivalente. El backend MLX se ejecuta sin sandboxing, lo que resulta en ejecución de código arbitrario en el host de Docker como el usuario de Docker Desktop.\n\nCualquier contenedor en la red de Docker puede activar esto llamando a la API model-runner.docker.internal para extraer un modelo malicioso de un registro OCI controlado por un atacante y solicitar inferencia."
           }
         ],
         "affected": [
@@ -611,13 +623,17 @@
         "id": "CVE-2025-13743",
         "sourceIdentifier": "security@docker.com",
         "published": "2025-12-09T21:15:53.500",
-        "lastModified": "2026-06-17T08:34:40.837",
+        "lastModified": "2026-10-14T21:10:00.183",
         "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
             "lang": "en",
             "value": "Docker Desktop diagnostics bundles were found to include expired Hub PATs in log output due to error object serialization. This poses a risk of leaking sensitive information in exported diagnostics, especially when access denied errors occurred."
+          },
+          {
+            "lang": "es",
+            "value": "Paquetes de diagnóstico de Docker Desktop se encontró que incluían PATs de Hub caducados en la salida de registro debido a la serialización de objetos de error. Esto plantea un riesgo de fuga de información sensible en los diagnósticos exportados, especialmente cuando ocurrieron errores de acceso denegado."
           }
         ],
         "affected": [

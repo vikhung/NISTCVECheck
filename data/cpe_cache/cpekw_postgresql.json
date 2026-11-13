@@ -1,9 +1,9 @@
 {
-  "productCount": 1781,
-  "totalResults": 1781,
+  "productCount": 1878,
+  "totalResults": 1878,
   "tooGeneric": false,
   "cacheKey": "cpekw_postgresql",
-  "fetchedAt": "2026-06-30T03:14:18.039Z",
+  "fetchedAt": "2026-11-13T04:09:48.357Z",
   "products": [
     {
       "cpe": {
@@ -46839,6 +46839,27 @@
     {
       "cpe": {
         "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgadmin:pgadmin_4:9.11:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "F6DD84C0-9DEB-46FA-92CD-25670CFB159E",
+        "lastModified": "2026-07-01T19:27:26.977",
+        "created": "2026-07-01T19:27:26.977",
+        "titles": [
+          {
+            "title": "pgAdmin 4 9.11 for PostgreSQL ",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgadmin-org/pgadmin4/tags",
+            "type": "Version"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
         "cpeName": "cpe:2.3:a:postgresql:postgresql:18.2:*:*:*:*:*:*:*",
         "cpeNameId": "35417894-21F4-4CD9-BAE3-9EAAB253A07B",
         "lastModified": "2026-02-18T19:33:54.847",
@@ -47825,6 +47846,81 @@
     {
       "cpe": {
         "deprecated": false,
+        "cpeName": "cpe:2.3:a:postgresql:postgresql_jdbc_driver:42.7.9:*:*:*:*:*:*:*",
+        "cpeNameId": "39672C59-94B2-43C4-B690-C847DC258AC7",
+        "lastModified": "2026-08-04T20:01:13.420",
+        "created": "2026-08-04T20:01:13.420",
+        "titles": [
+          {
+            "title": "PostgreSQL JDBC Driver 42.7.9",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://jdbc.postgresql.org/",
+            "type": "Product"
+          },
+          {
+            "ref": "https://github.com/pgjdbc/pgjdbc/tags",
+            "type": "Version"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:postgresql:postgresql_jdbc_driver:42.7.10:*:*:*:*:*:*:*",
+        "cpeNameId": "AE3CF5E4-A789-4744-AEBE-BE432D58BE52",
+        "lastModified": "2026-08-04T20:01:13.420",
+        "created": "2026-08-04T20:01:13.420",
+        "titles": [
+          {
+            "title": "PostgreSQL JDBC Driver 42.7.10",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://jdbc.postgresql.org/",
+            "type": "Product"
+          },
+          {
+            "ref": "https://github.com/pgjdbc/pgjdbc/tags",
+            "type": "Version"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:postgresql:postgresql_jdbc_driver:42.7.11:*:*:*:*:*:*:*",
+        "cpeNameId": "23511E50-52D0-4948-A16C-3E95488B1FDC",
+        "lastModified": "2026-08-04T20:01:13.420",
+        "created": "2026-08-04T20:01:13.420",
+        "titles": [
+          {
+            "title": "PostgreSQL JDBC Driver 42.7.11",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://jdbc.postgresql.org/",
+            "type": "Product"
+          },
+          {
+            "ref": "https://github.com/pgjdbc/pgjdbc/tags",
+            "type": "Version"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
         "cpeName": "cpe:2.3:a:postgresql:postgresql:14.22:*:*:*:*:*:*:*",
         "cpeNameId": "197FEA74-49C6-4BD5-AEC3-0CC1D877D39A",
         "lastModified": "2026-05-18T12:52:11.957",
@@ -48108,6 +48204,122 @@
           {
             "ref": "https://www.postgresql.org/",
             "type": "Vendor"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgadmin:pgadmin_4:9.12:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "4EF9C9E2-FFDC-40A8-8EB4-A06C4D17004C",
+        "lastModified": "2026-07-01T19:27:26.977",
+        "created": "2026-07-01T19:27:26.977",
+        "titles": [
+          {
+            "title": "pgAdmin 4 9.12 for PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.pgadmin.org/",
+            "type": "Product"
+          },
+          {
+            "ref": "https://github.com/pgadmin-org/pgadmin4/tags",
+            "type": "Version"
+          },
+          {
+            "ref": "https://www.pgadmin.org/docs/pgadmin4/latest/",
+            "type": "Version"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgadmin:pgadmin_4:9.13:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "E989C0A7-1834-4467-94F1-2E010D6A15F1",
+        "lastModified": "2026-07-01T19:27:26.977",
+        "created": "2026-07-01T19:27:26.977",
+        "titles": [
+          {
+            "title": "pgAdmin 4 9.13 for PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.pgadmin.org/",
+            "type": "Product"
+          },
+          {
+            "ref": "https://github.com/pgadmin-org/pgadmin4/tags",
+            "type": "Version"
+          },
+          {
+            "ref": "https://www.pgadmin.org/docs/pgadmin4/latest/",
+            "type": "Version"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgadmin:pgadmin_4:9.14:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "8C37D51B-83B9-480D-A57C-B2FDAEDB362E",
+        "lastModified": "2026-07-01T19:27:26.977",
+        "created": "2026-07-01T19:27:26.977",
+        "titles": [
+          {
+            "title": "pgAdmin 4 9.14 for PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.pgadmin.org/",
+            "type": "Product"
+          },
+          {
+            "ref": "https://github.com/pgadmin-org/pgadmin4/tags",
+            "type": "Version"
+          },
+          {
+            "ref": "https://www.pgadmin.org/docs/pgadmin4/latest/",
+            "type": "Version"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgadmin:pgadmin_4:9.15:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "ED213ACA-BB4A-4262-B70F-67A273E07AF2",
+        "lastModified": "2026-07-01T19:27:26.977",
+        "created": "2026-07-01T19:27:26.977",
+        "titles": [
+          {
+            "title": "pgAdmin 4 9.15 for PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.pgadmin.org/",
+            "type": "Product"
+          },
+          {
+            "ref": "https://github.com/pgadmin-org/pgadmin4/tags",
+            "type": "Version"
+          },
+          {
+            "ref": "https://www.pgadmin.org/docs/pgadmin4/latest/",
+            "type": "Version"
           }
         ]
       }
@@ -49687,6 +49899,2475 @@
           },
           {
             "ref": "https://labs.dalibo.com/postgresql_anonymizer",
+            "type": "Product"
+          },
+          {
+            "ref": "https://gitlab.com/dalibo/postgresql_anonymizer/-/blob/latest/CHANGELOG.md",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgadmin:pgadmin_4:9.16:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "56FB6245-1DEE-452C-AD62-E0EB8A68D5A7",
+        "lastModified": "2026-07-01T19:27:26.977",
+        "created": "2026-07-01T19:27:26.977",
+        "titles": [
+          {
+            "title": "pgAdmin 9.16 for PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.pgadmin.org/docs/pgadmin4/latest/",
+            "type": "Version"
+          },
+          {
+            "ref": "https://github.com/pgadmin-org/pgadmin4/tags",
+            "type": "Version"
+          },
+          {
+            "ref": "https://www.pgadmin.org/",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:dalibo:postgresql_anonymizer:3.1.2:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "1BECE483-B5AB-4D6E-99A5-23C27EBFB8CF",
+        "lastModified": "2026-11-09T15:20:55.880",
+        "created": "2026-11-09T15:20:55.880",
+        "titles": [
+          {
+            "title": "DALIBO PostgreSQL Anonymizer 3.1.2 for PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://gitlab.com/dalibo/postgresql_anonymizer/-/tags",
+            "type": "Version"
+          },
+          {
+            "ref": "https://gitlab.com/dalibo/postgresql_anonymizer/-/work_items/649",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:postgresql:postgresql_jdbc_driver:42.7.12:*:*:*:*:*:*:*",
+        "cpeNameId": "0F84D6AB-CEEB-431B-8DD3-50EBA52EB9E7",
+        "lastModified": "2026-08-04T20:01:13.420",
+        "created": "2026-08-04T20:01:13.420",
+        "titles": [
+          {
+            "title": "PostgreSQL JDBC Driver 42.7.12",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgjdbc/pgjdbc/tags",
+            "type": "Version"
+          },
+          {
+            "ref": "https://jdbc.postgresql.org/",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgadmin:pgadmin_4:9.18:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "316A4012-8845-407A-B444-682B8BD1EA67",
+        "lastModified": "2026-10-20T18:06:02.250",
+        "created": "2026-10-20T18:06:02.250",
+        "titles": [
+          {
+            "title": "pgAdmin 4 9.18 for PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.pgadmin.org/docs/pgadmin4/latest/",
+            "type": "Version"
+          },
+          {
+            "ref": "https://github.com/pgadmin-org/pgadmin4/tags",
+            "type": "Version"
+          },
+          {
+            "ref": "https://www.pgadmin.org/",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgadmin:pgadmin_4:9.17:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "9F49D1D1-460A-43C5-ABF4-F97E0B21AA18",
+        "lastModified": "2026-10-20T18:06:02.250",
+        "created": "2026-10-20T18:06:02.250",
+        "titles": [
+          {
+            "title": "pgAdmin 4 9.17 for PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.pgadmin.org/docs/pgadmin4/latest/",
+            "type": "Version"
+          },
+          {
+            "ref": "https://github.com/pgadmin-org/pgadmin4/tags",
+            "type": "Version"
+          },
+          {
+            "ref": "https://www.pgadmin.org/",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:postgresql:postgresql:14.24:*:*:*:*:*:*:*",
+        "cpeNameId": "57A9E390-4A84-427E-BBD3-7CE83A7BC7E0",
+        "lastModified": "2026-08-19T16:08:17.830",
+        "created": "2026-08-19T16:08:17.830",
+        "titles": [
+          {
+            "title": "PostgreSQL 14.24",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://git.postgresql.org/gitweb/?p=postgresql.git;a=tags",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.postgresql.org/support/security/CVE-2026-14662/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://www.postgresql.org/",
+            "type": "Vendor"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:postgresql:postgresql:15.19:*:*:*:*:*:*:*",
+        "cpeNameId": "1B5615C1-1659-49E5-83DE-4848D201FCA1",
+        "lastModified": "2026-08-19T16:08:17.830",
+        "created": "2026-08-19T16:08:17.830",
+        "titles": [
+          {
+            "title": "PostgreSQL 15.19",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://git.postgresql.org/gitweb/?p=postgresql.git;a=tags",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.postgresql.org/support/security/CVE-2026-14662/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://www.postgresql.org/",
+            "type": "Vendor"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:postgresql:postgresql:16.15:*:*:*:*:*:*:*",
+        "cpeNameId": "0D0E48F8-8923-4C75-8B50-FF5C80DAF31D",
+        "lastModified": "2026-08-19T16:08:17.830",
+        "created": "2026-08-19T16:08:17.830",
+        "titles": [
+          {
+            "title": "PostgreSQL 16.15",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://git.postgresql.org/gitweb/?p=postgresql.git;a=tags",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.postgresql.org/support/security/CVE-2026-14662/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://www.postgresql.org/",
+            "type": "Vendor"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:postgresql:postgresql:17.11:*:*:*:*:*:*:*",
+        "cpeNameId": "CECEBEB8-9224-43D3-A5A9-DB4C26370F6E",
+        "lastModified": "2026-08-19T16:08:17.830",
+        "created": "2026-08-19T16:08:17.830",
+        "titles": [
+          {
+            "title": "PostgreSQL 17.11",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://git.postgresql.org/gitweb/?p=postgresql.git;a=tags",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.postgresql.org/support/security/CVE-2026-14662/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://www.postgresql.org/",
+            "type": "Vendor"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:postgresql:postgresql:18.5:*:*:*:*:*:*:*",
+        "cpeNameId": "67577F3A-8CE3-41E8-A74E-C66150F80220",
+        "lastModified": "2026-08-19T16:08:17.830",
+        "created": "2026-08-19T16:08:17.830",
+        "titles": [
+          {
+            "title": "PostgreSQL 18.5",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://git.postgresql.org/gitweb/?p=postgresql.git;a=tags",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.postgresql.org/support/security/CVE-2026-14662/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://www.postgresql.org/",
+            "type": "Vendor"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.8.6:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "33A57E74-503A-4AFF-8180-A701BA02BB2C",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.8.6 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.8.5:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "E0DE0D86-7C01-49D7-AB68-2C00CEACE531",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.8.5 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.8.4:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "74B072F0-0393-4E18-9F4A-DD199BEBA115",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.8.4 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.8.3:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "EA711038-CFA3-4B74-9647-2961F258A45E",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.8.3 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.8.2:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "F0004110-5C9D-424A-A4AD-23CD7013DE72",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.8.2 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.8.1:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "7BC0346D-859E-4035-9027-1651E6311D13",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.8.1 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.8.0:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "F76A40E5-328E-475A-9037-7B379DA1943F",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.8.0 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.7.4:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "34FBD9F7-4EA1-49A2-B13C-DC0586222CC6",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.7.4 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.7.3:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "3C2402E7-AC13-4FAA-9C4C-2760D9019DFB",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.7.3 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.7.2:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "D5B9E272-30FB-476B-A167-194586D28EC5",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.7.2 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.7.1:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "4CAD1BD9-4403-4309-8BF1-F9108DDBA52D",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.7.1 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.7.0:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "BAD8EE61-FDCC-49E8-987F-A71643208CFA",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.7.0 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.6.2:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "47A097A5-411B-4AF2-A996-7D2DCDB8649B",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.6.2 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.6.1:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "CECF6145-C182-426F-AED6-32743D33B9AB",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.6.1 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.6.0:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "DA1718AA-1978-4989-831F-FEAA0271D692",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.6.0 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.5.1:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "E165985F-B865-4DAA-BD29-96DA96513166",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.5.1 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.5.0:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "053FB9F2-9075-45BB-9285-50776BD861FB",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.5.0 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.4.4:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "0843EE61-3C5B-4CC6-95EC-0442060698E8",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.4.4 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.4.3:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "CD7AFA53-D33A-4386-BF5C-3FBC430FC933",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.4.3 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.4.2:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "92B765CD-9538-449D-8F7E-1AE743C07734",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.4.2 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.4.1:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "C4C75455-C1A5-42EE-AA92-5525196E5B06",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.4.1 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.4.0:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "8EF409F8-80AC-403C-925C-238A70061C2B",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.4.0 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.3.2:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "779FA9F5-A4F1-4B23-A3F1-7E600D5EC916",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.3.2 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.3.1:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "40003399-9C7B-4942-990A-0C0E790DC199",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.3.1 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.3.0:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "35DBBC0F-6A61-46C2-8162-91B032279C8A",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.3.0 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.2.7:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "698B8B22-7DCD-4699-BBC7-E4DD840E7F32",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.2.7 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.2.6:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "EBB41FEB-2B11-46D8-A887-D5F67BDCC742",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.2.6 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.2.5:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "9D390CA8-E802-4FFF-ADD8-03D84C0DA633",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.2.5 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.2.4:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "219C4E07-E60C-43B2-BDC8-3EFBDA951787",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.2.4 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.2.3:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "4871CE21-880D-4D17-97EE-6FDAABD279F5",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.2.3 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.2.2:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "BB118F3A-5F28-4636-98B2-B5AE163FFEEB",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.2.2 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.2.1:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "F6582A63-339E-4F6B-B787-89DF95220566",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.2.1 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.2.0:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "DD8AF352-E703-4D2B-A828-D434DC26B7CB",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.2.0 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.1.8:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "9E654B8E-90BC-4059-A73A-B996A818F9FA",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.1.8 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.1.7:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "CD37AD00-F3A5-48F7-8402-296F572C2D7C",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.1.7 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.1.6:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "AE8603BD-1070-4503-9F44-336024652282",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.1.6 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.1.5:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "AFD54B2A-4642-42E0-B2D2-F132CC91F5B0",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.1.5 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.1.4:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "AA5506FB-FEED-4494-AB26-ADA962A63B04",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.1.4 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.1.3:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "DFAFD6EE-7D7A-40EA-888A-F540048C8505",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.1.3 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.1.2:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "5D22D265-5BF7-4BF1-9714-F97AC2115B7C",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.1.2 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.1.1:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "C183C165-165D-48B9-BCCD-B9869CFCBA41",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.1.1 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:pgvector_project:pgvector:0.1.0:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "49E8B458-665D-4C64-9D0D-BB1E4C173576",
+        "lastModified": "2026-08-20T13:00:12.990",
+        "created": "2026-08-20T13:00:12.990",
+        "titles": [
+          {
+            "title": "pgvector Project pgvector 0.1.0 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://github.com/pgvector/pgvector",
+            "type": "Project"
+          },
+          {
+            "ref": "https://github.com/advisories/GHSA-87hg-xjfg-qh5r",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:2.4.8:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "FF929AA5-E080-411C-8B23-C2A1C70EFCC7",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 2.4.8 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:2.4.7:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "3171F3D4-C1B0-4CC8-84B1-C707C375C7D3",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 2.4.7 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:2.4.6:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "41A46AB6-4ED7-46EF-9BD1-AF8D8B711ECB",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 2.4.6 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:2.4.5:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "FE5488D7-5C06-41AD-9C4C-8F53B175C976",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 2.4.5 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:2.4.4:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "AA7893B8-DDC0-455F-B773-4E1AF35BBE90",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 2.4.4 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:2.4.3:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "7D71333E-3CF0-4E7E-AC47-8BE79E61DE3C",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 2.4.3 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:2.4.2:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "641C1590-D286-4C31-A3F3-536591FA1A5F",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 2.4.2 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:2.4.1:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "F938628A-0D32-40A4-9E7B-8B2F47D103DD",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 2.4.1 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:2.4.0:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "C589DE7B-7D78-4105-BF21-8D50FD9F3EBF",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 2.4.0 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:2.3.4:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "CD9052C7-7A43-4DDF-874F-A9963DD3F90E",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 2.3.4 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:2.3.3:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "843605A0-5D36-4E4C-8E84-E93CC4169AD3",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 2.3.3 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:2.3.2:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "5D1B7F93-7D2D-48F7-8E3B-B09E03156432",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 2.3.2 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:2.3.1:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "F1564973-165B-4BC0-92D4-B2D67150E5B5",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 2.3.1 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:2.3.0:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "D7B8158E-035E-46C4-B875-FDCC94B9AB5E",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 2.3.0 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:2.2.2:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "628C1BD0-9314-4D94-8704-1DB211E38F04",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 2.2.2 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:2.2.1:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "BAC62E48-96CF-4C21-A78B-6B335B802EC0",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 2.2.1 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:2.2.0:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "48FBB1B0-D4A9-4975-8DF1-34603D38360A",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 2.2.0 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:2.1.1:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "9B5EDACA-A15E-4765-82A9-51ABB4612EA6",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 2.1.1 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:2.1.0:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "96EE84A9-C956-4EBE-A68D-54A936DA31E9",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 2.1.0 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:2.0.1:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "8482BC77-6ACD-4FF5-8E24-05B2F9F2A9AF",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 2.0.1 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:2.0.0:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "4117B02E-F472-4AF4-8FC2-F5703FEB5991",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 2.0.0 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:1.2.2:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "B8FD3452-7804-44AC-B71D-7D123530F188",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 1.2.2 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:1.2.1:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "5FEB1263-E1F6-4536-9364-88D9C8839A6E",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 1.2.1 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:1.2.0:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "596C1362-B67D-4E2E-903F-2DCA6426490B",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 1.2.0 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:1.1.2:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "7D94D03A-99F9-4A7E-8921-2ECB72C24F27",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 1.1.2 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:1.1.1:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "D527D863-98B8-435C-934A-5A614BF96E55",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 1.1.1 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:1.1.0:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "70772A52-C211-40FD-AA41-241A22966408",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 1.1.0 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:1.0.1:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "0411F3DF-82FC-4401-857C-7DCD499A0439",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 1.0.1 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:enterprisedb:pglogical:1.0.0:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "DB3F760C-A42D-49B4-B35B-C69965FD3A7D",
+        "lastModified": "2026-08-20T17:51:30.800",
+        "created": "2026-08-20T17:51:30.800",
+        "titles": [
+          {
+            "title": "EnterpriseDB pglogical 1.0.0 PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.enterprisedb.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.enterprisedb.com/docs/security/advisories/cve202650738/",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://github.com/2ndQuadrant/pglogical",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:dalibo:postgresql_anonymizer:3.3.0:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "D19D3B1E-6FAA-4FE6-BFD3-2B46862F67CB",
+        "lastModified": "2026-11-09T15:12:04.870",
+        "created": "2026-11-09T15:12:04.870",
+        "titles": [
+          {
+            "title": "DALIBO PostgreSQL Anonymizer 3.3.0 for PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.tenable.com/cve/CVE-2026-105614",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://gitlab.com/dalibo/postgresql_anonymizer/-/tags",
+            "type": "Version"
+          },
+          {
+            "ref": "https://labs.dalibo.com/postgresql_anonymizer",
+            "type": "Product"
+          },
+          {
+            "ref": "https://gitlab.com/dalibo/postgresql_anonymizer",
+            "type": "Product"
+          },
+          {
+            "ref": "https://gitlab.com/dalibo/postgresql_anonymizer/-/blob/latest/CHANGELOG.md",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:dalibo:postgresql_anonymizer:3.1.3:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "12D772B2-26E7-484D-81E7-7A8E712717BD",
+        "lastModified": "2026-11-09T15:12:04.870",
+        "created": "2026-11-09T15:12:04.870",
+        "titles": [
+          {
+            "title": "DALIBO PostgreSQL Anonymizer 3.1.3 for PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.tenable.com/cve/CVE-2026-105614",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://gitlab.com/dalibo/postgresql_anonymizer/-/tags",
+            "type": "Version"
+          },
+          {
+            "ref": "https://labs.dalibo.com/postgresql_anonymizer",
+            "type": "Product"
+          },
+          {
+            "ref": "https://gitlab.com/dalibo/postgresql_anonymizer",
+            "type": "Product"
+          },
+          {
+            "ref": "https://gitlab.com/dalibo/postgresql_anonymizer/-/blob/latest/CHANGELOG.md",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:dalibo:postgresql_anonymizer:3.2.0:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "DFA65755-7C26-490E-AAE6-1925E4E081B8",
+        "lastModified": "2026-11-09T15:12:04.870",
+        "created": "2026-11-09T15:12:04.870",
+        "titles": [
+          {
+            "title": "DALIBO PostgreSQL Anonymizer 3.2.0 for PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.tenable.com/cve/CVE-2026-105614",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://gitlab.com/dalibo/postgresql_anonymizer/-/tags",
+            "type": "Version"
+          },
+          {
+            "ref": "https://labs.dalibo.com/postgresql_anonymizer",
+            "type": "Product"
+          },
+          {
+            "ref": "https://gitlab.com/dalibo/postgresql_anonymizer",
+            "type": "Product"
+          },
+          {
+            "ref": "https://gitlab.com/dalibo/postgresql_anonymizer/-/blob/latest/CHANGELOG.md",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:dalibo:postgresql_anonymizer:3.2.1:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "23C54416-6C6B-4540-AF38-152AA46976CD",
+        "lastModified": "2026-11-09T15:12:04.870",
+        "created": "2026-11-09T15:12:04.870",
+        "titles": [
+          {
+            "title": "DALIBO PostgreSQL Anonymizer 3.2.1 for PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.tenable.com/cve/CVE-2026-105614",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://gitlab.com/dalibo/postgresql_anonymizer/-/tags",
+            "type": "Version"
+          },
+          {
+            "ref": "https://labs.dalibo.com/postgresql_anonymizer",
+            "type": "Product"
+          },
+          {
+            "ref": "https://gitlab.com/dalibo/postgresql_anonymizer",
+            "type": "Product"
+          },
+          {
+            "ref": "https://gitlab.com/dalibo/postgresql_anonymizer/-/blob/latest/CHANGELOG.md",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:dalibo:postgresql_anonymizer:3.2.2:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "E80142F3-2320-4315-9FBF-D6E69E44420D",
+        "lastModified": "2026-11-09T15:12:04.870",
+        "created": "2026-11-09T15:12:04.870",
+        "titles": [
+          {
+            "title": "DALIBO PostgreSQL Anonymizer 3.2.2 for PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.tenable.com/cve/CVE-2026-105614",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://gitlab.com/dalibo/postgresql_anonymizer/-/tags",
+            "type": "Version"
+          },
+          {
+            "ref": "https://labs.dalibo.com/postgresql_anonymizer",
+            "type": "Product"
+          },
+          {
+            "ref": "https://gitlab.com/dalibo/postgresql_anonymizer",
+            "type": "Product"
+          },
+          {
+            "ref": "https://gitlab.com/dalibo/postgresql_anonymizer/-/blob/latest/CHANGELOG.md",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:dalibo:postgresql_anonymizer:3.2.3:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "85AA628A-8F31-4578-83A9-7E0BC267D378",
+        "lastModified": "2026-11-09T15:12:04.870",
+        "created": "2026-11-09T15:12:04.870",
+        "titles": [
+          {
+            "title": "DALIBO PostgreSQL Anonymizer 3.2.3 for PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.tenable.com/cve/CVE-2026-105614",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://gitlab.com/dalibo/postgresql_anonymizer/-/tags",
+            "type": "Version"
+          },
+          {
+            "ref": "https://labs.dalibo.com/postgresql_anonymizer",
+            "type": "Product"
+          },
+          {
+            "ref": "https://gitlab.com/dalibo/postgresql_anonymizer",
+            "type": "Product"
+          },
+          {
+            "ref": "https://gitlab.com/dalibo/postgresql_anonymizer/-/blob/latest/CHANGELOG.md",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:dalibo:postgresql_anonymizer:3.3.1:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "F05618D0-37BB-4EFA-AAC0-C0CD90BBA4A5",
+        "lastModified": "2026-11-09T15:12:04.870",
+        "created": "2026-11-09T15:12:04.870",
+        "titles": [
+          {
+            "title": "DALIBO PostgreSQL Anonymizer 3.3.1 for PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.tenable.com/cve/CVE-2026-105614",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://gitlab.com/dalibo/postgresql_anonymizer/-/tags",
+            "type": "Version"
+          },
+          {
+            "ref": "https://labs.dalibo.com/postgresql_anonymizer",
+            "type": "Product"
+          },
+          {
+            "ref": "https://gitlab.com/dalibo/postgresql_anonymizer",
+            "type": "Product"
+          },
+          {
+            "ref": "https://gitlab.com/dalibo/postgresql_anonymizer/-/blob/latest/CHANGELOG.md",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:dalibo:postgresql_anonymizer:3.3.2:*:*:*:*:postgresql:*:*",
+        "cpeNameId": "2B6B50A9-755C-48EB-A2B2-F91505911C55",
+        "lastModified": "2026-11-09T15:12:04.870",
+        "created": "2026-11-09T15:12:04.870",
+        "titles": [
+          {
+            "title": "DALIBO PostgreSQL Anonymizer 3.3.2 for PostgreSQL",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.tenable.com/cve/CVE-2026-105614",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://gitlab.com/dalibo/postgresql_anonymizer/-/tags",
+            "type": "Version"
+          },
+          {
+            "ref": "https://labs.dalibo.com/postgresql_anonymizer",
+            "type": "Product"
+          },
+          {
+            "ref": "https://gitlab.com/dalibo/postgresql_anonymizer",
             "type": "Product"
           },
           {

@@ -1,9 +1,9 @@
 {
-  "productCount": 1000,
-  "totalResults": 1000,
+  "productCount": 1001,
+  "totalResults": 1001,
   "tooGeneric": false,
   "cacheKey": "cpekw_webex",
-  "fetchedAt": "2026-06-30T03:14:39.767Z",
+  "fetchedAt": "2026-11-13T04:12:57.973Z",
   "products": [
     {
       "cpe": {
@@ -24007,6 +24007,35 @@
           {
             "cpeName": "cpe:2.3:a:cisco:webex_app:-:*:*:*:*:web:*:*",
             "cpeNameId": "C0015CDA-C922-459F-B972-B375F019726D"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:cisco:webex_contact_center:-:*:*:*:cloud-based:*:*:*",
+        "cpeNameId": "233E9A47-A1C0-4C84-A5F2-9DEBAC26D4B3",
+        "lastModified": "2026-07-01T15:55:41.850",
+        "created": "2026-07-01T15:55:41.850",
+        "titles": [
+          {
+            "title": "Cisco Webex Contact Center cloud-based Edition",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-webexcc-xss-WEX5nUnA",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://help.webex.com/en-us/article/nv7abhz/What's-new-for-administrators-in-Webex-Contact-Center",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.webex.com/us/en/products/customer-experience/contact-center.html",
+            "type": "Product"
           }
         ]
       }

@@ -7,7 +7,7 @@ const path   = require('path');
 const os     = require('os');
 const crypto = require('crypto');
 const { createNvdClient } = require('../lib/nvd-client');
-const { findAllCPEBases, isPendingSupplementCVE } = require('../lib/cve-logic');
+const { lookupSoftwareCVEs, parseCpeBases, parseCacheAliases } = require('../lib/scan-software');
 
 // ─── Port resolution ─────────────────────────────────────────────────────────
 const cliPort = parseInt(process.argv[2] || '', 10);
@@ -135,44 +135,8 @@ const REQUEST_DELAY    = CONFIG.requestDelay;
 const portableEnable   = CONFIG.portableEnable;
 const defaultPortables = CONFIG.portables;
 
-// 解析 CACHE_ALIAS_N 環境變數（格式：canonical|alias1|alias2）
-function _loadAliases() {
-    const aliases = {};
-    let i = 0;
-    while (true) {
-        const entry = env[`CACHE_ALIAS_${i}`];
-        if (!entry) break;
-        const parts = entry.split('|').map(s => s.trim().toLowerCase()).filter(Boolean);
-        if (parts.length >= 2) aliases[parts[0]] = parts.slice(1);
-        i++;
-    }
-    return aliases;
-}
-
-// 解析 CPE_BASE_N 環境變數（格式：名稱|vendor:product[|vendor:product...]）。
-// 通用知名軟體（Python/Git 等）預先指定標準 CPE base，跳過 CPE 字典查詢、直接精準查 CVE。
-// 與 cve-checker.js 的 loadCpeBases() 一致。回傳 { 名稱(小寫): [{vendor,product}, ...] }。
-function _loadCpeBases() {
-    const map = {};
-    let i = 0;
-    while (true) {
-        const entry = env[`CPE_BASE_${i}`];
-        if (!entry) break;
-        const parts = entry.split('|').map(s => s.trim()).filter(Boolean);
-        if (parts.length >= 2) {
-            const name = parts[0].toLowerCase();
-            const bases = [];
-            for (const vp of parts.slice(1)) {
-                const [vendor, product] = vp.split(':').map(s => s.trim().toLowerCase());
-                if (vendor && product) bases.push({ vendor, product });
-            }
-            if (bases.length) map[name] = bases;
-        }
-        i++;
-    }
-    return map;
-}
-const _cpeBaseMap = _loadCpeBases();
+// CPE_BASE_N：通用知名軟體預先指定標準 CPE base（解析邏輯在 lib/scan-software.js，CLI 共用）
+const _cpeBaseMap = parseCpeBases(env);
 
 // ─── Daily-rolling logger ─────────────────────────────────────────────────────
 fs.mkdirSync(LOG_DIR, { recursive: true });
@@ -267,20 +231,18 @@ const nvdClient = createNvdClient({
     apiKey:   defaultApiKey,
     delay:    REQUEST_DELAY,
     cacheDir: _cacheDir,
-    aliases:  _loadAliases(),
+    aliases:  parseCacheAliases(env),
     slotFn:   nvdSlot,
     logger: _nvdLogger,
 });
 
 // ─── Page injection ───────────────────────────────────────────────────────────
-// Injected before </body>: signals proxy mode and pre-fills settings.
+// Injected before </body>: pre-fills settings.
 // jsStr: JSON.stringify + escape </ so it cannot terminate the <script> block.
 const jsStr = v => JSON.stringify(v).replace(/<\//g, '\\u003C/');
 const injectLines = [
-    `window.__NVD_PROXY__       = '/api/scan';`,
     `window.__NVD_DELAY__       = ${REQUEST_DELAY};`,
     `window.__PORTABLE_ENABLE__ = ${portableEnable};`,
-    `window.__CPE_BASES__       = ${jsStr(_cpeBaseMap)};`,
 ];
 if (portableEnable) {
     for (const p of defaultPortables) {
@@ -289,15 +251,16 @@ if (portableEnable) {
 } else {
     injectLines.push(`var _ps=document.getElementById('portable-section');if(_ps)_ps.style.display='none';`);
 }
+// 黑名單預設值（.env.local 的 BLACKLIST）：與白名單相同，頁面上可修改；瀏覽器已存過值時以該值為準
+const defaultBlacklist = (env.BLACKLIST || '').split(',').map(x => x.trim()).filter(Boolean).join(',');
+if (defaultBlacklist) {
+    injectLines.push(
+        `var b=document.getElementById('blacklist'); if(b&&!b.value)b.value=${jsStr(defaultBlacklist)};`
+    );
+}
 if (defaultWhitelist) {
     injectLines.push(
         `var w=document.getElementById('whitelist'); if(w&&!w.value)w.value=${jsStr(defaultWhitelist)};`
-    );
-}
-if (defaultApiKey) {
-    injectLines.push(
-        `var fg=document.getElementById('api-key')?.closest('.form-group');`,
-        `if(fg){fg.style.display='none';var el=document.createElement('div');el.className='form-group';el.innerHTML='<label>NIST API Key</label><span class="hint" style="color:#4ade80">&#10003; 由伺服器代理處理（.env.local）</span>';fg.parentNode.insertBefore(el,fg);}`
     );
 }
 const makeInjectScript = n =>
@@ -311,30 +274,6 @@ const readBody = req => new Promise((resolve, reject) => {
     req.on('end',  () => resolve(Buffer.concat(chunks).toString('utf8')));
     req.on('error', reject);
 });
-
-// ─── GET /api/cpe ─────────────────────────────────────────────────────────────
-// Proxies NVD CPE API for web-client portable-item CPE pre-lookup.
-// 改走 nvdClient.fetchCPEs()：套用相同的「同一天」快取邏輯 + 全域速率限制，
-// 不再自行呼叫 nvdSlot()/_fetch（避免同一軟體當天被重複掃描時一直打 NVD CPE API）
-// Usage: GET /api/cpe?keyword=PuTTY
-async function cpeHandler(req, res) {
-    const reqUrl  = new URL(req.url, 'http://localhost');
-    const keyword = reqUrl.searchParams.get('keyword') || '';
-    if (!keyword) {
-        res.writeHead(400, { 'Content-Type': 'application/json', 'X-Content-Type-Options': 'nosniff' });
-        res.end(JSON.stringify({ error: 'keyword required' }));
-        return;
-    }
-    try {
-        const data = await nvdClient.fetchCPEs(keyword);
-        console.log(`[CPE] ${keyword}: ${data.fromCache ? '[CPE 快取] 命中（今天已查詢過）' : '查詢完成'}`);
-        res.writeHead(200, { 'Content-Type': 'application/json', 'X-Content-Type-Options': 'nosniff' });
-        res.end(JSON.stringify(data));
-    } catch (err) {
-        res.writeHead(500, { 'Content-Type': 'application/json', 'X-Content-Type-Options': 'nosniff' });
-        res.end(JSON.stringify({ error: err.message }));
-    }
-}
 
 // ─── GET /api/cve-data ────────────────────────────────────────────────────────
 // CVE 查詢頁籤用：搜尋本機 data/cve_cache/ 目錄已快取的 CVE 資料（kw_*.json / cpe_*.json），
@@ -424,6 +363,7 @@ async function scanHandler(req, res) {
     const total      = keywords.length;
     const portable   = meta.portableCount    || 0;
     const wl         = meta.whitelistedCount || 0;
+    const bl         = meta.blacklistedCount || 0;
     const skipped    = meta.skippedCount     || 0;
     const dedup      = meta.dedupCount       || 0;
     const minSev      = meta.minSeverity      || '?';
@@ -433,7 +373,7 @@ async function scanHandler(req, res) {
     const portableTag = portable ? ` + ${portable} Portable` : '';
     const yearTag     = minYear ? String(minYear) : '不限';
 
-    slog(sid, `▶ [${ip}] 開始掃描 ${total} 項軟體${portableTag} (白名單:${wl} 子元件:${skipped} 去重:${dedup})`);
+    slog(sid, `▶ [${ip}] 開始掃描 ${total} 項軟體${portableTag} (白名單:${wl}${bl ? ' 黑名單:' + bl : ''} 子元件:${skipped} 去重:${dedup})`);
     slog(sid, `  設定：嚴重度≥${minSev}，年份≥${yearTag}，API Key:${apiKeyTag}，預估${estSecs}秒`);
 
     let cancelled = false;
@@ -482,93 +422,17 @@ async function scanHandler(req, res) {
                 if (!cancelled) res.write(JSON.stringify({ keyword, log: msg, level }) + '\n');
             };
 
-            // 所有軟體（含 Portable）都先嘗試 CPE 查詢，與 CLI 一致：CPE virtualMatchString 為索引查詢，
-            // 比 keywordSearch 全文掃描更快、更準確。Portable 只是顯示用語不同（不顯示「自動偵測」標籤，
-            // 找不到 CPE 時顯示 ⚠ 警告），偵測流程本身完全相同。
-            const isPortable = portables.has(keyword);
-            let cpeData = { products: [], fromCache: false };
-            let cpeBases = [];
-            const knownBases = _cpeBaseMap[keyword.toLowerCase()];
-            if (knownBases) {
-                // .env.local 指定的標準 CPE base（通用知名軟體）→ 跳過字典查詢，直接精準查
-                cpeBases = knownBases;
-                itemLog('cache', `[CPE 指定] 使用 .env.local 設定的標準 CPE（${cpeBases.length} 筆，略過字典查詢）`);
-                itemLog('info', cpeBases.map(b => `cpe:2.3:a:${b.vendor}:${b.product}:*`).join(' | '));
-            } else {
-            try {
-                cpeData = await nvdClient.fetchCPEs(keyword);
-                const nameWords = keyword.toLowerCase().replace(/[^a-z0-9]/g, ' ').split(/\s+/).filter(w => w.length >= 2);
-                // 非 Portable（scan.json／Registry）→ 精確比對軟體名，避免多產品 vendor 爆量；
-                // Portable 維持既有模糊比對（與 CLI 一致）。
-                cpeBases = findAllCPEBases(cpeData.products || [], nameWords, !isPortable);
-            } catch {}
-            if (cpeBases.length > 0) {
-                const cacheTag = cpeData.fromCache
-                    ? `[CPE 快取] 命中（${cpeBases.length} 筆，今天已查詢過）`
-                    : `[CPE] 查詢完成（${cpeBases.length} 筆）`;
-                itemLog('cache', cacheTag);
-                itemLog('info', cpeBases.map(b => `cpe:2.3:a:${b.vendor}:${b.product}:*`).join(' | '));
-            } else if (cpeData && cpeData.tooGeneric) {
-                itemLog('info', `關鍵字過於通用（命中 ${cpeData.totalResults} 筆 CPE），改用關鍵字搜尋`);
-            } else if (isPortable) {
-                itemLog('warn', '⚠ 未找到對應 CPE，改用關鍵字比對');
-            } else {
-                itemLog('info', '未找到對應 CPE，使用關鍵字搜尋');
-            }
-            }
-
-            // 找到多個 CPE base 時逐一查詢並依 CVE id 合併去重，
-            // 避免只查第一個 CPE 漏掉其他 vendor 名稱下的 CVE（例如 Bruno 的 usebruno:bruno / yaxim:bruno）
-            let cves, fromCache, newCount;
-            if (cpeBases.length > 0) {
-                const cveMap = new Map();
-                fromCache = true;
-                newCount  = 0;
-                for (let bi = 0; bi < cpeBases.length; bi++) {
-                    const base = cpeBases[bi];
-                    itemLog('info', `查詢 (${bi + 1}/${cpeBases.length}) cpe:2.3:a:${base.vendor}:${base.product}:*`);
-                    const r = await nvdClient.fetchCVEs({
-                        queryType:  'cpe',
-                        queryValue: base,
-                        coverageStart,
-                        endDate:    new Date(),
-                        log:        itemLog,
-                    });
-                    for (const v of r.cves) cveMap.set(v.cve.id, v);
-                    fromCache = fromCache && r.fromCache;
-                    newCount += r.newCount;
-                }
-                // 補撈：CPE 查詢漏掉 NVD 尚未分析（Awaiting Analysis、無 CPE 適用性）的新 CVE
-                // （例：FFmpeg CVE-2026-8461）。同範圍 keyword 查詢補回「無 CPE 且參考連結指向本
-                // 軟體」者，後續前端 relevance 會標 _pendingNvd（⚠ NVD 分析中）。與 CLI 一致。
-                const rkw = await nvdClient.fetchCVEs({
-                    queryType:  'keyword',
-                    queryValue: keyword,
-                    coverageStart,
-                    endDate:    new Date(),
-                    log:        itemLog,
-                });
-                fromCache = fromCache && rkw.fromCache;
-                newCount += rkw.newCount;
-                let suppCount = 0;
-                for (const v of rkw.cves) {
-                    if (cveMap.has(v.cve.id)) continue;
-                    if (isPendingSupplementCVE(v.cve, cpeBases)) { cveMap.set(v.cve.id, v); suppCount++; }
-                }
-                // 補撈一律印一行（含 0 筆），避免誤會「沒補查」——0 筆代表查過但無待分析 CVE
-                itemLog('info', suppCount > 0
-                    ? `關鍵字補撈：新增 ${suppCount} 筆 NVD 尚未分析（無 CPE 適用性）的 CVE，待人工確認`
-                    : `關鍵字補撈：無 NVD 尚未分析的 CVE（已補查 ${rkw.cves.length} 筆關鍵字結果）`);
-                cves = [...cveMap.values()];
-            } else {
-                ({ cves, fromCache, newCount } = await nvdClient.fetchCVEs({
-                    queryType:  'keyword',
-                    queryValue: keyword,
-                    coverageStart,
-                    endDate:    new Date(),
-                    log:        itemLog,
-                }));
-            }
+            // CPE 偵測 → 逐 base 查 CVE → keyword 補撈：流程統一在 lib/scan-software.js（與 CLI 共用）。
+            // Portable 只是顯示用語不同（找不到 CPE 時顯示 ⚠ 警告），偵測流程與一般軟體完全相同。
+            const { cpeBases, cves, fromCache, newCount } = await lookupSoftwareCVEs({
+                nvdClient,
+                searchName:  keyword,
+                isPortable:  portables.has(keyword),
+                cpeBaseMap:  _cpeBaseMap,
+                coverageStart,
+                minSeverity: minSev,   // 嚴重度門檻在取回當下套用，命中筆數以門檻以上計算
+                log:         itemLog,
+            });
 
             if (cancelled) break;
 
@@ -621,15 +485,6 @@ const server = http.createServer((req, res) => {
             } catch (_) {}
             res.writeHead(204); res.end();
         }).catch(() => { res.writeHead(400); res.end(); });
-        return;
-    }
-
-    if (req.url.startsWith('/api/cpe') && req.method === 'GET') {
-        cpeHandler(req, res).catch(err => {
-            console.error('[cpe] unexpected error:', err.message);
-            if (!res.headersSent) { res.writeHead(500); res.end(JSON.stringify({ error: err.message })); }
-            else { try { res.end(); } catch (_) {} }
-        });
         return;
     }
 
@@ -706,7 +561,7 @@ server.listen(PORT, '0.0.0.0', () => {
     }
 
     console.log(`${c.gray}${'─'.repeat(40)}${c.reset}`);
-    console.log(`${c.gray}掃描端點：${c.reset} POST /api/scan (NDJSON stream), GET /api/cpe (CPE 查找), GET /api/cve-data (CVE 查詢)`);
+    console.log(`${c.gray}掃描端點：${c.reset} POST /api/scan (NDJSON stream), GET /api/cve-data (CVE 查詢)`);
     if (defaultApiKey)    console.log(`${c.gray}API Key：${c.reset}  已載入（0.7 秒/次）`);
     else                  console.log(`${c.gray}API Key：${c.reset}  未設定（6.5 秒/次）`);
     if (defaultWhitelist) console.log(`${c.gray}白名單：${c.reset}   ${defaultWhitelist}`);

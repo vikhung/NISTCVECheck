@@ -1,8 +1,8 @@
 {
-  "cveCount": 20,
+  "cveCount": 33,
   "cacheKey": "kw_docker_desktop",
-  "coverageStart": "2025-01-01T00:00:00.000Z",
-  "lastFetchedAt": "2026-07-08T08:36:18.883Z",
+  "coverageStart": "2024-01-01T00:00:00.000Z",
+  "lastFetchedAt": "2026-11-13T04:07:01.382Z",
   "cves": [
     {
       "cve": {
@@ -114,7 +114,7 @@
         "id": "CVE-2025-15558",
         "sourceIdentifier": "security@docker.com",
         "published": "2026-03-04T17:16:14.763",
-        "lastModified": "2026-06-30T03:16:47.170",
+        "lastModified": "2026-07-15T02:17:22.307",
         "vulnStatus": "Modified",
         "cveTags": [],
         "descriptions": [
@@ -170,6 +170,8 @@
                 "vendor": "Red Hat",
                 "product": "Assisted Installer for Red Hat OpenShift Container Platform 2",
                 "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "assisted/agent-preinstall-image-builder-rhel9",
                 "cpes": [
                   "cpe:/a:redhat:assisted_installer:2"
                 ]
@@ -178,6 +180,58 @@
                 "vendor": "Red Hat",
                 "product": "Builds for Red Hat OpenShift",
                 "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-builds/openshift-builds-controller-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_builds:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Builds for Red Hat OpenShift",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-builds/openshift-builds-git-cloner-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_builds:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Builds for Red Hat OpenShift",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-builds/openshift-builds-image-bundler-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_builds:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Builds for Red Hat OpenShift",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-builds/openshift-builds-image-processing-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_builds:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Builds for Red Hat OpenShift",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-builds/openshift-builds-waiters-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_builds:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Builds for Red Hat OpenShift",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-builds/openshift-builds-webhook-rhel9",
                 "cpes": [
                   "cpe:/a:redhat:openshift_builds:1"
                 ]
@@ -186,6 +240,8 @@
                 "vendor": "Red Hat",
                 "product": "Gatekeeper 3",
                 "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "gatekeeper/gatekeeper-rhel9",
                 "cpes": [
                   "cpe:/a:redhat:gatekeeper:3"
                 ]
@@ -194,6 +250,78 @@
                 "vendor": "Red Hat",
                 "product": "Kernel Module Management Operator for Red Hat Openshift",
                 "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "kmm/kernel-module-management-hub-operator-bundle",
+                "cpes": [
+                  "cpe:/a:redhat:kernel_module_management:2"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Kernel Module Management Operator for Red Hat Openshift",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "kmm/kernel-module-management-hub-rhel9-operator",
+                "cpes": [
+                  "cpe:/a:redhat:kernel_module_management:2"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Kernel Module Management Operator for Red Hat Openshift",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "kmm/kernel-module-management-must-gather-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:kernel_module_management:2"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Kernel Module Management Operator for Red Hat Openshift",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "kmm/kernel-module-management-operator-bundle",
+                "cpes": [
+                  "cpe:/a:redhat:kernel_module_management:2"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Kernel Module Management Operator for Red Hat Openshift",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "kmm/kernel-module-management-rhel9-operator",
+                "cpes": [
+                  "cpe:/a:redhat:kernel_module_management:2"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Kernel Module Management Operator for Red Hat Openshift",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "kmm/kernel-module-management-signing-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:kernel_module_management:2"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Kernel Module Management Operator for Red Hat Openshift",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "kmm/kernel-module-management-webhook-server-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:kernel_module_management:2"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Kernel Module Management Operator for Red Hat Openshift",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "kmm/kernel-module-management-worker-rhel9",
                 "cpes": [
                   "cpe:/a:redhat:kernel_module_management:2"
                 ]
@@ -202,6 +330,18 @@
                 "vendor": "Red Hat",
                 "product": "Machine Deletion Remediation Operator",
                 "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "workload-availability/machine-deletion-remediation-operator-bundle",
+                "cpes": [
+                  "cpe:/a:redhat:workload_availability_mdr:0"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Machine Deletion Remediation Operator",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "workload-availability/machine-deletion-remediation-rhel9-operator",
                 "cpes": [
                   "cpe:/a:redhat:workload_availability_mdr:0"
                 ]
@@ -210,6 +350,18 @@
                 "vendor": "Red Hat",
                 "product": "Multicluster Engine for Kubernetes",
                 "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "multicluster-engine/capoa-bootstrap-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:multicluster_engine"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Multicluster Engine for Kubernetes",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "multicluster-engine/capoa-control-plane-rhel9",
                 "cpes": [
                   "cpe:/a:redhat:multicluster_engine"
                 ]
@@ -218,6 +370,8 @@
                 "vendor": "Red Hat",
                 "product": "Multicluster Global Hub",
                 "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "multicluster-globalhub/multicluster-globalhub-grafana-rhel9",
                 "cpes": [
                   "cpe:/a:redhat:multicluster_globalhub"
                 ]
@@ -226,6 +380,298 @@
                 "vendor": "Red Hat",
                 "product": "OpenShift Pipelines",
                 "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-cache-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-chains-controller-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-chains-controller-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-cli-tkn-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-cli-tkn-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-controller-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-controller-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-entrypoint-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-events-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-hub-api-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-hub-db-migration-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-hub-ui-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-manual-approval-gate-controller-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-manual-approval-gate-webhook-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-nop-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-opc-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-operator-bundle",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-operator-proxy-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-operator-webhook-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-resolvers-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-resolvers-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-results-api-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-results-watcher-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-results-watcher-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-rhel8-operator",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-rhel9-operator",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-sidecarlogresults-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-sidecarlogresults-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-webhook-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_pipelines:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Pipelines",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-pipelines/pipelines-workingdirinit-rhel8",
                 "cpes": [
                   "cpe:/a:redhat:openshift_pipelines:1"
                 ]
@@ -234,6 +680,38 @@
                 "vendor": "Red Hat",
                 "product": "OpenShift Serverless",
                 "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-serverless-1/kn-client-kn-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:serverless:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Serverless",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-serverless-1/kn-plugin-event-sender-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:serverless:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Serverless",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-serverless-1/kn-plugin-func-func-util-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:serverless:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Serverless",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-serverless-1/kn-serving-controller-rhel9",
                 "cpes": [
                   "cpe:/a:redhat:serverless:1"
                 ]
@@ -242,6 +720,38 @@
                 "vendor": "Red Hat",
                 "product": "OpenShift Service Mesh 2",
                 "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-service-mesh/istio-cni-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:service_mesh:2"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Service Mesh 2",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-service-mesh/istio-rhel8-operator",
+                "cpes": [
+                  "cpe:/a:redhat:service_mesh:2"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Service Mesh 2",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-service-mesh/pilot-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:service_mesh:2"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Service Mesh 2",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-service-mesh/proxyv2-rhel9",
                 "cpes": [
                   "cpe:/a:redhat:service_mesh:2"
                 ]
@@ -250,6 +760,38 @@
                 "vendor": "Red Hat",
                 "product": "OpenShift Service Mesh 3",
                 "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-service-mesh/istio-cni-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:service_mesh:3"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Service Mesh 3",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-service-mesh/istio-pilot-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:service_mesh:3"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Service Mesh 3",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-service-mesh/istio-proxyv2-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:service_mesh:3"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "OpenShift Service Mesh 3",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-service-mesh/istio-rhel9-operator",
                 "cpes": [
                   "cpe:/a:redhat:service_mesh:3"
                 ]
@@ -258,6 +800,48 @@
                 "vendor": "Red Hat",
                 "product": "Red Hat Advanced Cluster Management for Kubernetes 2",
                 "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "rhacm2/multicloud-integrations-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:acm:2"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat Advanced Cluster Management for Kubernetes 2",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "rhacm2/multicluster-operators-channel-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:acm:2"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat Advanced Cluster Management for Kubernetes 2",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "rhacm2/multicluster-operators-subscription-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:acm:2"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat Advanced Cluster Management for Kubernetes 2",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "rhacm2/submariner-operator-bundle",
+                "cpes": [
+                  "cpe:/a:redhat:acm:2"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat Advanced Cluster Management for Kubernetes 2",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "rhacm2/submariner-rhel9-operator",
                 "cpes": [
                   "cpe:/a:redhat:acm:2"
                 ]
@@ -266,6 +850,38 @@
                 "vendor": "Red Hat",
                 "product": "Red Hat Advanced Cluster Security 4",
                 "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "advanced-cluster-security/rhacs-main-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:advanced_cluster_security:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat Advanced Cluster Security 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "advanced-cluster-security/rhacs-rhel8-operator",
+                "cpes": [
+                  "cpe:/a:redhat:advanced_cluster_security:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat Advanced Cluster Security 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "advanced-cluster-security/rhacs-roxctl-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:advanced_cluster_security:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat Advanced Cluster Security 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "advanced-cluster-security/rhacs-scanner-v4-rhel8",
                 "cpes": [
                   "cpe:/a:redhat:advanced_cluster_security:4"
                 ]
@@ -274,6 +890,48 @@
                 "vendor": "Red Hat",
                 "product": "Red Hat OpenShift AI (RHOAI)",
                 "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "rhoai/odh-data-science-pipelines-argo-argoexec-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_ai"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift AI (RHOAI)",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "rhoai/odh-data-science-pipelines-argo-argoexec-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_ai"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift AI (RHOAI)",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "rhoai/odh-data-science-pipelines-argo-workflowcontroller-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_ai"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift AI (RHOAI)",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "rhoai/odh-data-science-pipelines-argo-workflowcontroller-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_ai"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift AI (RHOAI)",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "rhoai/odh-model-registry-rhel9",
                 "cpes": [
                   "cpe:/a:redhat:openshift_ai"
                 ]
@@ -282,6 +940,298 @@
                 "vendor": "Red Hat",
                 "product": "Red Hat OpenShift Container Platform 4",
                 "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/cnf-tests-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/frr-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/metallb-rhel8-operator",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/metallb-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/metallb-rhel9-operator",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/oc-mirror-plugin-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/oc-mirror-plugin-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/ose-agent-installer-api-server-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/ose-agent-installer-api-server-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/ose-agent-installer-csr-approver-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/ose-agent-installer-csr-approver-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/ose-agent-installer-node-agent-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/ose-agent-installer-node-agent-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/ose-agent-installer-orchestrator-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/ose-agent-installer-orchestrator-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/ose-console",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/ose-console-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/ose-helm-operator",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/ose-helm-rhel9-operator",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/ose-olm-catalogd-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/ose-olm-operator-controller-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/ose-operator-framework-tools-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/ose-operator-lifecycle-manager",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/ose-operator-lifecycle-manager-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/ose-operator-registry",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/ose-operator-registry-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/ose-operator-sdk-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/ose-operator-sdk-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4/ztp-site-generate-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:openshift:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Container Platform 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "redhat/redhat-operator-index",
                 "cpes": [
                   "cpe:/a:redhat:openshift:4"
                 ]
@@ -290,6 +1240,8 @@
                 "vendor": "Red Hat",
                 "product": "Red Hat OpenShift Dev Spaces",
                 "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "devspaces/traefik-rhel9",
                 "cpes": [
                   "cpe:/a:redhat:openshift_devspaces:3"
                 ]
@@ -298,6 +1250,18 @@
                 "vendor": "Red Hat",
                 "product": "Red Hat OpenShift for Windows Containers",
                 "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4-wincw/windows-machine-config-operator-bundle",
+                "cpes": [
+                  "cpe:/a:redhat:windows_machine_config"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift for Windows Containers",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift4-wincw/windows-machine-config-rhel9-operator",
                 "cpes": [
                   "cpe:/a:redhat:windows_machine_config"
                 ]
@@ -306,6 +1270,18 @@
                 "vendor": "Red Hat",
                 "product": "Red Hat OpenShift GitOps",
                 "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-gitops-1/argocd-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_gitops:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift GitOps",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "openshift-gitops-1/argocd-rhel9",
                 "cpes": [
                   "cpe:/a:redhat:openshift_gitops:1"
                 ]
@@ -314,6 +1290,18 @@
                 "vendor": "Red Hat",
                 "product": "Red Hat OpenShift Virtualization 4",
                 "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "container-native-virtualization/kubevirt-tekton-tasks-create-datavolume-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:container_native_virtualization:4"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenShift Virtualization 4",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "container-native-virtualization/kubevirt-tekton-tasks-disk-virt-customize-rhel9",
                 "cpes": [
                   "cpe:/a:redhat:container_native_virtualization:4"
                 ]
@@ -322,6 +1310,38 @@
                 "vendor": "Red Hat",
                 "product": "Red Hat OpenStack Platform 16.2",
                 "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "rhosp-rhel8/osp-director-agent",
+                "cpes": [
+                  "cpe:/a:redhat:openstack:16.2"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenStack Platform 16.2",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "rhosp-rhel8/osp-director-downloader",
+                "cpes": [
+                  "cpe:/a:redhat:openstack:16.2"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenStack Platform 16.2",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "rhosp-rhel8/osp-director-operator",
+                "cpes": [
+                  "cpe:/a:redhat:openstack:16.2"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenStack Platform 16.2",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "rhosp-rhel8/osp-director-operator-bundle",
                 "cpes": [
                   "cpe:/a:redhat:openstack:16.2"
                 ]
@@ -330,6 +1350,8 @@
                 "vendor": "Red Hat",
                 "product": "Red Hat OpenStack Platform 17.1",
                 "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "rhosp-rhel9/osp-director-operator-bundle",
                 "cpes": [
                   "cpe:/a:redhat:openstack:17.1"
                 ]
@@ -338,6 +1360,28 @@
                 "vendor": "Red Hat",
                 "product": "Red Hat OpenStack Platform 18.0",
                 "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "rhoso-operators/openstack-operator-bundle",
+                "cpes": [
+                  "cpe:/a:redhat:openstack:18.0"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenStack Platform 18.0",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "rhoso-operators/openstack-rhel9-operator",
+                "cpes": [
+                  "cpe:/a:redhat:openstack:18.0"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat OpenStack Platform 18.0",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "rhoso-operators/rabbitmq-cluster-rhel9-operator",
                 "cpes": [
                   "cpe:/a:redhat:openstack:18.0"
                 ]
@@ -346,6 +1390,18 @@
                 "vendor": "Red Hat",
                 "product": "Red Hat Quay 3",
                 "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "quay/clair-rhel8",
+                "cpes": [
+                  "cpe:/a:redhat:quay:3"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat Quay 3",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "quay/clair-rhel9",
                 "cpes": [
                   "cpe:/a:redhat:quay:3"
                 ]
@@ -354,6 +1410,88 @@
                 "vendor": "Red Hat",
                 "product": "Red Hat Trusted Artifact Signer",
                 "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "rhtas/client-server-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:trusted_artifact_signer:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat Trusted Artifact Signer",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "rhtas/cosign-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:trusted_artifact_signer:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat Trusted Artifact Signer",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "rhtas/gitsign-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:trusted_artifact_signer:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat Trusted Artifact Signer",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "rhtas/policy-controller-operator-bundle",
+                "cpes": [
+                  "cpe:/a:redhat:trusted_artifact_signer:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat Trusted Artifact Signer",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "rhtas/policy-controller-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:trusted_artifact_signer:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat Trusted Artifact Signer",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "rhtas/policy-controller-rhel9-operator",
+                "cpes": [
+                  "cpe:/a:redhat:trusted_artifact_signer:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat Trusted Artifact Signer",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "rhtas/rhtas-console-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:trusted_artifact_signer:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat Trusted Artifact Signer",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "rhtas/rhtas-operator-bundle",
+                "cpes": [
+                  "cpe:/a:redhat:trusted_artifact_signer:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Red Hat Trusted Artifact Signer",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "rhtas/rhtas-rhel9-operator",
                 "cpes": [
                   "cpe:/a:redhat:trusted_artifact_signer:1"
                 ]
@@ -362,6 +1500,18 @@
                 "vendor": "Red Hat",
                 "product": "Security Profiles Operator",
                 "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "compliance/openshift-security-profiles-operator-bundle",
+                "cpes": [
+                  "cpe:/a:redhat:openshift_security_profiles_operator:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Security Profiles Operator",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "compliance/openshift-security-profiles-rhel8-operator",
                 "cpes": [
                   "cpe:/a:redhat:openshift_security_profiles_operator:1"
                 ]
@@ -370,6 +1520,28 @@
                 "vendor": "Red Hat",
                 "product": "Zero Trust Workload Identity Manager",
                 "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "zero-trust-workload-identity-manager/spiffe-spire-agent-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:zero_trust_workload_identity_manager:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Zero Trust Workload Identity Manager",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "zero-trust-workload-identity-manager/spiffe-spire-oidc-discovery-provider-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:zero_trust_workload_identity_manager:1"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Zero Trust Workload Identity Manager",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "zero-trust-workload-identity-manager/spiffe-spire-server-rhel9",
                 "cpes": [
                   "cpe:/a:redhat:zero_trust_workload_identity_manager:1"
                 ]
@@ -378,6 +1550,48 @@
                 "vendor": "Red Hat",
                 "product": "Zero Trust Workload Identity Manager - Tech Preview",
                 "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "zero-trust-workload-identity-manager/spiffe-spire-agent-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:zero_trust_workload_identity_manager:0"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Zero Trust Workload Identity Manager - Tech Preview",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "zero-trust-workload-identity-manager/spiffe-spire-oidc-discovery-provider-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:zero_trust_workload_identity_manager:0"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Zero Trust Workload Identity Manager - Tech Preview",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "zero-trust-workload-identity-manager/spiffe-spire-server-rhel9",
+                "cpes": [
+                  "cpe:/a:redhat:zero_trust_workload_identity_manager:0"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Zero Trust Workload Identity Manager - Tech Preview",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "zero-trust-workload-identity-manager/zero-trust-workload-identity-manager-operator-bundle",
+                "cpes": [
+                  "cpe:/a:redhat:zero_trust_workload_identity_manager:0"
+                ]
+              },
+              {
+                "vendor": "Red Hat",
+                "product": "Zero Trust Workload Identity Manager - Tech Preview",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://access.redhat.com/downloads/content/package-browser/",
+                "packageName": "zero-trust-workload-identity-manager/zero-trust-workload-identity-manager-rhel9",
                 "cpes": [
                   "cpe:/a:redhat:zero_trust_workload_identity_manager:0"
                 ]
@@ -590,13 +1804,17 @@
         "id": "CVE-2026-33990",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2026-04-01T17:28:39.823",
-        "lastModified": "2026-06-17T10:38:23.563",
+        "lastModified": "2026-10-26T21:10:00.170",
         "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
             "lang": "en",
             "value": "Docker Model Runner (DMR) is software used to manage, run, and deploy AI models using Docker. Prior to version 1.1.25, Docker Model Runner contains an SSRF vulnerability in its OCI registry token exchange flow. When pulling a model, Model Runner follows the realm URL from the registry's WWW-Authenticate header without validating the scheme, hostname, or IP range. A malicious OCI registry can set the realm to an internal URL (e.g., http://127.0.0.1:3000/), causing Model Runner running on the host to make arbitrary GET requests to internal services and reflect the full response body back to the caller. Additionally, the token exchange mechanism can relay data from internal services back to the attacker-controlled registry via the Authorization: Bearer header. This issue has been patched in version 1.1.25. For Docker Desktop users, enabling Enhanced Container Isolation (ECI) blocks container access to Model Runner, preventing exploitation. However, if the Docker Model Runner is exposed to localhost over TCP in specific configurations, the vulnerability is still exploitable."
+          },
+          {
+            "lang": "es",
+            "value": "Docker Model Runner (DMR) es un software utilizado para gestionar, ejecutar y desplegar modelos de IA usando Docker. Antes de la versión 1.1.25, Docker Model Runner contiene una vulnerabilidad SSRF en su flujo de intercambio de tokens del registro OCI. Al extraer un modelo, Model Runner sigue la URL del realm del encabezado WWW-Authenticate del registro sin validar el esquema, el nombre de host o el rango de IP. Un registro OCI malicioso puede establecer el realm a una URL interna (por ejemplo, http://127.0.0.1:3000/), haciendo que Model Runner, ejecutándose en el host, realice solicitudes GET arbitrarias a servicios internos y refleje el cuerpo completo de la respuesta de vuelta al llamador. Además, el mecanismo de intercambio de tokens puede retransmitir datos de servicios internos de vuelta al registro controlado por el atacante a través del encabezado Authorization: Bearer. Este problema ha sido parcheado en la versión 1.1.25. Para los usuarios de Docker Desktop, habilitar el Aislamiento Mejorado de Contenedores (ECI) bloquea el acceso del contenedor a Model Runner, previniendo la explotación. Sin embargo, si Docker Model Runner está expuesto a localhost sobre TCP en configuraciones específicas, la vulnerabilidad sigue siendo explotable."
           }
         ],
         "affected": [
@@ -753,13 +1971,17 @@
         "id": "CVE-2026-6406",
         "sourceIdentifier": "security@docker.com",
         "published": "2026-05-22T19:17:04.827",
-        "lastModified": "2026-06-17T11:00:47.503",
+        "lastModified": "2026-07-23T16:10:00.137",
         "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
             "lang": "en",
             "value": "The Docker CLI --use-api-socket flag bypasses Enhanced Container Isolation (ECI) restrictions in Docker Desktop. When ECI is enabled, Docker socket mounts from containers are denied unless explicitly allowed via the admin-settings configuration. However, the --use-api-socket flag adds the Docker socket mount via the HostConfig.Mounts field rather than the HostConfig.Binds field. The ECI enforcement in the Docker Desktop API proxy only inspected Binds, allowing the mount to pass unchecked. This grants a container full access to the Docker Engine socket and, if the host user has logged in to container registries, their authentication credentials.\n\nA local attacker with the ability to run Docker CLI commands can exploit this to escape ECI restrictions, access the Docker Engine, and potentially escalate privileges."
+          },
+          {
+            "lang": "es",
+            "value": "La bandera '--use-api-socket' de Docker CLI elude las restricciones de Aislamiento Mejorado de Contenedores (ECI) en Docker Desktop. Cuando ECI está habilitado, los montajes de sockets de Docker desde los contenedores son denegados a menos que se permitan explícitamente a través de la configuración de  admin-settings . Sin embargo, la bandera '--use-api-socket' añade el montaje del socket de Docker a través del campo 'HostConfig.Mounts' en lugar del campo 'HostConfig.Binds'. La aplicación de ECI en el proxy de la API de Docker Desktop solo inspeccionaba  Binds , permitiendo que el montaje pasara sin ser verificado. Esto otorga a un contenedor acceso completo al socket del Docker Engine y, si el usuario del host ha iniciado sesión en registros de contenedores, sus credenciales de autenticación.\n\nUn atacante local con la capacidad de ejecutar comandos de Docker CLI puede explotar esto para evadir las restricciones de ECI, acceder al Docker Engine y potencialmente escalar privilegios."
           }
         ],
         "affected": [
@@ -953,13 +2175,17 @@
         "id": "CVE-2026-5817",
         "sourceIdentifier": "security@docker.com",
         "published": "2026-05-22T20:16:35.120",
-        "lastModified": "2026-06-17T10:59:41.770",
+        "lastModified": "2026-07-23T11:10:00.120",
         "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
             "lang": "en",
             "value": "The vllm-metal inference backend in Docker Model Runner on macOS unconditionally sets trust_remote_code=True when loading model tokenizers, and runs without sandboxing. This causes transformers.AutoTokenizer.from_pretrained() to import and execute arbitrary Python files included in any model pulled from an OCI registry, resulting in arbitrary code execution on the Docker host as the Docker Desktop user when inference is triggered.\n\nAny container on the Docker network can trigger this by calling the model-runner.docker.internal API to pull a malicious model and request inference."
+          },
+          {
+            "lang": "es",
+            "value": "El backend de inferencia vllm-metal en Docker Model Runner en macOS establece incondicionalmente trust_remote_code=True al cargar tokenizadores de modelos, y se ejecuta sin sandboxing. Esto provoca que transformers.AutoTokenizer.from_pretrained() importe y ejecute archivos Python arbitrarios incluidos en cualquier modelo extraído de un registro OCI, lo que resulta en ejecución de código arbitrario en el host de Docker como el usuario de Docker Desktop cuando se activa la inferencia.\n\nCualquier contenedor en la red de Docker puede activar esto llamando a la API model-runner.docker.internal para extraer un modelo malicioso y solicitar inferencia."
           }
         ],
         "affected": [
@@ -1154,13 +2380,17 @@
         "id": "CVE-2026-5843",
         "sourceIdentifier": "security@docker.com",
         "published": "2026-05-22T20:16:35.253",
-        "lastModified": "2026-06-17T10:59:44.580",
+        "lastModified": "2026-07-23T11:10:00.120",
         "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
             "lang": "en",
             "value": "The MLX inference backend in Docker Model Runner on macOS uses the MLX-LM library, which unconditionally imports and executes arbitrary Python files from model directories via the model_file configuration field in config.json. When a model's config.json specifies a model_file pointing to a Python file, MLX-LM uses importlib to load and execute it with no trust_remote_code gate or equivalent safety check. The MLX backend runs without sandboxing, resulting in arbitrary code execution on the Docker host as the Docker Desktop user.\n\nAny container on the Docker network can trigger this by calling the model-runner.docker.internal API to pull a malicious model from an attacker-controlled OCI registry and request inference."
+          },
+          {
+            "lang": "es",
+            "value": "El backend de inferencia MLX en Docker Model Runner en macOS utiliza la biblioteca MLX-LM, que importa y ejecuta incondicionalmente archivos Python arbitrarios de directorios de modelos a través del campo de configuración model_file en config.json. Cuando el config.json de un modelo especifica un model_file que apunta a un archivo Python, MLX-LM utiliza importlib para cargarlo y ejecutarlo sin una puerta trust_remote_code o una comprobación de seguridad equivalente. El backend MLX se ejecuta sin sandboxing, lo que resulta en ejecución de código arbitrario en el host de Docker como el usuario de Docker Desktop.\n\nCualquier contenedor en la red de Docker puede activar esto llamando a la API model-runner.docker.internal para extraer un modelo malicioso de un registro OCI controlado por un atacante y solicitar inferencia."
           }
         ],
         "affected": [
@@ -1355,13 +2585,17 @@
         "id": "CVE-2026-8936",
         "sourceIdentifier": "security@docker.com",
         "published": "2026-06-02T22:16:17.120",
-        "lastModified": "2026-06-17T11:04:37.860",
+        "lastModified": "2026-07-22T19:10:00.120",
         "vulnStatus": "Awaiting Analysis",
         "cveTags": [],
         "descriptions": [
           {
             "lang": "en",
             "value": "Fixed a VM panic caused by unbounded recursion in the grpcfuse kernel module when a container created deeply nested directories on a bind-mounted host folder and triggered a dentry invalidation event. This issue has been fixed in Docker Desktop 4.76.0."
+          },
+          {
+            "lang": "es",
+            "value": "Se corrigió un pánico de VM causado por recursión ilimitada en el módulo del kernel grpcfuse cuando un contenedor creó directorios profundamente anidados en una carpeta de host montada por enlace y desencadenó un evento de invalidación de dentry. Este problema se ha solucionado en Docker Desktop 4.76.0."
           }
         ],
         "affected": [
@@ -1482,13 +2716,17 @@
         "id": "CVE-2025-13743",
         "sourceIdentifier": "security@docker.com",
         "published": "2025-12-09T21:15:53.500",
-        "lastModified": "2026-06-17T08:34:40.837",
+        "lastModified": "2026-10-14T21:10:00.183",
         "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
             "lang": "en",
             "value": "Docker Desktop diagnostics bundles were found to include expired Hub PATs in log output due to error object serialization. This poses a risk of leaking sensitive information in exported diagnostics, especially when access denied errors occurred."
+          },
+          {
+            "lang": "es",
+            "value": "Paquetes de diagnóstico de Docker Desktop se encontró que incluían PATs de Hub caducados en la salida de registro debido a la serialización de objetos de error. Esto plantea un riesgo de fuga de información sensible en los diagnósticos exportados, especialmente cuando ocurrieron errores de acceso denegado."
           }
         ],
         "affected": [
@@ -2245,13 +3483,17 @@
         "id": "CVE-2025-10657",
         "sourceIdentifier": "security@docker.com",
         "published": "2025-09-26T21:15:34.657",
-        "lastModified": "2026-06-17T08:28:42.780",
+        "lastModified": "2026-10-09T10:10:00.193",
         "vulnStatus": "Deferred",
         "cveTags": [],
         "descriptions": [
           {
             "lang": "en",
             "value": "In a hardened Docker environment, with Enhanced Container Isolation ( ECI https://docs.docker.com/enterprise/security/hardened-desktop/enhanced-container-isolation/ ) enabled, an administrator can utilize the command restrictions  feature https://docs.docker.com/enterprise/security/hardened-desktop/enhanced-container-isolation/config/#command-restrictions  to restrict commands that a container with a Docker socket mount may issue on that socket.\nDue to a software bug, the configuration to restrict commands was ignored when passed to ECI, allowing any command to be executed on the socket. This grants excessive privileges by permitting unrestricted access to powerful Docker commands.\n\nThe vulnerability affects only Docker Desktop 4.46.0 users that have ECI enabled and are using the Docker socket command restrictions feature. In addition, since ECI restricts mounting the Docker socket into containers by default, it only affects containers which are explicitly allowed by the administrator to mount the Docker socket."
+          },
+          {
+            "lang": "es",
+            "value": "En un entorno Docker reforzado, con Aislamiento Mejorado de Contenedores (ECI https://docs.docker.com/enterprise/security/hardened-desktop/enhanced-container-isolation/) habilitado, un administrador puede utilizar la función de restricciones de comandos https://docs.docker.com/enterprise/security/hardened-desktop/enhanced-container-isolation/config/#command-restrictions para restringir los comandos que un contenedor con un montaje de socket Docker puede emitir en ese socket.\nDebido a un error de software, la configuración para restringir comandos fue ignorada al pasarse a ECI, permitiendo que cualquier comando se ejecutara en el socket. Esto otorga privilegios excesivos al permitir acceso sin restricciones a comandos Docker potentes.\n\nLa vulnerabilidad afecta solo a los usuarios de Docker Desktop 4.46.0 que tienen ECI habilitado y están utilizando la función de restricciones de comandos del socket Docker. Además, dado que ECI restringe el montaje del socket Docker en contenedores por defecto, solo afecta a los contenedores a los que el administrador permite explícitamente montar el socket Docker."
           }
         ],
         "affected": [
@@ -2371,7 +3613,7 @@
         "id": "CVE-2025-11489",
         "sourceIdentifier": "cna@vuldb.com",
         "published": "2025-10-08T18:15:34.263",
-        "lastModified": "2026-06-17T08:30:33.610",
+        "lastModified": "2026-10-08T13:10:00.200",
         "vulnStatus": "Analyzed",
         "cveTags": [
           {
@@ -2385,6 +3627,10 @@
           {
             "lang": "en",
             "value": "A security vulnerability has been detected in wonderwhy-er DesktopCommanderMCP up to 0.2.13. This vulnerability affects the function isPathAllowed of the file src/tools/filesystem.ts. The manipulation leads to symlink following. The attack can only be performed from a local environment. The attack's complexity is rated as high. It is stated that the exploitability is difficult. The exploit has been disclosed publicly and may be used. The vendor explains: \"Our restriction features are designed as guardrails for LLMs to help them stay closer to what users want, rather than hardened security boundaries. (...) For users where security is a top priority, we continue to recommend using Desktop Commander with Docker, which provides actual isolation. (...) We'll keep this issue open for future consideration if we receive more user demand for improved restrictions.\" This vulnerability only affects products that are no longer supported by the maintainer."
+          },
+          {
+            "lang": "es",
+            "value": "Una vulnerabilidad de seguridad ha sido detectada en wonderwhy-er DesktopCommanderMCP hasta la versión 0.2.13. Esta vulnerabilidad afecta a la función isPathAllowed del archivo src/tools/filesystem.ts. La manipulación conduce al seguimiento de enlaces simbólicos. El ataque solo puede realizarse desde un entorno local. La complejidad del ataque se califica como alta. Se afirma que la explotabilidad es difícil. El exploit ha sido divulgado públicamente y puede ser utilizado. El proveedor explica: 'Nuestras características de restricción están diseñadas como barandillas para los LLM para ayudarles a mantenerse más cerca de lo que los usuarios quieren, en lugar de límites de seguridad reforzados. (...) Para los usuarios donde la seguridad es una prioridad máxima, seguimos recomendando usar Desktop Commander con Docker, lo que proporciona un aislamiento real. (...) Mantendremos este problema abierto para futuras consideraciones si recibimos más demanda de los usuarios para restricciones mejoradas.' Esta vulnerabilidad solo afecta a productos que ya no son compatibles con el mantenedor."
           }
         ],
         "affected": [
@@ -2683,13 +3929,17 @@
         "id": "CVE-2025-9164",
         "sourceIdentifier": "security@docker.com",
         "published": "2025-10-27T14:15:42.797",
-        "lastModified": "2026-06-17T10:08:27.050",
+        "lastModified": "2026-10-08T11:10:00.250",
         "vulnStatus": "Deferred",
         "cveTags": [],
         "descriptions": [
           {
             "lang": "en",
             "value": "Docker Desktop Installer.exe is vulnerable to DLL hijacking due to insecure DLL search order. The installer searches for required DLLs in the user's Downloads folder before checking system directories, allowing local privilege escalation through malicious DLL placement.This issue affects Docker Desktop: through 4.48.0."
+          },
+          {
+            "lang": "es",
+            "value": "Docker Desktop Installer.exe es vulnerable al secuestro de DLL debido a un orden de búsqueda de DLL inseguro. El instalador busca las DLLs requeridas en la carpeta de Descargas del usuario antes de verificar los directorios del sistema, lo que permite la escalada de privilegios local mediante la colocación de una DLL maliciosa. Este problema afecta a Docker Desktop: hasta la versión 4.48.0."
           }
         ],
         "affected": [
@@ -2808,13 +4058,17 @@
         "id": "CVE-2025-62725",
         "sourceIdentifier": "security-advisories@github.com",
         "published": "2025-10-27T21:15:38.140",
-        "lastModified": "2026-06-17T09:52:20.267",
+        "lastModified": "2026-10-08T11:10:00.250",
         "vulnStatus": "Deferred",
         "cveTags": [],
         "descriptions": [
           {
             "lang": "en",
             "value": "Docker Compose trusts the path information embedded in remote OCI compose artifacts. When a layer includes the annotations com.docker.compose.extends or com.docker.compose.envfile, Compose joins the attacker‑supplied value from com.docker.compose.file/com.docker.compose.envfile with its local cache directory and writes the file there. This affects any platform or workflow that resolves remote OCI compose artifacts, Docker Desktop, standalone Compose binaries on Linux, CI/CD runners, cloud dev environments is affected. An attacker can escape the cache directory and overwrite arbitrary files on the machine running docker compose, even if the user only runs read‑only commands such as docker compose config or docker compose ps. This issue is fixed in v2.40.2."
+          },
+          {
+            "lang": "es",
+            "value": "Docker Compose confía en la información de ruta incrustada en artefactos de composición OCI remotos. Cuando una capa incluye las anotaciones com.docker.compose.extends o com.docker.compose.envfile, Compose une el valor proporcionado por el atacante de com.docker.compose.file/com.docker.compose.envfile con su directorio de caché local y escribe el archivo allí. Esto afecta a cualquier plataforma o flujo de trabajo que resuelva artefactos de composición OCI remotos, como Docker Desktop, los binarios de Compose autónomos en Linux, los ejecutores de CI/CD y los entornos de desarrollo en la nube. Un atacante puede escapar del directorio de caché y sobrescribir archivos arbitrarios en la máquina que ejecuta docker compose, incluso si el usuario solo ejecuta comandos de solo lectura como docker compose config o docker compose ps. Este problema está solucionado en la v2.40.2."
           }
         ],
         "affected": [
@@ -3502,6 +4756,2215 @@
         "references": [
           {
             "url": "https://docs.docker.com/security/for-admins/hardened-desktop/registry-access-management",
+            "source": "security@docker.com"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-73218",
+        "sourceIdentifier": "security-advisories@github.com",
+        "published": "2026-08-11T18:18:27.320",
+        "lastModified": "2026-09-09T20:58:37.713",
+        "vulnStatus": "Awaiting Analysis",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Cursor is a code editor built for programming with AI. Prior to 3.0.0, Cursor IDE for macOS allows an agent running in Auto-Run Sandbox mode, when Docker Desktop and the Dev Containers CLI are installed, to launch a privileged container and mount Docker's virtiofs0, granting read and write access to the user's home directory and enabling host command execution with the user's privileges without an additional permission prompt. This issue is fixed in version 3.0.0."
+          }
+        ],
+        "affected": [
+          {
+            "source": "security-advisories@github.com",
+            "affectedData": [
+              {
+                "vendor": "cursor",
+                "product": "cursor",
+                "versions": [
+                  {
+                    "version": "< 3.0.0",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "security-advisories@github.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 7.7,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "attackRequirements": "PRESENT",
+                "privilegesRequired": "NONE",
+                "userInteraction": "PASSIVE",
+                "vulnConfidentialityImpact": "HIGH",
+                "vulnIntegrityImpact": "HIGH",
+                "vulnAvailabilityImpact": "HIGH",
+                "subConfidentialityImpact": "NONE",
+                "subIntegrityImpact": "NONE",
+                "subAvailabilityImpact": "NONE",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-08-13T13:59:24.755265Z",
+                "id": "CVE-2026-73218",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "security-advisories@github.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-269"
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/cursor/cursor/security/advisories/GHSA-v4xv-rqh3-w9mc",
+            "source": "security-advisories@github.com"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-106581",
+        "sourceIdentifier": "security@docker.com",
+        "published": "2026-10-09T14:17:18.433",
+        "lastModified": "2026-10-09T17:16:45.270",
+        "vulnStatus": "Awaiting Analysis",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Before 4.92.0, Docker Desktop for Windows did not verify the signature of a package supplied to Docker Desktop Installer.exe install -package. An attacker able to provide a crafted package and convince a user to approve the Docker-signed UAC prompt could execute attacker-controlled installer actions as LocalSystem."
+          }
+        ],
+        "affected": [
+          {
+            "source": "security@docker.com",
+            "affectedData": [
+              {
+                "vendor": "Docker",
+                "product": "Docker Desktop",
+                "defaultStatus": "unaffected",
+                "cpes": [
+                  "cpe:2.3:a:docker:desktop:*:*:*:*:*:*:*:*"
+                ],
+                "platforms": [
+                  "Windows"
+                ],
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "4.92.0",
+                    "versionType": "semver",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "security@docker.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:L/AC:L/AT:P/PR:L/UI:A/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 7.3,
+                "baseSeverity": "HIGH",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "attackRequirements": "PRESENT",
+                "privilegesRequired": "LOW",
+                "userInteraction": "ACTIVE",
+                "vulnConfidentialityImpact": "HIGH",
+                "vulnIntegrityImpact": "HIGH",
+                "vulnAvailabilityImpact": "HIGH",
+                "subConfidentialityImpact": "HIGH",
+                "subIntegrityImpact": "HIGH",
+                "subAvailabilityImpact": "HIGH",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-10-09T16:16:16.621716Z",
+                "id": "CVE-2026-106581",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "security@docker.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-347"
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://docs.docker.com/desktop/release-notes/#4920",
+            "source": "security@docker.com"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2024-8695",
+        "sourceIdentifier": "security@docker.com",
+        "published": "2024-09-12T18:15:11.333",
+        "lastModified": "2026-06-17T08:23:07.857",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "A remote code execution (RCE) vulnerability via crafted extension description/changelog could be abused by a malicious extension in Docker Desktop before 4.34.2."
+          },
+          {
+            "lang": "es",
+            "value": "Una vulnerabilidad de ejecución de código remoto (RCE) a través de una descripción de extensión/registro de cambios manipulados podría ser aprovechada por una extensión maliciosa en Docker Desktop anterior a 4.34.2."
+          }
+        ],
+        "affected": [
+          {
+            "source": "security@docker.com",
+            "affectedData": [
+              {
+                "vendor": "Docker",
+                "product": "Docker Desktop",
+                "defaultStatus": "unaffected",
+                "modules": [
+                  "Docker Extensions"
+                ],
+                "platforms": [
+                  "Windows",
+                  "MacOS",
+                  "Linux",
+                  "x86",
+                  "ARM"
+                ],
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "4.34.2",
+                    "versionType": "semver",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "affectedData": [
+              {
+                "vendor": "docker",
+                "product": "docker_desktop",
+                "defaultStatus": "unknown",
+                "cpes": [
+                  "cpe:2.3:a:docker:docker_desktop:*:*:*:*:*:*:*:*"
+                ],
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "4.34.2",
+                    "versionType": "semver",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "security@docker.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:N/AC:H/AT:P/PR:N/UI:P/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 9,
+                "baseSeverity": "CRITICAL",
+                "attackVector": "NETWORK",
+                "attackComplexity": "HIGH",
+                "attackRequirements": "PRESENT",
+                "privilegesRequired": "NONE",
+                "userInteraction": "PASSIVE",
+                "vulnConfidentialityImpact": "HIGH",
+                "vulnIntegrityImpact": "HIGH",
+                "vulnAvailabilityImpact": "HIGH",
+                "subConfidentialityImpact": "HIGH",
+                "subIntegrityImpact": "HIGH",
+                "subAvailabilityImpact": "HIGH",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                "baseScore": 9.8,
+                "baseSeverity": "CRITICAL",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 5.9
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2024-09-12T19:11:35.025092Z",
+                "id": "CVE-2024-8695",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "security@docker.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-79"
+              },
+              {
+                "lang": "en",
+                "value": "CWE-94"
+              }
+            ]
+          },
+          {
+            "source": "nvd@nist.gov",
+            "type": "Primary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "NVD-CWE-noinfo"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:docker:desktop:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "4.34.2",
+                    "matchCriteriaId": "51F8992A-68BA-4A66-82F7-A2DC4B156DB9"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://docs.docker.com/desktop/release-notes/#4342",
+            "source": "security@docker.com",
+            "tags": [
+              "Release Notes"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2024-8696",
+        "sourceIdentifier": "security@docker.com",
+        "published": "2024-09-12T18:15:11.490",
+        "lastModified": "2026-06-17T08:23:07.983",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "A remote code execution (RCE) vulnerability via crafted extension publisher-url/additional-urls could be abused by a malicious extension in Docker Desktop before 4.34.2."
+          },
+          {
+            "lang": "es",
+            "value": "Una vulnerabilidad de ejecución de código remoto (RCE) a través de la extensión manipulada publisher-url/additional-urls podría ser aprovechada por una extensión maliciosa en Docker Desktop anterior a 4.34.2."
+          }
+        ],
+        "affected": [
+          {
+            "source": "security@docker.com",
+            "affectedData": [
+              {
+                "vendor": "Docker",
+                "product": "Docker Desktop",
+                "defaultStatus": "unaffected",
+                "modules": [
+                  "Docker Extensions"
+                ],
+                "platforms": [
+                  "Windows",
+                  "MacOS",
+                  "Linux",
+                  "x86",
+                  "ARM"
+                ],
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "4.34.2",
+                    "versionType": "semver",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "affectedData": [
+              {
+                "vendor": "docker",
+                "product": "docker_desktop",
+                "defaultStatus": "unknown",
+                "cpes": [
+                  "cpe:2.3:a:docker:docker_desktop:*:*:*:*:*:*:*:*"
+                ],
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "4.34.2",
+                    "versionType": "semver",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "security@docker.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:N/AC:H/AT:P/PR:N/UI:A/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 8.9,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "HIGH",
+                "attackRequirements": "PRESENT",
+                "privilegesRequired": "NONE",
+                "userInteraction": "ACTIVE",
+                "vulnConfidentialityImpact": "HIGH",
+                "vulnIntegrityImpact": "HIGH",
+                "vulnAvailabilityImpact": "HIGH",
+                "subConfidentialityImpact": "HIGH",
+                "subIntegrityImpact": "HIGH",
+                "subAvailabilityImpact": "HIGH",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                "baseScore": 9.8,
+                "baseSeverity": "CRITICAL",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 5.9
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2024-09-12T19:25:46.342468Z",
+                "id": "CVE-2024-8696",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "security@docker.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-79"
+              },
+              {
+                "lang": "en",
+                "value": "CWE-94"
+              }
+            ]
+          },
+          {
+            "source": "nvd@nist.gov",
+            "type": "Primary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "NVD-CWE-noinfo"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:docker:desktop:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "4.34.2",
+                    "matchCriteriaId": "51F8992A-68BA-4A66-82F7-A2DC4B156DB9"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://docs.docker.com/desktop/release-notes/#4342",
+            "source": "security@docker.com",
+            "tags": [
+              "Release Notes"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2024-9348",
+        "sourceIdentifier": "security@docker.com",
+        "published": "2024-10-16T15:15:18.100",
+        "lastModified": "2026-06-17T08:24:23.663",
+        "vulnStatus": "Deferred",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Docker Desktop before v4.34.3 allows RCE via unsanitized GitHub source link in Build view."
+          },
+          {
+            "lang": "es",
+            "value": "Docker Desktop anterior a v4.34.3 permite RCE a través de un enlace de origen de GitHub no desinfectado en la vista de compilación."
+          }
+        ],
+        "affected": [
+          {
+            "source": "security@docker.com",
+            "affectedData": [
+              {
+                "vendor": "Docker",
+                "product": "Docker Desktop",
+                "defaultStatus": "unaffected",
+                "modules": [
+                  "Builds view"
+                ],
+                "platforms": [
+                  "Windows",
+                  "MacOS",
+                  "Linux",
+                  "x86",
+                  "ARM"
+                ],
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "4.34.3",
+                    "versionType": "semver",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "affectedData": [
+              {
+                "vendor": "docker",
+                "product": "desktop",
+                "defaultStatus": "unknown",
+                "cpes": [
+                  "cpe:2.3:a:docker:desktop:*:*:*:*:*:*:*:*"
+                ],
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "4.34.3",
+                    "versionType": "semver",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "security@docker.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:N/AC:H/AT:P/PR:N/UI:A/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 8.9,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "HIGH",
+                "attackRequirements": "PRESENT",
+                "privilegesRequired": "NONE",
+                "userInteraction": "ACTIVE",
+                "vulnConfidentialityImpact": "HIGH",
+                "vulnIntegrityImpact": "HIGH",
+                "vulnAvailabilityImpact": "HIGH",
+                "subConfidentialityImpact": "HIGH",
+                "subIntegrityImpact": "HIGH",
+                "subAvailabilityImpact": "HIGH",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2024-10-16T15:25:16.890959Z",
+                "id": "CVE-2024-9348",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "security@docker.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-20"
+              }
+            ]
+          },
+          {
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-116"
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://docs.docker.com/desktop/release-notes/#4343",
+            "source": "security@docker.com"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2024-53182",
+        "sourceIdentifier": "416baaa9-dc9f-4396-8d5f-8c081fb06d67",
+        "published": "2024-12-27T14:15:25.643",
+        "lastModified": "2026-06-17T08:08:30.863",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "In the Linux kernel, the following vulnerability has been resolved:\n\nRevert \"block, bfq: merge bfq_release_process_ref() into bfq_put_cooperator()\"\n\nThis reverts commit bc3b1e9e7c50e1de0f573eea3871db61dd4787de.\n\nThe bic is associated with sync_bfqq, and bfq_release_process_ref cannot\nbe put into bfq_put_cooperator.\n\nkasan report:\n[  400.347277] ==================================================================\n[  400.347287] BUG: KASAN: slab-use-after-free in bic_set_bfqq+0x200/0x230\n[  400.347420] Read of size 8 at addr ffff88881cab7d60 by task dockerd/5800\n[  400.347430]\n[  400.347436] CPU: 24 UID: 0 PID: 5800 Comm: dockerd Kdump: loaded Tainted: G E 6.12.0 #32\n[  400.347450] Tainted: [E]=UNSIGNED_MODULE\n[  400.347454] Hardware name: VMware, Inc. VMware20,1/440BX Desktop Reference Platform, BIOS VMW201.00V.20192059.B64.2207280713 07/28/2022\n[  400.347460] Call Trace:\n[  400.347464]  <TASK>\n[  400.347468]  dump_stack_lvl+0x5d/0x80\n[  400.347490]  print_report+0x174/0x505\n[  400.347521]  kasan_report+0xe0/0x160\n[  400.347541]  bic_set_bfqq+0x200/0x230\n[  400.347549]  bfq_bic_update_cgroup+0x419/0x740\n[  400.347560]  bfq_bio_merge+0x133/0x320\n[  400.347584]  blk_mq_submit_bio+0x1761/0x1e20\n[  400.347625]  __submit_bio+0x28b/0x7b0\n[  400.347664]  submit_bio_noacct_nocheck+0x6b2/0xd30\n[  400.347690]  iomap_readahead+0x50c/0x680\n[  400.347731]  read_pages+0x17f/0x9c0\n[  400.347785]  page_cache_ra_unbounded+0x366/0x4a0\n[  400.347795]  filemap_fault+0x83d/0x2340\n[  400.347819]  __xfs_filemap_fault+0x11a/0x7d0 [xfs]\n[  400.349256]  __do_fault+0xf1/0x610\n[  400.349270]  do_fault+0x977/0x11a0\n[  400.349281]  __handle_mm_fault+0x5d1/0x850\n[  400.349314]  handle_mm_fault+0x1f8/0x560\n[  400.349324]  do_user_addr_fault+0x324/0x970\n[  400.349337]  exc_page_fault+0x76/0xf0\n[  400.349350]  asm_exc_page_fault+0x26/0x30\n[  400.349360] RIP: 0033:0x55a480d77375\n[  400.349384] Code: cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc 49 3b 66 10 0f 86 ae 02 00 00 55 48 89 e5 48 83 ec 58 48 8b 10 <83> 7a 10 00 0f 84 27 02 00 00 44 0f b6 42 28 44 0f b6 4a 29 41 80\n[  400.349392] RSP: 002b:00007f18c37fd8b8 EFLAGS: 00010216\n[  400.349401] RAX: 00007f18c37fd9d0 RBX: 0000000000000000 RCX: 0000000000000000\n[  400.349407] RDX: 000055a484407d38 RSI: 000000c000e8b0c0 RDI: 0000000000000000\n[  400.349412] RBP: 00007f18c37fd910 R08: 000055a484017f60 R09: 000055a484066f80\n[  400.349417] R10: 0000000000194000 R11: 0000000000000005 R12: 0000000000000008\n[  400.349422] R13: 0000000000000000 R14: 000000c000476a80 R15: 0000000000000000\n[  400.349430]  </TASK>\n[  400.349452]\n[  400.349454] Allocated by task 5800:\n[  400.349459]  kasan_save_stack+0x30/0x50\n[  400.349469]  kasan_save_track+0x14/0x30\n[  400.349475]  __kasan_slab_alloc+0x89/0x90\n[  400.349482]  kmem_cache_alloc_node_noprof+0xdc/0x2a0\n[  400.349492]  bfq_get_queue+0x1ef/0x1100\n[  400.349502]  __bfq_get_bfqq_handle_split+0x11a/0x510\n[  400.349511]  bfq_insert_requests+0xf55/0x9030\n[  400.349519]  blk_mq_flush_plug_list+0x446/0x14c0\n[  400.349527]  __blk_flush_plug+0x27c/0x4e0\n[  400.349534]  blk_finish_plug+0x52/0xa0\n[  400.349540]  _xfs_buf_ioapply+0x739/0xc30 [xfs]\n[  400.350246]  __xfs_buf_submit+0x1b2/0x640 [xfs]\n[  400.350967]  xfs_buf_read_map+0x306/0xa20 [xfs]\n[  400.351672]  xfs_trans_read_buf_map+0x285/0x7d0 [xfs]\n[  400.352386]  xfs_imap_to_bp+0x107/0x270 [xfs]\n[  400.353077]  xfs_iget+0x70d/0x1eb0 [xfs]\n[  400.353786]  xfs_lookup+0x2ca/0x3a0 [xfs]\n[  400.354506]  xfs_vn_lookup+0x14e/0x1a0 [xfs]\n[  400.355197]  __lookup_slow+0x19c/0x340\n[  400.355204]  lookup_one_unlocked+0xfc/0x120\n[  400.355211]  ovl_lookup_single+0x1b3/0xcf0 [overlay]\n[  400.355255]  ovl_lookup_layer+0x316/0x490 [overlay]\n[  400.355295]  ovl_lookup+0x844/0x1fd0 [overlay]\n[  400.355351]  lookup_one_qstr_excl+0xef/0x150\n[  400.355357]  do_unlinkat+0x22a/0x620\n[  400.355366]  __x64_sys_unlinkat+0x109/0x1e0\n[  400.355375]  do_syscall_64+0x82/0x160\n[  400.355384]  entry_SYSCALL_64_after_hwframe+0x76/0x7\n---truncated---"
+          },
+          {
+            "lang": "es",
+            "value": "En el núcleo de Linux, se ha resuelto la siguiente vulnerabilidad: Revertir \"block, bfq: merge bfq_release_process_ref() into bfq_put_cooperator()\" Esto revierte el commit bc3b1e9e7c50e1de0f573eea3871db61dd4787de. El bic está asociado con sync_bfqq y bfq_release_process_ref no se puede colocar en bfq_put_cooperator. informe de kasan: [ 400.347277] ======================================================================= [ 400.347287] ERROR: KASAN: slab-use-after-free en bic_set_bfqq+0x200/0x230 [ 400.347420] Lectura de tamaño 8 en la dirección ffff88881cab7d60 por la tarea dockerd/5800 [ 400.347430] [ 400.347436] CPU: 24 UID: 0 PID: 5800 Comm: dockerd Kdump: cargado Tainted: GE 6.12.0 #32 [ 400.347450] Contaminado: [E]=UNSIGNED_MODULE [ 400.347454] Nombre del hardware: VMware, Inc. VMware20,1/440BX Desktop Reference Platform, BIOS VMW201.00V.20192059.B64.2207280713 28/07/2022 [ 400.347460] Seguimiento de llamadas: [ 400.347464]  [ 400.347468] dump_stack_lvl+0x5d/0x80 [ 400.347490] print_report+0x174/0x505 [ 400.347521] kasan_report+0xe0/0x160 [ 400.347541] bic_set_bfqq+0x200/0x230 [ 400.347549] bfq_bic_update_cgroup+0x419/0x740 [ 400.347560] bfq_bio_merge+0x133/0x320 [ 400.347584] blk_mq_submit_bio+0x1761/0x1e20 [ 400.347625] __submit_bio+0x28b/0x7b0 [ 400.347664] enviar_bio_noacct_nocheck+0x6b2/0xd30 [ 400.347690] iomap_readahead+0x50c/0x680 [ 400.347731] páginas_de_lectura+0x17f/0x9c0 [ 400.347785] caché_de_página_ra_sin_límites+0x366/0x4a0 [ 400.347795] error_mapa_archivo+0x83d/0x2340 [ 400.347819] error_mapa_archivo_xfs+0x11a/0x7d0 [xfs] [ 400.349256] error_do+0xf1/0x610 [ 400.349270] error_do+0x977/0x11a0 [ 400.349281] error_mm_gestionar+0x5d1/0x850 [ 400.349314] handle_mm_fault+0x1f8/0x560 [ 400.349324] do_user_addr_fault+0x324/0x970 [ 400.349337] exc_page_fault+0x76/0xf0 [ 400.349350] asm_exc_page_fault+0x26/0x30 [ 400.349360] RIP: 0033:0x55a480d77375 [ 400.349384] Código: cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc 49 3b 66 10 0f 86 ae 02 00 00 55 48 89 e5 48 83 ec 58 48 8b 10 &lt;83&gt; 7a 10 00 0f 84 27 02 00 00 44 0f b6 42 28 44 0f b6 4a 29 41 80 [ 400.349392] RSP: 002b:00007f18c37fd8b8 EFLAGS: 00010216 [ 400.349401] RAX: 00007f18c37fd9d0 RBX: 000000000000000 RCX: 0000000000000000 [ 400.349407] RDX: 000055a484407d38 RSI: 000000c000e8b0c0 RDI: 0000000000000000 [ 400.349412] RBP: 00007f18c37fd910 R08: 000055a484017f60 R09: 000055a484066f80 [ 400.349417] R10: 0000000000194000 R11: 0000000000000005 R12: 0000000000000008 [ 400.349422] R13: 0000000000000000 R14: 000000c000476a80 R15: 0000000000000000 [ 400.349430]  [ 400.349452] [ 400.349454] Asignado por la tarea 5800: [ 400.349459] kasan_save_stack+0x30/0x50 [ 400.349469] kasan_save_track+0x14/0x30 [ 400.349475] __kasan_slab_alloc+0x89/0x90 [ 400.349482] kmem_cache_alloc_node_noprof+0xdc/0x2a0 [ 400.349492] bfq_get_queue+0x1ef/0x1100 [ 400.349502] __bfq_get_bfqq_handle_split+0x11a/0x510 [ 400.349511] bfq_insert_requests+0xf55/0x9030 [ 400.349519] blk_mq_flush_plug_list+0x446/0x14c0 [ 400.349527] __blk_flush_plug+0x27c/0x4e0 [ 400.349534] blk_finish_plug+0x52/0xa0 [ 400.349540] _xfs_buf_ioapply+0x739/0xc30 [xfs] [ 400.350246] __xfs_buf_submit+0x1b2/0x640 [xfs] [ 400.350967] xfs_buf_read_map+0x306/0xa20 [xfs] [ 400.351672] xfs_trans_read_buf_map+0x285/0x7d0 [xfs] [ 400.352386] xfs_imap_to_bp+0x107/0x270 [xfs] [ 400.353077] xfs_iget+0x70d/0x1eb0 [xfs] [ 400.353786] xfs_lookup+0x2ca/0x3a0 [xfs] [ 400.354506] xfs_vn_lookup+0x14e/0x1a0 [xfs] [ 400.355197] __lookup_slow+0x19c/0x340 [ 400.355204] lookup_one_unlocked+0xfc/0x120 [ 400.355211] ovl_lookup_single+0x1b3/0xcf0 [superposición] [ 400.355255] ovl_lookup_layer+0x316/0x490 [superposición] [ 400.355295] ovl_lookup+0x844/0x1fd0 [superposición] [ 400.355351] lookup_one_qstr_excl+0xef/0x150 [ 400.355357] do_unlinkat+0x22a/0x620 [ 400.355366] __x64_sys_unlinkat+0x109/0x1e0 [ 400.355375] do_syscall_64+0x82/0x160 [ 400.355384] entrada_SYSCALL_64_after_hwframe+0x76/0x7 ---truncado---"
+          }
+        ],
+        "affected": [
+          {
+            "source": "416baaa9-dc9f-4396-8d5f-8c081fb06d67",
+            "affectedData": [
+              {
+                "vendor": "Linux",
+                "product": "Linux",
+                "defaultStatus": "unaffected",
+                "programFiles": [
+                  "block/bfq-cgroup.c",
+                  "block/bfq-iosched.c"
+                ],
+                "repo": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git",
+                "versions": [
+                  {
+                    "version": "bc3b1e9e7c50e1de0f573eea3871db61dd4787de",
+                    "lessThan": "7baf94232651f39f7108c23bc9548bff89bdc77b",
+                    "versionType": "git",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "bc3b1e9e7c50e1de0f573eea3871db61dd4787de",
+                    "lessThan": "cf5a60d971c7b59efb89927919404be655a9e35a",
+                    "versionType": "git",
+                    "status": "affected"
+                  }
+                ]
+              },
+              {
+                "vendor": "Linux",
+                "product": "Linux",
+                "defaultStatus": "affected",
+                "programFiles": [
+                  "block/bfq-cgroup.c",
+                  "block/bfq-iosched.c"
+                ],
+                "repo": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git",
+                "versions": [
+                  {
+                    "version": "6.12",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "0",
+                    "lessThan": "6.12",
+                    "versionType": "semver",
+                    "status": "unaffected"
+                  },
+                  {
+                    "version": "6.12.2",
+                    "lessThanOrEqual": "6.12.*",
+                    "versionType": "semver",
+                    "status": "unaffected"
+                  },
+                  {
+                    "version": "6.13",
+                    "lessThanOrEqual": "*",
+                    "versionType": "original_commit_for_fix",
+                    "status": "unaffected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+                "baseScore": 7.8,
+                "baseSeverity": "HIGH",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 1.8,
+              "impactScore": 5.9
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2025-03-06T16:09:12.271456Z",
+                "id": "CVE-2024-53182",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-416"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:linux:linux_kernel:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "6.12",
+                    "versionEndExcluding": "6.12.2",
+                    "matchCriteriaId": "D8882B1B-2ABC-4838-AC1D-DBDBB5764776"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://git.kernel.org/stable/c/7baf94232651f39f7108c23bc9548bff89bdc77b",
+            "source": "416baaa9-dc9f-4396-8d5f-8c081fb06d67",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://git.kernel.org/stable/c/cf5a60d971c7b59efb89927919404be655a9e35a",
+            "source": "416baaa9-dc9f-4396-8d5f-8c081fb06d67",
+            "tags": [
+              "Patch"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2024-5652",
+        "sourceIdentifier": "security@docker.com",
+        "published": "2024-07-09T17:15:48.770",
+        "lastModified": "2026-06-17T08:16:22.010",
+        "vulnStatus": "Modified",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "In Docker Desktop on Windows before v4.31.0 allows a user in the docker-users group to cause a Windows Denial-of-Service through the exec-path Docker daemon config option in Windows containers mode."
+          },
+          {
+            "lang": "es",
+            "value": "En Docker Desktop en Windows anterior a v4.31.0, se permite a un usuario del grupo docker-users provocar una denegación de servicio de Windows a través de la opción de configuración del daemon Docker exec-path en el modo contenedores de Windows."
+          }
+        ],
+        "affected": [
+          {
+            "source": "security@docker.com",
+            "affectedData": [
+              {
+                "vendor": "Docker Inc.",
+                "product": "Docker Desktop",
+                "defaultStatus": "unaffected",
+                "platforms": [
+                  "Windows"
+                ],
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "v4.31.0",
+                    "versionType": "semver",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "security@docker.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:H",
+                "baseScore": 6.1,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "LOW",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 1.8,
+              "impactScore": 4.2
+            },
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+                "baseScore": 5.5,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 1.8,
+              "impactScore": 3.6
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2024-07-23T18:59:59.468065Z",
+                "id": "CVE-2024-5652",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "nvd@nist.gov",
+            "type": "Primary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "NVD-CWE-noinfo"
+              }
+            ]
+          },
+          {
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-400"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:docker:desktop:*:*:*:*:*:windows:*:*",
+                    "versionEndExcluding": "4.31.0",
+                    "matchCriteriaId": "C38D238E-A4DC-42FE-9707-6087C4EA6A9D"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://docs.docker.com/desktop/release-notes/#4310",
+            "source": "security@docker.com",
+            "tags": [
+              "Release Notes"
+            ]
+          },
+          {
+            "url": "https://docs.docker.com/desktop/release-notes/#4310",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Release Notes"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2024-6222",
+        "sourceIdentifier": "security@docker.com",
+        "published": "2024-07-09T18:15:12.510",
+        "lastModified": "2026-06-17T08:17:32.760",
+        "vulnStatus": "Modified",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "In Docker Desktop before v4.29.0, an attacker who has gained access to the Docker Desktop VM through a container breakout can further escape to the host by passing extensions and dashboard related IPC messages.\n\nDocker Desktop  v4.29.0 https://docs.docker.com/desktop/release-notes/#4290  fixes the issue on MacOS, Linux and Windows with Hyper-V backend.\n\nAs exploitation requires \"Allow only extensions distributed through the Docker Marketplace\" to be disabled, Docker Desktop  v4.31.0 https://docs.docker.com/desktop/release-notes/#4310  additionally changes the default configuration to enable this setting by default."
+          },
+          {
+            "lang": "es",
+            "value": "En Docker Desktop anterior a v4.29.0, un atacante que obtuvo acceso a la máquina virtual de Docker Desktop a través de una ruptura del contenedor puede escapar al host pasando extensiones y mensajes IPC relacionados con el panel. Docker Desktop v4.29.0 https://docs.docker.com/desktop/release-notes/#4290 soluciona el problema en MacOS, Linux y Windows con backend Hyper-V. Como la explotación requiere que se deshabilite \"Allow only extensions distributed through the Docker Marketplace\", Docker Desktop v4.31.0 https://docs.docker.com/desktop/release-notes/#4310 cambia adicionalmente la configuración predeterminada para habilitar esta configuración al por defecto."
+          }
+        ],
+        "affected": [
+          {
+            "source": "security@docker.com",
+            "affectedData": [
+              {
+                "vendor": "Docker Inc.",
+                "product": "Docker Desktop",
+                "defaultStatus": "unaffected",
+                "platforms": [
+                  "Windows",
+                  "MacOS",
+                  "Linux"
+                ],
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "v4.29.0",
+                    "versionType": "semver",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "affectedData": [
+              {
+                "vendor": "docker",
+                "product": "desktop",
+                "defaultStatus": "unknown",
+                "cpes": [
+                  "cpe:2.3:a:docker:desktop:*:*:*:*:*:*:*:*"
+                ],
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "4.29.0",
+                    "versionType": "custom",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "security@docker.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:L/AC:L/AT:P/PR:H/UI:P/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 7.3,
+                "baseSeverity": "HIGH",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "attackRequirements": "PRESENT",
+                "privilegesRequired": "HIGH",
+                "userInteraction": "PASSIVE",
+                "vulnConfidentialityImpact": "HIGH",
+                "vulnIntegrityImpact": "HIGH",
+                "vulnAvailabilityImpact": "HIGH",
+                "subConfidentialityImpact": "HIGH",
+                "subIntegrityImpact": "HIGH",
+                "subAvailabilityImpact": "HIGH",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H",
+                "baseScore": 7,
+                "baseSeverity": "HIGH",
+                "attackVector": "LOCAL",
+                "attackComplexity": "HIGH",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 1,
+              "impactScore": 5.9
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2024-07-31T00:00:00+00:00",
+                "id": "CVE-2024-6222",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "security@docker.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-923"
+              }
+            ]
+          },
+          {
+            "source": "nvd@nist.gov",
+            "type": "Primary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "NVD-CWE-noinfo"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "operator": "AND",
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:docker:desktop:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "4.29.0",
+                    "matchCriteriaId": "352495C8-4C77-481B-B784-E95A211D9FB9"
+                  }
+                ]
+              },
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": false,
+                    "criteria": "cpe:2.3:o:apple:macos:-:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "387021A0-AF36-463C-A605-32EA7DAC172E"
+                  },
+                  {
+                    "vulnerable": false,
+                    "criteria": "cpe:2.3:o:linux:linux_kernel:-:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "703AF700-7A70-47E2-BC3A-7FD03B3CA9C1"
+                  },
+                  {
+                    "vulnerable": false,
+                    "criteria": "cpe:2.3:o:microsoft:windows:-:*:*:*:*:*:*:*",
+                    "matchCriteriaId": "A2572D17-1DE6-457B-99CC-64AFD54487EA"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://docs.docker.com/desktop/release-notes/#4290",
+            "source": "security@docker.com",
+            "tags": [
+              "Release Notes"
+            ]
+          },
+          {
+            "url": "https://docs.docker.com/desktop/release-notes/#4290",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Release Notes"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2024-29018",
+        "sourceIdentifier": "security-advisories@github.com",
+        "published": "2024-03-20T21:15:31.113",
+        "lastModified": "2026-06-17T07:22:15.720",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Moby is an open source container framework that is a key component of Docker Engine, Docker Desktop, and other distributions of container tooling or runtimes. Moby's networking implementation allows for many networks, each with their own IP address range and gateway, to be defined. This feature is frequently referred to as custom networks, as each network can have a different driver, set of parameters and thus behaviors. When creating a network, the `--internal` flag is used to designate a network as _internal_. The `internal` attribute in a docker-compose.yml file may also be used to mark a network _internal_, and other API clients may specify the `internal` parameter as well.\n\nWhen containers with networking are created, they are assigned unique network interfaces and IP addresses. The host serves as a router for non-internal networks, with a gateway IP that provides SNAT/DNAT to/from container IPs.\n\nContainers on an internal network may communicate between each other, but are precluded from communicating with any networks the host has access to (LAN or WAN) as no default route is configured, and firewall rules are set up to drop all outgoing traffic. Communication with the gateway IP address (and thus appropriately configured host services) is possible, and the host may communicate with any container IP directly.\n\nIn addition to configuring the Linux kernel's various networking features to enable container networking, `dockerd` directly provides some services to container networks. Principal among these is serving as a resolver, enabling service discovery, and resolution of names from an upstream resolver.\n\nWhen a DNS request for a name that does not correspond to a container is received, the request is forwarded to the configured upstream resolver. This request is made from the container's network namespace: the level of access and routing of traffic is the same as if the request was made by the container itself.\n\nAs a consequence of this design, containers solely attached to an internal network will be unable to resolve names using the upstream resolver, as the container itself is unable to communicate with that nameserver. Only the names of containers also attached to the internal network are able to be resolved.\n\nMany systems run a local forwarding DNS resolver. As the host and any containers have separate loopback devices, a consequence of the design described above is that containers are unable to resolve names from the host's configured resolver, as they cannot reach these addresses on the host loopback device. To bridge this gap, and to allow containers to properly resolve names even when a local forwarding resolver is used on a loopback address, `dockerd` detects this scenario and instead forward DNS requests from the host namework namespace. The loopback resolver then forwards the requests to its configured upstream resolvers, as expected.\n\nBecause `dockerd` forwards DNS requests to the host loopback device, bypassing the container network namespace's normal routing semantics entirely, internal networks can unexpectedly forward DNS requests to an external nameserver. By registering a domain for which they control the authoritative nameservers, an attacker could arrange for a compromised container to exfiltrate data by encoding it in DNS queries that will eventually be answered by their nameservers.\n\nDocker Desktop is not affected, as Docker Desktop always runs an internal resolver on a RFC 1918 address.\n\nMoby releases 26.0.0, 25.0.4, and 23.0.11 are patched to prevent forwarding any DNS requests from internal networks. As a workaround, run containers intended to be solely attached to internal networks with a custom upstream address, which will force all upstream DNS queries to be resolved from the container's network namespace."
+          },
+          {
+            "lang": "es",
+            "value": "Moby es un marco de contenedores de código abierto que es un componente clave de Docker Engine, Docker Desktop y otras distribuciones de herramientas o tiempos de ejecución de contenedores. La implementación de redes de Moby permite definir muchas redes, cada una con su propio rango de direcciones IP y puerta de enlace. Esta característica se conoce frecuentemente como redes personalizadas, ya que cada red puede tener un controlador, un conjunto de parámetros y, por lo tanto, comportamientos diferentes. Al crear una red, el indicador `--internal` se utiliza para designar una red como _internal_. El atributo \"interno\" en un archivo docker-compose.yml también se puede usar para marcar una red como _interna_, y otros clientes API también pueden especificar el parámetro \"interno\". Cuando se crean contenedores con redes, se les asignan interfaces de red y direcciones IP únicas. El host sirve como enrutador para redes no internas, con una IP de puerta de enlace que proporciona SNAT/DNAT hacia/desde las IP del contenedor. Los contenedores en una red interna pueden comunicarse entre sí, pero no pueden comunicarse con ninguna red a la que el host tenga acceso (LAN o WAN), ya que no hay una ruta predeterminada configurada y las reglas de firewall están configuradas para eliminar todo el tráfico saliente. Es posible la comunicación con la dirección IP de la puerta de enlace (y, por lo tanto, con los servicios de host configurados adecuadamente), y el host puede comunicarse directamente con cualquier IP de contenedor. Además de configurar las diversas funciones de red del kernel de Linux para habilitar la red de contenedores, `dockerd` proporciona directamente algunos servicios a las redes de contenedores. El principal de ellos es servir como solucionador, permitiendo el descubrimiento de servicios y la resolución de nombres desde un solucionador ascendente. Cuando se recibe una solicitud de DNS para un nombre que no corresponde a un contenedor, la solicitud se reenvía al solucionador ascendente configurado. Esta solicitud se realiza desde el espacio de nombres de la red del contenedor: el nivel de acceso y enrutamiento del tráfico es el mismo que si la solicitud la realizara el propio contenedor. Como consecuencia de este diseño, los contenedores conectados únicamente a una red interna no podrán resolver nombres utilizando el solucionador ascendente, ya que el contenedor en sí no puede comunicarse con ese servidor de nombres. Sólo se pueden resolver los nombres de los contenedores también conectados a la red interna. Muchos sistemas ejecutan un solucionador de DNS de reenvío local. Como el host y cualquier contenedor tienen dispositivos de loopback separados, una consecuencia del diseño descrito anteriormente es que los contenedores no pueden resolver nombres desde el solucionador configurado del host, ya que no pueden alcanzar estas direcciones en el dispositivo de loopback del host. Para cerrar esta brecha y permitir que los contenedores resuelvan nombres correctamente incluso cuando se utiliza un solucionador de reenvío local en una dirección de loopback, `dockerd` detecta este escenario y en su lugar reenvía solicitudes DNS desde el espacio de nombres del trabajo de nombres del host. Luego, el solucionador de bucle invertido reenvía las solicitudes a sus solucionadores ascendentes configurados, como se esperaba. Debido a que `dockerd` reenvía solicitudes de DNS al dispositivo de bucle invertido del host, omitiendo por completo la semántica de enrutamiento normal del espacio de nombres de la red del contenedor, las redes internas pueden reenviar solicitudes de DNS inesperadamente a un servidor de nombres externo. Al registrar un dominio para el cual controlan los servidores de nombres autorizados, un atacante podría hacer que un contenedor comprometido extraiga datos codificándolos en consultas DNS que eventualmente serán respondidas por sus servidores de nombres.---TRUNCADO---"
+          }
+        ],
+        "affected": [
+          {
+            "source": "security-advisories@github.com",
+            "affectedData": [
+              {
+                "vendor": "moby",
+                "product": "moby",
+                "versions": [
+                  {
+                    "version": ">= 26.0.0-rc1, < 26.0.0-rc3",
+                    "status": "affected"
+                  },
+                  {
+                    "version": ">= 25.0.0, < 25.0.5",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "< 23.0.11",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "affectedData": [
+              {
+                "vendor": "mobyproject",
+                "product": "moby",
+                "defaultStatus": "unknown",
+                "cpes": [
+                  "cpe:2.3:a:mobyproject:moby:*:*:*:*:*:*:*:*"
+                ],
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "23.0.11",
+                    "versionType": "custom",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "25.0.0",
+                    "lessThan": "25.0.5",
+                    "versionType": "custom",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "26.0.0-rc1",
+                    "lessThan": "26.0.0-rc3",
+                    "versionType": "custom",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "security-advisories@github.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+                "baseScore": 5.9,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "HIGH",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 2.2,
+              "impactScore": 3.6
+            },
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+                "baseScore": 7.5,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 3.6
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2024-03-28T19:09:14.709513Z",
+                "id": "CVE-2024-29018",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "security-advisories@github.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-669"
+              }
+            ]
+          },
+          {
+            "source": "nvd@nist.gov",
+            "type": "Primary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-669"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:mobyproject:moby:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "23.0.11",
+                    "matchCriteriaId": "F4E13D47-6199-4B46-B318-A62AEEAE309F"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:mobyproject:moby:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "24.0.0",
+                    "versionEndExcluding": "25.0.5",
+                    "matchCriteriaId": "01ABEA35-A81E-4340-81DB-EECFBBE53A4A"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:mobyproject:moby:26.0.0:rc1:*:*:*:*:*:*",
+                    "matchCriteriaId": "38622C05-D42E-4CE6-B0E4-BAF3BE755FB7"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:mobyproject:moby:26.0.0:rc2:*:*:*:*:*:*",
+                    "matchCriteriaId": "40F72F18-4490-4AB7-8918-EE9F97C0696D"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:mobyproject:moby:26.0.0:rc3:*:*:*:*:*:*",
+                    "matchCriteriaId": "73634C7C-CEBD-4ADC-8DF5-E1907A4FD37A"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/moby/moby/pull/46609",
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Issue Tracking"
+            ]
+          },
+          {
+            "url": "https://github.com/moby/moby/security/advisories/GHSA-mq39-4gv4-mvpx",
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          },
+          {
+            "url": "https://github.com/moby/moby/pull/46609",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Issue Tracking"
+            ]
+          },
+          {
+            "url": "https://github.com/moby/moby/security/advisories/GHSA-mq39-4gv4-mvpx",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2024-32473",
+        "sourceIdentifier": "security-advisories@github.com",
+        "published": "2024-04-18T22:15:10.400",
+        "lastModified": "2026-06-17T07:29:41.787",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Moby is an open source container framework that is a key component of Docker Engine, Docker Desktop, and other distributions of container tooling or runtimes. In 26.0.0, IPv6 is not disabled on network interfaces, including those belonging to networks where `--ipv6=false`. An container with an `ipvlan` or `macvlan` interface will normally be configured to share an external network link with the host machine. Because of this direct access, (1) Containers may be able to communicate with other hosts on the local network over link-local IPv6 addresses, (2) if router advertisements are being broadcast over the local network, containers may get SLAAC-assigned addresses, and (3) the interface  will be a member of IPv6 multicast groups. This means interfaces in IPv4-only networks present an unexpectedly and unnecessarily increased attack surface. The issue is patched in 26.0.2. To completely disable IPv6 in a container, use `--sysctl=net.ipv6.conf.all.disable_ipv6=1` in the `docker create` or `docker run` command. Or, in the service configuration of a `compose` file."
+          },
+          {
+            "lang": "es",
+            "value": "Moby es un framework de contenedores de código abierto que es un componente clave de Docker Engine, Docker Desktop y otras distribuciones de herramientas o tiempos de ejecución de contenedores. En 26.0.0, IPv6 no está deshabilitado en las interfaces de red, incluidas aquellas que pertenecen a redes donde `--ipv6=false`. Un contenedor con una interfaz `ipvlan` o `macvlan` normalmente se configurará para compartir un enlace de red externo con la máquina host. Debido a este acceso directo, (1) los contenedores pueden comunicarse con otros hosts en la red local a través de direcciones IPv6 de enlace local, (2) si los anuncios del enrutador se transmiten a través de la red local, los contenedores pueden obtener direcciones asignadas por SLAAC y (3) la interfaz será miembro de grupos de multidifusión IPv6. Esto significa que las interfaces en redes solo IPv4 presentan una superficie de ataque inesperada e innecesariamente mayor. El problema se solucionó en 26.0.2. Para deshabilitar completamente IPv6 en un contenedor, use `--sysctl=net.ipv6.conf.all.disable_ipv6=1` en el comando `docker create` o `docker run`. O, en la configuración del servicio de un archivo \"compose\"."
+          }
+        ],
+        "affected": [
+          {
+            "source": "security-advisories@github.com",
+            "affectedData": [
+              {
+                "vendor": "moby",
+                "product": "moby",
+                "versions": [
+                  {
+                    "version": ">= 26.0.0, < 26.0.2",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "security-advisories@github.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:U/C:H/I:N/A:N",
+                "baseScore": 4.7,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "LOCAL",
+                "attackComplexity": "HIGH",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 1,
+              "impactScore": 3.6
+            },
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:A/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "baseScore": 6.5,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "ADJACENT_NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 3.6
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2024-08-21T13:58:32.109708Z",
+                "id": "CVE-2024-32473",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "security-advisories@github.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-668"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:mobyproject:moby:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "26.0.0",
+                    "versionEndExcluding": "26.0.2",
+                    "matchCriteriaId": "DAD660F2-837E-438E-A08A-3B84A00192C1"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/moby/moby/commit/7cef0d9cd1cf221d8c0b7b7aeda69552649e0642",
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/moby/moby/security/advisories/GHSA-x84c-p2g9-rqv9",
+            "source": "security-advisories@github.com",
+            "tags": [
+              "Mitigation",
+              "Vendor Advisory"
+            ]
+          },
+          {
+            "url": "https://github.com/moby/moby/commit/7cef0d9cd1cf221d8c0b7b7aeda69552649e0642",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Patch"
+            ]
+          },
+          {
+            "url": "https://github.com/moby/moby/security/advisories/GHSA-x84c-p2g9-rqv9",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Mitigation",
+              "Vendor Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-114409",
+        "sourceIdentifier": "security@docker.com",
+        "published": "2026-10-27T13:16:56.717",
+        "lastModified": "2026-11-04T21:17:50.210",
+        "vulnStatus": "Awaiting Analysis",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Docker Desktop before version 4.97.0 could write third-party API keys and OAuth access tokens in cleartext to local application logs and diagnostics bundles due to insufficient IPC payload redaction. An attacker with read access to these files could obtain the credentials. These OAuth tokens are not Docker account tokens. Docker Desktop 4.94.0 and 4.95.0 addressed the known logging paths, but logs containing credentials can remain after upgrading. Docker Desktop 4.97.0 fixes the issue and includes cleanup of existing host logs and crash dumps."
+          }
+        ],
+        "affected": [
+          {
+            "source": "security@docker.com",
+            "affectedData": [
+              {
+                "vendor": "Docker",
+                "product": "Docker Desktop",
+                "defaultStatus": "unaffected",
+                "cpes": [
+                  "cpe:2.3:a:docker:desktop:*:*:*:*:*:*:*:*"
+                ],
+                "platforms": [
+                  "Linux",
+                  "MacOS",
+                  "Windows"
+                ],
+                "versions": [
+                  {
+                    "version": "4.39.0",
+                    "lessThan": "4.97.0",
+                    "versionType": "semver",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "4.97.0",
+                    "versionType": "semver",
+                    "status": "unaffected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "security@docker.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:L/AC:L/AT:P/PR:L/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 5.7,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "attackRequirements": "PRESENT",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "vulnConfidentialityImpact": "HIGH",
+                "vulnIntegrityImpact": "NONE",
+                "vulnAvailabilityImpact": "NONE",
+                "subConfidentialityImpact": "NONE",
+                "subIntegrityImpact": "NONE",
+                "subAvailabilityImpact": "NONE",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-11-04T18:42:45.967622Z",
+                "id": "CVE-2026-114409",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "security@docker.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-532"
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://docs.docker.com/desktop/release-notes/#4970",
+            "source": "security@docker.com"
+          },
+          {
+            "url": "https://docs.docker.com/desktop/troubleshoot-and-support/troubleshoot/#check-the-logs",
+            "source": "security@docker.com"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-112917",
+        "sourceIdentifier": "security@docker.com",
+        "published": "2026-11-03T19:17:53.727",
+        "lastModified": "2026-11-06T21:40:43.450",
+        "vulnStatus": "Awaiting Analysis",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "In Docker Desktop for Windows with the WSL2 backend, an unprivileged Linux container can use 32-bit socketcall to bypass the default seccomp restriction on AF_VSOCK. This can expose host-facing services and Windows files accessible to the logged-in user. The issue affects x86-64 WSL2; LinuxKit-based backends are unaffected. The issue is fully fixed only with Docker Desktop 4.98.0 or later and WSL 3.0.3 or later. Docker Desktop 4.98.0 or later running on an older WSL remains affected."
+          }
+        ],
+        "affected": [
+          {
+            "source": "security@docker.com",
+            "affectedData": [
+              {
+                "vendor": "Docker",
+                "product": "Docker Desktop",
+                "defaultStatus": "affected",
+                "modules": [
+                  "WSL2 backend"
+                ],
+                "platforms": [
+                  "Windows"
+                ],
+                "versions": [
+                  {
+                    "version": "4.98.0",
+                    "lessThan": "*",
+                    "versionType": "semver",
+                    "status": "unaffected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "security@docker.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:L/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:N/SC:H/SI:H/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 9.2,
+                "baseSeverity": "CRITICAL",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "attackRequirements": "NONE",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "vulnConfidentialityImpact": "HIGH",
+                "vulnIntegrityImpact": "HIGH",
+                "vulnAvailabilityImpact": "NONE",
+                "subConfidentialityImpact": "HIGH",
+                "subIntegrityImpact": "HIGH",
+                "subAvailabilityImpact": "NONE",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-11-04T04:56:32.458790Z",
+                "id": "CVE-2026-112917",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "security@docker.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-424"
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://docs.docker.com/desktop/release-notes/#4980",
+            "source": "security@docker.com"
+          },
+          {
+            "url": "https://github.com/microsoft/WSL/releases/tag/3.0.3",
+            "source": "security@docker.com"
+          },
+          {
+            "url": "https://github.com/microsoft/WSL2-Linux-Kernel/releases/tag/linux-msft-wsl-6.18.54.1",
+            "source": "security@docker.com"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-123082",
+        "sourceIdentifier": "security@docker.com",
+        "published": "2026-11-10T15:17:16.033",
+        "lastModified": "2026-11-12T20:04:52.377",
+        "vulnStatus": "Awaiting Analysis",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Docker Desktop before version 4.94.0 could write the signed-in user's Docker Hub access token (a JWT) in cleartext to application logs and diagnostics bundles. IPC payloads that were bare JSON strings or arrays were not redacted before logging, and a Docker Desktop component logged the token when it requested it from the backend. An attacker with read access to these files could obtain the token and use it to read and modify the user's Docker Hub data as that user while the token remains valid. Docker Desktop 4.94.0 redacts these payloads. The fix does not rewrite logs written by earlier versions, which can still contain tokens after upgrading."
+          }
+        ],
+        "affected": [
+          {
+            "source": "security@docker.com",
+            "affectedData": [
+              {
+                "vendor": "Docker",
+                "product": "Docker Desktop",
+                "defaultStatus": "unaffected",
+                "cpes": [
+                  "cpe:2.3:a:docker:desktop:*:*:*:*:*:*:*:*"
+                ],
+                "platforms": [
+                  "Linux",
+                  "MacOS",
+                  "Windows"
+                ],
+                "versions": [
+                  {
+                    "version": "4.43.0",
+                    "lessThan": "4.94.0",
+                    "versionType": "semver",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "4.94.0",
+                    "versionType": "semver",
+                    "status": "unaffected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "security@docker.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:L/AC:L/AT:P/PR:L/UI:N/VC:H/VI:N/VA:N/SC:L/SI:L/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 5.7,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "attackRequirements": "PRESENT",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "vulnConfidentialityImpact": "HIGH",
+                "vulnIntegrityImpact": "NONE",
+                "vulnAvailabilityImpact": "NONE",
+                "subConfidentialityImpact": "LOW",
+                "subIntegrityImpact": "LOW",
+                "subAvailabilityImpact": "NONE",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "security@docker.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-532"
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://docs.docker.com/desktop/release-notes/#4940",
             "source": "security@docker.com"
           }
         ]

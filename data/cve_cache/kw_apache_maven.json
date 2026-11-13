@@ -1,8 +1,8 @@
 {
-  "cveCount": 2,
+  "cveCount": 6,
   "cacheKey": "kw_apache_maven",
-  "coverageStart": "2025-01-01T00:00:00.000Z",
-  "lastFetchedAt": "2026-06-30T03:14:52.092Z",
+  "coverageStart": "2024-01-01T00:00:00.000Z",
+  "lastFetchedAt": "2026-11-13T04:13:22.532Z",
   "cves": [
     {
       "cve": {
@@ -282,6 +282,640 @@
             "source": "security@apache.org",
             "tags": [
               "Not Applicable"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-80351",
+        "sourceIdentifier": "security@apache.org",
+        "published": "2026-09-10T08:16:58.947",
+        "lastModified": "2026-09-14T19:56:49.333",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Improper neutralization of directives in dynamically evaluated code ('eval injection') vulnerability in Apache Camel K.\n\n\n\nAn improper neutralization of directives in dynamically evaluated Maven configuration allows tenant-controlled repository content to influence code execution within the operator pod, potentially enabling tenants to execute arbitrary code with the privileges of the operator.\n\n\n\nThis issue affects Apache Camel K: from 2.0.0 before 2.9.3, from 2.10.1 before 2.10.2.\n\n\n\nUsers are recommended to upgrade to version 2.9.3, 2.10.2 or 2.11.0, which fixes the issue."
+          }
+        ],
+        "affected": [
+          {
+            "source": "security@apache.org",
+            "affectedData": [
+              {
+                "vendor": "Apache Software Foundation",
+                "product": "Apache Camel K",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://hub.docker.com",
+                "packageName": "apache/camel-k",
+                "packageURL": "pkg:docker/apache/camel-k",
+                "versions": [
+                  {
+                    "version": "2.0.0",
+                    "lessThan": "2.9.3",
+                    "versionType": "semver",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "2.10.1",
+                    "lessThan": "2.10.2",
+                    "versionType": "semver",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                "baseScore": 9.8,
+                "baseSeverity": "CRITICAL",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 5.9
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-09-10T15:59:45.659048Z",
+                "id": "CVE-2026-80351",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "yes"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "security@apache.org",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-95"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:apache:camel:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "2.0.0",
+                    "versionEndExcluding": "2.9.3",
+                    "matchCriteriaId": "820E1202-D1F5-41E2-9C24-BF7ADDBCDF1D"
+                  },
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:apache:camel:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "2.10.0",
+                    "versionEndExcluding": "2.10.2",
+                    "matchCriteriaId": "E9BF42EE-01CF-4929-9C6C-F39BDC142202"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://camel.apache.org/security/CVE-2026-80351.html",
+            "source": "security@apache.org",
+            "tags": [
+              "Patch",
+              "Vendor Advisory"
+            ]
+          },
+          {
+            "url": "http://www.openwall.com/lists/oss-security/2026/09/10/14",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Mailing List",
+              "Third Party Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-82428",
+        "sourceIdentifier": "security@apache.org",
+        "published": "2026-09-14T15:17:09.673",
+        "lastModified": "2026-09-14T20:58:48.430",
+        "vulnStatus": "Deferred",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Description\n\nDependency artifacts uploaded with `storm jar --artifacts` were stored under a blob key derived only from\nthe Maven coordinate, for example `dep---.jar`. The key was therefore identical\nfor every user of the cluster and predictable in advance. When the blob already existed, the uploader\ncaught `KeyAlreadyExistsException` and silently reused it, with no check that the existing blob's content\nor owner matched the artifact the submitter had resolved.\n\nA user who uploaded a blob under such a key first therefore controlled the bytes that every later submitter\nof the same coordinate would receive on the worker classpath, resulting in code execution inside another\ntenant's topology.\n\nThis affects deployments where more than one principal may create blobs and where the `--artifacts`\ndependency feature is used.\n\nMitigation\n\nUpgrade to 3.1.0, where each uploaded artifact receives a key carrying a freshly generated UUID and a\npre-existing blob is no longer silently reused.\n\nNote that the corrected key generation is on the SUBMITTING CLIENT, so upgrading the cluster alone does not\nclose this; every client that runs `storm jar --artifacts` must also be upgraded. Operators should audit\nexisting `dep-` blobs for unexpected owners before upgrading. Users who cannot upgrade immediately should\navoid the `--artifacts` mechanism in multi-tenant clusters and distribute dependencies inside the topology\njar instead.\n\nCredit\n\nThe ASF -- found using Claude agents to study the security of open-source projects, validated and reported by Apache Storm."
+          }
+        ],
+        "affected": [
+          {
+            "source": "security@apache.org",
+            "affectedData": [
+              {
+                "vendor": "Apache Software Foundation",
+                "product": "Apache Storm Client",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://repo.maven.apache.org/maven2",
+                "packageName": "org.apache.storm:storm-client",
+                "versions": [
+                  {
+                    "version": "3.0.0",
+                    "lessThan": "3.1.0",
+                    "versionType": "semver",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+                "baseScore": 8.8,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 5.9
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-09-14T19:58:03.203886Z",
+                "id": "CVE-2026-82428",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "security@apache.org",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-22"
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://lists.apache.org/thread/pj3fspp4l10fgk2jkvrnqsmxycmjv622",
+            "source": "security@apache.org"
+          },
+          {
+            "url": "http://www.openwall.com/lists/oss-security/2026/09/13/8",
+            "source": "af854a3a-2127-422b-91ae-364da2661108"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2022-46751",
+        "sourceIdentifier": "security@apache.org",
+        "published": "2023-08-21T07:15:33.740",
+        "lastModified": "2026-11-10T12:10:00.177",
+        "vulnStatus": "Modified",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Improper Restriction of XML External Entity Reference, XML Injection (aka Blind XPath Injection) vulnerability in Apache Software Foundation Apache Ivy.This issue affects any version of Apache Ivy prior to 2.5.2.\n\nWhen Apache Ivy prior to 2.5.2 parses XML files - either its own configuration, Ivy files or Apache Maven POMs - it will allow downloading external document type definitions and expand any entity references contained therein when used.\n\nThis can be used to exfiltrate data, access resources only the machine running Ivy has access to or disturb the execution of Ivy in different ways.\n\nStarting with Ivy 2.5.2 DTD processing is disabled by default except when parsing Maven POMs where the default is to allow DTD processing but only to include a DTD snippet shipping with Ivy that is needed to deal with existing Maven POMs that are not valid XML files but are nevertheless accepted by Maven. Access can be be made more lenient via newly introduced system properties where needed.\n\nUsers of Ivy prior to version 2.5.2 can use Java system properties to restrict processing of external DTDs, see the section about \"JAXP Properties for External Access restrictions\" inside Oracle's \"Java API for XML Processing (JAXP) Security Guide\"."
+          },
+          {
+            "lang": "es",
+            "value": "Vulnerabilidad de Restricción Inadecuada de Referencia a XML External Entity, Inyección XML (también conocida como Inyección XPath Ciega) en Apache Ivy de Apache Software Foundation. Este problema afecta a cualquier versión de Apache Ivy anterior a la 2.5.2.\n\nCuando Apache Ivy anterior a la 2.5.2 analiza archivos XML - ya sea su propia configuración, archivos Ivy o POMs de Apache Maven - permitirá la descarga de definiciones de tipo de documento externas y expandirá cualquier referencia de entidad contenida en ellos cuando se utilicen.\n\nEsto puede usarse para exfiltrar datos, acceder a recursos a los que solo tiene acceso la máquina que ejecuta Ivy o perturbar la ejecución de Ivy de diferentes maneras.\n\nA partir de Ivy 2.5.2, el procesamiento de DTD está deshabilitado por defecto, excepto al analizar POMs de Maven, donde el valor predeterminado es permitir el procesamiento de DTD, pero solo para incluir un fragmento de DTD que se distribuye con Ivy y que es necesario para tratar con POMs de Maven existentes que no son archivos XML válidos pero que, sin embargo, son aceptados por Maven. El acceso puede hacerse más permisivo a través de propiedades de sistema recién introducidas cuando sea necesario.\n\nLos usuarios de Ivy anteriores a la versión 2.5.2 pueden usar propiedades de sistema de Java para restringir el procesamiento de DTDs externas; consulte la sección sobre ’Propiedades JAXP para restricciones de acceso externo’ dentro de la ’Guía de seguridad de la API de Java para procesamiento XML (JAXP)’ de Oracle."
+          }
+        ],
+        "affected": [
+          {
+            "source": "security@apache.org",
+            "affectedData": [
+              {
+                "vendor": "Apache Software Foundation",
+                "product": "Apache Ivy",
+                "defaultStatus": "unaffected",
+                "versions": [
+                  {
+                    "version": "1.0.0",
+                    "lessThanOrEqual": "2.5.1",
+                    "versionType": "semver",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "affectedData": [
+              {
+                "vendor": "apache",
+                "product": "ivy",
+                "defaultStatus": "unknown",
+                "cpes": [
+                  "cpe:2.3:a:apache:ivy:*:*:*:*:*:*:*:*"
+                ],
+                "versions": [
+                  {
+                    "version": "1.0.0",
+                    "lessThanOrEqual": "2.5.1",
+                    "versionType": "custom",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:L",
+                "baseScore": 8.2,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "LOW"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 4.2
+            },
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:L",
+                "baseScore": 8.2,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "LOW"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 4.2
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2024-09-27T20:07:17.726856Z",
+                "id": "CVE-2022-46751",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "yes"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "security@apache.org",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-91"
+              },
+              {
+                "lang": "en",
+                "value": "CWE-611"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:apache:ivy:*:*:*:*:*:*:*:*",
+                    "versionEndExcluding": "2.5.2",
+                    "matchCriteriaId": "9859B6AC-BC83-4555-AA73-4568233DDA2D"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "http://www.openwall.com/lists/oss-security/2023/09/06/9",
+            "source": "security@apache.org"
+          },
+          {
+            "url": "https://docs.oracle.com/en/java/javase/13/security/java-api-xml-processing-jaxp-security-guide.html#GUID-94ABC0EE-9DC8-44F0-84AD-47ADD5340477",
+            "source": "security@apache.org",
+            "tags": [
+              "Third Party Advisory"
+            ]
+          },
+          {
+            "url": "https://gitbox.apache.org/repos/asf?p=ant-ivy.git;a=commit;h=2be17bc18b0e1d4123007d579e43ba1a4b6fab3d",
+            "source": "security@apache.org",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          },
+          {
+            "url": "https://lists.apache.org/thread/1dj60hg5nr36kjr4p1100dwjrqookps8",
+            "source": "security@apache.org",
+            "tags": [
+              "Mailing List",
+              "Vendor Advisory"
+            ]
+          },
+          {
+            "url": "https://lists.apache.org/thread/9gcz4xrsn8c7o9gb377xfzvkb8jltffr",
+            "source": "security@apache.org",
+            "tags": [
+              "Mailing List",
+              "Vendor Advisory"
+            ]
+          },
+          {
+            "url": "http://www.openwall.com/lists/oss-security/2023/09/06/9",
+            "source": "af854a3a-2127-422b-91ae-364da2661108"
+          },
+          {
+            "url": "https://docs.oracle.com/en/java/javase/13/security/java-api-xml-processing-jaxp-security-guide.html#GUID-94ABC0EE-9DC8-44F0-84AD-47ADD5340477",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Third Party Advisory"
+            ]
+          },
+          {
+            "url": "https://gitbox.apache.org/repos/asf?p=ant-ivy.git;a=commit;h=2be17bc18b0e1d4123007d579e43ba1a4b6fab3d",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          },
+          {
+            "url": "https://lists.apache.org/thread/1dj60hg5nr36kjr4p1100dwjrqookps8",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Mailing List",
+              "Vendor Advisory"
+            ]
+          },
+          {
+            "url": "https://lists.apache.org/thread/9gcz4xrsn8c7o9gb377xfzvkb8jltffr",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Mailing List",
+              "Vendor Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-64609",
+        "sourceIdentifier": "security@apache.org",
+        "published": "2026-07-21T10:16:25.057",
+        "lastModified": "2026-10-24T20:10:00.137",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Out-of-bounds read via sun.misc.Unsafe in Apache Fory. When out-of-band zero-copy deserialization is used, readAlignedVarUint() can read beyond the bounds of the underlying buffer. Out-of-band zero-copy deserialization is an opt-in feature; applications that do not use it are not affected.\n\nThis issue affects Apache Fory (formerly Apache Fury): from 0.5.0 before 1.4.0. Versions before 0.11.0 were published under the Maven coordinates org.apache.fury:fury-core.\n\nUsers are recommended to upgrade to version 1.4.0, which fixes the issue."
+          },
+          {
+            "lang": "es",
+            "value": "Lectura fuera de límites a través de sun.misc.Unsafe en Apache Fory. Cuando se utiliza la deserialización de copia cero fuera de banda, readAlignedVarUint() puede leer más allá de los límites del búfer subyacente. La deserialización de copia cero fuera de banda es una característica de activación voluntaria; las aplicaciones que no la utilizan no se ven afectadas.\n\nEste problema afecta a Apache Fory (anteriormente Apache Fury): desde 0.5.0 antes de 1.4.0. Las versiones anteriores a 0.11.0 se publicaron bajo las coordenadas de Maven org.apache.fury:fury-core.\n\nSe recomienda a los usuarios actualizar a la versión 1.4.0, que corrige el problema."
+          }
+        ],
+        "affected": [
+          {
+            "source": "security@apache.org",
+            "affectedData": [
+              {
+                "vendor": "Apache Software Foundation",
+                "product": "Apache Fory",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://repo.maven.apache.org/maven2",
+                "packageName": "org.apache.fory:fory-core",
+                "versions": [
+                  {
+                    "version": "0.11.0",
+                    "lessThan": "1.4.0",
+                    "versionType": "maven",
+                    "status": "affected"
+                  }
+                ]
+              },
+              {
+                "vendor": "Apache Software Foundation",
+                "product": "Apache Fory",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://repo.maven.apache.org/maven2",
+                "packageName": "org.apache.fury:fury-core",
+                "versions": [
+                  {
+                    "version": "0.5.0",
+                    "lessThan": "0.11.0",
+                    "versionType": "maven",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:H",
+                "baseScore": 9.1,
+                "baseSeverity": "CRITICAL",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "NONE",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 5.2
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-07-21T13:41:32.281643Z",
+                "id": "CVE-2026-64609",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "yes"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "security@apache.org",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-125"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:apache:fory:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "0.5.0",
+                    "versionEndExcluding": "1.4.0",
+                    "matchCriteriaId": "7365F27C-ACED-43E0-9BCE-8EBFADEFD7DE"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://lists.apache.org/thread/rdv22ks3b0cxh0r52w3ghxgkxqso3f1b",
+            "source": "security@apache.org",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          },
+          {
+            "url": "http://www.openwall.com/lists/oss-security/2026/07/21/6",
+            "source": "af854a3a-2127-422b-91ae-364da2661108",
+            "tags": [
+              "Third Party Advisory"
             ]
           }
         ]

@@ -1,9 +1,9 @@
 {
-  "productCount": 1305,
-  "totalResults": 1305,
+  "productCount": 1327,
+  "totalResults": 1327,
   "tooGeneric": false,
   "cacheKey": "cpekw_local",
-  "fetchedAt": "2026-06-30T03:12:25.741Z",
+  "fetchedAt": "2026-10-14T11:11:24.807Z",
   "products": [
     {
       "cpe": {
@@ -25282,6 +25282,64 @@
     {
       "cpe": {
         "deprecated": false,
+        "cpeName": "cpe:2.3:a:nervythemes:local_business_addons_for_elementor:1.1.5:*:*:*:*:wordpress:*:*",
+        "cpeNameId": "EC02A397-D502-4792-A214-3BA413FEBCA4",
+        "lastModified": "2026-08-11T14:17:37.120",
+        "created": "2026-08-11T14:17:37.120",
+        "titles": [
+          {
+            "title": "NervyThemes Local Business Addons for Elementor 1.1.5 for WordPress",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://wordpress.org/plugins/map-addons-for-elementor-waze-map/",
+            "type": "Project"
+          },
+          {
+            "ref": "https://patchstack.com/database/vulnerability/map-addons-for-elementor-waze-map/wordpress-local-business-addons-for-elementor-plugin-1-1-5-stored-cross-site-scripting-xss-vulnerability?_s_id=cve",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://nervythemes.com/",
+            "type": "Vendor"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:nervythemes:local_business_addons_for_elementor:-:*:*:*:*:wordpress:*:*",
+        "cpeNameId": "BD6CF495-A78A-484B-B32B-EF944C6A08C9",
+        "lastModified": "2026-08-11T14:17:37.120",
+        "created": "2026-08-11T14:17:37.120",
+        "titles": [
+          {
+            "title": "NervyThemes Local Business Addons for Elementor for WordPress",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://wordpress.org/plugins/map-addons-for-elementor-waze-map/",
+            "type": "Project"
+          },
+          {
+            "ref": "https://patchstack.com/database/vulnerability/map-addons-for-elementor-waze-map/wordpress-local-business-addons-for-elementor-plugin-1-1-5-stored-cross-site-scripting-xss-vulnerability?_s_id=cve",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://nervythemes.com/",
+            "type": "Vendor"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
         "cpeName": "cpe:2.3:a:code-projects:local_storage_todo_app:1.0:*:*:*:*:*:*:*",
         "cpeNameId": "4BA6D01C-190A-4445-A11E-78696CB28F5B",
         "lastModified": "2025-01-15T17:55:41.037",
@@ -27194,6 +27252,31 @@
           {
             "ref": "https://github.com/mudler/LocalAI",
             "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:ibm:planning_analytics_local:2.0.106:*:*:*:*:*:*:*",
+        "cpeNameId": "D38A3E95-79FF-45B9-B7FD-6AECB13E171C",
+        "lastModified": "2026-08-13T14:19:03.523",
+        "created": "2026-08-13T14:19:03.523",
+        "titles": [
+          {
+            "title": "IBM Planning Analytics Local 2.0.106",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.ibm.com/docs/en/planning-analytics/2.1.0?topic=offerings-planning-analytics-local-installation-configuration",
+            "type": "Product"
+          },
+          {
+            "ref": "https://www.ibm.com/support/pages/node/7246602",
+            "type": "Advisory"
           }
         ]
       }
@@ -30237,6 +30320,27 @@
     {
       "cpe": {
         "deprecated": false,
+        "cpeName": "cpe:2.3:a:ibm:planning_analytics_local:2.1.16:*:*:*:*:*:*:*",
+        "cpeNameId": "EFAD9AE1-C211-44F9-881C-310F88F9971B",
+        "lastModified": "2026-08-13T14:19:03.523",
+        "created": "2026-08-13T14:19:03.523",
+        "titles": [
+          {
+            "title": "IBM Planning Analytics Local 2.1.16",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.ibm.com/support/pages/node/7253603",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
         "cpeName": "cpe:2.3:a:f5:big-ip_local_traffic_manager:17.1.3.1:*:*:*:*:*:*:*",
         "cpeNameId": "3ABC5465-3EDB-4C40-887A-17715B17F930",
         "lastModified": "2026-02-11T19:47:37.547",
@@ -32055,6 +32159,52 @@
     {
       "cpe": {
         "deprecated": false,
+        "cpeName": "cpe:2.3:a:ibm:planning_analytics_local:2.1.18:*:*:*:*:*:*:*",
+        "cpeNameId": "86A410C2-B945-4AFD-AAEB-51EC5893BC99",
+        "lastModified": "2026-08-13T14:19:03.523",
+        "created": "2026-08-13T14:19:03.523",
+        "titles": [
+          {
+            "title": "IBM Planning Analytics Local 2.1.18",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.ibm.com/mysupport/s/topic/0TO500000002PWWGA2/planning-analytics-local?language=en_US&productId=01t50000004Xdyn",
+            "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:microsoft:azure_local:2604.2.25645:*:*:*:*:*:*:*",
+        "cpeNameId": "330137DF-5340-45DD-A959-97BFC0B8D674",
+        "lastModified": "2026-07-28T19:13:39.983",
+        "created": "2026-07-28T19:13:39.983",
+        "titles": [
+          {
+            "title": "Microsoft Azure Local 2604.2.25645",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-42822",
+            "type": "Advisory"
+          },
+          {
+            "ref": "https://learn.microsoft.com/en-us/azure/azure-local/manage/disconnected-operations-whats-new?view=azloc-2604",
+            "type": "Change Log"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
         "cpeName": "cpe:2.3:a:suse:local_path_provisioner:0.0.36:-:*:*:*:kubernetes:*:*",
         "cpeNameId": "FC68B123-64E3-42E7-835C-83D466E146E6",
         "lastModified": "2026-06-08T14:05:07.523",
@@ -33401,6 +33551,466 @@
           {
             "ref": "https://github.com/rancher/local-path-provisioner",
             "type": "Product"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:localgovdrupal:localgov_workflows:1.6.0:*:*:*:*:drupal:*:*",
+        "cpeNameId": "E3360760-5636-4E2F-9FEA-F48266F2D6A0",
+        "lastModified": "2026-08-06T15:15:09.993",
+        "created": "2026-08-06T15:15:09.993",
+        "titles": [
+          {
+            "title": "LocalGov Drupal LocalGov Workflows 1.6.0 for Drupal",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://localgovdrupal.org/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.drupal.org/project/localgov_workflows/releases",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.drupal.org/sa-contrib-2026-039",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:localgovdrupal:localgov_workflows:1.5.0:*:*:*:*:drupal:*:*",
+        "cpeNameId": "94261F6C-C031-44FB-9C6B-59B5C784D2C4",
+        "lastModified": "2026-08-06T15:15:09.993",
+        "created": "2026-08-06T15:15:09.993",
+        "titles": [
+          {
+            "title": "LocalGov Drupal LocalGov Workflows 1.5.0 for Drupal",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://localgovdrupal.org/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.drupal.org/project/localgov_workflows/releases",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.drupal.org/project/localgov_workflows",
+            "type": "Product"
+          },
+          {
+            "ref": "https://www.drupal.org/sa-contrib-2026-039",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:localgovdrupal:localgov_workflows:1.4.3:*:*:*:*:drupal:*:*",
+        "cpeNameId": "75DD605B-E5C7-4B41-9150-36D3351D8D2E",
+        "lastModified": "2026-08-06T15:15:09.993",
+        "created": "2026-08-06T15:15:09.993",
+        "titles": [
+          {
+            "title": "LocalGov Drupal LocalGov Workflows 1.4.3 for Drupal",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://localgovdrupal.org/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.drupal.org/project/localgov_workflows/releases",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.drupal.org/project/localgov_workflows",
+            "type": "Product"
+          },
+          {
+            "ref": "https://www.drupal.org/sa-contrib-2026-039",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:localgovdrupal:localgov_workflows:1.4.2:*:*:*:*:drupal:*:*",
+        "cpeNameId": "D8B9CF22-E9C7-439E-B022-A685465614A1",
+        "lastModified": "2026-08-06T15:15:09.993",
+        "created": "2026-08-06T15:15:09.993",
+        "titles": [
+          {
+            "title": "LocalGov Drupal LocalGov Workflows 1.4.2 for Drupal",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://localgovdrupal.org/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.drupal.org/project/localgov_workflows/releases",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.drupal.org/project/localgov_workflows",
+            "type": "Product"
+          },
+          {
+            "ref": "https://www.drupal.org/sa-contrib-2026-039",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:localgovdrupal:localgov_workflows:1.4.1:*:*:*:*:drupal:*:*",
+        "cpeNameId": "9B892FDD-5B4A-4C47-B1F9-2B835A8B96CD",
+        "lastModified": "2026-08-06T15:15:09.993",
+        "created": "2026-08-06T15:15:09.993",
+        "titles": [
+          {
+            "title": "LocalGov Drupal LocalGov Workflows 1.4.1 for Drupal",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://localgovdrupal.org/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.drupal.org/project/localgov_workflows/releases",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.drupal.org/project/localgov_workflows",
+            "type": "Product"
+          },
+          {
+            "ref": "https://www.drupal.org/sa-contrib-2026-039",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:localgovdrupal:localgov_workflows:1.4.0:*:*:*:*:drupal:*:*",
+        "cpeNameId": "FB224C0C-7D02-455D-BF52-BC90E763C0FC",
+        "lastModified": "2026-08-06T15:15:09.993",
+        "created": "2026-08-06T15:15:09.993",
+        "titles": [
+          {
+            "title": "LocalGov Drupal LocalGov Workflows 1.4.0 for Drupal",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://localgovdrupal.org/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.drupal.org/project/localgov_workflows/releases",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.drupal.org/project/localgov_workflows",
+            "type": "Product"
+          },
+          {
+            "ref": "https://www.drupal.org/sa-contrib-2026-039",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:localgovdrupal:localgov_workflows:1.3.11:*:*:*:*:drupal:*:*",
+        "cpeNameId": "F6D6493E-3138-4DFC-853E-2B6BA89BE4F1",
+        "lastModified": "2026-08-06T15:15:09.993",
+        "created": "2026-08-06T15:15:09.993",
+        "titles": [
+          {
+            "title": "LocalGov Drupal LocalGov Workflows 1.3.11 for Drupal",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://localgovdrupal.org/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.drupal.org/project/localgov_workflows/releases",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.drupal.org/project/localgov_workflows",
+            "type": "Product"
+          },
+          {
+            "ref": "https://www.drupal.org/sa-contrib-2026-039",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:localgovdrupal:localgov_workflows:1.3.10:*:*:*:*:drupal:*:*",
+        "cpeNameId": "80701642-F594-4EEA-93B3-7B653C59B7F7",
+        "lastModified": "2026-08-06T15:15:09.993",
+        "created": "2026-08-06T15:15:09.993",
+        "titles": [
+          {
+            "title": "LocalGov Drupal LocalGov Workflows 1.3.10 for Drupal",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://localgovdrupal.org/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://www.drupal.org/project/localgov_workflows/releases",
+            "type": "Change Log"
+          },
+          {
+            "ref": "https://www.drupal.org/project/localgov_workflows",
+            "type": "Product"
+          },
+          {
+            "ref": "https://www.drupal.org/sa-contrib-2026-039",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:nervythemes:local_business_addons_for_elementor:1.0:*:*:*:*:wordpress:*:*",
+        "cpeNameId": "4DEB7091-FCD5-431B-B571-873CC5BBE69B",
+        "lastModified": "2026-08-11T14:19:13.050",
+        "created": "2026-08-11T14:19:13.050",
+        "titles": [
+          {
+            "title": "NervyThemes Local Business Addons for Elementor 1.0 for WordPress",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://nervythemes.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://wordpress.org/plugins/map-addons-for-elementor-waze-map/",
+            "type": "Project"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:nervythemes:local_business_addons_for_elementor:1.1:*:*:*:*:wordpress:*:*",
+        "cpeNameId": "17854CBC-AABD-4874-9FCA-40B37392B265",
+        "lastModified": "2026-08-11T14:19:13.050",
+        "created": "2026-08-11T14:19:13.050",
+        "titles": [
+          {
+            "title": "NervyThemes Local Business Addons for Elementor 1.1 for WordPress",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://nervythemes.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://wordpress.org/plugins/map-addons-for-elementor-waze-map/",
+            "type": "Project"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:nervythemes:local_business_addons_for_elementor:1.1.1:*:*:*:*:wordpress:*:*",
+        "cpeNameId": "24D25D57-FB77-4359-A49B-6833088CEB56",
+        "lastModified": "2026-08-11T14:19:13.050",
+        "created": "2026-08-11T14:19:13.050",
+        "titles": [
+          {
+            "title": "NervyThemes Local Business Addons for Elementor 1.1.1 for WordPress",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://nervythemes.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://wordpress.org/plugins/map-addons-for-elementor-waze-map/",
+            "type": "Project"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:nervythemes:local_business_addons_for_elementor:1.1.2:*:*:*:*:wordpress:*:*",
+        "cpeNameId": "13939531-AB0C-40A6-8FD3-191D94C81084",
+        "lastModified": "2026-08-11T14:19:13.050",
+        "created": "2026-08-11T14:19:13.050",
+        "titles": [
+          {
+            "title": "NervyThemes Local Business Addons for Elementor 1.1.2 for WordPress",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://nervythemes.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://wordpress.org/plugins/map-addons-for-elementor-waze-map/",
+            "type": "Project"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:nervythemes:local_business_addons_for_elementor:1.1.3:*:*:*:*:wordpress:*:*",
+        "cpeNameId": "67121328-A650-4F86-B862-08E3E13CF985",
+        "lastModified": "2026-08-11T14:19:13.050",
+        "created": "2026-08-11T14:19:13.050",
+        "titles": [
+          {
+            "title": "NervyThemes Local Business Addons for Elementor 1.1.3 for WordPress",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://nervythemes.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://wordpress.org/plugins/map-addons-for-elementor-waze-map/",
+            "type": "Project"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:nervythemes:local_business_addons_for_elementor:1.1.4:*:*:*:*:wordpress:*:*",
+        "cpeNameId": "9A29151B-845F-4CB4-8A2E-2DF185D42107",
+        "lastModified": "2026-08-11T14:19:13.050",
+        "created": "2026-08-11T14:19:13.050",
+        "titles": [
+          {
+            "title": "NervyThemes Local Business Addons for Elementor 1.1.4 for WordPress",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://nervythemes.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://wordpress.org/plugins/map-addons-for-elementor-waze-map/",
+            "type": "Project"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:ibm:planning_analytics_local:2.1.21:*:*:*:*:*:*:*",
+        "cpeNameId": "93410BDB-AEA1-4E8C-952A-5B00650B9D17",
+        "lastModified": "2026-08-13T14:19:03.523",
+        "created": "2026-08-13T14:19:03.523",
+        "titles": [
+          {
+            "title": "IBM Planning Analytics Local 2.1.21",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.ibm.com/support/pages/node/7278566",
+            "type": "Advisory"
+          }
+        ]
+      }
+    },
+    {
+      "cpe": {
+        "deprecated": false,
+        "cpeName": "cpe:2.3:a:f5:big-ip_local_traffic_manager:21.1.0:*:*:*:*:*:*:*",
+        "cpeNameId": "3AF7B1A4-BCB8-4E50-A11D-653E80D4D330",
+        "lastModified": "2026-09-22T17:27:11.700",
+        "created": "2026-09-22T17:27:11.700",
+        "titles": [
+          {
+            "title": "F5 BIG-IP Local Traffic Manager 21.1.0",
+            "lang": "en"
+          }
+        ],
+        "refs": [
+          {
+            "ref": "https://www.f5.com/",
+            "type": "Vendor"
+          },
+          {
+            "ref": "https://support.f5.com/kb/en-us/products/big-ip_apm.html",
+            "type": "Product"
+          },
+          {
+            "ref": "https://my.f5.com/manage/s/article/K000161728",
+            "type": "Advisory"
           }
         ]
       }

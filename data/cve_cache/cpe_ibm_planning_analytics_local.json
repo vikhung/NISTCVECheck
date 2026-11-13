@@ -1,8 +1,8 @@
 {
-  "cveCount": 11,
+  "cveCount": 13,
   "cacheKey": "cpe_ibm_planning_analytics_local",
   "coverageStart": "2025-01-01T00:00:00.000Z",
-  "lastFetchedAt": "2026-06-30T03:12:51.033Z",
+  "lastFetchedAt": "2026-10-14T11:11:24.822Z",
   "cves": [
     {
       "cve": {
@@ -291,13 +291,17 @@
         "id": "CVE-2025-36299",
         "sourceIdentifier": "psirt@us.ibm.com",
         "published": "2025-11-17T20:15:51.280",
-        "lastModified": "2026-06-17T09:14:38.843",
+        "lastModified": "2026-10-07T21:10:00.200",
         "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
             "lang": "en",
             "value": "IBM Planning Analytics Local 2.1.0 through 2.1.14 stores sensitive information in source code could be used in further attacks against the system."
+          },
+          {
+            "lang": "es",
+            "value": "IBM Planning Analytics Local 2.1.0 hasta 2.1.14 almacena información sensible en el código fuente que podría ser utilizada en ataques posteriores contra el sistema."
           }
         ],
         "affected": [
@@ -424,13 +428,17 @@
         "id": "CVE-2025-36357",
         "sourceIdentifier": "psirt@us.ibm.com",
         "published": "2025-11-17T20:15:51.490",
-        "lastModified": "2026-06-17T09:14:39.977",
+        "lastModified": "2026-10-07T21:10:00.200",
         "vulnStatus": "Analyzed",
         "cveTags": [],
         "descriptions": [
           {
             "lang": "en",
             "value": "IBM Planning Analytics Local 2.1.0 through 2.1.14 could allow a remote authenticated user to traverse directories on the system. An attacker could send a specially crafted URL request containing absolute path sequences to view, read, or write arbitrary files on the system."
+          },
+          {
+            "lang": "es",
+            "value": "IBM Planning Analytics Local 2.1.0 hasta 2.1.14 podría permitir a un usuario remoto autenticado recorrer directorios en el sistema. Un atacante podría enviar una solicitud URL especialmente diseñada que contenga secuencias de ruta absoluta para ver, leer o escribir archivos arbitrarios en el sistema."
           }
         ],
         "affected": [
@@ -1570,6 +1578,280 @@
         "references": [
           {
             "url": "https://www.ibm.com/support/pages/node/7235182",
+            "source": "psirt@us.ibm.com",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-10545",
+        "sourceIdentifier": "psirt@us.ibm.com",
+        "published": "2026-07-30T19:17:01.597",
+        "lastModified": "2026-08-12T19:55:16.987",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "IBM Planning Analytics Local 2.1.0 through 2.1.21 is vulnerable to an open redirect that allows an attacker to redirect users to arbitrary external websites via a crafted URL. If used in SSO authentication flows, this could result in exposure of session tokens and allow attackers to hijack user sessions."
+          }
+        ],
+        "affected": [
+          {
+            "source": "psirt@us.ibm.com",
+            "affectedData": [
+              {
+                "vendor": "IBM",
+                "product": "Planning Analytics Local",
+                "cpes": [
+                  "cpe:2.3:a:ibm:planning_analytics_local:2.1.0:*:*:*:*:*:*:*",
+                  "cpe:2.3:a:ibm:planning_analytics_local:2.1.21:*:*:*:*:*:*:*"
+                ],
+                "versions": [
+                  {
+                    "version": "2.1.0",
+                    "lessThanOrEqual": "2.1.21",
+                    "versionType": "semver",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "psirt@us.ibm.com",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:H",
+                "baseScore": 7.5,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "HIGH",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 1.6,
+              "impactScore": 5.9
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-07-30T18:32:09.483974Z",
+                "id": "CVE-2026-10545",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "psirt@us.ibm.com",
+            "type": "Primary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-601"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:ibm:planning_analytics_local:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "2.1.0",
+                    "versionEndIncluding": "2.1.21",
+                    "matchCriteriaId": "BD4FC622-0902-4924-8F57-205D3C15DE06"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://www.ibm.com/support/pages/node/7278566",
+            "source": "psirt@us.ibm.com",
+            "tags": [
+              "Vendor Advisory"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-13365",
+        "sourceIdentifier": "psirt@us.ibm.com",
+        "published": "2026-08-13T20:17:13.773",
+        "lastModified": "2026-08-17T17:37:48.063",
+        "vulnStatus": "Analyzed",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "IBM Planning Analytics 2.0, and 2.1 Local is vulnerable to cross-site request forgery which could allow an attacker to execute malicious and unauthorized actions transmitted from a user that the website trusts."
+          }
+        ],
+        "affected": [
+          {
+            "source": "psirt@us.ibm.com",
+            "affectedData": [
+              {
+                "vendor": "IBM",
+                "product": "Planning Analytics",
+                "cpes": [
+                  "cpe:2.3:a:ibm:planning_analytics:2.0:*:*:*:*:*:*:*",
+                  "cpe:2.3:a:ibm:planning_analytics:2.0.0:*:*:*:*:*:*:*",
+                  "cpe:2.3:a:ibm:planning_analytics:2.1:*:*:*:*:*:*:*",
+                  "cpe:2.3:a:ibm:planning_analytics:2.1.0:*:*:*:*:*:*:*"
+                ],
+                "versions": [
+                  {
+                    "version": "2.0",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "2.1",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "psirt@us.ibm.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:L",
+                "baseScore": 7.1,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "LOW"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 4.2
+            },
+            {
+              "source": "nvd@nist.gov",
+              "type": "Primary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N",
+                "baseScore": 6.5,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "NONE",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "NONE"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 3.6
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-08-14T16:21:02.752996Z",
+                "id": "CVE-2026-13365",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "psirt@us.ibm.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-352"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "operator": "OR",
+                "negate": false,
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:ibm:planning_analytics_local:*:*:*:*:*:*:*:*",
+                    "versionStartIncluding": "2.0.0",
+                    "versionEndExcluding": "2.1.23",
+                    "matchCriteriaId": "22AA19A9-9EF7-428A-AC67-440970E7F327"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://www.ibm.com/support/pages/node/7283486",
             "source": "psirt@us.ibm.com",
             "tags": [
               "Vendor Advisory"

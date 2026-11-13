@@ -140,11 +140,6 @@ footer{text-align:center;padding:24px;font-size:.74rem;color:#94a3b8}
   <div class="card-title">⚙ 掃描設定（選填，設定會自動儲存）</div>
   <div class="settings-grid">
     <div class="form-group">
-      <label>NIST API Key</label>
-      <input type="password" id="api-key" placeholder="未填仍可運作，但速率較慢">
-      <span class="hint">無 Key：6.5 秒/次 &nbsp;|&nbsp; 有 Key：0.7 秒/次 &nbsp;&nbsp;<a href="https://nvd.nist.gov/developers/request-an-api-key" target="_blank">免費申請</a></span>
-    </div>
-    <div class="form-group">
       <label>最低嚴重度</label>
       <select id="min-severity">
         <option value="LOW">LOW（全部）</option>
@@ -156,7 +151,7 @@ footer{text-align:center;padding:24px;font-size:.74rem;color:#94a3b8}
     <div class="form-group">
       <label>CVE 最早年份</label>
       <input type="number" id="min-year" placeholder="空白=當年−1（預設）">
-      <span class="hint">只顯示該年份後發佈的 CVE</span>
+      <span class="hint">只顯示該年份後發佈的 CVE。預設為今年−1（與 CLI 一致）；改成更早的年份時，本機快取會補下載該段舊資料，第一次較慢</span>
     </div>
   </div>
   <hr class="section-divider">
@@ -179,9 +174,15 @@ footer{text-align:center;padding:24px;font-size:.74rem;color:#94a3b8}
     <input type="text" id="whitelist" placeholder="例：Microsoft,Apple,Google">
     <span class="hint">不分大小寫，部分比對 Publisher 欄位；符合條件的軟體略過掃描</span>
   </div>
+  <hr class="section-divider">
+  <div class="card-title" style="margin-top:4px"><span class="step-badge">3</span> 黑名單（軟體名稱，逗號分隔）</div>
+  <div class="form-group" style="margin-bottom:0">
+    <input type="text" id="blacklist" placeholder="例：Local,Maven,=Notepad">
+    <span class="hint">依<strong>軟體名稱</strong>略過掃描（白名單比對的是 Publisher）。不分大小寫、以「詞」比對：<code>Maven</code> 名稱含該詞即略過；<code>=Local</code> 名稱完全等於才略過。略過的軟體會列在報表的「黑名單跳過」區塊。Portable 不受黑名單影響</span>
+  </div>
   <div id="portable-section">
   <hr class="section-divider">
-  <div class="card-title" style="margin-top:4px"><span class="step-badge">3</span> 其他軟體（Portable / 未登錄於 Registry）</div>
+  <div class="card-title" style="margin-top:4px"><span class="step-badge">4</span> 其他軟體（Portable / 未登錄於 Registry）</div>
   <div id="portable-list"></div>
   <button type="button" id="add-portable-btn">＋ 新增項目</button>
   <p class="form-group" style="margin-top:8px"><span class="hint">不受白名單過濾，直接納入掃描。版本號可選填，用於比對是否需要升級。</span></p>
@@ -214,7 +215,7 @@ footer{text-align:center;padding:24px;font-size:.74rem;color:#94a3b8}
 <div class="tab-panel" id="tab-cve-query">
   <p class="tab-hint">查詢系統本機已快取的 CVE 資料（任何一次掃描查過的軟體都會留下記錄），不會重新對 NVD 發出請求。</p>
   <div id="cve-query-proxy-note" class="proxy-only-note" style="display:none">
-    ⚠ 此功能僅在伺服器代理模式下可用（需先執行 <code>npm run web</code> 啟動 <code>web-server.js</code>）。獨立模式（直接以瀏覽器開啟此檔案）無法讀取伺服器本機的快取資料。
+    ⚠ 請先執行 <code>npm run web</code> 啟動 <code>web-server.js</code>，並從 <code>http://localhost:&lt;port&gt;</code> 開啟本頁；直接雙擊開啟此檔案（<code>file://</code>）無法讀取伺服器本機的快取資料。
   </div>
   <div id="cve-query-form">
     <div class="cve-search-row">
@@ -250,7 +251,7 @@ footer{text-align:center;padding:24px;font-size:.74rem;color:#94a3b8}
   <ul>
     <li>輸入軟體名稱關鍵字（例：<code>putty</code>）或完整 CVE ID（例：<code>CVE-2024-12345</code>）</li>
     <li>可加上最低嚴重度、最早年份篩選結果</li>
-    <li><strong>僅伺服器代理模式可用</strong>：獨立模式（直接雙擊開啟本檔案）無法讀取伺服器本機的快取資料</li>
+    <li><strong>需透過 <code>npm run web</code> 開啟</strong>：直接雙擊開啟本檔案（<code>file://</code>）無法讀取伺服器本機的快取資料</li>
   </ul>
 
   <div class="card-title" style="margin-top:22px">關於本工具</div>
@@ -271,7 +272,6 @@ footer{text-align:center;padding:24px;font-size:.74rem;color:#94a3b8}
 'use strict';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
-const NVD_CVE_BASE = window.__NVD_PROXY__ || 'https://services.nvd.nist.gov/rest/json/cves/2.0';
 
 
 const SKIP_PATTERNS = [
@@ -327,81 +327,6 @@ function matchWhitelist(sw, whitelist) {
 
 
 // @@CVE_LOGIC@@
-
-
-const MAX_FETCH_RETRIES   = 10;   // total retry attempts per software item
-const FETCH_RETRY_DELAY_MS = 5000; // ms between retries (except 429 rate-limit)
-
-async function nvdFetch(url, apiKey, signal, retries = MAX_FETCH_RETRIES, onRetry = null) {
-    const headers = {};
-    // When proxied through local server, API key is added server-side to avoid CORS preflight
-    if (apiKey && !window.__NVD_PROXY__) headers['apiKey'] = apiKey;
-    const attempt = MAX_FETCH_RETRIES - retries + 1;
-    const delaySec = FETCH_RETRY_DELAY_MS / 1000;
-    let res;
-    try {
-        // 45 s per-request browser timeout: longer than proxy's 30 s NVD timeout so the
-        // proxy always responds first under normal conditions, but catches cases where the
-        // proxy hangs (e.g. 4 consecutive NVD timeouts = ~124 s wait without this guard).
-        const perReqSignal = typeof AbortSignal.any === 'function'
-            ? AbortSignal.any([signal, AbortSignal.timeout(45000)])
-            : signal;
-        res = await fetch(url, { headers, signal: perReqSignal });
-    } catch (err) {
-        if (err.name === 'AbortError' && signal.aborted) throw err; // user cancelled
-        // TimeoutError (45 s browser guard) or network error — retry
-        if (retries > 0) {
-            const isTimeout = err.name === 'TimeoutError' || (err.name === 'AbortError' && !signal.aborted);
-            onRetry?.(isTimeout
-                ? `請求逾時，${delaySec} 秒後重試 ${attempt}/${MAX_FETCH_RETRIES}…`
-                : `連線失敗 [${err.name}]，${delaySec} 秒後重試 ${attempt}/${MAX_FETCH_RETRIES}…`);
-            await sleep(FETCH_RETRY_DELAY_MS, signal);
-            return nvdFetch(url, apiKey, signal, retries - 1, onRetry);
-        }
-        throw err;
-    }
-    if (res.ok) {
-        try {
-            return await res.json();
-        } catch (_) {
-            // Truncated response (proxy lost NVD connection mid-stream) — retry
-            if (retries > 0) {
-                onRetry?.(`回應不完整，${delaySec} 秒後重試 ${attempt}/${MAX_FETCH_RETRIES}…`);
-                await sleep(FETCH_RETRY_DELAY_MS, signal);
-                return nvdFetch(url, apiKey, signal, retries - 1, onRetry);
-            }
-            throw new Error('NVD API 回應不完整（連線中斷）');
-        }
-    }
-    if (res.status === 429 && retries > 0) {
-        onRetry?.(`速率限制 (429)，15 秒後重試 ${attempt}/${MAX_FETCH_RETRIES}…`);
-        await sleep(15000, signal);
-        return nvdFetch(url, apiKey, signal, retries - 1, onRetry);
-    }
-    // 502/503/504 = proxy error or NVD timeout; 403 = NVD rejected — all worth one retry
-    if ((res.status === 502 || res.status === 503 || res.status === 504 || res.status === 403) && retries > 0) {
-        onRetry?.(`HTTP ${res.status}，${delaySec} 秒後重試 ${attempt}/${MAX_FETCH_RETRIES}…`);
-        await sleep(FETCH_RETRY_DELAY_MS, signal);
-        return nvdFetch(url, apiKey, signal, retries - 1, onRetry);
-    }
-    throw new Error(`NVD API HTTP ${res.status}`);
-}
-
-async function searchCVEs(keyword, apiKey, maxCves, minYear, signal, onRetry) {
-    const params = new URLSearchParams({ keywordSearch: keyword, resultsPerPage: String(maxCves), noRejected: '' });
-    return nvdFetch(`${NVD_CVE_BASE}?${params}`, apiKey, signal, MAX_FETCH_RETRIES, onRetry);
-}
-
-// Portable 軟體專用：以 virtualMatchString 搜尋 — 與 CLI 邏輯一致，取完整 CVE 歷史（上限 2000）
-// 比 keywordSearch 精確：只回傳確實與該 CPE 關聯的 CVE，不包含僅描述文字提及的誤報
-async function searchCVEsByCPE(vendor, product, apiKey, signal, onRetry) {
-    const params = new URLSearchParams({
-        virtualMatchString: `cpe:2.3:a:${vendor}:${product}:*`,
-        resultsPerPage: '1000',
-        noRejected: '',
-    });
-    return nvdFetch(`${NVD_CVE_BASE}?${params}`, apiKey, signal, MAX_FETCH_RETRIES, onRetry);
-}
 
 
 // @@REPORT_HTML@@
@@ -469,15 +394,17 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 });
 
 // Restore settings
-const LS = { key: 'nvd_api_key', wl: 'nvd_whitelist', sev: 'nvd_severity', year: 'nvd_min_year' };
+const LS = { wl: 'nvd_whitelist', bl: 'nvd_blacklist', sev: 'nvd_severity', year: 'nvd_min_year' };
+localStorage.removeItem('nvd_api_key'); // 清除舊版殘留的瀏覽器端 API Key（現在只由伺服器 .env.local 提供）
 const $id = id => document.getElementById(id);
 const restore = (id, lsKey) => { const v = localStorage.getItem(lsKey); if (v) $id(id).value = v; };
-restore('api-key', LS.key);
 restore('whitelist', LS.wl);
+restore('blacklist', LS.bl);
 // If the stored value is the old default (MEDIUM), clear it so the new HTML default (HIGH) takes effect.
 if (localStorage.getItem(LS.sev) === 'MEDIUM') localStorage.removeItem(LS.sev);
 restore('min-severity', LS.sev);
-restore('min-year', LS.year);
+localStorage.removeItem(LS.year);
+$id('min-year').value = String(new Date().getFullYear() - 1);   // 預設：今年−1（與 CLI 一致）
 
 // ─── CVE Query tab ────────────────────────────────────────────────────────────
 // 查詢伺服器本機已快取的 CVE 資料（data/*.json，由任何一次掃描留下），僅代理模式可用，
@@ -489,11 +416,9 @@ restore('min-year', LS.year);
     const qInput = $id('cve-q');
     const btn    = $id('cve-search-btn');
 
-    // window.__NVD_PROXY__ 由伺服器注入的 <script> 設定，該段注入在本區塊「之後」才執行
-    // （build.js/web-server.js 把注入腳本插在 </body> 前，晚於這個主要 <script>），
-    // 所以這裡不能在頁面載入當下立刻判斷，要等使用者實際切到這個頁籤時才檢查。
+    // 以 file:// 直接開啟時沒有伺服器可用：隱藏查詢表單並顯示提示。
     function applyProxyGate() {
-        const available = !!window.__NVD_PROXY__;
+        const available = location.protocol !== 'file:';
         note.style.display = available ? 'none' : 'block';
         form.style.display = available ? 'block' : 'none';
         return available;
@@ -519,7 +444,6 @@ restore('min-year', LS.year);
             const cves = (g.cves || [])
                 .map(v => ({ cve: v.cve, _cvss: getCvss(v.cve) }))
                 .filter(v => SEVERITY_ORDER.indexOf(v._cvss.severity) >= minIdx)
-                .filter(v => !minYear || new Date(v.cve.published).getFullYear() >= minYear)
                 .sort((a, b) => (b.cve.published || '').localeCompare(a.cve.published || ''));
             if (cves.length === 0) return '';
             totalCves += cves.length;
@@ -634,21 +558,20 @@ scanBtn.addEventListener('click', async () => {
     if (!scanData && ![...portableList.querySelectorAll('.pt-name')].some(i => i.value.trim())) return;
 
     // Read settings
-    const apiKey     = $id('api-key').value.trim();
     const wlRaw      = $id('whitelist').value;
     const minSev     = $id('min-severity').value;
     const minYearVal = $id('min-year').value.trim();
     const minYear    = minYearVal ? (parseInt(minYearVal) || 0) : (new Date().getFullYear() - 1);
-    const maxCves    = 50; // 欄位已移除，固定預設值；僅獨立模式關鍵字查詢會用到
     const whitelist  = wlRaw.split(',').map(s => s.trim()).filter(Boolean);
-    const delay      = window.__NVD_DELAY__ ?? (apiKey ? 700 : 6500);
+    const blRaw      = $id('blacklist').value;
+    const blacklist  = blRaw.split(',').map(s => s.trim()).filter(Boolean);   // 依軟體名稱略過（語法見 lib/cve-logic.js matchBlacklist）
+    const delay      = window.__NVD_DELAY__ ?? 6500;
     const minIdx     = SEVERITY_ORDER.indexOf(minSev);
 
     // Persist settings
-    localStorage.setItem(LS.key,  apiKey);
     localStorage.setItem(LS.wl,   wlRaw);
+    localStorage.setItem(LS.bl,   blRaw);
     localStorage.setItem(LS.sev,  minSev);
-    localStorage.setItem(LS.year, minYearVal);
 
     abortController = new AbortController();
     const signal = abortController.signal;
@@ -670,6 +593,7 @@ scanBtn.addEventListener('click', async () => {
     // ── Build query map ────────────────────────────────────────────────────────
     const queryMap       = new Map();  // searchName → sw
     let whitelisted    = [];
+    let blacklisted    = [];  // 黑名單（依軟體名稱略過；預設值來自伺服器 .env.local 的 BLACKLIST）
     let skippedByPat   = [];
     let skippedByDedup = [];
     let portableEntries = [];
@@ -678,6 +602,8 @@ scanBtn.addEventListener('click', async () => {
         for (const sw of scanData.softwares) {
             const rule = matchWhitelist(sw, whitelist);
             if (rule) { whitelisted.push({ name: sw.name, version: sw.version||'', publisher: sw.publisher||'', matchedRule: rule }); continue; }
+            const blRule = matchBlacklist([sw.name, cleanProductName(sw.name)], blacklist);
+            if (blRule) { blacklisted.push({ name: sw.name, version: sw.version||'', publisher: sw.publisher||'', matchedRule: blRule }); continue; }
             if (shouldSkip(sw.name)) { skippedByPat.push({ name: sw.name, version: sw.version||'', publisher: sw.publisher||'' }); continue; }
             const sn = cleanProductName(sw.name);
             if (!queryMap.has(sn)) queryMap.set(sn, sw);
@@ -699,10 +625,8 @@ scanBtn.addEventListener('click', async () => {
     const total        = queryMap.size;
     const portableNote = portableEntries.length ? ` + <span class="l-b">${portableEntries.length}</span> Portable` : '';
     logLine(`<span class="l-info">▶ 開始掃描</span> <span class="l-b">${total}</span> 項軟體${portableNote}`
-        + ` <span class="l-gray">(白名單:${whitelisted.length} 子元件:${skippedByPat.length} 去重:${skippedByDedup.length})</span>`);
-    const apiKeyLabel = window.__NVD_PROXY__
-        ? (delay <= 700 ? '伺服器代理(已設定)' : '伺服器代理(未設定,6.5秒/次)')
-        : (apiKey ? '已設定' : '未設定(6.5秒/次)');
+        + ` <span class="l-gray">(白名單:${whitelisted.length}${blacklisted.length ? ' 黑名單:' + blacklisted.length : ''} 子元件:${skippedByPat.length} 去重:${skippedByDedup.length})</span>`);
+    const apiKeyLabel = delay <= 700 ? '伺服器(已設定)' : '伺服器(未設定,6.5秒/次)';
     logLine(`<span class="l-gray">設定：嚴重度≥${minSev}，年份≥${minYear}，`
         + `API Key:${apiKeyLabel}，預估${Math.ceil(total*delay/1000)}秒</span>`);
     logLine('─'.repeat(64), 'l-gray');
@@ -725,377 +649,213 @@ scanBtn.addEventListener('click', async () => {
                 .filter(v => SEVERITY_ORDER.indexOf(v._cvss.severity) >= minIdx)
                 .filter(v => !minYear || new Date(v.cve.published).getFullYear() >= minYear)
                 .map(v => {
-                    const rel = cpeBases
-                        ? cveMatchesCPEBase(v.cve, cpeBases)
-                        : cveRelevanceCheck(v.cve, searchName);
-                    let finalRel = rel;
-                    let mis = null;
-                    let pending = false;
-                    if (rel === false) {
-                        mis = cpeBases
-                            ? `CPE 條目中無 ${cpeBases.map(b => `:${b.vendor}:${b.product}:`).join(' / ')}，非本軟體直接受影響的 CVE`
-                            : `CPE 條目中未含「${searchName}」相關字詞`;
-                    } else if (rel === null) {
-                        // 無 CPE 資料（NVD Awaiting Analysis/Deferred，尚未建立 CPE applicability）：
-                        //  - CPE 模式（cpeBases 有值）：base 已確認（Portable／已併入的補撈），保留為待分析。
-                        //  - keyword 模式（cpeBases 為 null，如 Python/Git 過於通用）：用參考連結 host/owner
-                        //    詞邊界守門撿回確屬本軟體者（例：Python CVE-2026-3298 8.8、CVE-2025-4517 9.4，
-                        //    皆無 CPE、參考連結指向 github.com/python/cpython）。與 CLI 一致。
-                        if (cpeBases || isPendingSupplementCVE(v.cve, { vendor: searchName, product: searchName })) {
-                            finalRel = true;
-                            pending  = true;
-                        } else {
-                            mis = `無 CPE 資料且參考連結未指向「${searchName}」，無法驗證關聯性`;
-                        }
-                    } else if (sw.version && sw.version !== '?') {
-                        // Check 1：純精確版本 CPE — 安裝版本不在受影響清單時過濾
-                        const exactCheck = cveExactVersionCheck(sw.version, v.cve, searchName, cpeBases);
-                        if (exactCheck && !exactCheck.affected) {
-                            finalRel = false;
-                            mis = `只有特定版本 ${exactCheck.versions.join('、')} 受影響，已安裝版本 ${sw.version} 不符`;
-                        } else if (!exactCheck) {
-                            // Check 2：版本範圍 CPE — 安裝版本不在任何受影響範圍時過濾（與 CLI 一致）
-                            const inRange = isVersionInAnyRange(sw.version, v.cve, searchName, cpeBases);
-                            if (inRange === false) {
-                                // 同主版本分支已修正？已安裝版本超過同分支修復要求則保留（顯示於「已修正」區塊）
-                                const branchFix = getBranchFixVersion(sw.version, v.cve, searchName, cpeBases);
-                                if (branchFix) {
-                                    v._alreadyFixed = true;
-                                    v._branchFix    = branchFix;
-                                } else {
-                                    finalRel = false;
-                                    mis = `已安裝版本 ${sw.version} 不在任何受影響版本範圍內`;
-                                }
-                            }
-                        }
-                    }
-                    return { ...v, _rel: finalRel, _mis: mis, _pendingNvd: pending };
+                    // 關聯性／版本分類統一由 lib/cve-logic.js 的 classifyCVE 處理（與 CLI 共用，build.js 注入）
+                    const cls = classifyCVE(v.cve, sw.version, searchName, cpeBases);
+                    return { ...v, _relevant: cls.relevant, _mismatchReason: cls.mismatchReason, _mismatchKind: cls.mismatchKind,
+                             _pendingNvd: cls.pendingNvd, _alreadyFixed: cls.alreadyFixed, _branchFix: cls.branchFix };
                 });
 
-            const mismatched = checked.filter(v => v._rel !== true).map(v => ({
+            const mismatched = checked.filter(v => v._relevant !== true).map(v => ({
                 id: v.cve.id, url: `https://nvd.nist.gov/vuln/detail/${v.cve.id}`,
                 severity: v._cvss.severity, cvssScore: v._cvss.score, cvssVersion: v._cvss.version,
                 description: v.cve.descriptions?.find(d => d.lang==='en')?.value || '',
-                published: v.cve.published, mismatchReason: v._mis,
+                published: v.cve.published, mismatchReason: v._mismatchReason,
             }));
 
             const relevant = checked
-                .filter(v => v._rel === true) // only confirmed-relevant CVEs (null = no CPE data → filtered out)
+                .filter(v => v._relevant === true) // only confirmed-relevant CVEs (null = no CPE data → filtered out)
                 .sort((a, b) => (b.cve.published||'').localeCompare(a.cve.published||''));
 
             mismatched.sort((a, b) => (b.published||'').localeCompare(a.published||''));
 
+            const toCveObj = v => ({
+                id: v.cve.id,
+                url: `https://nvd.nist.gov/vuln/detail/${v.cve.id}`,
+                severity: v._cvss.severity,
+                cvssScore: v._cvss.score,
+                cvssVersion: v._cvss.version,
+                description: v.cve.descriptions?.find(d => d.lang==='en')?.value || '',
+                published: v.cve.published,
+                lastModified: v.cve.lastModified,
+                fixedVersion: getCveFixVersion(v, searchName, cpeBases, sw.version),
+                alreadyFixed: v._alreadyFixed || false,
+                affectedRanges: extractAllRanges(v.cve, searchName, cpeBases),
+                pendingNvdAnalysis: v._pendingNvd || false,
+            });
+
+            // 掃描小結（與 CLI 相同的分組，邏輯在 lib/cve-logic.js 的 buildCveAnalysis）：
+            // 每一筆命中的 CVE 去向都交代清楚——版本不在受影響範圍／非本軟體／目前版本已含修復／確認受影響／NVD 尚未立案。
+            // 雙軌輸出：logLine 給瀏覽器進度框（HTML），details 同步累積純文字給後端 log（/api/log），兩邊內容與順序一致。
+            const details = [];
+            const out = (html, plain) => { logLine(html); details.push(plain); };
+            const analysis = buildCveAnalysis({ installedVersion: sw.version, searchName, cpeBases, items: checked });
+            const cveObjById = new Map(relevant.map(v => [v.cve.id, toCveObj(v)]));
+
+            const printCve = (cve, i) => {
+                const sevCls = (cve.severity==='CRITICAL'||cve.severity==='HIGH') ? 'l-err' : 'l-warn';
+                const pubDay = (cve.published||'').substring(0,10);
+                out('     (' + i + ') <span class="' + sevCls + '"><a href="' + cve.url + '" target="_blank" rel="noopener">' + esc(cve.id) + '</a> [' + cve.severity + ' ' + cve.cvssScore + ']</span> <span class="l-gray">CVSS' + esc(String(cve.cvssVersion||'')) + '  ' + pubDay + '</span>',
+                    '     (' + i + ') ' + cve.id + ' [' + cve.severity + ' ' + cve.cvssScore + '] CVSS' + (cve.cvssVersion||'') + '  ' + pubDay);
+                if (cve.description) {
+                    const d = cve.description.length > 130 ? cve.description.substring(0, 130) + '…' : cve.description;
+                    out('         <span class="l-gray">' + esc(d) + '</span>', '         ' + d);
+                }
+                if (cve.pendingNvdAnalysis) {
+                    const t = '⚠ NVD 尚未完成分析（無 CPE 資料），請至 NVD 手動確認是否影響已安裝版本';
+                    out('         <span class="l-warn">' + t + '</span>', '         ' + t);
+                } else if (cve.affectedRanges && cve.affectedRanges.length > 0) {
+                    const parts = cve.affectedRanges.map(rv => {
+                        const fromStr = rv.from ? (rv.fromOp === '>' ? '>' : '≥') + ' ' + rv.from : '＊';
+                        const toStr   = (rv.toOp === '>=' ? '≥' : '>') + ' ' + rv.to;
+                        return '【' + fromStr + ' → ' + toStr + '】';
+                    }).join('、');
+                    out('         <span class="l-ok">安全版本（各分支）：' + esc(parts) + '</span>', '         安全版本（各分支）：' + parts);
+                } else if (cve.fixedVersion) {
+                    const t = '安全版本：' + (cve.fixedVersion.op === '>=' ? '≥' : '>') + ' ' + cve.fixedVersion.version;
+                    out('         <span class="l-ok">' + esc(t) + '</span>', '         ' + t);
+                } else {
+                    out('         <span class="l-warn">無修復版本資訊</span>', '         無修復版本資訊');
+                }
+            };
+
+            out('  <span class="l-gray">-----CVE分析-----</span>', '  -----CVE分析-----');
+            for (const sec of analysis.sections) {
+                const tcls = sec.kind === 'pending' ? 'l-warn' : sec.kind === 'affected' ? 'l-err' : 'l-gray';
+                out('  <span class="' + tcls + ' l-b">' + sec.no + '. ' + esc(sec.title) + '</span>', '  ' + sec.no + '. ' + sec.title);
+                if (sec.lines) {
+                    sec.lines.forEach((l, i) => {
+                        const rest = l.text.substring(l.id.length);
+                        out('     <span class="l-gray">(' + (i + 1) + ') <a href="' + l.url + '" target="_blank" rel="noopener">' + esc(l.id) + '</a>' + esc(rest) + '</span>',
+                            '     (' + (i + 1) + ') ' + l.text);
+                    });
+                } else {
+                    sec.cves.forEach((v, i) => printCve(cveObjById.get(v.cve.id), i + 1));
+                }
+                if (sec.more > 0) {
+                    out('     <span class="l-gray">… and ' + sec.more + ' more (see JSON report)</span>', '     … and ' + sec.more + ' more (see JSON report)');
+                }
+            }
+
             if (relevant.length === 0) {
-                logLine(`<span class="l-ok">  ✓ 無弱點（${esc(minSev)}以上）</span>`);
+                logLine('<span class="l-ok">  ✓ 無弱點（' + esc(minSev) + '以上）</span>');
                 cleanResults.push({
                     software: { name: sw.name, version: sw.version||'', publisher: sw.publisher||'' },
                     searchName, cpeBase: cpeBase || null, mismatchedCVEs: mismatched,
                 });
-                return { summary: `✓ 無弱點（取回${allCVEs.length}筆均不符條件）`, cveDetails: [] };
-            } else {
-                totalCVEs += relevant.length;
-                const cveObjs = relevant.map(v => ({
-                    id: v.cve.id,
-                    url: `https://nvd.nist.gov/vuln/detail/${v.cve.id}`,
-                    severity: v._cvss.severity,
-                    cvssScore: v._cvss.score,
-                    cvssVersion: v._cvss.version,
-                    description: v.cve.descriptions?.find(d => d.lang==='en')?.value || '',
-                    published: v.cve.published,
-                    lastModified: v.cve.lastModified,
-                    fixedVersion: v._alreadyFixed ? v._branchFix : extractFixedVersion(v.cve, searchName, cpeBases, sw.version),
-                    alreadyFixed: v._alreadyFixed || false,
-                    affectedRanges: extractAllRanges(v.cve, searchName, cpeBases),
-                    pendingNvdAnalysis: v._pendingNvd || false,
-                }));
-                const rec = relevant.reduce((best, v) => {
-                    const fix = v._alreadyFixed ? v._branchFix : extractFixedVersion(v.cve, searchName, cpeBases, sw.version);
-                    if (!fix || !isComparableRecVersion(sw.version, fix.version, cpeBase)) return best;
-                    return (!best || compareVersions(fix.version, best.version) > 0) ? fix : best;
-                }, null);
-                // 與 CLI 一致：每筆 CVE 印 3 行（id/嚴重度/CVSS/日期 → 描述(截130字) → 安全版本或警告），
-                // 最多顯示前 5 筆（依發布日期新到舊），超過則顯示「… and N more」，其餘留給 JSON 報表
-                const sortedCves = [...cveObjs].sort((a, b) => (b.published||'').localeCompare(a.published||''));
-                const shownCves  = sortedCves.slice(0, 5);
-                for (const cve of shownCves) {
-                    const cls = (cve.severity==='CRITICAL'||cve.severity==='HIGH') ? 'l-err' : 'l-warn';
-                    logLine(`  <span class="${cls}"><a href="${cve.url}" target="_blank" rel="noopener">${esc(cve.id)}</a> [${cve.severity} ${cve.cvssScore}]</span> <span class="l-gray">CVSS${esc(String(cve.cvssVersion||''))}  ${(cve.published||'').substring(0,10)}</span>`);
-                    if (cve.description) {
-                        const d = cve.description.length > 130 ? cve.description.substring(0, 130) + '…' : cve.description;
-                        logLine(`  <span class="l-gray">${esc(d)}</span>`);
-                    }
-                    if (cve.pendingNvdAnalysis) {
-                        logLine(`  <span class="l-warn">  ⚠ NVD 尚未完成分析（無 CPE 資料），請至 NVD 手動確認是否影響已安裝版本</span>`);
-                    } else if (cve.affectedRanges && cve.affectedRanges.length > 0) {
-                        const parts = cve.affectedRanges.map(rv => {
-                            const fromStr = rv.from ? `${rv.fromOp === '>' ? '>' : '≥'} ${esc(rv.from)}` : '＊';
-                            const toStr   = `${rv.toOp === '>=' ? '≥' : '>'} ${esc(rv.to)}`;
-                            return `【${fromStr} → ${toStr}】`;
-                        }).join('、');
-                        logLine(`  <span class="l-ok">  安全版本（各分支）：${parts}</span>`);
-                    } else if (cve.fixedVersion) {
-                        logLine(`  <span class="l-ok">  安全版本：${cve.fixedVersion.op==='>='?'≥':'>'} ${esc(cve.fixedVersion.version)}</span>`);
-                    } else {
-                        logLine(`  <span class="l-warn">  無修復版本資訊</span>`);
-                    }
-                }
-                if (sortedCves.length > 5) {
-                    logLine(`  <span class="l-gray">… and ${sortedCves.length - 5} more (see JSON report)</span>`);
-                }
-                if (rec) {
-                    if (isSafeVersion(sw.version, rec)) {
-                        logLine(`  <span class="l-ok">→ 目前使用版本 (${esc(sw.version||'?')}) 無弱點，無須升級</span>`);
-                    } else {
-                        logLine(`  <span class="l-err">→ 建議升級至 ${rec.op==='>='?'≥':'>'} ${esc(rec.version)}（目前: ${esc(sw.version||'?')}）</span>`);
-                    }
-                } else {
-                    logLine(`  <span class="l-warn">→ 無版本修復資訊，請查閱各 CVE 連結</span>`);
-                }
-                results.push({
-                    software: { name: sw.name, version: sw.version||'', publisher: sw.publisher||'', installDate: sw.installDate||null },
-                    searchName, cpeBase: cpeBase || null, recommendedVersion: rec, cveCount: cveObjs.length,
-                    cves: cveObjs, mismatchedCVEs: mismatched,
-                });
-                // 後端 log（/api/log）採用與上面瀏覽器畫面相同的結構（前 5 筆 + 描述 + 安全版本），
-                // 確保「執行進度框」與「後端日誌」內容/順序一致，且都對齊 CLI 的格式
-                const cveDetails = [];
-                for (const cve of shownCves) {
-                    let fixStr;
-                    if (cve.pendingNvdAnalysis) {
-                        fixStr = '⚠ NVD 尚未完成分析（無 CPE 資料），請至 NVD 手動確認是否影響已安裝版本';
-                    } else if (cve.affectedRanges && cve.affectedRanges.length > 0) {
-                        const parts = cve.affectedRanges.map(rv => {
-                            const fromStr = rv.from ? `${rv.fromOp === '>' ? '>' : '≥'} ${rv.from}` : '＊';
-                            const toStr   = `${rv.toOp === '>=' ? '≥' : '>'} ${rv.to}`;
-                            return `【${fromStr} → ${toStr}】`;
-                        }).join('、');
-                        fixStr = `安全版本（各分支）：${parts}`;
-                    } else if (cve.fixedVersion) {
-                        fixStr = `安全版本：${cve.fixedVersion.op === '>=' ? '≥' : '>'} ${cve.fixedVersion.version}`;
-                    } else {
-                        fixStr = '無修復版本資訊';
-                    }
-                    cveDetails.push(`  ${cve.id} [${cve.severity} ${cve.cvssScore}] CVSS${cve.cvssVersion||''}  ${(cve.published||'').substring(0,10)}`);
-                    if (cve.description) {
-                        const d = cve.description.length > 130 ? cve.description.substring(0, 130) + '…' : cve.description;
-                        cveDetails.push(`  ${d}`);
-                    }
-                    cveDetails.push(`    ${fixStr}`);
-                }
-                if (sortedCves.length > 5) {
-                    cveDetails.push(`  … and ${sortedCves.length - 5} more (see JSON report)`);
-                }
-                let summary;
-                if (!rec) {
-                    summary = '→ 無版本修復資訊，請查閱各 CVE 連結';
-                } else if (isSafeVersion(sw.version, rec)) {
-                    summary = `→ 目前使用版本 (${sw.version||'?'}) 無弱點，無須升級`;
-                } else {
-                    summary = `→ 建議升級至 ${rec.op==='>='?'≥':'>'} ${rec.version}（目前: ${sw.version||'?'}）`;
-                }
-                return { summary, cveDetails };
+                return { summary: '✓ 無弱點（取回' + allCVEs.length + '筆均不符條件）', cveDetails: details };
             }
+
+            totalCVEs += relevant.length;
+            const cveObjs = relevant.map(v => cveObjById.get(v.cve.id));
+            const rec = getRecommendedVersion(relevant, searchName, cpeBases, sw.version);
+            const swVer = sw.version || '?';
+            let summary;
+            if (rec) {
+                const opSym = rec.op === '>=' ? '≥' : '>';
+                if (isSafeVersion(sw.version, rec)) {
+                    logLine('  <span class="l-ok">→ 目前使用版本 (' + esc(swVer) + ') 無弱點，無須升級</span>');
+                    summary = '→ 目前使用版本 (' + swVer + ') 無弱點，無須升級';
+                } else {
+                    logLine('  <span class="l-err">→ 建議升級至 ' + opSym + ' ' + esc(rec.version) + '（目前: ' + esc(swVer) + '）</span>');
+                    summary = '→ 建議升級至 ' + opSym + ' ' + rec.version + '（目前: ' + swVer + '）';
+                }
+            } else {
+                logLine('  <span class="l-warn">→ 無版本修復資訊，請查閱各 CVE 連結</span>');
+                summary = '→ 無版本修復資訊，請查閱各 CVE 連結';
+            }
+            results.push({
+                software: { name: sw.name, version: sw.version||'', publisher: sw.publisher||'', installDate: sw.installDate||null },
+                searchName, cpeBase: cpeBase || null, recommendedVersion: rec, cveCount: cveObjs.length,
+                cves: cveObjs, mismatchedCVEs: mismatched,
+            });
+            return { summary, cveDetails: details };
         };
 
-        // ── CPE pre-lookup for portable items（僅直連模式需要）──────────────────
-        // 代理模式不在此預查：交給 server 在主迴圈中、處理到該軟體時才自動偵測（與一般軟體相同流程），
-        // 這樣 log 順序才會跟 CLI 一致（先印該軟體標頭，才印它的 CPE/CVE 查詢過程，而不是把所有
-        // Portable 軟體的 CPE 一次找完才開始逐項查 CVE）。直連模式沒有伺服器可委派，仍須在此先查好。
-        if (!window.__NVD_PROXY__ && portableEntries.length > 0) {
-            logLine(`<span class="l-gray">── CPE 識別碼查找（${portableEntries.length} 個 Portable 軟體）…</span>`);
-            let firstCpe = true;
-            for (const pt of portableEntries) {
-                if (signal.aborted) break;
-                // .env.local 指定的標準 CPE base（通用知名軟體）→ 跳過字典查詢，直接使用
-                const knownBases = (window.__CPE_BASES__ || {})[pt.name.toLowerCase()];
-                if (knownBases) {
-                    cpeBasesMap.set(pt.name, knownBases);
-                    logLine(`<span class="l-gray">  ${esc(pt.name)} → [指定] CPE: ${knownBases.map(b => `${b.vendor}:${b.product}`).join(' | ')}</span>`);
+        // ── Proxy mode: stream from server, process each item as it arrives ─
+        if (location.protocol === 'file:') throw new Error('請先執行 npm run web 啟動伺服器，再從 http://localhost:<port> 開啟本頁');
+        const scanResp = await fetch('/api/scan', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                keywords: [...queryMap.keys()],
+                // searchName → {name, version}，讓 server 能在開始處理時就印出與 CLI 一致的標頭
+                names: Object.fromEntries([...queryMap].map(([k, sw]) => [k, { name: sw.name, version: sw.version || '' }])),
+                // 哪些 searchName 是 Portable 軟體：CPE 偵測一律交給 server（與一般軟體同流程），
+                // 這裡只是讓 server 套用與 CLI 一致的顯示用語（不顯示「自動偵測」標籤、找不到時顯示 ⚠ 警告）
+                portables: portableEntries.map(pt => pt.name),
+                meta: {
+                    minSeverity:      minSev,
+                    minYear,
+                    portableCount:    portableEntries.length,
+                    whitelistedCount: whitelisted.length,
+                    blacklistedCount: blacklisted.length,
+                    skippedCount:     skippedByPat.length,
+                    dedupCount:       skippedByDedup.length,
+                },
+            }),
+            signal,
+        });
+        if (!scanResp.ok) throw new Error(`伺服器掃描失敗：HTTP ${scanResp.status}`);
+
+        const reader = scanResp.body.getReader();
+        const dec = new TextDecoder();
+        let buf = '';
+        outer: while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            buf += dec.decode(value, { stream: true });
+            let nl;
+            while ((nl = buf.indexOf('\n')) !== -1) {
+                const line = buf.slice(0, nl).trim();
+                buf = buf.slice(nl + 1);
+                if (!line) continue;
+                const item = JSON.parse(line);
+                if (item.done) break outer;
+                if (item.sid) { scanSid = item.sid; continue; }
+                // 伺服器在開始處理每個軟體時先送出標頭，與 CLI 一致：
+                // 標頭 → search → CPE/快取等過程訊息 → 結果（不可等最終結果回來才印標頭，順序會顛倒）
+                if (item.header) {
+                    idx++;
+                    logLine(`<span class="l-gray">[${idx}/${total}]</span> <span class="l-b">${esc(item.header.name)}</span> <span class="l-gray">v${esc(item.header.version)}</span>`);
+                    logLine(`<span class="l-gray">  search: "${esc(item.keyword)}"</span>`);
                     continue;
                 }
-                if (!firstCpe) await sleep(delay, signal);
-                firstCpe = false;
-                const nameWords = pt.name.toLowerCase().replace(/[^a-z0-9]/g, ' ').split(/\s+/).filter(w => w.length >= 2);
-                try {
-                    // 與 nvd-client.fetchCPEs 一致：先抓一頁取得 totalResults，過於通用（>2000 筆）就不列舉，
-                    // 避免一次拉上萬筆 CPE 造成逾時（如 Git 命中 12546 筆、Python 20067 筆）
-                    const NVD_CPE_BASE = 'https://services.nvd.nist.gov/rest/json/cpes/2.0';
-                    const cpeUrl = (start) => `${NVD_CPE_BASE}?keywordSearch=${encodeURIComponent(pt.name)}&resultsPerPage=500&startIndex=${start}`;
-                    const page0 = await nvdFetch(cpeUrl(0), apiKey, signal);
-                    const total = page0.totalResults || 0;
-                    let products = [];
-                    if (total > 2000) {
-                        logLine(`<span class="l-warn">  ${esc(pt.name)} → 關鍵字過於通用（命中 ${total} 筆 CPE），改用關鍵字比對</span>`);
-                    } else if (total <= 500) {
-                        products = page0.products || [];
-                    } else {
-                        products = [...(page0.products || [])];
-                        for (let s = 500; s < total; s += 500) {
-                            if (signal.aborted) break;
-                            await sleep(delay, signal);
-                            const more = await nvdFetch(cpeUrl(s), apiKey, signal);
-                            products.push(...(more.products || []));
-                        }
-                    }
-                    const bases = findAllCPEBases(products, nameWords);
-                    if (bases.length > 0) {
-                        cpeBasesMap.set(pt.name, bases);
-                        logLine(`<span class="l-gray">  ${esc(pt.name)} → CPE: ${bases.map(b => `${b.vendor}:${b.product}`).join(' | ')}</span>`);
-                    } else if (total <= 2000) {
-                        logLine(`<span class="l-warn">  ${esc(pt.name)} → 未找到對應 CPE，改用關鍵字比對</span>`);
-                    }
-                } catch (e) {
-                    if (e.name === 'AbortError') throw e;
-                    logLine(`<span class="l-warn">  ${esc(pt.name)} → CPE 查找失敗：${esc(e.message)}，改用關鍵字比對</span>`);
+                // 伺服器送出的進度 log 行（CPE 偵測、快取狀態、日期分段）
+                if (item.log != null) {
+                    const cls = item.level === 'warn' ? 'l-warn' : item.level === 'cache' ? 'l-ok' : 'l-info';
+                    logLine(`  <span class="${cls}">${esc(item.log)}</span>`);
+                    continue;
                 }
-            }
-            if (!firstCpe) await sleep(delay, signal); // delay before first CVE query
-            logLine('─'.repeat(64), 'l-gray');
-        }
-
-        if (window.__NVD_PROXY__) {
-            // ── Proxy mode: stream from server, process each item as it arrives ─
-            const scanResp = await fetch('/api/scan', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    keywords: [...queryMap.keys()],
-                    // searchName → {name, version}，讓 server 能在開始處理時就印出與 CLI 一致的標頭
-                    names: Object.fromEntries([...queryMap].map(([k, sw]) => [k, { name: sw.name, version: sw.version || '' }])),
-                    // 哪些 searchName 是 Portable 軟體：CPE 偵測一律交給 server（與一般軟體同流程），
-                    // 這裡只是讓 server 套用與 CLI 一致的顯示用語（不顯示「自動偵測」標籤、找不到時顯示 ⚠ 警告）
-                    portables: portableEntries.map(pt => pt.name),
-                    meta: {
-                        minSeverity:      minSev,
-                        minYear,
-                        portableCount:    portableEntries.length,
-                        whitelistedCount: whitelisted.length,
-                        skippedCount:     skippedByPat.length,
-                        dedupCount:       skippedByDedup.length,
-                    },
-                }),
-                signal,
-            });
-            if (!scanResp.ok) throw new Error(`伺服器掃描失敗：HTTP ${scanResp.status}`);
-
-            const reader = scanResp.body.getReader();
-            const dec = new TextDecoder();
-            let buf = '';
-            outer: while (true) {
-                const { done, value } = await reader.read();
-                if (done) break;
-                buf += dec.decode(value, { stream: true });
-                let nl;
-                while ((nl = buf.indexOf('\n')) !== -1) {
-                    const line = buf.slice(0, nl).trim();
-                    buf = buf.slice(nl + 1);
-                    if (!line) continue;
-                    const item = JSON.parse(line);
-                    if (item.done) break outer;
-                    if (item.sid) { scanSid = item.sid; continue; }
-                    // 伺服器在開始處理每個軟體時先送出標頭，與 CLI 一致：
-                    // 標頭 → search → CPE/快取等過程訊息 → 結果（不可等最終結果回來才印標頭，順序會顛倒）
-                    if (item.header) {
-                        idx++;
-                        logLine(`<span class="l-gray">[${idx}/${total}]</span> <span class="l-b">${esc(item.header.name)}</span> <span class="l-gray">v${esc(item.header.version)}</span>`);
-                        logLine(`<span class="l-gray">  search: "${esc(item.keyword)}"</span>`);
-                        continue;
-                    }
-                    // 伺服器送出的進度 log 行（CPE 偵測、快取狀態、日期分段）
-                    if (item.log != null) {
-                        const cls = item.level === 'warn' ? 'l-warn' : item.level === 'cache' ? 'l-ok' : 'l-info';
-                        logLine(`  <span class="${cls}">${esc(item.log)}</span>`);
-                        continue;
-                    }
-                    const searchName = item.keyword;
-                    // 伺服器自動偵測到 CPE 時，更新 cpeBasesMap 讓 processOneResult 改用精確比對
-                    if (item.cpeBases && item.cpeBases.length > 0) {
-                        cpeBasesMap.set(searchName, item.cpeBases);
-                    }
-                    const sw = queryMap.get(searchName);
-                    if (!sw) continue;
-                    let itemSummary = null, itemCveDetails = [];
-                    try {
-                        if (item.error) throw new Error(item.error);
-                        ({ summary: itemSummary, cveDetails: itemCveDetails } = processOneResult(searchName, sw, item.data));
-                    } catch (apiErr) {
-                        if (apiErr.name === 'AbortError') throw apiErr;
-                        itemSummary = `✗ 失敗：${apiErr.message}`;
-                        logLine(`  <span class="l-err">✗ 掃描失敗：${esc(apiErr.message)}</span>`);
-                    }
-                    if (scanSid && itemSummary) {
-                        const logLines = [
-                            `[${idx}/${total}] ${sw.name} v${sw.version||'?'} ${itemSummary}`,
-                            ...itemCveDetails,
-                            '',
-                        ];
-                        fetch('/api/log', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ sid: scanSid, msg: logLines.join('\n'), keyword: searchName }),
-                        }).catch(() => {});
-                    }
-                    logLine('&nbsp;');
-                    updateBar(idx, total, totalCVEs);
+                const searchName = item.keyword;
+                // 伺服器自動偵測到 CPE 時，更新 cpeBasesMap 讓 processOneResult 改用精確比對
+                if (item.cpeBases && item.cpeBases.length > 0) {
+                    cpeBasesMap.set(searchName, item.cpeBases);
                 }
-            }
-        } else {
-            // ── Direct mode: call NVD API per item ────────────────────────────
-            for (const [searchName, sw] of queryMap) {
-                if (signal.aborted) break;
-                idx++;
-                updateBar(idx - 1, total, totalCVEs);
-                logLine(`<span class="l-gray">[${idx}/${total}]</span> <span class="l-b">${esc(sw.name)}</span> <span class="l-gray">v${esc(sw.version||'?')}</span>`);
-                logLine(`<span class="l-gray">  search: "${esc(searchName)}"</span>`);
-
-                if (idx > 1) await sleep(delay, signal);
-                if (signal.aborted) break;
-
+                const sw = queryMap.get(searchName);
+                if (!sw) continue;
+                let itemSummary = null, itemCveDetails = [];
                 try {
-                    const bases = cpeBasesMap.get(searchName) || (window.__CPE_BASES__ || {})[searchName.toLowerCase()] || [];
-                    let resp;
-                    if (bases.length > 0) {
-                        // 找到多個 CPE base 時逐一查詢並依 CVE id 合併去重，
-                        // 避免只查第一個 CPE 漏掉其他 vendor 名稱下的 CVE
-                        const cveMap = new Map();
-                        for (let bi = 0; bi < bases.length; bi++) {
-                            if (bi > 0) await sleep(delay, signal);
-                            const base = bases[bi];
-                            logLine(`  <span class="l-gray">查詢 (${bi + 1}/${bases.length}) cpe:2.3:a:${esc(base.vendor)}:${esc(base.product)}:*</span>`);
-                            const r = await searchCVEsByCPE(base.vendor, base.product, apiKey, signal,
-                                msg => logLine(`  <span class="l-warn">  🔄 ${msg}</span>`));
-                            for (const v of (r.vulnerabilities || [])) cveMap.set(v.cve.id, v);
-                        }
-                        // 補撈：CPE 查詢漏掉 NVD 尚未分析（Awaiting Analysis、無 CPE 適用性）的新
-                        // CVE（例：FFmpeg CVE-2026-8461）。同範圍 keyword 查詢補回「無 CPE 且參考連結
-                        // 指向本軟體」者，processOneResult 會標 _pendingNvd（⚠ NVD 分析中）。與 CLI 一致。
-                        await sleep(delay, signal);
-                        const rkw = await searchCVEs(searchName, apiKey, maxCves, minYear, signal,
-                            msg => logLine(`  <span class="l-warn">  🔄 ${msg}</span>`));
-                        let suppCount = 0;
-                        for (const v of (rkw.vulnerabilities || [])) {
-                            if (cveMap.has(v.cve.id)) continue;
-                            if (isPendingSupplementCVE(v.cve, bases)) { cveMap.set(v.cve.id, v); suppCount++; }
-                        }
-                        // 補撈一律印一行（含 0 筆），避免誤會「沒補查」——0 筆代表查過但無待分析 CVE
-                        logLine(suppCount > 0
-                            ? `  <span class="l-gray">關鍵字補撈：新增 ${suppCount} 筆 NVD 尚未分析（無 CPE 適用性）的 CVE，待人工確認</span>`
-                            : `  <span class="l-gray">關鍵字補撈：無 NVD 尚未分析的 CVE（已補查 ${(rkw.vulnerabilities || []).length} 筆關鍵字結果）</span>`);
-                        const merged = [...cveMap.values()];
-                        resp = { vulnerabilities: merged, totalResults: merged.length, resultsPerPage: merged.length };
-                    } else {
-                        resp = await searchCVEs(searchName, apiKey, maxCves, minYear, signal,
-                            msg => logLine(`  <span class="l-warn">  🔄 ${msg}</span>`));
-                    }
-                    processOneResult(searchName, sw, resp);
+                    if (item.error) throw new Error(item.error);
+                    ({ summary: itemSummary, cveDetails: itemCveDetails } = processOneResult(searchName, sw, item.data));
                 } catch (apiErr) {
                     if (apiErr.name === 'AbortError') throw apiErr;
-                    logLine(`  <span class="l-err">✗ 重試 ${MAX_FETCH_RETRIES} 次後仍失敗：${esc(apiErr.message)}</span>`);
-                    if (/CORS/i.test(apiErr.message)) {
-                        logLine(`  <span class="l-warn">  提示：可能是 CORS 問題。請確認可直接連線 NIST NVD (services.nvd.nist.gov)，或改用本機 Node.js 版本。</span>`);
-                    }
+                    itemSummary = `✗ 失敗：${apiErr.message}`;
+                    logLine(`  <span class="l-err">✗ 掃描失敗：${esc(apiErr.message)}</span>`);
+                }
+                if (scanSid && itemSummary) {
+                    const logLines = [
+                        `[${idx}/${total}] ${sw.name} v${sw.version||'?'} ${itemSummary}`,
+                        ...itemCveDetails,
+                        '',
+                    ];
+                    fetch('/api/log', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ sid: scanSid, msg: logLines.join('\n'), keyword: searchName }),
+                    }).catch(() => {});
                 }
                 logLine('&nbsp;');
+                updateBar(idx, total, totalCVEs);
             }
         }
     } catch (e) {
@@ -1149,6 +909,7 @@ scanBtn.addEventListener('click', async () => {
         results,
         cleanResults,
         whitelisted,
+        blacklisted,
         skippedByPattern: skippedByPat,
         skippedByDedup,
         errors: [],
@@ -1196,11 +957,9 @@ cancelBtn.addEventListener('click', () => {
     }
 });
 
-// Show findSW.ps1 download hint only in proxy mode (injection runs before DOMContentLoaded)
+// 顯示 findSW.ps1 下載提示
 window.addEventListener('DOMContentLoaded', () => {
-    if (window.__NVD_PROXY__) {
-        document.getElementById('findsw-dl-hint').style.display = 'block';
-    }
+    document.getElementById('findsw-dl-hint').style.display = 'block';
 });
 </script>
 </body>

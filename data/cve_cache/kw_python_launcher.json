@@ -1,7 +1,722 @@
 {
-  "cveCount": 0,
+  "cveCount": 5,
   "cacheKey": "kw_python_launcher",
-  "coverageStart": "2025-01-01T00:00:00.000Z",
-  "lastFetchedAt": "2026-06-30T03:14:22.652Z",
-  "cves": []
+  "coverageStart": "2024-01-01T00:00:00.000Z",
+  "lastFetchedAt": "2026-11-13T04:12:02.145Z",
+  "cves": [
+    {
+      "cve": {
+        "id": "CVE-2026-47425",
+        "sourceIdentifier": "security-advisories@github.com",
+        "published": "2026-07-21T18:17:01.130",
+        "lastModified": "2026-07-23T18:04:31.947",
+        "vulnStatus": "Deferred",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Rattler is a library that provides common functionality used within the conda ecosystem. Prior to version 0.43.2, `EntryPoint::FromStr` in `rattler_conda_types` performs only `.trim()` on the `command` field before the linker joins it onto the install prefix and writes an executable Python script. A malicious `noarch:python` package can ship an `info/link.json` with an entry-point name containing `..`, `/`, `\\`, or an absolute path; the resulting file is written outside the prefix (or clobbers an existing in-prefix entry-point such as `bin/pip`) with mode `0o775` on Unix and a copied launcher `.exe` on Windows. This affects the default install path of `pixi install`, `mamba install` via py-rattler, `rattler-build`, and any other consumer of the `rattler` install crate; no flag or post-link-script opt-in is involved. Version 0.43.2 contains a fix for the issue."
+          }
+        ],
+        "affected": [
+          {
+            "source": "security-advisories@github.com",
+            "affectedData": [
+              {
+                "vendor": "conda",
+                "product": "rattler",
+                "versions": [
+                  {
+                    "version": "< 0.43.2",
+                    "status": "affected"
+                  }
+                ]
+              },
+              {
+                "vendor": "conda",
+                "product": "py-rattler",
+                "versions": [
+                  {
+                    "version": "< 0.24.0",
+                    "status": "affected"
+                  }
+                ]
+              },
+              {
+                "vendor": "conda",
+                "product": "rattler-build",
+                "versions": [
+                  {
+                    "version": "< 0.65.0",
+                    "status": "affected"
+                  }
+                ]
+              },
+              {
+                "vendor": "prefix-dev",
+                "product": "pixi",
+                "versions": [
+                  {
+                    "version": "< 0.69.0",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "security-advisories@github.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 6.9,
+                "baseSeverity": "MEDIUM",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "attackRequirements": "NONE",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "vulnConfidentialityImpact": "NONE",
+                "vulnIntegrityImpact": "HIGH",
+                "vulnAvailabilityImpact": "NONE",
+                "subConfidentialityImpact": "NONE",
+                "subIntegrityImpact": "NONE",
+                "subAvailabilityImpact": "NONE",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-07-23T14:20:28.291978Z",
+                "id": "CVE-2026-47425",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "partial"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "security-advisories@github.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-22"
+              },
+              {
+                "lang": "en",
+                "value": "CWE-73"
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/conda/rattler/commit/4f06eca89aa13209774d26dbac077c41b72bac7c",
+            "source": "security-advisories@github.com"
+          },
+          {
+            "url": "https://github.com/conda/rattler/security/advisories/GHSA-q53q-5r4j-5729",
+            "source": "security-advisories@github.com"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-100570",
+        "sourceIdentifier": "disclosure@vulncheck.com",
+        "published": "2026-09-26T03:17:04.177",
+        "lastModified": "2026-09-29T17:17:02.883",
+        "vulnStatus": "Deferred",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "OpenClaw (npm package 'openclaw') versions >= 2026.3.28 and < 2026.8.1 allow an untrusted workspace .env file to set the CLOUDSDK_PYTHON_ARGS environment variable. When an operator starts OpenClaw in attacker-controlled workspace content and then runs the Gmail setup flow, that value is inherited when gcloud is launched, and the gcloud launcher passes it as arguments to the trusted Python interpreter. A crafted CLOUDSDK_PYTHON_ARGS value can therefore cause Python to execute attacker-supplied code with the OpenClaw host user's permissions, allowing credentials to be read, files to be modified, or other processes to be started. This issue is fixed in version 2026.8.1; as a workaround, run Gmail setup only from trusted workspaces and clear inherited CLOUDSDK_* variables beforehand."
+          }
+        ],
+        "affected": [
+          {
+            "source": "disclosure@vulncheck.com",
+            "affectedData": [
+              {
+                "vendor": "OpenClaw",
+                "product": "OpenClaw",
+                "defaultStatus": "unaffected",
+                "packageURL": "pkg:npm/openclaw",
+                "versions": [
+                  {
+                    "version": "2026.3.28",
+                    "lessThan": "2026.8.1",
+                    "versionType": "semver",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "2026.8.1",
+                    "versionType": "semver",
+                    "status": "unaffected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "disclosure@vulncheck.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 8.5,
+                "baseSeverity": "HIGH",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "attackRequirements": "NONE",
+                "privilegesRequired": "NONE",
+                "userInteraction": "PASSIVE",
+                "vulnConfidentialityImpact": "HIGH",
+                "vulnIntegrityImpact": "HIGH",
+                "vulnAvailabilityImpact": "HIGH",
+                "subConfidentialityImpact": "NONE",
+                "subIntegrityImpact": "NONE",
+                "subAvailabilityImpact": "NONE",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "cvssMetricV31": [
+            {
+              "source": "disclosure@vulncheck.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+                "baseScore": 7.8,
+                "baseSeverity": "HIGH",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 1.8,
+              "impactScore": 5.9
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-09-29T16:57:03.712469Z",
+                "id": "CVE-2026-100570",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "disclosure@vulncheck.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-88"
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/openclaw/openclaw/security/advisories/GHSA-5mrc-77hj-xjxv",
+            "source": "disclosure@vulncheck.com"
+          },
+          {
+            "url": "https://www.vulncheck.com/advisories/openclaw-before-2026.8.1-remote-code-execution-via-cloudsdk-python-args",
+            "source": "disclosure@vulncheck.com"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-113722",
+        "sourceIdentifier": "security-advisories@github.com",
+        "published": "2026-10-20T20:17:18.810",
+        "lastModified": "2026-10-23T02:16:57.087",
+        "vulnStatus": "Undergoing Analysis",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "virtualenv is a tool for creating isolated virtual python environments. Prior to 21.14.9, virtualenv's ScriptMakerCustom and pip pass an incompletely quoted interpreter path to distlib ScriptMaker when generating POSIX console scripts. When the path contains a space or produces a shebang longer than 127 bytes, distlib emits a /bin/sh wrapper whose double-quoted interpreter path still expands command substitutions and backticks. An attacker who influences the environment destination can therefore execute commands with the user's privileges when the user later runs a generated launcher; environment creation and activation do not trigger the command. Existing launchers are not repaired by upgrading virtualenv alone and must be regenerated, while a later independent pip installation or upgrade can reintroduce an affected launcher because pip's vendored distlib is unchanged. The virtualenv fix is released in version 21.14.9."
+          }
+        ],
+        "affected": [
+          {
+            "source": "security-advisories@github.com",
+            "affectedData": [
+              {
+                "vendor": "pypa",
+                "product": "virtualenv",
+                "versions": [
+                  {
+                    "version": "< 21.14.9",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "security-advisories@github.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+                "baseScore": 7.8,
+                "baseSeverity": "HIGH",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 1.8,
+              "impactScore": 5.9
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-10-23T02:03:00.262573Z",
+                "id": "CVE-2026-113722",
+                "options": [
+                  {
+                    "exploitation": "poc"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "security-advisories@github.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-78"
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/pypa/virtualenv/commit/2519941bed33ee0d3ac99277f67913e439e476a9",
+            "source": "security-advisories@github.com"
+          },
+          {
+            "url": "https://github.com/pypa/virtualenv/pull/3417",
+            "source": "security-advisories@github.com"
+          },
+          {
+            "url": "https://github.com/pypa/virtualenv/releases/tag/21.14.9",
+            "source": "security-advisories@github.com"
+          },
+          {
+            "url": "https://github.com/pypa/virtualenv/security/advisories/GHSA-c978-59m8-c77v",
+            "source": "security-advisories@github.com"
+          },
+          {
+            "url": "https://github.com/pypa/virtualenv/security/advisories/GHSA-c978-59m8-c77v",
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-120338",
+        "sourceIdentifier": "reefs@jfrog.com",
+        "published": "2026-11-01T16:18:14.970",
+        "lastModified": "2026-11-02T20:17:40.677",
+        "vulnStatus": "Deferred",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Prefab UI's Generative UI sandbox runs caller-supplied Python inside Pyodide, Python compiled to WebAssembly, in a Deno subprocess. The feature is documented as isolation for untrusted code, including LLM-written UI. From prefab-ui 0.14.0 through 0.20.2 the launcher starts Deno with unrestricted --allow-read, --allow-write, and --allow-net, and the runner leaves the Deno API on the JavaScript global object. Pyodide's js module proxies that global, so the Python can call Deno.readTextFileSync and Deno.writeTextFileSync. A caller who can supply the code can read and write files as the server OS user, and can persist code execution by writing a .pth file into the server virtualenv's site-packages. The usual remote path is FastMCP's GenerativeUI provider, which registers the MCP tool generate_prefab_ui and forwards that tool's code argument into this sandbox. On a FastMCP server with no authentication configured, any client who can reach the server can call the tool. With authentication, any client allowed to call tools can. Generative UI is opt-in, and the host must have Deno installed. Confirmed on prefab-ui 0.20.2. Fixed in 0.21.0: after the runtime and Prefab sources load, the runner revokes Deno read, write, and network permission before it accepts code, the process is started with --no-prompt so a permission request cannot grant them again, and bootstrap network access is limited to cdn.jsdelivr.net. The fix is commit 030f074 (pull request 538)."
+          }
+        ],
+        "affected": [
+          {
+            "source": "reefs@jfrog.com",
+            "affectedData": [
+              {
+                "vendor": "PrefectHQ",
+                "product": "prefab-ui",
+                "defaultStatus": "unaffected",
+                "collectionURL": "https://pypi.org/project/prefab-ui/",
+                "packageName": "prefab-ui",
+                "programFiles": [
+                  "src/prefab_ui/sandbox/_pyodide.py",
+                  "src/prefab_ui/sandbox/runner.js"
+                ],
+                "repo": "git://github.com/PrefectHQ/prefab",
+                "versions": [
+                  {
+                    "version": "0.14.0",
+                    "lessThan": "0.21.0",
+                    "versionType": "semver",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "reefs@jfrog.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+                "baseScore": 10,
+                "baseSeverity": "CRITICAL",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "NONE",
+                "scope": "CHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 3.9,
+              "impactScore": 6
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-11-02T19:42:39.981153Z",
+                "id": "CVE-2026-120338",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "reefs@jfrog.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-94"
+              },
+              {
+                "lang": "en",
+                "value": "CWE-269"
+              },
+              {
+                "lang": "en",
+                "value": "CWE-693"
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/PrefectHQ/prefab",
+            "source": "reefs@jfrog.com"
+          },
+          {
+            "url": "https://github.com/PrefectHQ/prefab/commit/030f074f85e0b1be0dd44b0283185aecb26337a2",
+            "source": "reefs@jfrog.com"
+          },
+          {
+            "url": "https://github.com/PrefectHQ/prefab/pull/538",
+            "source": "reefs@jfrog.com"
+          },
+          {
+            "url": "https://github.com/PrefectHQ/prefab/releases/tag/v0.14.0",
+            "source": "reefs@jfrog.com"
+          },
+          {
+            "url": "https://github.com/PrefectHQ/prefab/releases/tag/v0.20.2",
+            "source": "reefs@jfrog.com"
+          },
+          {
+            "url": "https://github.com/PrefectHQ/prefab/releases/tag/v0.21.0",
+            "source": "reefs@jfrog.com"
+          },
+          {
+            "url": "https://github.com/PrefectHQ/prefab/security/advisories/GHSA-595q-jv4r-q7j9",
+            "source": "reefs@jfrog.com"
+          },
+          {
+            "url": "https://pypi.org/project/prefab-ui/",
+            "source": "reefs@jfrog.com"
+          },
+          {
+            "url": "https://pypi.org/project/prefab-ui/0.21.0/",
+            "source": "reefs@jfrog.com"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-126087",
+        "sourceIdentifier": "ff89ba41-3aa1-4d27-914a-91399e9639e5",
+        "published": "2026-11-10T19:21:13.740",
+        "lastModified": "2026-11-12T19:24:37.847",
+        "vulnStatus": "Awaiting Analysis",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Untrusted search path in the cross-user process launcher in Open Job Description (OpenJD) Sessions for Python before 0.11.0, as used in the AWS Deadline Cloud worker agent before 0.33.0, on Linux might allow an authenticated remote user with permission to submit jobs to a queue to execute arbitrary code as the worker agent OS user and obtain the AWS credentials held by the worker agent via a crafted job that modifies the PATH environment variable.\n\n\n\nTo remediate this issue, users of customer-managed fleets should upgrade the Deadline Cloud worker agent to version 0.33.0 or later, which includes OpenJD Sessions 0.11.0. Service-managed fleets were remediated service-side."
+          }
+        ],
+        "affected": [
+          {
+            "source": "ff89ba41-3aa1-4d27-914a-91399e9639e5",
+            "affectedData": [
+              {
+                "vendor": "AWS",
+                "product": "openjd-sessions",
+                "defaultStatus": "unaffected",
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "0.11.0",
+                    "versionType": "custom",
+                    "status": "affected"
+                  }
+                ]
+              },
+              {
+                "vendor": "AWS",
+                "product": "deadline-cloud-worker-agent",
+                "defaultStatus": "unaffected",
+                "versions": [
+                  {
+                    "version": "0",
+                    "lessThan": "0.33.0",
+                    "versionType": "custom",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV40": [
+            {
+              "source": "ff89ba41-3aa1-4d27-914a-91399e9639e5",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "4.0",
+                "vectorString": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:L/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                "baseScore": 9.4,
+                "baseSeverity": "CRITICAL",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "attackRequirements": "NONE",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "vulnConfidentialityImpact": "HIGH",
+                "vulnIntegrityImpact": "HIGH",
+                "vulnAvailabilityImpact": "HIGH",
+                "subConfidentialityImpact": "HIGH",
+                "subIntegrityImpact": "HIGH",
+                "subAvailabilityImpact": "LOW",
+                "exploitMaturity": "NOT_DEFINED",
+                "confidentialityRequirement": "NOT_DEFINED",
+                "integrityRequirement": "NOT_DEFINED",
+                "availabilityRequirement": "NOT_DEFINED",
+                "modifiedAttackVector": "NOT_DEFINED",
+                "modifiedAttackComplexity": "NOT_DEFINED",
+                "modifiedAttackRequirements": "NOT_DEFINED",
+                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                "modifiedUserInteraction": "NOT_DEFINED",
+                "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+                "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+                "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+                "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+                "modifiedSubIntegrityImpact": "NOT_DEFINED",
+                "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+                "Safety": "NOT_DEFINED",
+                "Automatable": "NOT_DEFINED",
+                "Recovery": "NOT_DEFINED",
+                "valueDensity": "NOT_DEFINED",
+                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                "providerUrgency": "NOT_DEFINED"
+              }
+            }
+          ],
+          "cvssMetricV31": [
+            {
+              "source": "ff89ba41-3aa1-4d27-914a-91399e9639e5",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+                "baseScore": 8.8,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "LOW",
+                "userInteraction": "NONE",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 5.9
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "ff89ba41-3aa1-4d27-914a-91399e9639e5",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-426"
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://aws.amazon.com/security/security-bulletins/2026-177-aws/",
+            "source": "ff89ba41-3aa1-4d27-914a-91399e9639e5"
+          },
+          {
+            "url": "https://github.com/OpenJobDescription/openjd-sessions-for-python/releases/tag/0.11.0",
+            "source": "ff89ba41-3aa1-4d27-914a-91399e9639e5"
+          },
+          {
+            "url": "https://github.com/aws-deadline/deadline-cloud-worker-agent/releases/tag/0.33.0",
+            "source": "ff89ba41-3aa1-4d27-914a-91399e9639e5"
+          }
+        ]
+      }
+    }
+  ]
 }

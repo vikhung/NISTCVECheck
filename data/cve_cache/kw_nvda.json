@@ -1,0 +1,364 @@
+{
+  "cveCount": 3,
+  "cacheKey": "kw_nvda",
+  "coverageStart": "2025-01-01T00:00:00.000Z",
+  "lastFetchedAt": "2026-11-13T04:08:55.214Z",
+  "cves": [
+    {
+      "cve": {
+        "id": "CVE-2026-80818",
+        "sourceIdentifier": "416baaa9-dc9f-4396-8d5f-8c081fb06d67",
+        "published": "2026-09-04T16:18:09.453",
+        "lastModified": "2026-10-19T09:17:16.713",
+        "vulnStatus": "Received",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "In the Linux kernel, the following vulnerability has been resolved:\n\niommu/tegra241-cmdqv: Fix CMD_SYNC use-after-free on teardown\n\narm_smmu_impl_remove() is registered as a devres action in\narm_smmu_impl_probe(), before arm_smmu_init_queues() allocates\nsmmu->cmdq.q.base. On a devres unwind, whether a failed probe or an\nunbind, the queue is freed first and arm_smmu_impl_remove() then runs\ntegra241_cmdqv_remove_vintf(), whose VINTF deinit issues a CMD_SYNC on\nthe freed memory.\n\nObserved during testing with a QEMU hack that makes the VCMDQ fail to\nenable, so the impl reset fails and probe aborts into the devres unwind:\n\n platform NVDA200C:00: tegra241_cmdqv: VINTF0: VCMDQ0/LVCMDQ0: failed to enable, STATUS=0x00000000\n platform NVDA200C:00: tegra241_cmdqv: VINTF0: VCMDQ0/LVCMDQ0: GERRORN=0x0, GERROR=0x4, CONS=0x0\n platform NVDA200C:00: tegra241_cmdqv: VINTF0: VCMDQ0/LVCMDQ0: uncleared error detected, resetting\n arm-smmu-v3 arm-smmu-v3.0.auto: failed to reset impl\n arm-smmu-v3 arm-smmu-v3.0.auto: probe with driver arm-smmu-v3 failed with error -110\n Unable to handle kernel paging request at virtual address ffff8000891e0098\n ...\n Internal error: Oops: 0000000096000047 [#1] SMP\n ...\n Call trace:\n  arm_smmu_cmdq_issue_cmdlist+0x320/0x6fc (P)\n  tegra241_vcmdq_hw_deinit+0x98/0x168\n  tegra241_vintf_hw_deinit+0x5c/0x1b0\n  tegra241_cmdqv_remove_vintf+0x34/0xec\n  tegra241_cmdqv_remove+0x40/0x9c\n  arm_smmu_impl_remove+0x20/0x30\n  devm_action_release+0x14/0x20\n  devres_release_all+0xa8/0x110\n  device_unbind_cleanup+0x18/0x84\n  really_probe+0x1f0/0x29c\n\nDrop the VINTF deinit from tegra241_cmdqv_remove_vintf() so the unwind no\nlonger touches the freed queue. Quiesce the VINTFs earlier instead. Add a\ndevice_disable() impl op and run it from arm_smmu_disable_action() while\nthe CMDQ is still up. That handles a live unbind. A failed reset is already\nhandled because tegra241_vintf_hw_init() deinits the VINTF on its own error\npath. tegra241_cmdqv_remove_vintf() is also used by the iommufd viommu\ndestroy path, so quiesce there too."
+          }
+        ],
+        "affected": [
+          {
+            "source": "416baaa9-dc9f-4396-8d5f-8c081fb06d67",
+            "affectedData": [
+              {
+                "vendor": "Linux",
+                "product": "Linux",
+                "defaultStatus": "unaffected",
+                "programFiles": [
+                  "drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c",
+                  "drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h",
+                  "drivers/iommu/arm/arm-smmu-v3/tegra241-cmdqv.c"
+                ],
+                "repo": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git",
+                "versions": [
+                  {
+                    "version": "4dc0d12474f9d4833c3dd96b73d61e406d3f5dc7",
+                    "lessThan": "d2ab08437e913d9e4dda4dfd0d327446ec8717fc",
+                    "versionType": "git",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "4dc0d12474f9d4833c3dd96b73d61e406d3f5dc7",
+                    "lessThan": "a94309bb99eaf0c6a2ace4927864486d19458eb5",
+                    "versionType": "git",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "4dc0d12474f9d4833c3dd96b73d61e406d3f5dc7",
+                    "lessThan": "5994617e09ee6016c1b094f29d9c85cac944b477",
+                    "versionType": "git",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "4dc0d12474f9d4833c3dd96b73d61e406d3f5dc7",
+                    "lessThan": "9ff145a25c5c8a26b06ef7cf558fb536b18bba6d",
+                    "versionType": "git",
+                    "status": "affected"
+                  }
+                ]
+              },
+              {
+                "vendor": "Linux",
+                "product": "Linux",
+                "defaultStatus": "affected",
+                "programFiles": [
+                  "drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c",
+                  "drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h",
+                  "drivers/iommu/arm/arm-smmu-v3/tegra241-cmdqv.c"
+                ],
+                "repo": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git",
+                "versions": [
+                  {
+                    "version": "6.17",
+                    "status": "affected"
+                  },
+                  {
+                    "version": "0",
+                    "lessThan": "6.17",
+                    "versionType": "semver",
+                    "status": "unaffected"
+                  },
+                  {
+                    "version": "6.18.47",
+                    "lessThanOrEqual": "6.18.*",
+                    "versionType": "semver",
+                    "status": "unaffected"
+                  },
+                  {
+                    "version": "7.1.11",
+                    "lessThanOrEqual": "7.1.*",
+                    "versionType": "semver",
+                    "status": "unaffected"
+                  },
+                  {
+                    "version": "7.2.1",
+                    "lessThanOrEqual": "7.2.*",
+                    "versionType": "semver",
+                    "status": "unaffected"
+                  },
+                  {
+                    "version": "7.3",
+                    "lessThanOrEqual": "*",
+                    "versionType": "original_commit_for_fix",
+                    "status": "unaffected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {},
+        "references": [
+          {
+            "url": "https://git.kernel.org/stable/c/5994617e09ee6016c1b094f29d9c85cac944b477",
+            "source": "416baaa9-dc9f-4396-8d5f-8c081fb06d67"
+          },
+          {
+            "url": "https://git.kernel.org/stable/c/9ff145a25c5c8a26b06ef7cf558fb536b18bba6d",
+            "source": "416baaa9-dc9f-4396-8d5f-8c081fb06d67"
+          },
+          {
+            "url": "https://git.kernel.org/stable/c/a94309bb99eaf0c6a2ace4927864486d19458eb5",
+            "source": "416baaa9-dc9f-4396-8d5f-8c081fb06d67"
+          },
+          {
+            "url": "https://git.kernel.org/stable/c/d2ab08437e913d9e4dda4dfd0d327446ec8717fc",
+            "source": "416baaa9-dc9f-4396-8d5f-8c081fb06d67"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2026-28211",
+        "sourceIdentifier": "security-advisories@github.com",
+        "published": "2026-02-26T23:16:35.600",
+        "lastModified": "2026-06-17T10:28:20.417",
+        "vulnStatus": "Deferred",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "The NVDA Dev & Test Toolbox is an NVDA add-on for gathering tools to help NVDA development and testing. A vulnerability exists in versions 2.0 through 8.0 in the Log Reader feature of this add-on. A maliciously crafted log file can lead to arbitrary code execution when a user reads it with log reader commands. The log reading command process speech log entries in an unsafe manner. Python expressions embedded in the log may be evaluated when when speech entries are read with log reading commands. An attacker can exploit this by convincing a user to open a malicious crafted log file and to analyze it using the log reading commands. When the log is read, attacker-controlled code may execute with the privileges of the current user.\nThis issue does not require elevated privileges and relies solely on user interaction (opening the log file). Version 9.0 contains a fix for the issue. As a workaround, avoid using log reading commands, or at least, commands to move to next/previous log message (any message or commands for each type of message). For more security, one may disable their gestures in the input gesture dialog."
+          },
+          {
+            "lang": "es",
+            "value": "La Caja de Herramientas de Desarrollo y Prueba de NVDA es un complemento de NVDA para recopilar herramientas que ayuden al desarrollo y las pruebas de NVDA. Existe una vulnerabilidad en las versiones 2.0 a 8.0 en la función Lector de Registros de este complemento. Un archivo de registro creado con fines maliciosos puede conducir a la ejecución de código arbitrario cuando un usuario lo lee con comandos del lector de registros. El comando de lectura de registros procesa las entradas de registro de voz de manera insegura. Las expresiones de Python incrustadas en el registro pueden ser evaluadas cuando las entradas de voz son leídas con comandos de lectura de registros. Un atacante puede explotar esto convenciendo a un usuario de abrir un archivo de registro creado con fines maliciosos y de analizarlo usando los comandos de lectura de registros. Cuando se lee el registro, el código controlado por el atacante puede ejecutarse con los privilegios del usuario actual.\nEste problema no requiere privilegios elevados y se basa únicamente en la interacción del usuario (abrir el archivo de registro). La versión 9.0 contiene una corrección para el problema. Como solución alternativa, evite usar los comandos de lectura de registros, o al menos, los comandos para moverse al mensaje de registro siguiente/anterior (cualquier mensaje o comandos para cada tipo de mensaje). Para mayor seguridad, se pueden deshabilitar sus gestos en el diálogo de gestos de entrada."
+          }
+        ],
+        "affected": [
+          {
+            "source": "security-advisories@github.com",
+            "affectedData": [
+              {
+                "vendor": "CyrilleB79",
+                "product": "NVDA-Dev-Test-Toolbox",
+                "versions": [
+                  {
+                    "version": ">= 2.0, < 9.0",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "security-advisories@github.com",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+                "baseScore": 7.8,
+                "baseSeverity": "HIGH",
+                "attackVector": "LOCAL",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 1.8,
+              "impactScore": 5.9
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2026-02-27T18:52:04.198689Z",
+                "id": "CVE-2026-28211",
+                "options": [
+                  {
+                    "exploitation": "poc"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "security-advisories@github.com",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-943"
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/CyrilleB79/NVDA-Dev-Test-Toolbox/commit/21a0544432b08971b5d18320e8256be12c610bea",
+            "source": "security-advisories@github.com"
+          },
+          {
+            "url": "https://github.com/CyrilleB79/NVDA-Dev-Test-Toolbox/releases/tag/V9.0",
+            "source": "security-advisories@github.com"
+          },
+          {
+            "url": "https://github.com/CyrilleB79/NVDA-Dev-Test-Toolbox/security/advisories/GHSA-39pg-6xpm-mjgf",
+            "source": "security-advisories@github.com"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2025-26326",
+        "sourceIdentifier": "cve@mitre.org",
+        "published": "2025-02-28T15:15:13.743",
+        "lastModified": "2026-06-17T09:01:35.327",
+        "vulnStatus": "Deferred",
+        "cveTags": [],
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "A vulnerability was identified in the NVDA Remote (version 2.6.4) and Tele NVDA Remote (version 2025.3.3) remote connection add-ons, which allows an attacker to obtain total control of the remote system by guessing a weak password. The problem occurs because these add-ons accept any password entered by the user and do not have an additional authentication or computer verification mechanism. Tests indicate that more than 1,000 systems use easy-to-guess passwords, many with less than 4 to 6 characters, including common sequences. This allows brute force attacks or trial-and-error attempts by malicious invaders. The vulnerability can be exploited by a remote attacker who knows or can guess the password used in the connection. As a result, the attacker gains complete access to the affected system and can execute commands, modify files, and compromise user security."
+          },
+          {
+            "lang": "es",
+            "value": "Se ha identificado una vulnerabilidad en los complementos de conexión remota de NVDA (Nonvisual Desktop Access) 2024.4.1 y 2024.4.2, que permite a un atacante obtener el control total del sistema remoto al adivinar una contraseña débil. El problema se produce porque los complementos aceptan cualquier contraseña tecleada por el usuario y no cuentan con un mecanismo adicional de autenticación o comprobación por parte del equipo al que se va a acceder. Las pruebas indican que más de 1.000 sistemas utilizan contraseñas fáciles de adivinar, muchas de ellas con menos de 4 a 6 caracteres, incluidas secuencias comunes. Esto permite ataques de fuerza bruta o de intento y error por parte de invasores maliciosos. La vulnerabilidad puede ser explorada por un atacante remoto que conozca o pueda adivinar la contraseña utilizada en la conexión. Como resultado, el invasor obtiene acceso completo al sistema afectado y puede ejecutar comandos, modificar archivos y comprometer la seguridad del usuario."
+          }
+        ],
+        "affected": [
+          {
+            "source": "cve@mitre.org",
+            "affectedData": [
+              {
+                "vendor": "n/a",
+                "product": "n/a",
+                "versions": [
+                  {
+                    "version": "n/a",
+                    "status": "affected"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "type": "Secondary",
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+                "baseScore": 8.8,
+                "baseSeverity": "HIGH",
+                "attackVector": "NETWORK",
+                "attackComplexity": "LOW",
+                "privilegesRequired": "NONE",
+                "userInteraction": "REQUIRED",
+                "scope": "UNCHANGED",
+                "confidentialityImpact": "HIGH",
+                "integrityImpact": "HIGH",
+                "availabilityImpact": "HIGH"
+              },
+              "exploitabilityScore": 2.8,
+              "impactScore": 5.9
+            }
+          ],
+          "ssvcV203": [
+            {
+              "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+              "ssvcData": {
+                "timestamp": "2025-03-06T20:36:09.964983Z",
+                "id": "CVE-2025-26326",
+                "options": [
+                  {
+                    "exploitation": "none"
+                  },
+                  {
+                    "automatable": "no"
+                  },
+                  {
+                    "technicalImpact": "total"
+                  }
+                ],
+                "role": "CISA Coordinator",
+                "version": "2.0.3"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+            "type": "Secondary",
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-287"
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://github.com/NVDARemote/NVDARemote",
+            "source": "cve@mitre.org"
+          },
+          {
+            "url": "https://github.com/azurejoga/CVE-2025-26326",
+            "source": "cve@mitre.org"
+          },
+          {
+            "url": "https://github.com/nvda-es/TeleNVDA",
+            "source": "cve@mitre.org"
+          },
+          {
+            "url": "https://nvda-addons.org/addon.php?id=270",
+            "source": "cve@mitre.org"
+          },
+          {
+            "url": "https://nvdaremote.com/",
+            "source": "cve@mitre.org"
+          },
+          {
+            "url": "https://www.nvaccess.org",
+            "source": "cve@mitre.org"
+          }
+        ]
+      }
+    }
+  ]
+}

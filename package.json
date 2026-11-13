@@ -10,7 +10,7 @@
     "bundle": "node scripts/build.js",
     "preweb": "node scripts/build.js",
     "web": "node scripts/web-server.js",
-    "package": "node scripts/package-deploy.js"
+    "deploy": "node scripts/package-deploy.js"
   },
   "engines": {
     "node": ">=18.0.0"
