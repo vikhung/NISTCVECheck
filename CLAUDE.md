@@ -15,11 +15,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | 指令 | 說明 |
 |------|------|
 | `npm start` | CLI 掃描（讀取本機 Registry 或 `.env.local` 的 `PORTABLE_N`） |
-| `npm test` | 執行回歸測試（Node 原生 `node --test "scripts/test/*.test.js"`，無外部套件）：`scripts/test/cve-logic.test.js` 涵蓋 `lib/cve-logic.js`，`scripts/test/scan-software.test.js` 涵蓋 `lib/scan-software.js`（用假的 nvdClient，不需網路）。單獨執行一個測試：`node --test --test-name-pattern="<測試名稱關鍵字>" "scripts/test/cve-logic.test.js"` |
+| `npm test` | 執行回歸測試（Node 原生 `node --test "scripts/test/*.test.js"`，無外部套件）：`scripts/test/cve-logic.test.js` 涵蓋 `lib/cve-logic.js`，`scripts/test/scan-software.test.js` 涵蓋 `lib/scan-software.js`（用假的 nvdClient，不需網路），`scripts/test/cache-file.test.js` 涵蓋 `lib/cache-file.js`（快取分檔）。單獨執行一個測試：`node --test --test-name-pattern="<測試名稱關鍵字>" "scripts/test/cve-logic.test.js"` |
 | `npm run check` | 快速掃描：HIGH 以上、限掃前 5 筆軟體（年份用預設「當年 − 1」） |
 | `npm run web` | 啟動 Web 伺服器（自動先執行 `node scripts/build.js`，port 預設 8093） |
 | `npm run bundle` | 單獨執行 `node scripts/build.js`（修改 `lib/cve-logic.js` 或 `lib/report-html.js` 後須執行） |
 | `npm run deploy` | 部署打包：把必要檔案壓成 `dist/NISTCVECheck_deploy_<date>.zip`（`scripts/package-deploy.js`）。預設含 CVE 快取、排除機密/大型/建置產物；旗標：`--no-cache`（乾淨部署）、`--with-node-modules`（離線）、`--out=<路徑>` |
+| `npm run split-cache` | 快取分檔工具（`scripts/split-cache.js`）：把 `data/` 內超過 10MB 的快取檔一次切成分檔並讀回比對。**平常不需執行**（程式讀寫快取時自動分檔），供離線環境想事先整理時使用；旗標：`--dry-run`（只列出不寫入）、`--dir=<路徑>` |
 | `node scripts/team-report.js <目錄>` | 讀取目錄下所有 JSON 個人報表，產生跨機器彙整 HTML 報告 |
 | `powershell -ExecutionPolicy Bypass -File findSW.ps1` | 掃描本機安裝軟體，輸出 `scan.json`（可作為 CLI 輸入） |
 
@@ -67,6 +68,8 @@ PORTABLE_N       ─────────────────────
 ```
 
 **快取分兩個子目錄**：`data/cve_cache/`（CVE 查詢快取，`kw_*`/`cpe_*`）與 `data/cpe_cache/`（CPE 字典查找快取，`cpekw_*`），避免兩種性質不同的快取混在同一層。`lib/nvd-client.js` 的 `_dirFor(cacheKey)` 依 `cacheKey` 前綴（`cpekw_` → `cpe_cache`，其餘 → `cve_cache`）自動分流，呼叫端（CLI／Web）只需傳入快取根目錄（`data/`），不需關心分流細節。檔案格式範例見 README.md「資料格式」。
+
+**快取檔超過 10MB 自動分檔（`lib/cache-file.js`，唯一來源）**：通用關鍵字的 CVE 快取很大（實測 `kw_local` 87MB、`kw_git` 25MB），單一檔不利版控與搬移。`writeCacheFile()` 在序列化後超過 `MAX_CACHE_FILE_BYTES`（10MB）時，把陣列欄位（`cves`／`products`）拆到 `<key>.part001.json`…，主檔 `<key>.json` 只留描述欄位＋`parts`／`partField`／`itemCount`；未超過者維持原本的單一檔格式（小檔零變動）。`readCacheFile()` 讀主檔時自動合併，**呼叫端拿到的永遠是完整物件、不需知道是否分檔**。設計要點：(1) 以「陣列元素」為單位切分，不會把一筆 CVE 切成兩半，單筆超過上限則獨佔一檔；(2) 寫入順序為分檔 → 主檔 → 清除多餘舊分檔，讀取時核對 `itemCount`，分檔缺漏或筆數不符即拋例外，`_loadCache` 視為未命中而重新下載（寧可重抓也不回傳殘缺資料）；(3) 舊版超大單一檔由 `nvd-client` 的 `_loadCache` 在讀到時自動改存成分檔（一次性）。**任何直接讀 `data/cve_cache/` 的程式都必須透過 `readCacheFile()` 並用 `isPartFile()` 略過分檔**（`web-server.js` 的 `/api/cve-data` 即如此），不可自行 `JSON.parse` 檔案。上限可由 `createNvdClient({ maxFileBytes })` 調整（測試用）。回歸測試：`scripts/test/cache-file.test.js`。
 
 **`fetchCPEs()` 的 log 責任在呼叫端**：它回傳 `{ products, fromCache, totalResults, tooGeneric }`，**不在內部印 log**——此時只知道 NVD 原始條目數（含各版本，可能上百筆），不知道 `findAllCPEBases()` 去重後剩幾個 vendor:product。呼叫端跑完 `findAllCPEBases` 算出 `cpeBases.length` 後，才合併印成一行（`[CPE 快取] 命中（N 筆）` 或 `[CPE] 查詢完成（N 筆）`），N 是去重後的數量。新增呼叫 `fetchCPEs()` 的地方別在它內部加 log。
 

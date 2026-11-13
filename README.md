@@ -40,6 +40,10 @@ npm run deploy                                     # → dist/NISTCVECheck_deplo
 node scripts/package-deploy.js --no-cache          # 乾淨部署（不含 CVE 快取，約 0.5 MB）
 node scripts/package-deploy.js --with-node-modules # 連 node_modules 一起打包（離線環境免 npm install）
 
+# 快取分檔（平常不需執行，程式讀寫快取時會自動分檔；想事先一次切好時使用，完全離線）
+npm run split-cache                                # 把 data/ 內超過 10MB 的快取檔切成多個分檔
+npm run split-cache -- --dry-run                   # 只列出哪些檔案會被切割，不寫入
+
 # 遠端機器產生 scan.json
 powershell -ExecutionPolicy Bypass -File findSW.ps1
 ```
@@ -155,6 +159,15 @@ report.skippedByPattern[] / skippedByDedup[] — 過濾/去重略過
 { "productCount": 12, "cacheKey": "cpekw_putty", "fetchedAt": "2026-06-22T10:30:00.000Z", "products": [ /* NVD CPE products[] 原始物件陣列 */ ] }
 ```
 
+**超過 10MB 自動分檔**：單一快取檔序列化後超過 10MB 時，陣列內容會拆到 `<key>.part001.json`、`<key>.part002.json`…（每檔不超過 10MB），主檔 `<key>.json` 只留描述欄位與分檔資訊；未超過者維持上面的單一檔格式。讀取時自動合併，舊版留下的超大單一檔會在下次讀取時自動轉成分檔。分檔必須與主檔一起搬移/刪除（缺任何一個分檔，該快取視為未命中並重新下載）。
+
+```json
+// data/cve_cache/kw_git.json（主檔）
+{ "cveCount": 3447, "cacheKey": "kw_git", "coverageStart": "2022-07-15T04:22:32.821Z", "lastFetchedAt": "2026-11-13T04:07:34.626Z", "parts": 3, "partField": "cves", "itemCount": 3447 }
+// data/cve_cache/kw_git.part001.json（分檔，part = 第幾檔、of = 總檔數）
+{ "cacheKey": "kw_git", "part": 1, "of": 3, "cves": [ /* NVD vulnerabilities[] 原始物件陣列 */ ] }
+```
+
 `cveCount`/`productCount` 為描述性欄位，方便人工檢視檔案時不必數陣列長度。快取以「同一天」為單位：當天內已查過直接用快取；CVE 快取跨天會做增量更新（`lastModStartDate`），CPE 字典快取跨天則整批覆寫。`CACHE_DISABLE=true` 可停用所有本機快取。
 
 ## 專案結構
@@ -163,6 +176,7 @@ report.skippedByPattern[] / skippedByDedup[] — 過濾/去重略過
 lib/cve-logic.js          — CVE 業務邏輯（唯一來源）
 lib/report-html.js        — HTML 報表產生（唯一來源）
 lib/nvd-client.js         — NVD API 客戶端（快取 + 日期分段 + 增量更新，唯一來源）
+lib/cache-file.js         — 快取檔讀寫（超過 10MB 自動分檔、讀取時自動合併）
 lib/scan-software.js      — 單一軟體查詢流程（CPE 偵測 → CVE 查詢 → keyword 補撈；CLI 與 Web Server 共用）
 data/
   cve_cache/              — 本機 CVE 快取，自動建立

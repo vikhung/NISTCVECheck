@@ -7,6 +7,7 @@ const path   = require('path');
 const os     = require('os');
 const crypto = require('crypto');
 const { createNvdClient } = require('../lib/nvd-client');
+const { readCacheFile, isPartFile } = require('../lib/cache-file');
 const { lookupSoftwareCVEs, parseCpeBases, parseCacheAliases } = require('../lib/scan-software');
 
 // ─── Port resolution ─────────────────────────────────────────────────────────
@@ -306,10 +307,11 @@ async function cveDataHandler(req, res) {
         }
         const results = [];
         for (const f of files) {
-            if (!f.endsWith('.json')) continue;
+            // 分檔（<key>.partNNN.json）不單獨讀取，由 readCacheFile 讀主檔時自動合併
+            if (!f.endsWith('.json') || isPartFile(f)) continue;
             let parsed;
             try {
-                parsed = JSON.parse(await fs.promises.readFile(path.join(cveCacheDir, f), 'utf-8'));
+                parsed = readCacheFile(cveCacheDir, f.slice(0, -'.json'.length));
             } catch { continue; }
             if (!Array.isArray(parsed.cves)) continue;
             const cacheKeyMatch = (parsed.cacheKey || '').toLowerCase().includes(qLower);
