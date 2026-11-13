@@ -925,6 +925,7 @@ PORTABLE_3=Neo4j Community Edition|2025.05.0|Neo4j Inc</code></pre>
   </tbody>
 </table>
 <div class="note"><strong>本機快取</strong>每個軟體（或每個 CPE <code>vendor:product</code>）各自存一份快取檔於 <code>data/</code> 目錄，記錄已查詢到的 CVE 與覆蓋的日期範圍。<code>CACHE_DISABLE=true</code> 可停用快取，每次都直接查 NVD。</div>
+<div class="note"><strong>快取分檔</strong>單一快取檔超過 10MB 時會自動拆成 <code>&lt;名稱&gt;.part001.json</code>、<code>.part002.json</code>…（每檔不超過 10MB），讀取時自動合併，不需任何設定。舊格式的超大單一檔在掃描用到時會自動轉成分檔；想事先一次切好可執行 <code>npm run split-cache</code>（完全離線，加 <code>-- --dry-run</code> 只列出不寫入）。搬移或刪除快取時，主檔與 <code>.partNNN.json</code> 分檔須一起處理，缺少任一分檔會重新向 NVD 下載。</div>
 
 <h4>回傳資料結構（簡化）</h4>
 <pre><code>{
