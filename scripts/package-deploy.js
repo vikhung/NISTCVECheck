@@ -2,34 +2,35 @@
 'use strict';
 
 // ─── 部署打包工具 ───────────────────────────────────────────────────────────────
-// 把「執行本程式所需的必要檔案」壓成一個 zip，供部署到公司環境。
-// 使用專案既有的 adm-zip（唯一核准的外部套件）。
+// 把「執行本程式所需的必要檔案」壓成一個 rar，供部署到公司環境。
+// RAR 是專屬格式，只有 WinRAR 的命令列工具 Rar.exe 能產生（沒有任何函式庫可寫 RAR），
+// 因此本工具呼叫本機已安裝的 WinRAR；不需要任何 npm 套件。
+// Rar.exe 尋找順序：環境變數 RAR_PATH → 「Program Files\WinRAR\Rar.exe」→ PATH 中的 rar。
 //
-// 預設納入：程式碼（lib/、scripts/）、findSW.ps1、文件、以及本機 CVE 查詢快取
-//   （data/cve_cache、data/cpe_cache）→ 公司端首次掃描可暖啟動、少打 NVD。
+// 預設納入：程式碼（lib/、scripts/）、findSW.ps1、文件。
 // 預設排除（大型 / 機密 / 本機專屬 / 建置產物）：
+//   data/（CVE／CPE 快取，上百 MB；公司端首次掃描會自行向 NVD 下載並建立）、
 //   .env.local（含 NIST_API_KEY！）、logs/、report/、team/、
 //   node_modules/、.git/、scan.json、docs/*.pptx、
 //   scripts/_bundle.js 與 scripts/web-client.html（建置產物，會內嵌本機 PORTABLE_N/whitelist，
 //   公司端 `npm run web` 會用他們自己的 .env.local 重新產生）。
 //
 // 用法：
-//   node scripts/package-deploy.js                 # 預設（含快取、不含 node_modules）
-//   node scripts/package-deploy.js --no-cache      # 不含 CVE 快取（乾淨部署）
-//   node scripts/package-deploy.js --with-node-modules   # 連 node_modules 一起打包（離線環境）
-//   node scripts/package-deploy.js --out=D:/x.zip  # 指定輸出路徑
+//   node scripts/package-deploy.js                 # 預設（不含 data/ 快取）
+//   node scripts/package-deploy.js --with-cache    # 連 data/ 快取一起打包（檔案很大，公司端可免首次下載）
+//   node scripts/package-deploy.js --out=D:/x.rar  # 指定輸出路徑
 
 const fs   = require('fs');
+const os   = require('os');
 const path = require('path');
-const AdmZip = require('adm-zip');
+const { execFileSync } = require('child_process');
 
 const ROOT = path.join(__dirname, '..');
-const TOP  = 'NISTCVECheck'; // zip 內最上層資料夾，解壓後乾淨落在此目錄
+const TOP  = 'NISTCVECheck'; // rar 內最上層資料夾，解壓後乾淨落在此目錄
 
 // ── 解析參數 ──
 const args = process.argv.slice(2);
-const noCache        = args.includes('--no-cache');
-const withNodeMods   = args.includes('--with-node-modules');
+const withCache      = args.includes('--with-cache');
 const outArg         = (args.find(a => a.startsWith('--out=')) || '').slice('--out='.length);
 
 // ── 納入清單（明確列舉，避免誤打包機密）──
@@ -40,8 +41,8 @@ const INCLUDE = [
     'findSW.ps1',
     'lib', 'scripts', 'docs',
 ];
-if (!noCache)      INCLUDE.push('data/cve_cache', 'data/cpe_cache');
-if (withNodeMods)  INCLUDE.push('node_modules');
+// data/ 快取預設不打包（太大）；需要時以 --with-cache 明確指定
+if (withCache)     INCLUDE.push('data/cve_cache', 'data/cpe_cache');
 
 // ── 排除規則（作用於納入目錄底下的個別檔案，rel 為相對 ROOT 的 POSIX 路徑）──
 function isExcluded(rel) {
@@ -55,8 +56,8 @@ function isExcluded(rel) {
     // 系統雜檔
     if (base === '.DS_Store' || base === 'Thumbs.db') return true;
     // 防禦性：即使被誤列入納入清單也擋掉這些大型/本機專屬目錄
-    const banned = ['logs/', 'report/', 'team/', '.git/'];
-    if (!withNodeMods) banned.push('node_modules/');
+    const banned = ['logs/', 'report/', 'team/', '.git/', 'node_modules/'];
+    if (!withCache) banned.push('data/');
     if (banned.some(b => rel === b.slice(0, -1) || rel.startsWith(b))) return true;
     return false;
 }
@@ -90,11 +91,24 @@ if (leaked.length) {
     process.exit(1);
 }
 
-// ── 建立 zip ──
-const zip = new AdmZip();
-for (const f of files) {
-    const entry = path.posix.join(TOP, f.rel);
-    zip.addLocalFile(f.full, path.posix.dirname(entry), path.posix.basename(entry));
+// ── 尋找 WinRAR 命令列工具 Rar.exe ──
+function findRar() {
+    const candidates = [
+        process.env.RAR_PATH,
+        process.env.ProgramFiles         && path.join(process.env.ProgramFiles, 'WinRAR', 'Rar.exe'),
+        process.env['ProgramFiles(x86)'] && path.join(process.env['ProgramFiles(x86)'], 'WinRAR', 'Rar.exe'),
+    ].filter(Boolean);
+    for (const c of candidates) {
+        if (fs.existsSync(c)) return c;
+    }
+    // 最後嘗試 PATH 中的 rar（執行得起來才算數）
+    try { execFileSync('rar', ['-?'], { stdio: 'ignore' }); return 'rar'; } catch { return null; }
+}
+const rarExe = findRar();
+if (!rarExe) {
+    console.error('找不到 WinRAR 的命令列工具 Rar.exe，無法產生 rar。');
+    console.error('請安裝 WinRAR，或以環境變數 RAR_PATH 指定 Rar.exe 的完整路徑。');
+    process.exit(1);
 }
 
 // ── 輸出路徑（預設 dist/，已在 .gitignore）──
@@ -103,13 +117,31 @@ const d = new Date();
 const stamp = `${d.getFullYear()}${pad2(d.getMonth() + 1)}${pad2(d.getDate())}`;
 const outPath = outArg
     ? path.resolve(outArg)
-    : path.join(ROOT, 'dist', `NISTCVECheck_deploy_${stamp}.zip`);
+    : path.join(ROOT, 'dist', `NISTCVECheck_deploy_${stamp}.rar`);
 fs.mkdirSync(path.dirname(outPath), { recursive: true });
-zip.writeZip(outPath);
+// rar 的 a 指令遇到既有壓縮檔是「更新」而非重建，會殘留上次的舊檔，故先刪除
+fs.rmSync(outPath, { force: true });
+
+// ── 建立 rar ──
+// 以清單檔（@listfile）明確列出要壓的檔案，只有通過納入/排除規則的檔案會進壓縮檔。
+//   a         新增到壓縮檔      -m5   最高壓縮率
+//   -ap<dir>  壓縮檔內的最上層資料夾（解壓後乾淨落在 NISTCVECheck/）
+//   -scFL     清單檔為 UTF-8    -idq  安靜模式    -y  一律回答 yes
+const listFile = path.join(os.tmpdir(), `nistcve_deploy_${process.pid}.lst`);
+fs.writeFileSync(listFile, files.map(f => f.rel.split('/').join(path.sep)).join('\r\n'), 'utf-8');
+try {
+    execFileSync(rarExe, ['a', '-m5', `-ap${TOP}`, '-scFL', '-idq', '-y', outPath, `@${listFile}`],
+                 { cwd: ROOT, stdio: ['ignore', 'ignore', 'inherit'] });
+} catch (e) {
+    console.error(`rar 壓縮失敗：${e.message}`);
+    process.exit(1);
+} finally {
+    fs.rmSync(listFile, { force: true });
+}
 
 // ── 摘要 ──
 const totalBytes = files.reduce((s, f) => s + f.size, 0);
-const zipBytes   = fs.statSync(outPath).size;
+const rarBytes   = fs.statSync(outPath).size;
 const mb = b => (b / 1024 / 1024).toFixed(2) + ' MB';
 
 // 依最上層路徑分組統計
@@ -125,8 +157,8 @@ console.log('═'.repeat(60));
 console.log('部署封裝完成');
 console.log('═'.repeat(60));
 console.log(`輸出：${outPath}`);
-console.log(`檔案數：${files.length}｜原始大小：${mb(totalBytes)}｜壓縮後：${mb(zipBytes)}`);
-console.log(`CVE 快取：${noCache ? '未納入（--no-cache）' : '已納入'}｜node_modules：${withNodeMods ? '已納入' : '未納入（公司端 npm install）'}`);
+console.log(`檔案數：${files.length}｜原始大小：${mb(totalBytes)}｜壓縮後：${mb(rarBytes)}`);
+console.log(`data/ 快取：${withCache ? '已納入（--with-cache）' : '未納入（公司端首次掃描會自行向 NVD 下載）'}`);
 console.log('─'.repeat(60));
 console.log('內容組成：');
 for (const [k, v] of Object.entries(groups).sort()) {
@@ -136,6 +168,5 @@ console.log('─'.repeat(60));
 console.log('公司端部署步驟：');
 console.log('  1. 解壓縮 → 進入 NISTCVECheck/ 目錄');
 console.log('  2. 複製 .env.local.example 為 .env.local，填入 NIST_API_KEY 與 PORTABLE_N');
-console.log('  3. npm install            （取得 adm-zip）');
-console.log('  4. npm start              （CLI 掃描）  或  npm run web （Web 介面）');
+console.log('  3. npm start              （CLI 掃描）  或  npm run web （Web 介面）');
 console.log('═'.repeat(60));

@@ -6,7 +6,8 @@
 
 - Node.js 18 以上
 - Windows（即時 Registry 掃描需要；使用 JSON 檔案輸入則不限平台）
-- 首次使用前執行一次 `npm install`（僅 `adm-zip` 一個套件，供 `npm run deploy` 產生部署 zip 用；一般掃描/Web 功能 100% 使用 Node.js 內建模組，不需要這個套件也能運作）
+- 不需要 `npm install`：全部功能只用 Node.js 內建模組，沒有任何外部套件
+- `npm run deploy`（產生部署 rar）需要本機已安裝 WinRAR（使用其命令列工具 `Rar.exe`）；只做掃描/Web 則不需要
 
 ## 初始設定
 
@@ -35,10 +36,11 @@ node scripts/team-report.js                        # 讀取 .\team\ 目錄產生
 npm run web                                # 啟動 Web 伺服器（預設 Port 8093，先自動執行 build.js）
 npm run bundle                             # 單獨重新打包 web-client.html + .env.local
 
-# 部署打包（壓成 zip 帶到公司環境；預設含 CVE 快取、排除機密/大型/建置產物）
-npm run deploy                                     # → dist/NISTCVECheck_deploy_<date>.zip
-node scripts/package-deploy.js --no-cache          # 乾淨部署（不含 CVE 快取，約 0.5 MB）
-node scripts/package-deploy.js --with-node-modules # 連 node_modules 一起打包（離線環境免 npm install）
+# 部署打包（壓成 rar 帶到公司環境；不含 data/ 快取，排除機密/大型/建置產物；需安裝 WinRAR）
+npm run deploy                                     # → dist/NISTCVECheck_deploy_<date>.rar（約 0.15 MB）
+node scripts/package-deploy.js --with-cache        # 連 data/ 快取一起打包（很大；公司端可免首次下載）
+node scripts/package-deploy.js --out=D:/x.rar      # 指定輸出路徑
+# 找不到 Rar.exe 時，以環境變數 RAR_PATH 指定其完整路徑
 
 # 快取分檔（平常不需執行，程式讀寫快取時會自動分檔；想事先一次切好時使用，完全離線）
 npm run split-cache                                # 把 data/ 內超過 10MB 的快取檔切成多個分檔

@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 1. 所有的交談都以繁體中文為主。
 2. 每當討論出架構決策或注意事項，立即更新本文件的對應章節，不要等到對話結束才整理。
 3. 程式碼、函式庫應用繁體中文記錄註解，讓使用者知道這段程式碼用途。
-4. Node.js 請使用原生功能，不要使用任何需額外下載之套件。**唯一例外**：`adm-zip`（`scripts/package-deploy.js` 產生部署 zip 用，Node 原生 zlib 只能處理 deflate/gzip，無法產生 ZIP 容器格式），使用者已明確核准此例外。
+4. Node.js 請使用原生功能，不要使用任何需額外下載之套件（目前 `package.json` 無任何 dependencies）。過去唯一的例外 `adm-zip`（產生部署 zip 用）已隨部署改為 rar 而移除：RAR 是專屬格式，沒有函式庫能產生，`scripts/package-deploy.js` 改以 `child_process` 呼叫本機 WinRAR 的 `Rar.exe`。
 5. 操作方式（指令、參數、設定檔）與資料格式範例（輸入/輸出 JSON、快取檔案結構、目錄總覽）寫在 `README.md`；本文件只放系統處理原則與架構決策。
 
 ## 常用指令
@@ -19,7 +19,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | `npm run check` | 快速掃描：HIGH 以上、限掃前 5 筆軟體（年份用預設「當年 − 1」） |
 | `npm run web` | 啟動 Web 伺服器（自動先執行 `node scripts/build.js`，port 預設 8093） |
 | `npm run bundle` | 單獨執行 `node scripts/build.js`（修改 `lib/cve-logic.js` 或 `lib/report-html.js` 後須執行） |
-| `npm run deploy` | 部署打包：把必要檔案壓成 `dist/NISTCVECheck_deploy_<date>.zip`（`scripts/package-deploy.js`）。預設含 CVE 快取、排除機密/大型/建置產物；旗標：`--no-cache`（乾淨部署）、`--with-node-modules`（離線）、`--out=<路徑>` |
+| `npm run deploy` | 部署打包：把必要檔案壓成 `dist/NISTCVECheck_deploy_<date>.rar`（`scripts/package-deploy.js`，呼叫本機 WinRAR 的 `Rar.exe`，尋找順序：環境變數 `RAR_PATH` → `Program Files\WinRAR\Rar.exe` → PATH）。**預設不含 `data/` 快取**（上百 MB；公司端首次掃描自行向 NVD 下載），並排除機密/大型/建置產物；旗標：`--with-cache`（連快取一起打包）、`--out=<路徑>` |
 | `npm run split-cache` | 快取分檔工具（`scripts/split-cache.js`）：把 `data/` 內超過 10MB 的快取檔一次切成分檔並讀回比對。**平常不需執行**（程式讀寫快取時自動分檔），供離線環境想事先整理時使用；旗標：`--dry-run`（只列出不寫入）、`--dir=<路徑>` |
 | `node scripts/team-report.js <目錄>` | 讀取目錄下所有 JSON 個人報表，產生跨機器彙整 HTML 報告 |
 | `powershell -ExecutionPolicy Bypass -File findSW.ps1` | 掃描本機安裝軟體，輸出 `scan.json`（可作為 CLI 輸入） |
